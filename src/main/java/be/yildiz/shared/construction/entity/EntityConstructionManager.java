@@ -1,0 +1,169 @@
+//        This file is part of the Yildiz-Online project, licenced under the MIT License
+//        (MIT)
+//
+//        Copyright (c) 2016 Grégory Van den Borre
+//
+//        More infos available: http://yildiz.bitbucket.org
+//
+//        Permission is hereby granted, free of charge, to any person obtaining a copy
+//        of this software and associated documentation files (the "Software"), to deal
+//        in the Software without restriction, including without limitation the rights
+//        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//        copies of the Software, and to permit persons to whom the Software is
+//        furnished to do so, subject to the following conditions:
+//
+//        The above copyright notice and this permission notice shall be included in all
+//        copies or substantial portions of the Software.
+//
+//        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//        SOFTWARE.
+
+package be.yildiz.shared.construction.entity;
+
+import be.yildiz.common.collections.Lists;
+import be.yildiz.common.collections.Sets;
+import be.yildiz.common.framelistener.EndFrameListener;
+import be.yildiz.common.framelistener.FrameManager;
+import be.yildiz.common.id.EntityId;
+import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
+import be.yildiz.shared.entity.ActionManager;
+import be.yildiz.shared.entity.Entity;
+import be.yildiz.shared.entity.EntityData;
+import be.yildiz.shared.entity.EntityInConstruction;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Check all builder List and execute their build method. Primary task is Call all builder to create their units, if they don't have anything to create, they are removed from the builder list.
+ *
+ * @author Grégory Van den Borre
+ */
+public class EntityConstructionManager<T extends Entity> extends EndFrameListener implements CompleteEntityConstructionManager<T> {
+
+    /**
+     * List of entities waiting to be build.
+     */
+    private final List<WaitingEntity> entityToBuildList = Lists.newList();
+
+    /**
+     * Factory to build the entities.
+     */
+    private final EntityFactory<T> associatedFactory;
+
+    /**
+     * Listener to notify when a construction is completed.
+     */
+    private final Set<EntityConstructionListener<T>> listenerList = Sets.newInsertionOrderedSet();
+
+    /**
+     * Create a new BuilderManager.
+     *
+     * @param em Associated EntityManager.
+     */
+    public EntityConstructionManager(FrameManager frame, ActionManager<T, ? extends EntityData> actionManager, EntityFactory<T> factory) {
+        super();
+        this.associatedFactory = factory;
+        frame.addFrameListener(this);
+    }
+
+    @Override
+    public void createEntity(final EntityInConstruction entity, EntityId builderId, final int index) throws EntityConstructionQueueFullException {
+        T buildEntity = this.associatedFactory.createEntity(entity);
+        this.listenerList.forEach(l -> l.entityComplete(buildEntity, builderId, index));
+
+    }
+
+    /**
+     * Add a entity to build in the builder list.
+     *
+     * @param entity  Data to build the Entity.
+     * @param modules
+     * @param delay   Time to wait before the build is complete.
+     * @throws EntityConstructionQueueFullException
+     */
+    public void createEntity(final EntityInConstruction entity, final EntityId builderId, final EntityRepresentationConstruction c) {
+        WaitingEntity data = new WaitingEntity(entity, c, builderId);
+        this.entityToBuildList.add(data);
+        this.listenerList.forEach(l -> l.addEntityToCreate(data));
+    }
+
+    /**
+     * Cancel an entity to build.
+     *
+     * @param w Entity to cancel.
+     */
+
+    public void cancel(final WaitingEntity w) {
+        if (this.entityToBuildList.remove(w)) {
+            this.listenerList.forEach(l -> l.entityConstructionCanceled(w));
+        }
+    }
+
+    /**
+     * Call the building logic for all builder in the list.
+     *
+     * @param time Time since the last call.
+     */
+    @Override
+    public boolean frameEnded(final long time) {
+        for (int i = 0; i < this.entityToBuildList.size(); i++) {
+            WaitingEntity waitingEntity = this.entityToBuildList.get(i);
+            waitingEntity.representation.reduceTimeLeft(time);
+            if (waitingEntity.representation.isTimeElapsed()) {
+                T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
+                this.listenerList.forEach(l -> l.entityComplete(buildEntity, waitingEntity.builderId, waitingEntity.representation.index));
+                this.entityToBuildList.remove(i);
+                i--;
+            }
+
+        }
+        return true;
+    }
+
+    /**
+     * Add one or several listener to notify when a construction is completed.
+     *
+     * @param listeners Listeners to notify.
+     */
+    public void willNotify(final EntityConstructionListener<T>... listeners) {
+        if (listeners != null) {
+            for (EntityConstructionListener<T> listener : listeners) {
+                this.listenerList.add(listener);
+            }
+        }
+
+    }
+
+    /**
+     * Remove a listener to notify when a construction is completed.
+     *
+     * @param listener Listener to remove.
+     */
+    public void removeListener(final EntityConstructionListener<T> listener) {
+        this.listenerList.remove(listener);
+    }
+
+    /**
+     * @return The list of entities in the building queue.
+     */
+    public List<WaitingEntity> getEntityToBuildList() {
+        return Collections.unmodifiableList(this.entityToBuildList);
+    }
+
+    /**
+     * @return The list of entities in the building queue for a given player.
+     */
+    public List<WaitingEntity> getEntityToBuildList(final PlayerId player) {
+        List<WaitingEntity> l = Lists.newList();
+        this.entityToBuildList.stream().filter(w -> w.entity.getOwner().equals(player)).forEach(l::add);
+        return l;
+    }
+}

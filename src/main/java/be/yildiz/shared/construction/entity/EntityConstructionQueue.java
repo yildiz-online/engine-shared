@@ -1,0 +1,144 @@
+//        This file is part of the Yildiz-Online project, licenced under the MIT License
+//        (MIT)
+//
+//        Copyright (c) 2016 Grégory Van den Borre
+//
+//        More infos available: http://yildiz.bitbucket.org
+//
+//        Permission is hereby granted, free of charge, to any person obtaining a copy
+//        of this software and associated documentation files (the "Software"), to deal
+//        in the Software without restriction, including without limitation the rights
+//        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//        copies of the Software, and to permit persons to whom the Software is
+//        furnished to do so, subject to the following conditions:
+//
+//        The above copyright notice and this permission notice shall be included in all
+//        copies or substantial portions of the Software.
+//
+//        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//        SOFTWARE.
+
+package be.yildiz.shared.construction.entity;
+
+import be.yildiz.common.collections.Lists;
+import be.yildiz.common.id.EntityId;
+import be.yildiz.common.util.Time;
+import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.entity.module.DataModule;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Simple list of representation for entities in a queue waiting for construction.
+ *
+ * @author Grégory Van den Borre
+ */
+public final class EntityConstructionQueue {
+
+    /**
+     * Wrapped list of elements,
+     */
+    private final List<EntityRepresentationConstruction> entities = Lists.newList();
+
+    @Getter
+    private final EntityId builderId;
+
+    public EntityConstructionQueue(EntityId builderId) {
+        super();
+        this.builderId = builderId;
+    }
+
+    public void add(EntityRepresentationConstruction e) {
+        this.entities.add(e);
+    }
+
+    public boolean isEmpty() {
+        return this.entities.isEmpty();
+    }
+
+    public void set(EntityConstructionQueue l) {
+        this.entities.clear();
+        this.entities.addAll(l.getList());
+    }
+
+    public List<EntityRepresentationConstruction> getList() {
+        return Collections.unmodifiableList(entities);
+    }
+
+    public boolean remove(int request) {
+        for (EntityRepresentationConstruction e : this.entities) {
+            if (e.index == request) {
+                this.entities.remove(e);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Compute the number of entities for a given type.
+     *
+     * @param type Type to check.
+     * @return The number of entities in the list matching the type.
+     */
+    public int getNumberOfEntities(final EntityType type) {
+        int result = 0;
+        for (EntityRepresentationConstruction c : this.entities) {
+            if (c.type.equals(type)) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    @EqualsAndHashCode
+    @AllArgsConstructor
+    @ToString
+    public static final class EntityRepresentationConstruction {
+
+        public final EntityType type;
+
+        public final List<DataModule> data;
+        public final int index;
+
+        private Time timeLeft;
+
+        /**
+         * Compute the total time to build this entity.
+         * @return The added time of every modules contained in this entity.
+         */
+        public long getTotalTime() {
+            long time = 0;
+            for (DataModule d : this.data) {
+                time += d.timeToBuild.getTime().timeInMs;
+            }
+            return time;
+        }
+
+        public long getTime() {
+            return this.timeLeft.timeInMs;
+        }
+
+        public void reduceTimeLeft(final long timeToRemove) {
+            long t = timeLeft.subtractMs(timeToRemove);
+            if(t < 0) {
+                t = 0;
+            }
+            this.timeLeft = Time.milliSeconds(t);
+        }
+
+        public boolean isTimeElapsed() {
+            return this.timeLeft.timeInMs == 0;
+        }
+    }
+}
