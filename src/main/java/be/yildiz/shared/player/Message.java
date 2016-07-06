@@ -53,27 +53,23 @@ public final class Message {
      * Id of the player sending the message.
      */
     @Getter
-    @NonNull
     private final PlayerId sender;
 
     /**
      * Id of the player receiving the message.
      */
     @Getter
-    @NonNull
     private final PlayerId receiver;
 
     /**
      * Message content.
      */
-    @NonNull
     private final String content;
 
     /**
      * Message date.
      */
     @Getter
-    @NonNull
     private final Date date;
 
     /**
@@ -92,7 +88,7 @@ public final class Message {
      * @param date     Message send date.
      * @param read     Message read status.
      */
-    public Message(final PlayerId sender, final PlayerId receiver, final String message, final Date date, final boolean read) {
+    public Message(@NonNull final PlayerId sender, @NonNull final PlayerId receiver, @NonNull final String message, @NonNull final Date date, final boolean read) {
         super();
         this.sender = sender;
         this.receiver = receiver;
