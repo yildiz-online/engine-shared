@@ -129,6 +129,7 @@ public final class EntityConstructionQueue {
             return this.timeLeft.timeInMs;
         }
 
+
         public void reduceTimeLeft(final long timeToRemove) {
             long t = timeLeft.subtractMs(timeToRemove);
             if(t < 0) {
