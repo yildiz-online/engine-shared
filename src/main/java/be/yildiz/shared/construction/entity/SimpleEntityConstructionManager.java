@@ -35,6 +35,11 @@ import be.yildiz.shared.entity.EntityInConstruction;
  */
 public interface SimpleEntityConstructionManager<T extends Entity> {
 
+    /**
+     * Add one or several listener to notify when a construction is completed.
+     *
+     * @param listeners Listeners to notify.
+     */
     void willNotify(EntityConstructionListener<T>... l);
 
     void createEntity(EntityInConstruction eic, EntityId builderId, int index) throws EntityConstructionQueueFullException;

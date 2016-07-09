@@ -91,24 +91,12 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
         return this.bonusFactory.hasRatioBonus();
     }
 
-    /**
-     * Provide the appropriated bonus for the building level.
-     *
-     * @param level Building current level.
-     * @return The matching bonus.
-     * @requires level not null.
-     */
+    @Override
     public BonusResources getLevelBonus(final Level level) {
         return this.bonusFactory.getLevelBonus(level.value);
     }
 
-    /**
-     * Provide the appropriated bonus for the staff allocated.
-     *
-     * @param staff Allocated staff in the building.
-     * @return The matching bonus.
-     * @requires staff >= 0.
-     */
+    @Override
     public BonusResources getStaffBonus(final int staff) {
         return this.bonusFactory.getStaffBonus(staff);
     }
@@ -127,9 +115,6 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
         return this.levels[level.value - 1];
     }
 
-    /**
-     * @return The building price if it is level 1.
-     */
     @Override
     public final ResourceValue getPrice() {
         return this.getForLevel(Level.ONE).getPrice();
@@ -140,11 +125,6 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
         return this.getForLevel(level).getPrice();
     }
 
-    /**
-     * Retrieve the time to build the building at level 1.
-     *
-     * @return The time to build this building if it is level 1, for other levels, use getForLevel() method.
-     */
     @Override
     public TimeToBuild getTimeToBuild() {
         return this.getForLevel(Level.ONE).getTimeToBuild();
@@ -165,8 +145,14 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
         return new Level(this.levels.length);
     }
 
+    @Override
     public final boolean isEmpty() {
         return this.empty;
+    }
+
+    @Override
+    public boolean isBuilder() {
+        return this.builder;
     }
 
     protected abstract LevelData[] generateLevelData();
@@ -174,9 +160,5 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
     @Override
     public String toString() {
         return this.getType().toString();
-    }
-
-    public boolean isBuilder() {
-        return this.builder;
     }
 }

@@ -46,27 +46,45 @@ public interface BuildingData {
     EntityType getType();
 
     /**
-     * @return The price of this type.
+     * @return The building price if it is level 1.
      */
     ResourceValue getPrice();
 
     /**
-     * @return The time to build this type.
+     * Retrieve the time to build the building at level 1.
+     *
+     * @return The time to build this building if it is level 1, for other levels, use getForLevel() method.
      */
     TimeToBuild getTimeToBuild();
 
     /**
-     * @return The bonus provided by this building current allocated staff.
+     * Provide the appropriated bonus for the staff allocated.
+     *
+     * @param staff Allocated staff in the building.
+     * @return The matching bonus.
+     * @requires staff >= 0.
      */
-    BonusResources getStaffBonus(int staffAllocated);
+    BonusResources getStaffBonus(int staff);
 
     /**
-     * @return The bonus provided by this building current level.
+     * Provide the appropriated bonus for the building level.
+     *
+     * @param level Building current level.
+     * @return The matching bonus.
+     * @requires level not null.
      */
     BonusResources getLevelBonus(Level level);
 
+    /**
+     * Check if the building is build or the place is still empty.
+     * @return <code>true</code> if the building has not been built yet.
+     */
     boolean isEmpty();
 
+    /**
+     * Check if the building can build entities or not.
+     * @return <code>true</code> if the building is able to create entities.
+     */
     boolean isBuilder();
 
     boolean hasRatioBonus();

@@ -66,7 +66,6 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     /**
      * Create a new BuilderManager.
      *
-     * @param em Associated EntityManager.
      */
     public EntityConstructionManager(FrameManager frame, ActionManager<T, ? extends EntityData> actionManager, EntityFactory<T> factory) {
         super();
@@ -78,29 +77,16 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     public void createEntity(final EntityInConstruction entity, EntityId builderId, final int index) throws EntityConstructionQueueFullException {
         T buildEntity = this.associatedFactory.createEntity(entity);
         this.listenerList.forEach(l -> l.entityComplete(buildEntity, builderId, index));
-
     }
 
-    /**
-     * Add a entity to build in the builder list.
-     *
-     * @param entity  Data to build the Entity.
-     * @param modules
-     * @param delay   Time to wait before the build is complete.
-     * @throws EntityConstructionQueueFullException
-     */
+    @Override
     public void createEntity(final EntityInConstruction entity, final EntityId builderId, final EntityRepresentationConstruction c) {
         WaitingEntity data = new WaitingEntity(entity, c, builderId);
         this.entityToBuildList.add(data);
         this.listenerList.forEach(l -> l.addEntityToCreate(data));
     }
 
-    /**
-     * Cancel an entity to build.
-     *
-     * @param w Entity to cancel.
-     */
-
+    @Override
     public void cancel(final WaitingEntity w) {
         if (this.entityToBuildList.remove(w)) {
             this.listenerList.forEach(l -> l.entityConstructionCanceled(w));
@@ -128,11 +114,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
         return true;
     }
 
-    /**
-     * Add one or several listener to notify when a construction is completed.
-     *
-     * @param listeners Listeners to notify.
-     */
+    @Override
     public void willNotify(final EntityConstructionListener<T>... listeners) {
         if (listeners != null) {
             for (EntityConstructionListener<T> listener : listeners) {
@@ -151,16 +133,12 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
         this.listenerList.remove(listener);
     }
 
-    /**
-     * @return The list of entities in the building queue.
-     */
+    @Override
     public List<WaitingEntity> getEntityToBuildList() {
         return Collections.unmodifiableList(this.entityToBuildList);
     }
 
-    /**
-     * @return The list of entities in the building queue for a given player.
-     */
+    @Override
     public List<WaitingEntity> getEntityToBuildList(final PlayerId player) {
         List<WaitingEntity> l = Lists.newList();
         this.entityToBuildList.stream().filter(w -> w.entity.getOwner().equals(player)).forEach(l::add);

@@ -34,17 +34,39 @@ import be.yildiz.shared.entity.EntityInConstruction;
 import java.util.List;
 
 /**
- * @param <T>
+ *
+ * @param <T> Entity implementation.
  * @author Grégory Van den Borre
  */
 public interface CompleteEntityConstructionManager<T extends Entity> extends SimpleEntityConstructionManager<T> {
 
+    /**
+     * Cancel an entity to build.
+     *
+     * @param w Entity to cancel.
+     * @Requires w != null
+     */
     void cancel(WaitingEntity w);
 
+    /**
+     * Add a entity to build in the builder list.
+     *
+     * @param eic  Data to build the Entity.
+     * @param builderId Id of the building or entity creating this entity.
+     * @param c Metadata about the build status.
+     */
     void createEntity(EntityInConstruction eic, EntityId builderId, EntityRepresentationConstruction c);
 
+    /**
+     * @return The list of entities in the building queue.
+     * @Ensures result != null
+     */
     List<WaitingEntity> getEntityToBuildList();
 
+    /**
+     * @return The list of entities in the building queue for a given player.
+     * @Ensures result != null
+     */
     List<WaitingEntity> getEntityToBuildList(PlayerId id);
 
 }
