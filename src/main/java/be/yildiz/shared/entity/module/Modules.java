@@ -97,9 +97,15 @@ public final class Modules implements Iterable<ActionId> {
      * Build a modules from a list of ids, the first element is for the move module, the second for the interaction module, the third for the the hull module, others are added in miscellaneous.
      *
      * @param ids List of ids to use, must contains at least 3 elements.
+     *
+     * @throws NullPointerException if ids is null.
+     * @throws  IllegalArgumentException if ids.size < 4
      */
     public Modules(@NonNull List<ActionId> ids) {
         super();
+        if(ids.size() < 4) {
+            throw new IllegalArgumentException("A modules must at least contain 4 elements.");
+        }
         this.move = ids.get(0);
         this.interaction = ids.get(1);
         this.hull = ids.get(2);
