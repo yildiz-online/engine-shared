@@ -89,6 +89,7 @@ public abstract class AbstractAttackEntity extends AbstractAttack {
         this.stopFire();
     }
 
+    @Override
     public EntityId getTargetId() {
         return this.target.getId();
     }

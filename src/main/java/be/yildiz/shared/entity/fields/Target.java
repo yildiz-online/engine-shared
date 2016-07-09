@@ -33,11 +33,25 @@ import be.yildiz.common.vector.Point3D;
  */
 public interface Target {
 
+    /**
+     *
+     * @return <code>true</code> if the target hp is 0.
+     */
     boolean isZeroHp();
 
+    /**
+     * Provide the entity position at the moment of the call.
+     *
+     * @return The entity current position.
+     * @Ensures result != null
+     */
     Point3D getPosition();
 
     void hit(AttackHitResult hit);
 
+    /**
+     * @return This entity unique id.
+     * @Ensures result != null
+     */
     EntityId getId();
 }

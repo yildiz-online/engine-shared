@@ -27,7 +27,6 @@ package be.yildiz.shared.entity;
 
 import be.yildiz.common.gameobject.Movable;
 import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
@@ -65,7 +64,7 @@ import java.util.Set;
  * @invariant id != null.
  * @invariant owner != null.
  * @invariant 0 <= hitPoint <= hitPointMax.
- * @invariant 0 <= energy <= enegeryMax.
+ * @invariant 0 <= energy <= energyMax.
  * @invariant position != null.
  * @invariant direction != null.
  * @invariant direction.x + direction.y + direction.z = 1.
@@ -111,21 +110,7 @@ public interface Entity extends Target {
      */
     EntityType getType();
 
-    /**
-     * Provide the entity position at the moment of the call.
-     *
-     * @return The entity current position.
-     * @Ensures result != null
-     */
-    Point3D getPosition();
-
     void setPosition(Point3D position);
-
-    /**
-     * @return This entity unique id.
-     * @Ensures result != null
-     */
-    EntityId getId();
 
     /**
      * Provide this entity hit points.

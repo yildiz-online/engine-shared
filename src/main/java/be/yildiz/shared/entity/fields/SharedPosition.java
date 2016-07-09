@@ -48,6 +48,7 @@ public class SharedPosition implements PositionData {
         this.position = this.position.add(Point3D.normalize(this.direction).multiply(distance));
     }
 
+    @Override
     public float squaredDistance(Point3D other) {
         return Point3D.squaredDistance(this.position, other);
     }

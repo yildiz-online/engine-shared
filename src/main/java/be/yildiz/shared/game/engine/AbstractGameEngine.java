@@ -29,10 +29,6 @@ import be.yildiz.common.Version;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.framelistener.FrameListener;
 import be.yildiz.common.framelistener.FrameManager;
-import be.yildiz.shared.building.Building;
-import be.yildiz.shared.building.BuildingData;
-import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityData;
 import be.yildiz.shared.player.PlayerManager;
 import be.yildiz.shared.research.ResearchManager;
 import lombok.Getter;
@@ -46,7 +42,7 @@ import java.util.concurrent.locks.LockSupport;
  *
  * @author Grégory Van den Borre
  */
-public abstract class AbstractGameEngine<T extends Entity, B extends Building, D extends BuildingData, E extends EntityData> implements FrameManager, AutoCloseable {
+public abstract class AbstractGameEngine implements FrameManager, AutoCloseable {
 
     /**
      * Manage researches.
@@ -58,13 +54,19 @@ public abstract class AbstractGameEngine<T extends Entity, B extends Building, D
      * List all frame listener to execute during the main loop execution.
      */
     private final List<FrameListener> frameListenerList = Lists.newList();
+
     /**
      * Manage the players.
      */
     @Getter
     private final PlayerManager playerManager = new PlayerManager();
+
+    /**
+     * Current version.
+     */
     @Getter
     private final Version gameVersion;
+
     /**
      * Main game loop speed limitation.
      */
@@ -130,6 +132,7 @@ public abstract class AbstractGameEngine<T extends Entity, B extends Building, D
      * @param listener FrameListener to add.
      * @return This for method chaining.
      */
+    @Override
     public final void addFrameListener(final FrameListener listener) {
         this.frameListenerList.add(listener);
     }
