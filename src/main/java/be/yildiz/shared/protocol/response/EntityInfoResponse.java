@@ -34,7 +34,7 @@ import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -87,7 +87,7 @@ public final class EntityInfoResponse extends NetworkMessage implements ServerRe
      */
     private final int energy;
 
-    private final Modules modules;
+    private final ModuleGroup modules;
 
     private final EntityId builderId;
 
@@ -110,7 +110,7 @@ public final class EntityInfoResponse extends NetworkMessage implements ServerRe
         this.hitPoint = this.getInt();
         this.energy = this.getInt();
         this.builderId = this.getEntityId();
-        this.modules = new Modules(this.getActionIdList());
+        this.modules = new ModuleGroup(this.getActionIdList());
         this.index = this.getInt();
     }
 

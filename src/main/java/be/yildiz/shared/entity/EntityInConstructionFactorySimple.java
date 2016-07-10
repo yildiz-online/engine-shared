@@ -29,7 +29,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 
 /**
  * @author Grégory Van den Borre
@@ -37,12 +37,12 @@ import be.yildiz.shared.entity.module.Modules;
 public class EntityInConstructionFactorySimple implements EntityInConstructionFactory {
 
     @Override
-    public EntityInConstruction build(EntityType type, EntityId id, String name, Modules modules, PlayerId owner, Point3D pos, Point3D dir, int hp, int energy) {
+    public EntityInConstruction build(EntityType type, EntityId id, String name, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir, int hp, int energy) {
         return new EntityInConstruction(type, id, owner, name, modules, pos, dir, hp, energy);
     }
 
     @Override
-    public DefaultEntityInConstruction build(EntityType type, EntityId id, Modules modules, PlayerId owner, Point3D pos, Point3D dir) {
+    public DefaultEntityInConstruction build(EntityType type, EntityId id, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir) {
         return new DefaultEntityInConstruction(type, id, owner, modules, pos, dir);
     }
 }

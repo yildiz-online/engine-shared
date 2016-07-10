@@ -29,7 +29,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -46,7 +46,7 @@ public class DefaultEntityInConstruction {
 
     private final PlayerId owner;
 
-    private final Modules modules;
+    private final ModuleGroup modules;
 
     private final Point3D position;
 

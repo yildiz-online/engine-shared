@@ -29,14 +29,14 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 
 /**
  * @author Grégory Van den Borre
  */
 public interface EntityInConstructionFactory {
 
-    EntityInConstruction build(EntityType type, EntityId id, String name, Modules modules, PlayerId owner, Point3D pos, Point3D dir, int hp, int energy);
+    EntityInConstruction build(EntityType type, EntityId id, String name, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir, int hp, int energy);
 
-    DefaultEntityInConstruction build(EntityType type, EntityId id, Modules modules, PlayerId owner, Point3D pos, Point3D dir);
+    DefaultEntityInConstruction build(EntityType type, EntityId id, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir);
 }

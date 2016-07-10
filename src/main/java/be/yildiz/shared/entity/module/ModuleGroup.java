@@ -40,71 +40,98 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public final class Modules implements Iterable<ActionId> {
+@Getter
+public final class ModuleGroup implements Iterable<ActionId> {
 
     /**
      * Id of the module used for the entity move.
      */
-    @Getter
     private final ActionId move;
+
     /**
      * Id of the module used for then entity interaction with other entities.
      */
-    @Getter
     private final ActionId interaction;
+
     /**
-     * Id of the module used for the hull (hit points and energy).
+     * Id of the module used for the hull (hit points).
      */
-    @Getter
     private final ActionId hull;
-    @Getter
+
+    /**
+     * Id of the module used for the energy generation.
+     */
     private final ActionId energy;
+
     /**
      * List of other modules id.
      */
-    @Getter
     private final List<ActionId> modules;
+
     /**
      * Contains all modules of this object.
      */
-    @Getter
     private final List<ActionId> all;
+
+    /**
+     * Id of this module group.
+     */
     private ActionId id;
 
     /**
-     * Build a modules from 3 given ids and a list of ids.
+     * Build a modules from 4 given ids.
      *
      * @param move        Id used for move module.
      * @param interaction Id used for interaction module.
      * @param hull        Id used for hull module.
-     * @param ids         Other modules if any.
+     * @param energy      Id used for energy generation module.
+     * @throws NullPointerException if any  parameter is null.
      */
-    public Modules(@NonNull ActionId move, @NonNull ActionId interaction, @NonNull ActionId hull, @NonNull ActionId energy, ActionId... ids) {
+    public ModuleGroup(@NonNull ActionId move, @NonNull ActionId interaction, @NonNull ActionId hull, @NonNull ActionId energy) {
+        this(move, interaction, hull, energy, new ActionId[]{});
+    }
+
+    /**
+     * Build a modules from 4 given ids and a list of ids.
+     *
+     * @param move        Id used for move module.
+     * @param interaction Id used for interaction module.
+     * @param hull        Id used for hull module.
+     * @param energy      Id used for energy generation module.
+     * @param ids         Other modules.
+     * @throws NullPointerException if any parameter is null.
+     */
+    public ModuleGroup(@NonNull ActionId move, @NonNull ActionId interaction, @NonNull ActionId hull, @NonNull ActionId energy, @NonNull ActionId... ids) {
         super();
         this.move = move;
         this.interaction = interaction;
         this.hull = hull;
         this.energy = energy;
         List<ActionId> m = Lists.newList();
-        if (ids != null) {
-            Collections.addAll(m, ids);
+        Collections.addAll(m, ids);
+        if(m.contains(null)) {
+            throw new NullPointerException("A module group cannot contains null values.");
         }
         this.modules = Collections.unmodifiableList(m);
         this.all = this.buildAll();
     }
 
     /**
-     * Build a modules from a list of ids, the first element is for the move module, the second for the interaction module, the third for the the hull module, others are added in miscellaneous.
+     * Build a module group from a list of ids, the first element is for the move module, the second for the interaction module, the third for the the hull module, the fourth is energy generation, others are added in miscellaneous.
      *
      * @param ids List of ids to use, must contains at least 3 elements.
      *
      * @throws NullPointerException if ids is null.
+     * @throws NullPointerException if ids contains null.
      * @throws  IllegalArgumentException if ids.size < 4
      */
-    public Modules(@NonNull List<ActionId> ids) {
+    public ModuleGroup(@NonNull List<ActionId> ids) {
         super();
         if(ids.size() < 4) {
-            throw new IllegalArgumentException("A modules must at least contain 4 elements.");
+            throw new IllegalArgumentException("A module group must at least contain 4 elements.");
+        }
+        if(ids.contains(null)) {
+            throw new NullPointerException("A module group cannot contains null values.");
         }
         this.move = ids.get(0);
         this.interaction = ids.get(1);
@@ -120,7 +147,7 @@ public final class Modules implements Iterable<ActionId> {
 
     @Override
     public Iterator<ActionId> iterator() {
-        // FIXME should alse take into account move hull interact!
+        // FIXME should also take into account move hull interact!
         return this.modules.iterator();
     }
 
@@ -149,10 +176,10 @@ public final class Modules implements Iterable<ActionId> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Modules)) {
+        if (!(obj instanceof ModuleGroup)) {
             return false;
         }
-        Modules other = (Modules) obj;
+        ModuleGroup other = (ModuleGroup) obj;
         return this.move.equals(other.move) && this.interaction.equals(other.interaction) && this.hull.equals(other.hull) && this.energy.equals(other.energy) && this.modules.size() == other.modules.size()
                 && this.modules.containsAll(other.modules);
     }
@@ -164,9 +191,5 @@ public final class Modules implements Iterable<ActionId> {
             sb.append(a.value + ":");
         }
         return StringUtil.removeLastChar(sb);
-    }
-
-    public ActionId getId() {
-        return this.id;
     }
 }

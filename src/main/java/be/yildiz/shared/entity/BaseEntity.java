@@ -497,14 +497,14 @@ public final class BaseEntity implements Entity, Target {
     }
 
     @Override
-    public Modules getModules() {
+    public ModuleGroup getModules() {
         List<ActionId> ids = Lists.newList();
         ids.add(this.moveEngine.getId());
         ids.add(this.weapon.getId());
         ids.add(this.hull.getId());
         ids.add(this.energyGenerator.getId());
         this.other.forEach(a -> ids.add(a.getId()));
-        return new Modules(ids);
+        return new ModuleGroup(ids);
     }
 
     @Override

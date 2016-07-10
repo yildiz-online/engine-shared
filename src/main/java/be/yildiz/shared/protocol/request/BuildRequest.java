@@ -31,7 +31,7 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.Getter;
 
 /**
@@ -58,7 +58,7 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
      * Ids of the modules associated to the entity to build.
      */
     @Getter
-    private final Modules moduleIds;
+    private final ModuleGroup moduleIds;
 
     /**
      * A request index to match with the message response.
@@ -74,7 +74,7 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
      * @param modules      List of modules to add.
      * @param requestIndex Index of the request.
      */
-    public BuildRequest(final EntityId id, final EntityType entityType, final Modules moduleIds, final int requestIndex) {
+    public BuildRequest(final EntityId id, final EntityType entityType, final ModuleGroup moduleIds, final int requestIndex) {
         super(NetworkMessage.convertParams(id, Integer.valueOf(entityType.type), moduleIds.getModules(), requestIndex));
         this.type = entityType;
         this.builderId = id;
@@ -92,7 +92,7 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
         super(message);
         this.builderId = this.getEntityId();
         this.type = EntityType.get(this.getInt());
-        this.moduleIds = new Modules(this.getActionIdList());
+        this.moduleIds = new ModuleGroup(this.getActionIdList());
         this.requestIndex = this.getInt();
     }
 

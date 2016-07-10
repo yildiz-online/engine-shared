@@ -27,7 +27,7 @@ package be.yildiz.shared.entity;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.log.Logger;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -46,7 +46,7 @@ public final class ModuleChecker {
      * @param modules List of modules to check.
      * @return <code>true</code> only if the size of the list is at least 3 elements, and if the data allows the id at the given position in the list to be used.
      */
-    public boolean checkIds(@NonNull final GameEntityData data, final Modules modules) {
+    public boolean checkIds(@NonNull final GameEntityData data, final ModuleGroup modules) {
         ActionId move = modules.getMove();
         ActionId interaction = modules.getInteraction();
         ActionId hull = modules.getHull();

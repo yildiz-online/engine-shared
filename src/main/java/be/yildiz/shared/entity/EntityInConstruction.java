@@ -31,7 +31,7 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.util.Checker;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -41,7 +41,7 @@ import lombok.NonNull;
 @Getter
 public class EntityInConstruction extends DefaultEntityInConstruction {
 
-    public static final EntityInConstruction WORLD = new EntityInConstruction(EntityType.WORLD, EntityId.WORLD, PlayerId.WORLD, "World", new Modules(ActionId.get(0), ActionId.get(1), ActionId.get(9), ActionId.get(13)), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
+    public static final EntityInConstruction WORLD = new EntityInConstruction(EntityType.WORLD, EntityId.WORLD, PlayerId.WORLD, "World", new ModuleGroup(ActionId.get(0), ActionId.get(1), ActionId.get(9), ActionId.get(13)), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
 
     /**
      * Name of the entity.
@@ -58,7 +58,7 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
      */
     private final int energy;
 
-    public EntityInConstruction(EntityType et, EntityId id, PlayerId owner, @NonNull String name, Modules modules, Point3D position, Point3D direction, int hp, int energy) {
+    public EntityInConstruction(EntityType et, EntityId id, PlayerId owner, @NonNull String name, ModuleGroup modules, Point3D position, Point3D direction, int hp, int energy) {
         super(et, id, owner, modules, position, direction);
         Checker.exceptionNotPositive(hp);
         Checker.exceptionNotPositive(energy);

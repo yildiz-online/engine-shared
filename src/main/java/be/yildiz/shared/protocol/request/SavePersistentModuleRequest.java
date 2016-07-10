@@ -32,7 +32,7 @@ import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
-import be.yildiz.shared.entity.module.Modules;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.Getter;
 
 /**
@@ -62,7 +62,7 @@ public final class SavePersistentModuleRequest extends NetworkMessage implements
         PlayerId player = this.getPlayerId();
         EntityType type = EntityType.get(this.getInt());
         String name = this.getString();
-        Modules modules = new Modules(this.getActionIdList());
+        ModuleGroup modules = new ModuleGroup(this.getActionIdList());
         this.moduleConfiguration = new ModuleConfiguration(name, player, type, modules);
     }
 

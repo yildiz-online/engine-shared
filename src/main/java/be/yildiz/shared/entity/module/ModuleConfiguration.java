@@ -57,6 +57,6 @@ public final class ModuleConfiguration {
     /**
      * List of module to use in the set.
      */
-    private final Modules modules;
+    private final ModuleGroup modules;
 
 }
