@@ -28,9 +28,6 @@ package be.yildiz.shared.player;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
 
 import java.util.Set;
 
@@ -39,34 +36,54 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public final class Player {
 
     /**
      * World constant, to use with neutral units.
      */
-    public static final Player WORLD = new Player(PlayerId.WORLD, "world", false, false);
+    public static final Player WORLD = new Player(PlayerId.WORLD, "world");
 
     /**
      * Player unique id.
      */
-    @NonNull
     public final PlayerId id;
 
     /**
      * Player unique name.
      */
-    @NonNull
     public final String name;
 
-    public final boolean admin;
+    /**
+     * Player's role.
+     */
+    public final PlayerRight role;
 
-    public final boolean gm;
+    /**
+     * Build a player.
+     * @param id Player unique id.
+     * @param name Player unique name.
+     * @param role Player role.
+     */
+    Player(final PlayerId id, final String name, final PlayerRight role) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.role = role;
+    }
+
+    /**
+     * Build a player with the role Player.
+     * @param id Player unique id.
+     * @param name Player unique name.
+     */
+    Player(final PlayerId id, final String name) {
+        this(id, name, PlayerRight.PLAYER);
+    }
 
     /**
      * List of all allied players.
      */
-    private final Set<Player> allies = Sets.newSet();
+    private final Set<PlayerId> allies = Sets.newSet();
 
     private final Set<EntityId> see = Sets.newSet();
 
@@ -76,7 +93,7 @@ public final class Player {
      * @param ally Player to set as ally.
      */
     public void addAlly(final Player ally) {
-        this.allies.add(ally);
+        this.allies.add(ally.id);
     }
 
     /**
@@ -111,7 +128,7 @@ public final class Player {
      * @return <code>true</code> if players are allies.
      */
     boolean isAlly(final Player other) {
-        return this.allies.contains(other);
+        return this.allies.contains(other.id);
     }
 
     public boolean see(EntityId id) {
@@ -125,4 +142,5 @@ public final class Player {
     public boolean isSeeing(EntityId id) {
         return this.see.contains(id);
     }
+
 }

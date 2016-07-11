@@ -26,27 +26,19 @@
 package be.yildiz.shared.player;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.security.InvalidParameterException;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class PlayerStatusTest {
 
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
-
     /**
      * Test method for
      * {@link be.yildiz.shared.player.PlayerStatus#getFromOrdinal(int)}.
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testGetFromOrdinal1() {
-        this.rule.expect(InvalidParameterException.class);
         PlayerStatus.getFromOrdinal(-1);
     }
 
@@ -54,9 +46,8 @@ public final class PlayerStatusTest {
      * Test method for
      * {@link be.yildiz.shared.player.PlayerStatus#getFromOrdinal(int)}.
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testGetFromOrdinal2() {
-        this.rule.expect(InvalidParameterException.class);
         PlayerStatus.getFromOrdinal(PlayerStatus.values().length + 2);
     }
 

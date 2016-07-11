@@ -25,53 +25,35 @@
 
 package be.yildiz.shared.player;
 
-import be.yildiz.common.util.Checker;
+import lombok.Getter;
 
 /**
- * Possible status for a player.
+ * Possible player rights.
  *
- * @author Grégory Van den Borre
+ * @author Van den Borre Grégory
  */
-public enum PlayerStatus {
+public enum PlayerRight {
 
     /**
-     * Represent the current player in this session, only one by game.
+     * Simple player.
      */
-    ME,
+    PLAYER(0),
 
     /**
-     * For all player who are ally with this session.
+     * Game master.
      */
-    ALLY,
+    GAME_MASTER(1),
 
     /**
-     * Default status for all unit.
+     * Administrator.
      */
-    HOSTILE,
+    ADMIN(2);
 
-    /**
-     * Default status for all doodads.
-     */
-    NEUTRAL;
+    @Getter
+    private int ordinal;
 
-
-    /**
-     * Simple constructor.
-     */
-    PlayerStatus() {
+    PlayerRight(final int ordinal) {
+        this.ordinal = ordinal;
     }
 
-
-    /**
-     * Get a status from an ordinal value.
-     *
-     * @param ord Place of the enumeration value to retrieve.
-     * @return The matching enumeration value.
-     */
-    public static PlayerStatus getFromOrdinal(final int ord) {
-        if (!Checker.inArrayRange(ord, PlayerStatus.values())) {
-            throw new IllegalArgumentException(ord + " is invalid value.");
-        }
-        return PlayerStatus.values()[ord];
-    }
 }

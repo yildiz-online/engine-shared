@@ -28,6 +28,7 @@ package be.yildiz.shared.player;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.Map;
@@ -89,14 +90,14 @@ public final class PlayerManager {
      * @throws ExistingPlayerException if the name already exists.
      * @throws ExistingPlayerException if the id already exists.
      */
-    public Player createPlayer(final PlayerId id, final String name, final PlayerRight right) {
+    public Player createPlayer(@NonNull final PlayerId id, @NonNull final String name, @NonNull final PlayerRight right) {
         if (this.playerNameList.containsKey(name)) {
             throw new ExistingPlayerException("A player already exists with name " + name);
         }
         if (this.playerIdList.containsKey(id)) {
             throw new ExistingPlayerException("A player already exists with id " + id);
         }
-        Player player = new Player(id, name, right == PlayerRight.ADMIN, right == PlayerRight.GAME_MASTER);
+        Player player = new Player(id, name, right);
         this.playerIdList.put(id, player);
         this.playerNameList.put(name, player);
         return player;
@@ -212,30 +213,6 @@ public final class PlayerManager {
          * Player are neutral.
          */
         NEUTRAL
-    }
-
-    /**
-     * Possible player rights.
-     *
-     * @author Van den Borre Grégory
-     */
-    public enum PlayerRight {
-
-        /**
-         * Simple player.
-         */
-        PLAYER,
-
-        /**
-         * Game master.
-         */
-        GAME_MASTER,
-
-        /**
-         * Administrator.
-         */
-        ADMIN
-
     }
 
     /**
