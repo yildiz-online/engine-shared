@@ -29,6 +29,8 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +38,7 @@ import java.util.List;
 /**
  * @author Grégory Van den Borre
  */
+@RunWith(Enclosed.class)
 public class ModuleGroupTest {
 
     private static final ActionId MOVE = ActionId.get(12);
