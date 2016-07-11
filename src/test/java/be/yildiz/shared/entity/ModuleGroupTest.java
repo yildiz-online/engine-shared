@@ -144,13 +144,13 @@ public class ModuleGroupTest {
     public static final class Get {
 
         @Test(expected = UnsupportedOperationException.class)
-        public void completelistModified() {
+        public void completeListModified() {
             ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
             modules.getAll().add(ActionId.get(44));
         }
 
         @Test(expected = UnsupportedOperationException.class)
-        public void modulelistModified() {
+        public void moduleListModified() {
             ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
             modules.getModules().add(ActionId.get(44));
         }
