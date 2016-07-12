@@ -74,11 +74,6 @@ public final class ModuleGroup implements Iterable<ActionId> {
     private final List<ActionId> all;
 
     /**
-     * Id of this module group.
-     */
-    private ActionId id;
-
-    /**
      * Build a modules from 4 given ids.
      *
      * @param move        Id used for move module.
@@ -180,8 +175,9 @@ public final class ModuleGroup implements Iterable<ActionId> {
             return false;
         }
         ModuleGroup other = (ModuleGroup) obj;
-        return this.move.equals(other.move) && this.interaction.equals(other.interaction) && this.hull.equals(other.hull) && this.energy.equals(other.energy) && this.modules.size() == other.modules.size()
-                && this.modules.containsAll(other.modules);
+        List<ActionId> thisList = this.getAll();
+        List<ActionId> otherList = other.getAll();
+        return thisList.equals(otherList);
     }
 
     @Override

@@ -191,13 +191,6 @@ public class ModuleGroupTest {
         }
 
         @Test
-        public void forNotSameSize() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY, OTHER_1);
-            Assert.assertNotEquals(modules, modules2);
-        }
-
-        @Test
         public void forOtherType() {
             ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
             ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_2, OTHER_1);
