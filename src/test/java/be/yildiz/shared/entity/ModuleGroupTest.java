@@ -155,4 +155,54 @@ public class ModuleGroupTest {
             modules.getModules().add(ActionId.get(44));
         }
     }
+
+    public static class HashCode {
+
+        @Test
+        public void forSameValue() {
+            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            Assert.assertEquals(modules.hashCode(), modules2.hashCode());
+        }
+
+    }
+
+    public static class Equals {
+
+        @Test
+        public void forSameValue() {
+            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            Assert.assertEquals(modules, modules2);
+        }
+
+        @Test
+        public void forNull() {
+            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules2 = null;
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forDifferentOrder() {
+            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_2, OTHER_1);
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forNotSameSize() {
+            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY, OTHER_1);
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forOtherType() {
+            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_2, OTHER_1);
+            Assert.assertNotEquals(modules, modules2.toString());
+        }
+
+    }
 }
