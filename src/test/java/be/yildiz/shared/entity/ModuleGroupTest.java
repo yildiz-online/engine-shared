@@ -45,6 +45,8 @@ public class ModuleGroupTest {
 
     private static final ActionId INTERACTION = ActionId.get(48);
 
+    private static final ActionId DETECTOR = ActionId.get(75);
+
     private static final ActionId HULL = ActionId.get(34);
 
     private static final ActionId ENERGY = ActionId.get(111);
@@ -53,115 +55,117 @@ public class ModuleGroupTest {
 
     private static final ActionId OTHER_2 = ActionId.get(52);
 
+    private static final ActionId OTHER_3 = ActionId.get(255);
+
     public static class ConstructorWithAllParameters {
 
         @Test
-        public void withoutIds() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY);
-            Assert.assertEquals(MOVE, modules.getMove());
-            Assert.assertEquals(INTERACTION, modules.getInteraction());
-            Assert.assertEquals(HULL, modules.getHull());
-            Assert.assertEquals(ENERGY, modules.getEnergy());
-            Assert.assertEquals(4, modules.getAll().size());
-            Assert.assertEquals(MOVE, modules.getAll().get(0));
-            Assert.assertEquals(INTERACTION, modules.getAll().get(1));
-            Assert.assertEquals(HULL, modules.getAll().get(2));
-            Assert.assertEquals(ENERGY, modules.getAll().get(3));
-            Assert.assertEquals(4, modules.getAll().size());
-            Assert.assertTrue(modules.getModules().isEmpty());
-        }
-
-        @Test
         public void withIds() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+
             Assert.assertEquals(MOVE, modules.getMove());
             Assert.assertEquals(INTERACTION, modules.getInteraction());
             Assert.assertEquals(HULL, modules.getHull());
             Assert.assertEquals(ENERGY, modules.getEnergy());
-            Assert.assertEquals(MOVE, modules.getAll().get(0));
-            Assert.assertEquals(INTERACTION, modules.getAll().get(1));
-            Assert.assertEquals(HULL, modules.getAll().get(2));
-            Assert.assertEquals(ENERGY, modules.getAll().get(3));
-            Assert.assertEquals(6, modules.getAll().size());
-            Assert.assertEquals(2, modules.getModules().size());
-            Assert.assertEquals(OTHER_1, modules.getModules().get(0));
-            Assert.assertEquals(OTHER_2, modules.getModules().get(1));
-            Assert.assertEquals(OTHER_1, modules.getAll().get(4));
-            Assert.assertEquals(OTHER_2, modules.getAll().get(5));
+            Assert.assertEquals(DETECTOR, modules.getDetector());
+            Assert.assertEquals(OTHER_1, modules.getAdditional1());
+            Assert.assertEquals(OTHER_2, modules.getAdditional2());
+            Assert.assertEquals(OTHER_3, modules.getAdditional3());
         }
 
         @Test(expected = NullPointerException.class)
         public void withOneNull() {
-            new ModuleGroup(MOVE,INTERACTION,null,ENERGY);
+            new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(null)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
         }
 
         @Test(expected = NullPointerException.class)
         public void withOneNullInOptionalParameters() {
-            new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY, OTHER_1, null);
+            new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(null).build();
         }
     }
 
     public static final class ConstructorFromList {
 
         @Test
-        public void complete() {
-            List<ActionId> idList = Arrays.asList(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            ModuleGroup modules = new ModuleGroup(idList);
+        public void happyFlow() {
+            List<ActionId> l = Arrays.asList(HULL, ENERGY, DETECTOR, MOVE, INTERACTION, OTHER_1, OTHER_2, OTHER_3);
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder().fromList(l).build();
             Assert.assertEquals(MOVE, modules.getMove());
             Assert.assertEquals(INTERACTION, modules.getInteraction());
             Assert.assertEquals(HULL, modules.getHull());
             Assert.assertEquals(ENERGY, modules.getEnergy());
-            Assert.assertEquals(MOVE, modules.getAll().get(0));
-            Assert.assertEquals(INTERACTION, modules.getAll().get(1));
-            Assert.assertEquals(HULL, modules.getAll().get(2));
-            Assert.assertEquals(ENERGY, modules.getAll().get(3));
-            Assert.assertEquals(6, modules.getAll().size());
-            Assert.assertEquals(2, modules.getModules().size());
-            Assert.assertEquals(OTHER_1, modules.getModules().get(0));
-            Assert.assertEquals(OTHER_2, modules.getModules().get(1));
-            Assert.assertEquals(OTHER_1, modules.getAll().get(4));
-            Assert.assertEquals(OTHER_2, modules.getAll().get(5));
+            Assert.assertEquals(DETECTOR, modules.getDetector());
+            Assert.assertEquals(OTHER_1, modules.getAdditional1());
+            Assert.assertEquals(OTHER_2, modules.getAdditional2());
+            Assert.assertEquals(OTHER_3, modules.getAdditional3());
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullList() {
+            List<ActionId> l = Arrays.asList(HULL, null, DETECTOR, MOVE, INTERACTION, OTHER_1, OTHER_2, OTHER_3);
+            new ModuleGroup.ModuleGroupBuilder().fromList(l).build();
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullValue() {
+            new ModuleGroup.ModuleGroupBuilder().fromList(null).build();
         }
 
         @Test(expected = IllegalArgumentException.class)
-        public void smallerThan4() {
-            List<ActionId> idList = Arrays.asList(MOVE, INTERACTION, HULL);
-            new ModuleGroup(idList);
+        public void withIncorrectSize() {
+            List<ActionId> l = Arrays.asList(HULL, DETECTOR, MOVE, INTERACTION, OTHER_1, OTHER_2, OTHER_3);
+            new ModuleGroup.ModuleGroupBuilder().fromList(l).build();
         }
 
-        @Test(expected = NullPointerException.class)
-        public void containingNullValues() {
-            List<ActionId> idList = Arrays.asList(MOVE, INTERACTION, HULL, ENERGY, null);
-            new ModuleGroup(idList);
-        }
 
-        @Test(expected = NullPointerException.class)
-        public void whichIsNull() {
-            new ModuleGroup(null);
-        }
-    }
-
-    public static final class Get {
-
-        @Test(expected = UnsupportedOperationException.class)
-        public void completeListModified() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            modules.getAll().add(ActionId.get(44));
-        }
-
-        @Test(expected = UnsupportedOperationException.class)
-        public void moduleListModified() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            modules.getModules().add(ActionId.get(44));
-        }
     }
 
     public static class HashCode {
 
         @Test
         public void forSameValue() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
             Assert.assertEquals(modules.hashCode(), modules2.hashCode());
         }
 
@@ -171,31 +175,65 @@ public class ModuleGroupTest {
 
         @Test
         public void forSameValue() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
             Assert.assertEquals(modules, modules2);
         }
 
         @Test
         public void forNull() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
             ModuleGroup modules2 = null;
             Assert.assertNotEquals(modules, modules2);
         }
 
         @Test
         public void forDifferentOrder() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_2, OTHER_1);
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(ENERGY)
+                    .withEnergy(HULL)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
             Assert.assertNotEquals(modules, modules2);
         }
 
-        @Test
-        public void forOtherType() {
-            ModuleGroup modules = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_1, OTHER_2);
-            ModuleGroup modules2 = new ModuleGroup(MOVE,INTERACTION,HULL,ENERGY,OTHER_2, OTHER_1);
-            Assert.assertNotEquals(modules, modules2.toString());
-        }
 
     }
 }

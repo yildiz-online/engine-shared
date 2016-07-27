@@ -23,55 +23,20 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.entity;
+package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.util.Checker;
-import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.Getter;
-import lombok.NonNull;
+import be.yildiz.shared.entity.action.NoAction;
 
 /**
  * @author Grégory Van den Borre
  */
-@Getter
-public class EntityInConstruction extends DefaultEntityInConstruction {
+public class EmptyModule extends Module<NoAction> {
 
-    public static final EntityInConstruction WORLD = new EntityInConstruction(EntityType.WORLD, EntityId.WORLD, PlayerId.WORLD, "World",
-            new ModuleGroup.ModuleGroupBuilder()
-            .withMove(ActionId.get(0))
-            .withInteraction(ActionId.get(1))
-            .withDetector(ActionId.get(42))
-            .withHull(ActionId.get(9))
-            .withEnergy(ActionId.get(13))
-            .withNoAdditional()
-            .build(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
+    public static ActionId MODULE = ActionId.get(255);
 
-    /**
-     * Name of the entity.
-     */
-    private final String name;
-
-    /**
-     * Entity hit points when built.
-     */
-    private final int hp;
-
-    /**
-     * Entity energy points when built.
-     */
-    private final int energy;
-
-    public EntityInConstruction(EntityType et, EntityId id, PlayerId owner, @NonNull String name, ModuleGroup modules, Point3D position, Point3D direction, int hp, int energy) {
-        super(et, id, owner, modules, position, direction);
-        Checker.exceptionNotPositive(hp);
-        Checker.exceptionNotPositive(energy);
-        this.name = name;
-        this.hp = hp;
-        this.energy = energy;
+    public EmptyModule(EntityId id) {
+        super(new NoAction(id), MODULE);
     }
 }

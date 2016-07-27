@@ -32,8 +32,6 @@ import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.resources.ResourceValue;
 import lombok.Getter;
 
-import java.util.List;
-
 /**
  * Contains all the data proper to an Entity type.
  *
@@ -82,7 +80,6 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
      * @param size          Object size.
      * @param instances     Number of units of that type allowed.
      * @param level         Level required to build this object.
-     * @param moduleAllowed List of modules allowed to be used.
      * @param buildable     Flag to tell if the entity can be built by the player.
      */
     protected GameEntityData(final EntityType type, final int size, final Instance instances, final Level level, final ModulesAllowed modulesAllowed, final ResourceValue price, final TimeToBuild timeToBuild, final boolean buildable) {
@@ -129,8 +126,12 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
         return this.modulesAllowed.isEnergyAllowed(energy);
     }
 
-    public boolean isOtherAllowed(List<ActionId> modules) {
-        return this.modulesAllowed.isOtherAllowed(modules);
+    public boolean isDetectorAllowed(ActionId detector) {
+        return this.modulesAllowed.isDetectorAllowed(detector);
+    }
+
+    public boolean isOtherAllowed(ActionId module) {
+        return this.modulesAllowed.isOtherAllowed(module);
     }
 
 }

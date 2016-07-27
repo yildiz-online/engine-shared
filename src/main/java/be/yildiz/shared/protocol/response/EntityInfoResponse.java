@@ -110,7 +110,7 @@ public final class EntityInfoResponse extends NetworkMessage implements ServerRe
         this.hitPoint = this.getInt();
         this.energy = this.getInt();
         this.builderId = this.getEntityId();
-        this.modules = new ModuleGroup(this.getActionIdList());
+        this.modules = new ModuleGroup.ModuleGroupBuilder().fromList(this.getActionIdList()).build();
         this.index = this.getInt();
     }
 

@@ -66,13 +66,7 @@ public abstract class AbstractAttackZone<T extends Entity, E extends EntityData>
      * Build the Attack Zone.
      *
      * @param attacker   Entity using the action.
-     * @param id         action id.
-     * @param mat        Materialization of the action.
-     * @param d          Damages received in the zone.
-     * @param r          Range of the attack.
-     * @param time       Time between 2 attack.
      * @param retriever  Logic to compute the entities to find in the zone.
-     * @param damageZone Damage zone radius.
      */
     public AbstractAttackZone(final EntityId attacker, final TargetRetriever<T, E> retriever) {
         super(attacker);

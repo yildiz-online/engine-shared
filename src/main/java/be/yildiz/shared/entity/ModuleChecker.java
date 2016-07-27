@@ -51,6 +51,7 @@ public final class ModuleChecker {
         ActionId interaction = modules.getInteraction();
         ActionId hull = modules.getHull();
         ActionId energy = modules.getEnergy();
+        ActionId detector = modules.getDetector();
 
 
         if (!data.isMoveAllowed(move)) {
@@ -62,15 +63,29 @@ public final class ModuleChecker {
             return false;
         }
         if (!data.isHullAllowed(hull)) {
-            Logger.warning(interaction + " not allowed for hull for type " + data.getType());
+            Logger.warning(hull + " not allowed for hull for type " + data.getType());
             return false;
         }
         if (!data.isEnergyAllowed(energy)) {
+            Logger.warning(energy + " not allowed for energy for type " + data.getType());
+            return false;
+        }
+        if(!data.isDetectorAllowed(detector)) {
             Logger.warning(interaction + " not allowed for energy for type " + data.getType());
             return false;
         }
-        if (!data.isOtherAllowed(modules.getModules())) {
-            Logger.warning("Other modules not allowed for modules for type " + data.getType());
+        if (!data.isOtherAllowed(modules.getAdditional1())) {
+            Logger.warning(modules.getAdditional1() + " not allowed for modules for type " + data.getType());
+            return false;
+        }
+
+        if (!data.isOtherAllowed(modules.getAdditional2())) {
+            Logger.warning(modules.getAdditional2() + " not allowed for modules for type " + data.getType());
+            return false;
+        }
+
+        if (!data.isOtherAllowed(modules.getAdditional3())) {
+            Logger.warning(modules.getAdditional3() + " not allowed for modules for type " + data.getType());
             return false;
         }
         return true;

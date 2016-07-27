@@ -53,7 +53,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -69,7 +68,7 @@ public final class BaseEntity implements Entity, Target {
      * This Entity represent the world, it is used to represent an empty or non existing entity.
      */
     public static final BaseEntity WORLD = new BaseEntity(EntityInConstruction.WORLD, new StaticModule(EntityId.WORLD), new NoWeaponModule(EntityId.WORLD), new BlindDetector(EntityId.WORLD), new Invincible(EntityId.WORLD),
-            new NoEnergyGenerator(EntityId.WORLD), Collections.emptyList(), null);
+            new NoEnergyGenerator(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD), null);
 
     private static final State destroyed = new State("destroyed");
 
@@ -116,6 +115,9 @@ public final class BaseEntity implements Entity, Target {
      */
     private final MoveEngine moveEngine;
     private final EntityType type;
+    private final Module additional1;
+    private final Module additional2;
+    private final Module additional3;
     @Getter
     @Setter
     private String name;
@@ -123,8 +125,6 @@ public final class BaseEntity implements Entity, Target {
     @Setter
     @NonNull
     private PlayerId owner;
-    @Getter
-    private List<Module<? extends Action>> other = Lists.newList();
     @Getter
     private List<Action> actionRunning = Lists.newList();
     @Getter
@@ -138,7 +138,7 @@ public final class BaseEntity implements Entity, Target {
      *
      * @requires true
      */
-    public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon,Detector detector, Hull hull, EnergyGenerator eg, List<Module<? extends Action>> other, GameMaterialization mat) {
+    public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon, Detector detector, Hull hull, EnergyGenerator eg, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
         super();
         this.type = e.getType();
         this.owner = e.getOwner();
@@ -160,13 +160,17 @@ public final class BaseEntity implements Entity, Target {
         this.completeModule(this.energyGenerator);
         this.detector = detector;
         this.completeModule(detector);
-        this.other = other;
-        this.other.forEach(this::completeModule);
+        this.additional1 = additional1;
+        this.completeModule(this.additional1);
+        this.additional2 = additional2;
+        this.completeModule(this.additional2);
+        this.additional3 = additional3;
+        this.completeModule(this.additional3);
         this.mat = mat;
 
     }
 
-    public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, Detector detector, List<Module<? extends Action>> other, GameMaterialization mat) {
+    public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, Detector detector, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
         super();
         this.type = e.getType();
         this.owner = e.getOwner();
@@ -186,8 +190,12 @@ public final class BaseEntity implements Entity, Target {
         this.completeModule(this.energyGenerator);
         this.detector = detector;
         this.completeModule(detector);
-        this.other = other;
-        this.other.forEach(this::completeModule);
+        this.additional1 = additional1;
+        this.completeModule(this.additional1);
+        this.additional2 = additional2;
+        this.completeModule(this.additional2);
+        this.additional3 = additional3;
+        this.completeModule(this.additional3);
         this.mat = mat;
 
     }
@@ -315,14 +323,20 @@ public final class BaseEntity implements Entity, Target {
         if (this.hull.getId() == actionId) {
             return this.hull.getAction();
         }
+        if (this.detector.getId() == actionId) {
+            return this.detector.getAction();
+        }
         if (this.energyGenerator.getId() == actionId) {
             return this.energyGenerator.getAction();
         }
-        // this.other.stream().filter(module -> module.getId() == actionId).findFirst().orElse(new IllegalArgumentException("actionId is invalid: " + actionId + " for entity " + this.id));
-        for (Module<? extends Action> a : this.other) {
-            if (a.getId() == actionId) {
-                return a.getAction();
-            }
+        if (this.additional1.getId() == actionId) {
+            return this.additional1.getAction();
+        }
+        if (this.additional2.getId() == actionId) {
+            return this.additional2.getAction();
+        }
+        if (this.additional3.getId() == actionId) {
+            return this.additional3.getAction();
         }
         throw new IllegalArgumentException("actionId is invalid: " + actionId + " for entity " + this.id);
     }
@@ -332,7 +346,10 @@ public final class BaseEntity implements Entity, Target {
         this.moveEngine.delete();
         this.weapon.delete();
         this.energyGenerator.delete();
-        this.other.stream().forEach(Module::delete);
+        this.detector.delete();
+        this.additional1.delete();
+        this.additional2.delete();
+        this.additional3.delete();
         this.hull.delete();
         this.mat.delete();
     }
@@ -386,18 +403,25 @@ public final class BaseEntity implements Entity, Target {
             this.move(pos);
         } else if (this.weapon.getId().equals(action)) {
             this.attack(target);
-        } else {
-            for (Module<? extends Action> m : this.other) {
-                if (m.getId().equals(action)) {
-                    Action a = m.getAction();
-                    a.setTarget(target);
-                    a.setDestination(pos);
-                    a.init();
-                    this.actionRunning.add(a);
-                }
-            }
+        } else if (this.additional1.getId().equals(action)) {
+            Action a = this.additional1.getAction();
+            a.setTarget(target);
+            a.setDestination(pos);
+            a.init();
+            this.actionRunning.add(a);
+        } else if (this.additional2.getId().equals(action)) {
+            Action a = this.additional2.getAction();
+            a.setTarget(target);
+            a.setDestination(pos);
+            a.init();
+            this.actionRunning.add(a);
+        } else if (this.additional3.getId().equals(action)) {
+            Action a = this.additional3.getAction();
+            a.setTarget(target);
+            a.setDestination(pos);
+            a.init();
+            this.actionRunning.add(a);
         }
-
     }
 
     @Override
@@ -501,14 +525,17 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public ModuleGroup getModules() {
-        List<ActionId> ids = Lists.newList();
-        ids.add(this.moveEngine.getId());
-        ids.add(this.weapon.getId());
-        ids.add(this.hull.getId());
-        ids.add(this.energyGenerator.getId());
-        this.other.forEach(a -> ids.add(a.getId()));
-        return new ModuleGroup(ids);
-    }
+        return new ModuleGroup.ModuleGroupBuilder()
+                .withHull(this.hull.getId())
+                .withEnergy(this.energyGenerator.getId())
+                .withDetector(this.detector.getId())
+                .withMove(this.moveEngine.getId())
+                .withInteraction(this.weapon.getId())
+                .withAdditional1(this.additional1.getId())
+                .withAdditional2(this.additional2.getId())
+                .withAdditional3(this.additional3.getId())
+                .build();
+         }
 
     @Override
     public Movable getMaterialization() {
@@ -555,6 +582,4 @@ public final class BaseEntity implements Entity, Target {
     public Action getPreparedAction() {
         return this.actionToPrepare.orElse(this.moveEngine.getAction());
     }
-
-
 }

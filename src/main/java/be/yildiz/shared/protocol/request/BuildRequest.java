@@ -71,11 +71,11 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
      *
      * @param id           Builder entity id.
      * @param entityType   Type of the entity to build.
-     * @param modules      List of modules to add.
+     * @param moduleIds      List of modules to add.
      * @param requestIndex Index of the request.
      */
     public BuildRequest(final EntityId id, final EntityType entityType, final ModuleGroup moduleIds, final int requestIndex) {
-        super(NetworkMessage.convertParams(id, Integer.valueOf(entityType.type), moduleIds.getModules(), requestIndex));
+        super(NetworkMessage.convertParams(id, Integer.valueOf(entityType.type), moduleIds.getAll(), requestIndex));
         this.type = entityType;
         this.builderId = id;
         this.moduleIds = moduleIds;
@@ -92,7 +92,7 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
         super(message);
         this.builderId = this.getEntityId();
         this.type = EntityType.get(this.getInt());
-        this.moduleIds = new ModuleGroup(this.getActionIdList());
+        this.moduleIds = new ModuleGroup.ModuleGroupBuilder().fromList(this.getActionIdList()).build();
         this.requestIndex = this.getInt();
     }
 

@@ -62,7 +62,7 @@ public final class SavePersistentModuleRequest extends NetworkMessage implements
         PlayerId player = this.getPlayerId();
         EntityType type = EntityType.get(this.getInt());
         String name = this.getString();
-        ModuleGroup modules = new ModuleGroup(this.getActionIdList());
+        ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder().fromList(this.getActionIdList()).build();
         this.moduleConfiguration = new ModuleConfiguration(name, player, type, modules);
     }
 

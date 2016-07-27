@@ -44,6 +44,8 @@ public class ModulesAllowed {
 
     private final List<ActionId> energy = Lists.newList();
 
+    private final List<ActionId> detector = Lists.newList();
+
     private final List<ActionId> other = Lists.newList();
 
     public final ModulesAllowed move(ActionId... ids) {
@@ -97,7 +99,11 @@ public class ModulesAllowed {
         return this.energy.contains(energy);
     }
 
-    public boolean isOtherAllowed(List<ActionId> modules) {
-        return this.other.containsAll(modules);
+    public boolean isOtherAllowed(ActionId modules) {
+        return this.other.contains(modules);
+    }
+
+    public boolean isDetectorAllowed(ActionId detector) {
+        return this.detector.contains(detector);
     }
 }

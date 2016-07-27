@@ -23,35 +23,41 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.entity.module;
+package be.yildiz.shared.entity.action;
 
-import be.yildiz.common.id.ActionId;
-import be.yildiz.shared.data.ViewDistance;
-import be.yildiz.shared.entity.action.Detect;
-import lombok.Getter;
+import be.yildiz.common.id.EntityId;
 
 /**
  * @author Grégory Van den Borre
  */
-public class Detector extends Module<Detect> {
+public class NoAction extends AbstractNoInteractionAction{
 
-    @Getter
-    private final ViewDistance lineOfSight;
-
-    public Detector(Detect action, ActionId id, ViewDistance lineOfSight) {
-        super(action, id);
-        this.lineOfSight = lineOfSight;
+    public NoAction(EntityId e) {
+        super(e, true);
     }
 
-    public static abstract class DetectorTemplate<T extends Detect> {
+    @Override
+    protected void runImpl(long time) {
 
-        public final ViewDistance lineOfSight;
+    }
 
-        protected DetectorTemplate(final ViewDistance lineOfSight) {
-            super();
-            this.lineOfSight = lineOfSight;
-        }
+    @Override
+    public boolean checkPrerequisite() {
+        return false;
+    }
 
-        public abstract Detector materialize(T action);
+    @Override
+    protected void initImpl() {
+
+    }
+
+    @Override
+    protected void stopImpl() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }
