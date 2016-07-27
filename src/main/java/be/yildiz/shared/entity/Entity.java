@@ -35,6 +35,7 @@ import be.yildiz.shared.data.ViewDistance;
 import be.yildiz.shared.entity.action.AbstractAttack;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.fields.Target;
+import be.yildiz.shared.entity.module.Module;
 import be.yildiz.shared.entity.module.ModuleGroup;
 
 import java.util.List;
@@ -271,4 +272,10 @@ public interface Entity extends Target {
     void startPreparedAction();
 
     Action getPreparedAction();
+
+    Module getAdditional1();
+
+    Module getAdditional2();
+
+    Module getAdditional3();
 }

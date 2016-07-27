@@ -115,9 +115,16 @@ public final class BaseEntity implements Entity, Target {
      */
     private final MoveEngine moveEngine;
     private final EntityType type;
+
+    @Getter
     private final Module additional1;
+
+    @Getter
     private final Module additional2;
+
+    @Getter
     private final Module additional3;
+
     @Getter
     @Setter
     private String name;
