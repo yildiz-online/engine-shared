@@ -23,40 +23,18 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.helper;
+package be.yildiz.shared.entity.action;
 
-import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.BaseEntity;
-import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityInConstruction;
-import be.yildiz.shared.entity.module.detector.BlindDetector;
-import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
-import be.yildiz.shared.entity.module.hull.Invincible;
-import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
-import be.yildiz.shared.entity.module.move.StaticModule;
+import lombok.NonNull;
 
 /**
  * @author Grégory Van den Borre
  */
-public class Helper {
+public abstract class Detect extends AbstractNoInteractionAction {
 
-    public static Entity anEntity(long id) {
-        return anEntity(id, 5);
+    protected Detect(@NonNull EntityId e) {
+        super(e, true);
     }
 
-    public static Entity anEntity(long id, int player) {
-        EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.get(id), PlayerId.get(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
-        return new BaseEntity(eic, new StaticModule(eic.getId()), new NoWeaponModule(eic.getId()), new BlindDetector(eic.getId()), new Invincible(eic.getId()), new NoEnergyGenerator(eic.getId()), Lists.newList(), null);
-    }
-
-    /**
-     * @return An entity with player id 5 and id 6.
-     */
-    public static Entity givenAnEntity() {
-        return anEntity(5, 6);
-    }
 }

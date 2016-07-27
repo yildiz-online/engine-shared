@@ -44,6 +44,7 @@ import be.yildiz.shared.entity.fields.SharedPosition;
 import be.yildiz.shared.entity.fields.StateHolder;
 import be.yildiz.shared.entity.fields.Target;
 import be.yildiz.shared.entity.module.*;
+import be.yildiz.shared.entity.module.detector.BlindDetector;
 import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
 import be.yildiz.shared.entity.module.hull.Invincible;
 import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
@@ -67,7 +68,7 @@ public final class BaseEntity implements Entity, Target {
     /**
      * This Entity represent the world, it is used to represent an empty or non existing entity.
      */
-    public static final BaseEntity WORLD = new BaseEntity(EntityInConstruction.WORLD, new StaticModule(EntityId.WORLD), new NoWeaponModule(EntityId.WORLD), new Invincible(EntityId.WORLD),
+    public static final BaseEntity WORLD = new BaseEntity(EntityInConstruction.WORLD, new StaticModule(EntityId.WORLD), new NoWeaponModule(EntityId.WORLD), new BlindDetector(EntityId.WORLD), new Invincible(EntityId.WORLD),
             new NoEnergyGenerator(EntityId.WORLD), Collections.emptyList(), null);
 
     private static final State destroyed = new State("destroyed");
@@ -104,6 +105,8 @@ public final class BaseEntity implements Entity, Target {
      * Module managing the energy generation for this entity, cannot be null.
      */
     private final EnergyGenerator energyGenerator;
+
+    private final Detector detector;
     /**
      * Module managing the base weapon for this entity, cannot be null.
      */
@@ -133,12 +136,9 @@ public final class BaseEntity implements Entity, Target {
     /**
      * Create a new Entity.
      *
-     * @param player Owner of this Entity.
-     * @param id     Id for this Entity.
-     * @param type   Type for this Entity.
      * @requires true
      */
-    public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, List<Module<? extends Action>> other, GameMaterialization mat) {
+    public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon,Detector detector, Hull hull, EnergyGenerator eg, List<Module<? extends Action>> other, GameMaterialization mat) {
         super();
         this.type = e.getType();
         this.owner = e.getOwner();
@@ -158,13 +158,15 @@ public final class BaseEntity implements Entity, Target {
         this.completeModule(this.hull);
         this.energyGenerator = eg;
         this.completeModule(this.energyGenerator);
+        this.detector = detector;
+        this.completeModule(detector);
         this.other = other;
         this.other.forEach(this::completeModule);
         this.mat = mat;
 
     }
 
-    public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, List<Module<? extends Action>> other, GameMaterialization mat) {
+    public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, Detector detector, List<Module<? extends Action>> other, GameMaterialization mat) {
         super();
         this.type = e.getType();
         this.owner = e.getOwner();
@@ -182,6 +184,8 @@ public final class BaseEntity implements Entity, Target {
         this.completeModule(this.hull);
         this.energyGenerator = eg;
         this.completeModule(this.energyGenerator);
+        this.detector = detector;
+        this.completeModule(detector);
         this.other = other;
         this.other.forEach(this::completeModule);
         this.mat = mat;
@@ -456,8 +460,7 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public ViewDistance getLineOfSight() {
-        // FIXME HIGH wrong value (hard coded)
-        return new ViewDistance(500);
+        return this.detector.getLineOfSight();
     }
 
     @Override
