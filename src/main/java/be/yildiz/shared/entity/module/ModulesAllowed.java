@@ -83,6 +83,13 @@ public class ModulesAllowed {
         return this;
     }
 
+    public final ModulesAllowed detector(ActionId... ids) {
+        if (ids != null) {
+            Collections.addAll(this.detector, ids);
+        }
+        return this;
+    }
+
     public boolean isMoveAllowed(ActionId move) {
         return this.move.contains(move);
     }
