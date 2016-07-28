@@ -28,10 +28,13 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.collections.CollectionUtil;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.bonus.EntityBonus;
+import be.yildiz.shared.entity.module.DataModule;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -202,5 +205,12 @@ public class EntityManager<T extends Entity, D extends EntityData> {
 
     public List<D> getAllType() {
         return Lists.newList(this.typeFactory.getRegisteredData().values());
+    }
+
+    public List<DataModule> getDataModule(ModuleGroup modules) {
+        List<ActionId> ids = modules.getAll();
+        List<DataModule> datas = Lists.newList(ids.size());
+        ids.forEach(id -> datas.add(this.typeFactory.getByType(id)));
+        return datas;
     }
 }
