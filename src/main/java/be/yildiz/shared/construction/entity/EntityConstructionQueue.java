@@ -29,7 +29,7 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.Time;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.DataModule;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -68,6 +68,10 @@ public final class EntityConstructionQueue {
 
     public void set(EntityConstructionQueue l) {
         this.entities.clear();
+        List<EntityRepresentationConstruction> list = l.getList();
+        if(list.contains(null)) {
+            throw new NullPointerException("The list contains null values.");
+        }
         this.entities.addAll(l.getList());
     }
 
@@ -108,22 +112,10 @@ public final class EntityConstructionQueue {
 
         public final EntityType type;
 
-        public final List<DataModule> data;
+        public final ModuleGroup data;
         public final int index;
 
         private Time timeLeft;
-
-        /**
-         * Compute the total time to build this entity.
-         * @return The added time of every modules contained in this entity.
-         */
-        public long getTotalTime() {
-            long time = 0;
-            for (DataModule d : this.data) {
-                time += d.timeToBuild.getTime().timeInMs;
-            }
-            return time;
-        }
 
         public long getTime() {
             return this.timeLeft.timeInMs;
