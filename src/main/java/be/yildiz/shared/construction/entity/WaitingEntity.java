@@ -26,10 +26,12 @@
 package be.yildiz.shared.construction.entity;
 
 import be.yildiz.common.id.EntityId;
+import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.EntityInConstruction;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
  * Class with entity data and building time.
@@ -51,4 +53,8 @@ public final class WaitingEntity {
      * Unique id of the builder of this entity.
      */
     public final EntityId builderId;
+
+    public boolean isOwned(@NonNull final PlayerId player) {
+        return this.entity.getOwner().equals(player);
+    }
 }

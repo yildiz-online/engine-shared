@@ -38,7 +38,7 @@ public interface SimpleEntityConstructionManager<T extends Entity> {
     /**
      * Add one or several listener to notify when a construction is completed.
      *
-     * @param listeners Listeners to notify.
+     * @param l Listeners to notify.
      */
     void willNotify(EntityConstructionListener<T>... l);
 

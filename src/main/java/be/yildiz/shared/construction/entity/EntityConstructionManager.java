@@ -31,6 +31,7 @@ import be.yildiz.common.framelistener.EndFrameListener;
 import be.yildiz.common.framelistener.FrameManager;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.common.log.Logger;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.Entity;
@@ -40,6 +41,7 @@ import be.yildiz.shared.entity.EntityInConstruction;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Check all builder List and execute their build method. Primary task is Call all builder to create their units, if they don't have anything to create, they are removed from the builder list.
@@ -76,6 +78,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     @Override
     public void createEntity(final EntityInConstruction entity, EntityId builderId, final int index) throws EntityConstructionQueueFullException {
         T buildEntity = this.associatedFactory.createEntity(entity);
+        Logger.debug("Entity built " + entity.getId());
         this.listenerList.forEach(l -> l.entityComplete(buildEntity, builderId, index));
     }
 
@@ -105,6 +108,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
                 T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
+                Logger.debug("Entity complete " + waitingEntity.entity.getId());
                 this.listenerList.forEach(l -> l.entityComplete(buildEntity, waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);
                 i--;
@@ -140,8 +144,8 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
 
     @Override
     public List<WaitingEntity> getEntityToBuildList(final PlayerId player) {
-        List<WaitingEntity> l = Lists.newList();
-        this.entityToBuildList.stream().filter(w -> w.entity.getOwner().equals(player)).forEach(l::add);
-        return l;
+        return this.entityToBuildList.stream()
+                .filter(w -> w.isOwned(player))
+                .collect(Collectors.toList());
     }
 }

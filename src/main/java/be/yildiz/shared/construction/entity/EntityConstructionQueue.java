@@ -105,6 +105,10 @@ public final class EntityConstructionQueue {
         return result;
     }
 
+    /**
+     * An entity representation construction is the state of the build of an entity,
+     * it contains the type, the modules to be built and the unique build index.
+     */
     @EqualsAndHashCode
     @AllArgsConstructor
     @ToString

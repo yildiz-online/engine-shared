@@ -30,6 +30,7 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstruction;
+import com.google.java.contract.Ensures;
 
 import java.util.List;
 
@@ -53,20 +54,21 @@ public interface CompleteEntityConstructionManager<T extends Entity> extends Sim
      *
      * @param eic  Data to build the Entity.
      * @param builderId Id of the building or entity creating this entity.
-     * @param c Metadata about the build status.
+     * @param c Metadata about the construction current status.
      */
     void createEntity(EntityInConstruction eic, EntityId builderId, EntityRepresentationConstruction c);
 
     /**
      * @return The list of entities in the building queue.
-     * @Ensures result != null
      */
+    @Ensures("result != null")
     List<WaitingEntity> getEntityToBuildList();
 
     /**
      * @return The list of entities in the building queue for a given player.
-     * @Ensures result != null
+     * @throws NullPointerException if id is null.
      */
+    @Ensures("result != null")
     List<WaitingEntity> getEntityToBuildList(PlayerId id);
 
 }

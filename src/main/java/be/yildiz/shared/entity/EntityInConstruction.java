@@ -36,6 +36,8 @@ import lombok.Getter;
 import lombok.NonNull;
 
 /**
+ * An entity in construction contains the state of an entity to be built: its hit points, energy points, position,...
+ * Once the real entity is built, it will inherit of this state.
  * @author Grégory Van den Borre
  */
 @Getter
