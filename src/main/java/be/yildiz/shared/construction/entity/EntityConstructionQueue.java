@@ -110,13 +110,29 @@ public final class EntityConstructionQueue {
     @ToString
     public static final class EntityRepresentationConstruction {
 
+        /**
+         * Type of the entity to build.
+         */
         public final EntityType type;
 
+        /**
+         * Modules used in this entity.
+         */
         public final ModuleGroup data;
+
+        /**
+         * Construction unique index.
+         */
         public final int index;
 
+        /**
+         * Time left before the construction is complete.
+         */
         private Time timeLeft;
 
+        /**
+         * @return The time before construction completion in milliseconds.
+         */
         public long getTime() {
             return this.timeLeft.timeInMs;
         }
