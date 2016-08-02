@@ -47,7 +47,7 @@ public interface BuildingConstructionListener<B extends Building, D extends Buil
     /**
      * Called during a building construction.
      *
-     * @param city     City containing the building.
+     * @param city     BaseCity containing the building.
      * @param building Building in construction.
      * @param timeLeft Time left before construction is completed.
      */

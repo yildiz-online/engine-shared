@@ -36,7 +36,7 @@ import java.util.HashMap;
 /**
  * @author Grégory Van den Borre
  */
-public class CityManagerMock extends CityManager<Building, BuildingData, City<Building, BuildingData>> {
+public class CityManagerMock extends CityManager<Building, BuildingData, BaseCity<Building, BuildingData>> {
 
 
     public CityManagerMock() {
@@ -44,7 +44,7 @@ public class CityManagerMock extends CityManager<Building, BuildingData, City<Bu
     }
 
     @Override
-    protected City<Building, BuildingData> createCityImpl(Entity entity) {
-        return new City<>(entity, new ResourceValue(new float[]{1000, 1000, 1000}), new Point3D[]{}, new HashMap<>());
+    protected BaseCity<Building, BuildingData> createCityImpl(Entity entity) {
+        return new BaseCity<>(entity, new ResourceValue(new float[]{1000, 1000, 1000}), new Point3D[]{}, new HashMap<>());
     }
 }

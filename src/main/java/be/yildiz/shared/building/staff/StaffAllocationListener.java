@@ -40,7 +40,7 @@ public interface StaffAllocationListener<B extends Building, D extends BuildingD
     /**
      * Notify for the time left to allocate the staff.
      *
-     * @param city     City where the allocation occurs.
+     * @param city     BaseCity where the allocation occurs.
      * @param position Building position in the city.
      * @param timeLeft Time left to allocate the staff.
      */
@@ -50,7 +50,7 @@ public interface StaffAllocationListener<B extends Building, D extends BuildingD
     /**
      * Notify when the allocation has occurred.
      *
-     * @param city     City where the allocation occurs.
+     * @param city     BaseCity where the allocation occurs.
      * @param position Building position in the city.
      * @param number   number of worker allocated.
      */

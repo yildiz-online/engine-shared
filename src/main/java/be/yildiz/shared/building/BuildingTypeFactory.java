@@ -48,7 +48,7 @@ public interface BuildingTypeFactory<B extends Building, D extends BuildingData>
     /**
      * Create all the building contained in an empty city.
      *
-     * @param city City to build.
+     * @param city BaseCity to build.
      * @Requires city != null.
      * @Ensures the city will contains a building for all its building positions.
      */

@@ -30,14 +30,12 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 @Getter
-@AllArgsConstructor
 public class DefaultEntityInConstruction {
 
     private final EntityType type;
@@ -51,4 +49,13 @@ public class DefaultEntityInConstruction {
     private final Point3D position;
 
     private final Point3D direction;
+
+    public DefaultEntityInConstruction(EntityType type, EntityId id, PlayerId owner, ModuleGroup modules, Point3D position, Point3D direction) {
+        this.type = type;
+        this.id = id;
+        this.owner = owner;
+        this.modules = modules;
+        this.position = position;
+        this.direction = direction;
+    }
 }

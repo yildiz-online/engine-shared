@@ -30,7 +30,6 @@ import be.yildiz.shared.data.Level;
 import be.yildiz.shared.data.TimeToBuild;
 import be.yildiz.shared.resources.ResourceValue;
 import be.yildiz.shared.resources.bonus.BonusResources;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -124,7 +123,6 @@ public interface BuildingData {
      *
      * @author Van den Borre Grégory
      */
-    @AllArgsConstructor
     @Getter
     final class LevelData {
 
@@ -147,5 +145,13 @@ public interface BuildingData {
          * Maximum possible worker in this building.
          */
         private final int maxPopulation;
+
+        public LevelData(int level, TimeToBuild timeToBuild, ResourceValue price, int maxPopulation) {
+            super();
+            this.level = level;
+            this.timeToBuild = timeToBuild;
+            this.price = price;
+            this.maxPopulation = maxPopulation;
+        }
     }
 }

@@ -25,15 +25,12 @@
 
 package be.yildiz.shared.entity.fields;
 
-import lombok.AllArgsConstructor;
-
 /**
  * Contains the result of an attack hit.
  *
  * @author Grégory Van den Borre
  * @immutable
  */
-@AllArgsConstructor
 public final class AttackHitResult {
 
     /**
@@ -43,4 +40,8 @@ public final class AttackHitResult {
 
     public final int weaponType;
 
+    public AttackHitResult(float weaponBaseDamage, int weaponType) {
+        this.weaponBaseDamage = weaponBaseDamage;
+        this.weaponType = weaponType;
+    }
 }

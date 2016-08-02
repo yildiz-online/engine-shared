@@ -27,7 +27,6 @@ package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.data.EntityType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -35,7 +34,6 @@ import lombok.Getter;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 @Getter
 public final class ModuleConfiguration {
 
@@ -59,4 +57,10 @@ public final class ModuleConfiguration {
      */
     private final ModuleGroup modules;
 
+    public ModuleConfiguration(String name, PlayerId player, EntityType type, ModuleGroup modules) {
+        this.name = name;
+        this.player = player;
+        this.type = type;
+        this.modules = modules;
+    }
 }

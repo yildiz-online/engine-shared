@@ -35,7 +35,6 @@ import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.bonus.EntityBonus;
 import be.yildiz.shared.entity.module.DataModule;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,6 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 public class EntityManager<T extends Entity, D extends EntityData> {
 
     /**
@@ -68,6 +66,11 @@ public class EntityManager<T extends Entity, D extends EntityData> {
     private final EntityTypeFactory<T, D> typeFactory;
 
     private final T world;
+
+    public EntityManager(EntityTypeFactory<T, D> typeFactory, T world) {
+        this.typeFactory = typeFactory;
+        this.world = world;
+    }
 
     public D getByType(final EntityType type) {
         return this.typeFactory.getByType(type);

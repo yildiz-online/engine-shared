@@ -30,7 +30,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.Time;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -110,7 +109,6 @@ public final class EntityConstructionQueue {
      * it contains the type, the modules to be built and the unique build index.
      */
     @EqualsAndHashCode
-    @AllArgsConstructor
     @ToString
     public static final class EntityRepresentationConstruction {
 
@@ -133,6 +131,13 @@ public final class EntityConstructionQueue {
          * Time left before the construction is complete.
          */
         private Time timeLeft;
+
+        public EntityRepresentationConstruction(EntityType type, ModuleGroup data, int index, Time timeLeft) {
+            this.type = type;
+            this.data = data;
+            this.index = index;
+            this.timeLeft = timeLeft;
+        }
 
         /**
          * @return The time before construction completion in milliseconds.

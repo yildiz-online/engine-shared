@@ -29,7 +29,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.EntityInConstruction;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
@@ -38,7 +37,6 @@ import lombok.NonNull;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 @EqualsAndHashCode
 public final class WaitingEntity {
 
@@ -53,6 +51,12 @@ public final class WaitingEntity {
      * Unique id of the builder of this entity.
      */
     public final EntityId builderId;
+
+    public WaitingEntity(EntityInConstruction entity, EntityRepresentationConstruction representation, EntityId builderId) {
+        this.entity = entity;
+        this.representation = representation;
+        this.builderId = builderId;
+    }
 
     public boolean isOwned(@NonNull final PlayerId player) {
         return this.entity.getOwner().equals(player);

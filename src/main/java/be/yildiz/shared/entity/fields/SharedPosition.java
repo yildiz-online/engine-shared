@@ -26,14 +26,10 @@
 package be.yildiz.shared.entity.fields;
 
 import be.yildiz.common.vector.Point3D;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author Grégory Van den Borre
  */
-@Getter
-@Setter
 public class SharedPosition implements PositionData {
 
     private Point3D position = Point3D.ZERO;
@@ -51,5 +47,21 @@ public class SharedPosition implements PositionData {
     @Override
     public float squaredDistance(Point3D other) {
         return Point3D.squaredDistance(this.position, other);
+    }
+
+    public void setPosition(final Point3D position) {
+        this.position = position;
+    }
+
+    public Point3D getPosition() {
+        return this.position;
+    }
+
+    public void setDirection(final Point3D direction) {
+        this.direction = direction;
+    }
+
+    public Point3D getDirection() {
+        return this.direction;
     }
 }

@@ -28,7 +28,6 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.Target;
-import lombok.AllArgsConstructor;
 
 import java.util.Set;
 
@@ -37,13 +36,18 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 public final class TargetRetriever<T extends Entity, E extends EntityData> {
 
     /**
      * Associated entity manager.
      */
     private final EntityManager<T, E> manager;
+
+    public TargetRetriever(EntityManager<T, E> manager) {
+        super();
+        this.manager = manager;
+    }
+
 
     /**
      * @param pos        Center of the zone.

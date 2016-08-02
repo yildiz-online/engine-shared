@@ -63,7 +63,7 @@ public class CityManagerTest {
         Assert.assertNotNull(cm.getCityById(e.getId()));
     }
 
-    private CityManager<Building, BuildingData, City<Building, BuildingData>> givenACityManager() {
+    private CityManager<Building, BuildingData, BaseCity<Building, BuildingData>> givenACityManager() {
         return new CityManagerMock();
     }
 }

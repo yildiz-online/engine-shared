@@ -35,7 +35,6 @@ import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.building.BuildingTypeFactory;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
-import lombok.AllArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,23 +46,28 @@ import java.util.Set;
  * @param <D>
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 public abstract class CityManager<T extends Building, D extends BuildingData, C extends City<T, D>> {
 
     /**
-     * List of all City for a Player.
+     * List of all BaseCity for a Player.
      */
     private final Map<PlayerId, Set<C>> cityList = Maps.newMap();
 
     /**
-     * List of all City, by Id.
+     * List of all BaseCity, by Id.
      */
     private final Map<EntityId, C> cities = Maps.newMap();
 
     private final BuildingTypeFactory<T, D> typeFactory;
 
+    protected CityManager(BuildingTypeFactory<T, D> typeFactory) {
+        super();
+        this.typeFactory = typeFactory;
+    }
+
+
     /**
-     * Register a new City in the system.
+     * Register a new BaseCity in the system.
      *
      * @param entity Associated entity.
      */

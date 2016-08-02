@@ -32,7 +32,6 @@ import be.yildiz.shared.city.City;
 import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityData;
-import lombok.AllArgsConstructor;
 
 import java.util.Map;
 
@@ -43,7 +42,6 @@ import java.util.Map;
  * @param <E>
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 public final class PlayerMonitorManager<T extends Entity, B extends Building, D extends BuildingData, E extends EntityData, C extends City<B, D>> {
 
     private final ActionManager<T, E> actionManager;
@@ -52,6 +50,10 @@ public final class PlayerMonitorManager<T extends Entity, B extends Building, D 
      * Keep a list of all monitored players.
      */
     private final Map<Player, PlayerMonitor<T, B, D, C>> list = Maps.newMap();
+
+    public PlayerMonitorManager(ActionManager<T, E> actionManager) {
+        this.actionManager = actionManager;
+    }
 
     public PlayerMonitor<T, B, D, C> get(final Player player) {
         return this.list.get(player);

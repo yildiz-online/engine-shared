@@ -25,8 +25,6 @@
 
 package be.yildiz.shared.data;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -34,7 +32,6 @@ import lombok.Getter;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class GameData {
 
     /**
@@ -55,6 +52,12 @@ public abstract class GameData {
      */
     @Getter
     private final Level requiredLevel;
+
+    protected GameData(EntityType type, Instance maxInstances, Level requiredLevel) {
+        this.type = type;
+        this.maxInstances = maxInstances;
+        this.requiredLevel = requiredLevel;
+    }
 
     @Override
     public final int hashCode() {

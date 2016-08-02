@@ -44,7 +44,7 @@ import lombok.NonNull;
 public final class BaseBuilding implements Building {
 
     /**
-     * City containing this building.
+     * BaseCity containing this building.
      */
     @Getter
     private final EntityId city;

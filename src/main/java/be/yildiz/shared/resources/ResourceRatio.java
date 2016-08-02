@@ -27,7 +27,6 @@ package be.yildiz.shared.resources;
 
 import be.yildiz.common.collections.Sets;
 import be.yildiz.shared.resources.bonus.BonusResources;
-import com.google.java.contract.Ensures;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -82,7 +81,7 @@ public final class ResourceRatio {
      *
      * @param bonus Bonus to remove.
      */
-    @Ensures("!this.bonusList.contains(bonus)")
+    //@Ensures("!this.bonusList.contains(bonus)")
     void removeBonus(final BonusResources bonus) {
         this.bonusList.remove(bonus);
         this.recompute();

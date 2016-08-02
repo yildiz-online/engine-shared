@@ -30,7 +30,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.Entity;
-import lombok.AllArgsConstructor;
 
 import java.util.List;
 
@@ -38,11 +37,15 @@ import java.util.List;
  * @param <T>
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 public class EntityConstructionQueueManager<T extends Entity> implements EntityConstructionListener<T> {
 
     private final List<EntityConstructionQueueListener> listeners = Lists.newList();
     private final BuilderManager builderManager;
+
+    public EntityConstructionQueueManager(BuilderManager builderManager) {
+        super();
+        this.builderManager = builderManager;
+    }
 
     public void willNotify(final EntityConstructionQueueListener l) {
         this.listeners.add(l);

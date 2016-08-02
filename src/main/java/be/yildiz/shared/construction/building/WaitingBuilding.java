@@ -26,7 +26,6 @@
 package be.yildiz.shared.construction.building;
 
 import be.yildiz.shared.building.Building;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -35,7 +34,6 @@ import lombok.Getter;
  *
  * @author Grégory Van den Borre
  */
-@AllArgsConstructor
 @EqualsAndHashCode
 @Getter
 public final class WaitingBuilding<B extends Building> {
@@ -49,4 +47,9 @@ public final class WaitingBuilding<B extends Building> {
      * Time stamp of the time when the building must be built.
      */
     long time;
+
+    public WaitingBuilding(B b, final long time) {
+        this.b = b;
+        this.time = time;
+    }
 }

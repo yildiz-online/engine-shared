@@ -30,7 +30,6 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstruction;
-import com.google.java.contract.Ensures;
 
 import java.util.List;
 
@@ -61,14 +60,14 @@ public interface CompleteEntityConstructionManager<T extends Entity> extends Sim
     /**
      * @return The list of entities in the building queue.
      */
-    @Ensures("result != null")
+    //@Ensures("result != null")
     List<WaitingEntity> getEntityToBuildList();
 
     /**
      * @return The list of entities in the building queue for a given player.
      * @throws NullPointerException if id is null.
      */
-    @Ensures("result != null")
+    //@Ensures("result != null")
     List<WaitingEntity> getEntityToBuildList(PlayerId id);
 
 }
