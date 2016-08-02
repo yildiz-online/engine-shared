@@ -32,6 +32,7 @@ import be.yildiz.shared.building.Building;
 import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.resources.ResourcesProducer;
 
 import java.util.List;
 import java.util.Set;
@@ -96,4 +97,6 @@ public interface City<T extends Building, D extends BuildingData> {
     Point3D getPosition();
 
     void initializeProducer();
+
+    ResourcesProducer getProducer();
 }
