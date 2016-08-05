@@ -56,12 +56,12 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
     /**
      *
      */
-    private final CityManager<B, D, C> cityManager;
+    private final CityManager<B,D,C> cityManager;
 
     /**
      * Simple constructor.
      */
-    public StaffAllocatorManager(final CityManager<B, D, C> cityManager) {
+    public StaffAllocatorManager(final CityManager<B,D,C> cityManager) {
         super();
         this.cityManager = cityManager;
     }

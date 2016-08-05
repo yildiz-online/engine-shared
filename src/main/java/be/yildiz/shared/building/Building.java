@@ -168,4 +168,6 @@ public interface Building {
      * @Throws NullPointerException if level is null.
      */
     TimeToBuild getTimeToBuild(final Level level);
+
+    boolean exists();
 }

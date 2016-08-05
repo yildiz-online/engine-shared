@@ -25,78 +25,29 @@
 
 package be.yildiz.shared.city;
 
-import be.yildiz.common.collections.CollectionUtil;
-import be.yildiz.common.collections.Lists;
-import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.building.Building;
 import be.yildiz.shared.building.BuildingData;
-import be.yildiz.shared.building.BuildingTypeFactory;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
- * @param <T>
- * @param <D>
  * @author Grégory Van den Borre
  */
-public abstract class CityManager<T extends Building, D extends BuildingData, C extends City<T, D>> {
+public interface CityManager<T extends Building, D extends BuildingData, C extends City<T, D>> {
+    C createCity(Entity entity);
 
-    /**
-     * List of all BaseCity for a Player.
-     */
-    private final Map<PlayerId, Set<C>> cityList = Maps.newMap();
+    C getCityById(EntityId id);
 
-    /**
-     * List of all BaseCity, by Id.
-     */
-    private final Map<EntityId, C> cities = Maps.newMap();
+    List<C> getCities();
 
-    private final BuildingTypeFactory<T, D> typeFactory;
+    Set<C> getCities(PlayerId player);
 
-    protected CityManager(BuildingTypeFactory<T, D> typeFactory) {
-        super();
-        this.typeFactory = typeFactory;
-    }
+    void createEmptyCityBuildings(C city);
 
-
-    /**
-     * Register a new BaseCity in the system.
-     *
-     * @param entity Associated entity.
-     */
-    public C createCity(final Entity entity) {
-        C city = this.createCityImpl(entity);
-        CollectionUtil.getOrCreateSetFromMap(this.cityList, entity.getOwner()).add(city);
-        this.cities.put(entity.getId(), city);
-        return city;
-    }
-
-    protected abstract C createCityImpl(final Entity entity);
-
-    public C getCityById(final EntityId id) {
-        return this.cities.get(id);
-    }
-
-    public final List<C> getCities() {
-        return Lists.newList(this.cities.values());
-    }
-
-    public Set<C> getCities(final PlayerId player) {
-        return this.cityList.getOrDefault(player, Collections.emptySet());
-    }
-
-    public void createEmptyCityBuildings(C city) {
-        this.typeFactory.createEmptyCity(city);
-    }
-
-    public D getData(EntityType entityType) {
-        return this.typeFactory.getRegisteredData().get(entityType);
-    }
+    D getData(EntityType entityType);
 }

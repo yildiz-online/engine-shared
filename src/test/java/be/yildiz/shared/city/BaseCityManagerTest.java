@@ -39,7 +39,7 @@ import org.junit.rules.ExpectedException;
 /**
  * @author Grégory Van den Borre
  */
-public class CityManagerTest {
+public class BaseCityManagerTest {
 
     @Rule
     public final ExpectedException rule = ExpectedException.none();
@@ -63,7 +63,7 @@ public class CityManagerTest {
         Assert.assertNotNull(cm.getCityById(e.getId()));
     }
 
-    private CityManager<Building, BuildingData, BaseCity<Building, BuildingData>> givenACityManager() {
-        return new CityManagerMock();
+    private CityManager<Building,BuildingData,BaseCity<Building,BuildingData>> givenACityManager() {
+        return new BaseCityManagerMock();
     }
 }

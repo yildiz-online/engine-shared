@@ -47,22 +47,23 @@ import java.util.Set;
  * A BaseCity.
  *
  * @author Grégory Van den Borre
- *         <p>
  *         <T> Building implementation. <D> BuildingData implementation.
- * @mutable
  * @specfield id:EntityId:BaseCity unique id.
  * @specfield name:BaseCity name in the game, must not be unique, can only contains alpha numeric characters, size is 1-10.
  * @specfield owner:PlayerId:Player owner of this city.
  * @specfield producer:ResourcesProducer:Resource production for this city.
  * @specfield position:Point3D:BaseCity position in the world.
  */
-class BaseCity<T extends Building, D extends BuildingData> implements City<T, D> {
+public class BaseCity<T extends Building, D extends BuildingData> implements City<T, D> {
 
     /**
      * Buildings positions in the world.
      */
     private final Point3D[] positionOffset;
 
+    /**
+     * Associated entity.
+     */
     private final Entity entity;
 
     /**
@@ -85,9 +86,12 @@ class BaseCity<T extends Building, D extends BuildingData> implements City<T, D>
     /**
      * Create a new BaseCity.
      *
+     * @param entity The entity representing this city in the world.
+     * @param initialResource The resources available in the city when creating it.
      * @param positionOffset Building positions.
+     * @param datas List of building types and their data available.
      */
-    public BaseCity(final Entity entity, final ResourceValue initialResource, final Point3D[] positionOffset, Map<EntityType, D> datas) {
+    protected BaseCity(final Entity entity, final ResourceValue initialResource, final Point3D[] positionOffset, Map<EntityType, D> datas) {
         super();
         this.entity = entity;
         this.datas = datas;
@@ -99,6 +103,7 @@ class BaseCity<T extends Building, D extends BuildingData> implements City<T, D>
         this.producer = new ResourcesProducer(entity.getId(), System.currentTimeMillis(), initialResource);
     }
 
+    @Override
     public D getByType(final EntityType type) {
         return this.datas.get(type);
     }

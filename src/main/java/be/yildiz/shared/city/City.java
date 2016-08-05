@@ -42,6 +42,11 @@ import java.util.Set;
  */
 public interface City<T extends Building, D extends BuildingData> {
 
+    /**
+     * City name.
+     * @return The name of the city, this must not be unique.
+     */
+    //@Ensures ("result != null")
     String getName();
 
     /**
@@ -86,17 +91,49 @@ public interface City<T extends Building, D extends BuildingData> {
      */
     Set<EntityType> getAllowedType();
 
+    /**
+     * Provide the list of all possible building data available.
+     * @return The list.
+     */
+    //@Ensures ("result != null")
     List<D> getAllType();
 
+    /**
+     * Provide the maximum number of building allowed in this city.
+     * @return The maximum number of buildings.
+     */
+    //@Ensures ("result >= 0")
     int getMaximumBuildings();
 
+    /**
+     * Provide the city id, retrieved from the associated entity.
+     * @return The city unique id.
+     */
+    //@Ensures ("result != null")
     EntityId getId();
 
+    /**
+     * Provide the id of the owner of the city.
+     * @return The owner of the city.
+     */
+    //@Ensures ("result != null")
     PlayerId getOwner();
 
+    /**
+     * Provide the position of the city in the world.
+     * @return The city position.
+     */
+    //@Ensures("result != null")
     Point3D getPosition();
 
+    /**
+     * Set the state of the city resource producer to initialized so that it can start producing resources.
+     */
     void initializeProducer();
 
     ResourcesProducer getProducer();
+
+    List<T> getBuildings();
+
+    D getByType(EntityType e);
 }

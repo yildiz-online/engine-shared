@@ -50,7 +50,7 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
     /**
      * Associated city manager to retrieve cities.
      */
-    private final CityManager<B, D, C> cityManager;
+    private final CityManager<B,D,C> cityManager;
 
     /**
      * List of construction waiting to be build.
@@ -70,9 +70,9 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
     /**
      * Create a new BuilderManager.
      *
-     * @param em Associated CityManager.
+     * @param em Associated BaseCityManager.
      */
-    public BuildingConstructionManager(final CityManager<B, D, C> em) {
+    public BuildingConstructionManager(final CityManager<B,D,C> em) {
         super();
         this.cityManager = em;
     }
@@ -93,6 +93,14 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
             this.associatedFactory.createBuilding(b);
             this.listenerList.forEach(l -> l.buildingComplete(city, b));
         }
+    }
+
+    /**
+     * Create a building with no delay.
+     * @param b Building to create.
+     */
+    public void createBuilding(final B b) {
+        this.createBuilding(b, 0);
     }
 
     /**

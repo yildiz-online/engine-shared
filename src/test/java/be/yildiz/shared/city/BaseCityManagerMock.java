@@ -36,10 +36,10 @@ import java.util.HashMap;
 /**
  * @author Grégory Van den Borre
  */
-public class CityManagerMock extends CityManager<Building, BuildingData, BaseCity<Building, BuildingData>> {
+public class BaseCityManagerMock extends BaseCityManager<Building, BuildingData, BaseCity<Building, BuildingData>> {
 
 
-    public CityManagerMock() {
+    public BaseCityManagerMock() {
         super(new BuildingTypeFactoryMock());
     }
 

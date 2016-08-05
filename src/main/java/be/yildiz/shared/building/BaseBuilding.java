@@ -133,6 +133,11 @@ public final class BaseBuilding implements Building {
     }
 
     @Override
+    public boolean exists() {
+        return this.level.isNotZero();
+    }
+
+    @Override
     public EntityType getType() {
         return this.data.getType();
     }
