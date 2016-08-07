@@ -43,11 +43,13 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
 
     private final EntityInConstructionFactory f = new EntityInConstructionFactorySimple();
     private final IdProvider idProvider;
+    private final BuilderManager builderManager;
 
-    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, IdProvider provider) {
+    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, IdProvider provider, BuilderManager builderManager) {
         super();
         this.manager = manager;
         this.idProvider = provider;
+        this.builderManager = builderManager;
     }
 
     @Override
@@ -56,10 +58,10 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
     }
 
     @Override
-    public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId buider) {
+    public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId builderId) {
         EntityId id = this.idProvider.getFreeId();
-        Builder builder = null;
+        Builder builder = this.builderManager.getBuilderById(builderId);
         DefaultEntityInConstruction eic = this.f.build(toBuild.type, id, toBuild.data, p, builder.getBuildPosition(), Point3D.BASE_DIRECTION);
-        this.manager.createEntity(eic, buider, toBuild);
+        this.manager.createEntity(eic, builderId, toBuild);
     }
 }

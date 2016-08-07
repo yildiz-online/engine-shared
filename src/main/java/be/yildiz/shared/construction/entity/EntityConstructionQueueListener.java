@@ -45,10 +45,10 @@ public interface EntityConstructionQueueListener {
     /**
      * Notify when a new request is added to the queue.
      * @param toBuild Construction data/
-     * @param player Id of the player requesting the build.
-     * @param builder Id of the entity building this entity.
+     * @param playerId Id of the player requesting the build.
+     * @param builderId Id of the entity building this entity.
      */
-    default void add(EntityRepresentationConstruction toBuild, PlayerId player, EntityId builder) {
+    default void add(EntityRepresentationConstruction toBuild, PlayerId playerId, EntityId builderId) {
     }
 
 }
