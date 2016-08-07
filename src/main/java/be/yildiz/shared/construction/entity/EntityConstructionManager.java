@@ -33,10 +33,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
-import be.yildiz.shared.entity.ActionManager;
-import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityData;
-import be.yildiz.shared.entity.EntityInConstruction;
+import be.yildiz.shared.entity.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -83,7 +80,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     }
 
     @Override
-    public void createEntity(final EntityInConstruction entity, final EntityId builderId, final EntityRepresentationConstruction c) {
+    public void createEntity(final DefaultEntityInConstruction entity, final EntityId builderId, final EntityRepresentationConstruction c) {
         WaitingEntity data = new WaitingEntity(entity, c, builderId);
         this.entityToBuildList.add(data);
         this.listenerList.forEach(l -> l.addEntityToCreate(data));
@@ -107,7 +104,9 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
             WaitingEntity waitingEntity = this.entityToBuildList.get(i);
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
-                this.createEntity(waitingEntity.entity, waitingEntity.builderId, waitingEntity.representation.index);
+                T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
+                Logger.debug("Entity built " + waitingEntity.entity.getId());
+                this.listenerList.forEach(l -> l.entityComplete(buildEntity, waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);
                 i--;
             }

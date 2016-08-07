@@ -26,39 +26,12 @@
 package be.yildiz.shared.construction.entity;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
-import be.yildiz.shared.entity.DefaultEntityInConstruction;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 
 /**
- * Class with entity data and building time.
- *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
-public final class WaitingEntity {
+@FunctionalInterface
+public interface IdProvider {
 
-    /**
-     * The entity to build data.
-     */
-    public final DefaultEntityInConstruction entity;
-
-    public final EntityRepresentationConstruction representation;
-
-    /**
-     * Unique id of the builder of this entity.
-     */
-    public final EntityId builderId;
-
-    public WaitingEntity(DefaultEntityInConstruction entity, EntityRepresentationConstruction representation, EntityId builderId) {
-        this.entity = entity;
-        this.representation = representation;
-        this.builderId = builderId;
-    }
-
-    public boolean isOwned(@NonNull final PlayerId player) {
-        return this.entity.getOwner().equals(player);
-    }
+    EntityId getFreeId();
 }

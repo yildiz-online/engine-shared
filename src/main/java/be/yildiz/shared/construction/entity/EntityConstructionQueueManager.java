@@ -40,11 +40,15 @@ import java.util.List;
 public class EntityConstructionQueueManager<T extends Entity> implements EntityConstructionListener<T> {
 
     private final List<EntityConstructionQueueListener> listeners = Lists.newList();
+
     private final BuilderManager builderManager;
 
-    public EntityConstructionQueueManager(BuilderManager builderManager) {
+    private final EntityConstructionManager<T> constructionManager;
+
+    public EntityConstructionQueueManager(BuilderManager builderManager, EntityConstructionManager<T> constructionManager) {
         super();
         this.builderManager = builderManager;
+        this.constructionManager = constructionManager;
     }
 
     public void willNotify(final EntityConstructionQueueListener l) {

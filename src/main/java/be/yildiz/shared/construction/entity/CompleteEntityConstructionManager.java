@@ -28,8 +28,8 @@ package be.yildiz.shared.construction.entity;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
+import be.yildiz.shared.entity.DefaultEntityInConstruction;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityInConstruction;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public interface CompleteEntityConstructionManager<T extends Entity> extends Sim
      * @param builderId Id of the building or entity creating this entity.
      * @param c Metadata about the construction current status.
      */
-    void createEntity(EntityInConstruction eic, EntityId builderId, EntityRepresentationConstruction c);
+    void createEntity(DefaultEntityInConstruction eic, EntityId builderId, EntityRepresentationConstruction c);
 
     /**
      * @return The list of entities in the building queue.

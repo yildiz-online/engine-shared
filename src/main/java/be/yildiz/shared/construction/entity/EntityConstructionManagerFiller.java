@@ -27,38 +27,39 @@ package be.yildiz.shared.construction.entity;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
+import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.DefaultEntityInConstruction;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import be.yildiz.shared.entity.Entity;
+import be.yildiz.shared.entity.EntityInConstructionFactory;
+import be.yildiz.shared.entity.EntityInConstructionFactorySimple;
 
 /**
- * Class with entity data and building time.
- *
+ * This class fill the construction manager with requests comming from the queue manager.
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
-public final class WaitingEntity {
+public class EntityConstructionManagerFiller<T extends Entity> implements EntityConstructionQueueListener {
 
-    /**
-     * The entity to build data.
-     */
-    public final DefaultEntityInConstruction entity;
+    private final EntityConstructionManager<T> manager;
 
-    public final EntityRepresentationConstruction representation;
+    private final EntityInConstructionFactory f = new EntityInConstructionFactorySimple();
+    private final IdProvider idProvider;
 
-    /**
-     * Unique id of the builder of this entity.
-     */
-    public final EntityId builderId;
-
-    public WaitingEntity(DefaultEntityInConstruction entity, EntityRepresentationConstruction representation, EntityId builderId) {
-        this.entity = entity;
-        this.representation = representation;
-        this.builderId = builderId;
+    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, IdProvider provider) {
+        super();
+        this.manager = manager;
+        this.idProvider = provider;
     }
 
-    public boolean isOwned(@NonNull final PlayerId player) {
-        return this.entity.getOwner().equals(player);
+    @Override
+    public void notify(EntityConstructionQueue list) {
+        //does nothing.
+    }
+
+    @Override
+    public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId buider) {
+        EntityId id = this.idProvider.getFreeId();
+        Builder builder = null;
+        DefaultEntityInConstruction eic = this.f.build(toBuild.type, id, toBuild.data, p, builder.getBuildPosition(), Point3D.BASE_DIRECTION);
+        this.manager.createEntity(eic, buider, toBuild);
     }
 }
