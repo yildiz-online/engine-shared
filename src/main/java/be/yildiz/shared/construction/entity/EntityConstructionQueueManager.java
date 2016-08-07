@@ -43,12 +43,9 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
 
     private final BuilderManager builderManager;
 
-    private final EntityConstructionManager<T> constructionManager;
-
-    public EntityConstructionQueueManager(BuilderManager builderManager, EntityConstructionManager<T> constructionManager) {
+    public EntityConstructionQueueManager(BuilderManager builderManager) {
         super();
         this.builderManager = builderManager;
-        this.constructionManager = constructionManager;
     }
 
     public void willNotify(final EntityConstructionQueueListener l) {
@@ -84,7 +81,6 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
      * @param toBuild
      */
     public void addEntity(final PlayerId playerId, final EntityId builderId, final EntityRepresentationConstruction toBuild) {
-        //FIXME URGENT what is this code doing?
         Builder b = this.builderManager.getBuilderById(builderId);
         b.addInQueue(toBuild);
         if (b.getQueue().getList().size() == 1) {
