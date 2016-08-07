@@ -76,7 +76,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     }
 
     @Override
-    public void createEntity(final EntityInConstruction entity, EntityId builderId, final int index) throws EntityConstructionQueueFullException {
+    public void createEntity(final EntityInConstruction entity, final EntityId builderId, final int index) {
         T buildEntity = this.associatedFactory.createEntity(entity);
         Logger.debug("Entity built " + entity.getId());
         this.listenerList.forEach(l -> l.entityComplete(buildEntity, builderId, index));
@@ -107,9 +107,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
             WaitingEntity waitingEntity = this.entityToBuildList.get(i);
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
-                T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
-                Logger.debug("Entity complete " + waitingEntity.entity.getId());
-                this.listenerList.forEach(l -> l.entityComplete(buildEntity, waitingEntity.builderId, waitingEntity.representation.index));
+                this.createEntity(waitingEntity.entity, waitingEntity.builderId, waitingEntity.representation.index);
                 this.entityToBuildList.remove(i);
                 i--;
             }
