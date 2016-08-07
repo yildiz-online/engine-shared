@@ -30,14 +30,25 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 
 /**
+ * Listen about an entity construction queue state change.
  * @author Grégory Van den Borre
  */
 @FunctionalInterface
 public interface EntityConstructionQueueListener {
 
-    void notify(EntityConstructionQueue list);
+    /**
+     * Notify about a change in the state.
+     * @param queue Queue changed.
+     */
+    void notify(EntityConstructionQueue queue);
 
-    default void add(EntityRepresentationConstruction toBuild, PlayerId p, EntityId buider) {
+    /**
+     * Notify when a new request is added to the queue.
+     * @param toBuild Construction data/
+     * @param player Id of the player requesting the build.
+     * @param builder Id of the entity building this entity.
+     */
+    default void add(EntityRepresentationConstruction toBuild, PlayerId player, EntityId builder) {
     }
 
 }
