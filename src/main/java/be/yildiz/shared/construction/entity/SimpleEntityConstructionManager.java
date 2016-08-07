@@ -30,7 +30,8 @@ import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstruction;
 
 /**
- * @param <T>
+ * An entity construction manager will build entities, once the process is done, the listeners are notified.
+ * @param <T> Entity.
  * @author Grégory Van den Borre
  */
 public interface SimpleEntityConstructionManager<T extends Entity> {
@@ -42,5 +43,11 @@ public interface SimpleEntityConstructionManager<T extends Entity> {
      */
     void willNotify(EntityConstructionListener<T>... l);
 
-    void createEntity(EntityInConstruction eic, EntityId builderId, int index) throws EntityConstructionQueueFullException;
+    /**
+     * Build an entity without any waiting time.
+     * @param eic Entity to build state.
+     * @param builderId Unique id of the builder.
+     * @param index Unique index for this construction.
+     */
+    void createEntity(EntityInConstruction eic, EntityId builderId, int index);
 }
