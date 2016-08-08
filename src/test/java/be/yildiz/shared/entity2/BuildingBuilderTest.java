@@ -33,7 +33,7 @@ import be.yildiz.shared.building.BaseBuildingTest;
 import be.yildiz.shared.building.Building;
 import be.yildiz.shared.construction.entity.Builder;
 import be.yildiz.shared.construction.entity.BuildingBuilder;
-import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.data.ConstructionData;
 import lombok.NonNull;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -110,7 +110,7 @@ public class BuildingBuilderTest {
         }
 
         @Override
-        public boolean fullfilPrerequisite(EntityType type) {
+        public boolean fullfilPrerequisite(ConstructionData type) {
             return true;
         }
     }
