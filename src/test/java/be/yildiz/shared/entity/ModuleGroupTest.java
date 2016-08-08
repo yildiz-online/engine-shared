@@ -273,6 +273,29 @@ public class ModuleGroupTest {
         }
 
         @Test
+        public void forDifferentEnergy() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(HULL)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
         public void forDifferentDetector() {
             ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
                     .withHull(HULL)
