@@ -33,22 +33,39 @@ import be.yildiz.common.id.PlayerId;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
+ * Keep track of all existing builders.
  * @author Grégory Van den Borre
  */
 public class BuilderManager {
 
+    /**
+     * List of builder by their id.
+     */
     private final Map<EntityId, Builder> builderList = Maps.newMap();
 
+    /**
+     * List of all builders for a given player.
+     */
     private final Map<PlayerId, List<Builder>> buildersByPlayer = Maps.newMap();
 
 
-    public Builder getBuilderById(EntityId builderId) {
-        return this.builderList.get(builderId);
+    /**
+     * Retrieve a builder by its id.
+     * @param builderId Builder unique id.
+     * @return The builder matching the given id.
+     */
+    public Optional<Builder> getBuilderById(EntityId builderId) {
+        return Optional.ofNullable(this.builderList.get(builderId));
     }
 
-    public void addBuilder(Builder builder) {
+    /**
+     * Register a new builder.
+     * @param builder Builder to register.
+     */
+    public void addBuilder(final Builder builder) {
         this.builderList.put(builder.getBuilderId(), builder);
         if (!this.buildersByPlayer.containsKey(builder.getOwner())) {
             this.buildersByPlayer.put(builder.getOwner(), Lists.newList());

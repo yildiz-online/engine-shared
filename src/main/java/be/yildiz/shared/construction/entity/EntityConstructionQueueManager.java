@@ -68,7 +68,7 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
     }
 
     public void update(final EntityConstructionQueue items) {
-        Builder b = this.builderManager.getBuilderById(items.getBuilderId());
+        Builder b = this.builderManager.getBuilderById(items.getBuilderId()).get();
         b.setQueue(items);
         listeners.forEach(l -> l.notify(b.getQueue()));
     }
@@ -81,7 +81,7 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
      * @param toBuild
      */
     public void addEntity(final PlayerId playerId, final EntityId builderId, final EntityRepresentationConstruction toBuild) {
-        Builder b = this.builderManager.getBuilderById(builderId);
+        Builder b = this.builderManager.getBuilderById(builderId).get();
         b.addInQueue(toBuild);
         if (b.getQueue().getList().size() == 1) {
             listeners.forEach(l -> l.add(toBuild, playerId, builderId));
@@ -94,7 +94,7 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
         if (builder.equals(EntityId.WORLD)) {
             return;
         }
-        Builder b = this.builderManager.getBuilderById(builder);
+        Builder b = this.builderManager.getBuilderById(builder).get();
         b.removeFromQueue(index);
         if (!b.getQueue().isEmpty()) {
             EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);
@@ -105,7 +105,7 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
 
     @Override
     public void entityConstructionCanceled(WaitingEntity w) {
-        Builder b = this.builderManager.getBuilderById(w.builderId);
+        Builder b = this.builderManager.getBuilderById(w.builderId).get();
         b.removeFromQueue(w.representation.index);
         if (!b.getQueue().isEmpty()) {
             EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);

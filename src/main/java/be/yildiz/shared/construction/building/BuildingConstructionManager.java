@@ -75,16 +75,17 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
     /**
      * Create a new BuilderManager.
      *
-     * @param em Associated BaseCityManager.
+     * @param cityManager Associated BaseCityManager.
+     * @param factory Factory to create the materialization for the buildings.
      */
-    public BuildingConstructionManager(final CityManager<B,D,C> em, BuildingFactory<B> factory) {
+    public BuildingConstructionManager(final CityManager<B,D,C> cityManager, final BuildingFactory<B> factory) {
         super();
-        this.cityManager = em;
+        this.cityManager = cityManager;
         this.associatedFactory = factory;
     }
 
     /**
-     * Add a entity to build in the builder list if time left is above 0, otherwise, building is built immediatly.
+     * Add a entity to build in the builder list if time left is above 0, otherwise, building is built immediately.
      *
      * @param b        Data to build the Building.
      * @param timeLeft Time to wait before the build is complete.
@@ -163,6 +164,10 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
         return Collections.unmodifiableList(this.constructionToBuildList);
     }
 
+    /**
+     * @param c City.
+     * @return The list of buildings to build for a city.
+     */
     public Set<WaitingBuilding<B>> getBuildingList(C c) {
         return Collections.unmodifiableSet(this.constructionToBuildByCity.getOrDefault(c, Sets.newSet()));
     }

@@ -39,12 +39,32 @@ import be.yildiz.shared.entity.EntityInConstructionFactorySimple;
  */
 public class EntityConstructionManagerFiller<T extends Entity> implements EntityConstructionQueueListener {
 
+    /**
+     * Manager responsible to build entities.
+     */
     private final EntityConstructionManager<T> manager;
 
+    /**
+     * Helper class to create entity in construction instances.
+     */
     private final EntityInConstructionFactory f = new EntityInConstructionFactorySimple();
+
+    /**
+     * Provider for unused unique entity id.
+     */
     private final IdProvider idProvider;
+
+    /**
+     * Manager responsible to handle the builders.
+     */
     private final BuilderManager builderManager;
 
+    /**
+     * Create a new instance filler.
+     * @param manager Manager responsible to build entities.
+     * @param provider Provider for unused unique entity id.
+     * @param builderManager Manager responsible to handle the builders.
+     */
     public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, IdProvider provider, BuilderManager builderManager) {
         super();
         this.manager = manager;
@@ -60,7 +80,8 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
     @Override
     public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId builderId) {
         EntityId id = this.idProvider.getFreeId();
-        Builder builder = this.builderManager.getBuilderById(builderId);
+        //FIXME handle the optional correctly
+        Builder builder = this.builderManager.getBuilderById(builderId).get();
         DefaultEntityInConstruction eic = this.f.build(toBuild.type, id, toBuild.data, p, builder.getBuildPosition(), Point3D.BASE_DIRECTION);
         this.manager.createEntity(eic, builderId, toBuild);
     }
