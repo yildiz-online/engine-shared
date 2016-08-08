@@ -38,6 +38,8 @@ import lombok.NonNull;
  * <p>
  * Immutable class.
  *
+ * <B> Building implementation type.
+ *
  * @author Grégory Van den Borre
  */
 public abstract class BuildingBuilder<B extends Building> implements Builder {

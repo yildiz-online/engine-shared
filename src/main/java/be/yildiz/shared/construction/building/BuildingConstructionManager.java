@@ -57,24 +57,30 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
      */
     private final List<WaitingBuilding<B>> constructionToBuildList = Lists.newList();
 
+    /**
+     * List of the building to build by city.
+     */
     private final Map<C, Set<WaitingBuilding<B>>> constructionToBuildByCity = Maps.newMap();
+
     /**
      * Listener to notify when a construction is completed.
      */
     private final Set<BuildingConstructionListener<B, D, C>> listenerList = Sets.newInsertionOrderedSet();
+
     /**
      * Factory to build the entities.
      */
-    private BuildingFactory<B> associatedFactory;
+    private final BuildingFactory<B> associatedFactory;
 
     /**
      * Create a new BuilderManager.
      *
      * @param em Associated BaseCityManager.
      */
-    public BuildingConstructionManager(final CityManager<B,D,C> em) {
+    public BuildingConstructionManager(final CityManager<B,D,C> em, BuildingFactory<B> factory) {
         super();
         this.cityManager = em;
+        this.associatedFactory = factory;
     }
 
     /**
@@ -155,10 +161,6 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
      */
     public List<WaitingBuilding<B>> getBuildingList() {
         return Collections.unmodifiableList(this.constructionToBuildList);
-    }
-
-    public void setFactory(BuildingFactory<B> factory) {
-        this.associatedFactory = factory;
     }
 
     public Set<WaitingBuilding<B>> getBuildingList(C c) {
