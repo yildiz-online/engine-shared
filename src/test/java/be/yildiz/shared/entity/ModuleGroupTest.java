@@ -174,6 +174,21 @@ public class ModuleGroupTest {
     public static class Equals {
 
         @Test
+        public void forSameInstance() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertEquals(modules, modules);
+        }
+
+
+        @Test
         public void forSameValue() {
             ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
                     .withHull(HULL)
@@ -234,6 +249,165 @@ public class ModuleGroupTest {
             Assert.assertNotEquals(modules, modules2);
         }
 
+        @Test
+        public void forDifferentHull() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(ENERGY)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
 
+        @Test
+        public void forDifferentDetector() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(ENERGY)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forDifferentMove() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(DETECTOR)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forDifferentInteraction() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(MOVE)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forDifferentAdditional1() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(INTERACTION)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forDifferentAdditional2() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_1)
+                    .withAdditional3(OTHER_3).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
+
+        @Test
+        public void forDifferentAdditional3() {
+            ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_3).build();
+            ModuleGroup modules2 = new ModuleGroup.ModuleGroupBuilder()
+                    .withHull(HULL)
+                    .withEnergy(ENERGY)
+                    .withDetector(DETECTOR)
+                    .withMove(MOVE)
+                    .withInteraction(INTERACTION)
+                    .withAdditional1(OTHER_1)
+                    .withAdditional2(OTHER_2)
+                    .withAdditional3(OTHER_2).build();
+            Assert.assertNotEquals(modules, modules2);
+        }
     }
 }
