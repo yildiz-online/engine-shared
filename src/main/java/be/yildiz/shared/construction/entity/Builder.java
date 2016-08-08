@@ -29,7 +29,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
-import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.data.ConstructionData;
 
 /**
  * Building having the capacity to build entities.
@@ -59,10 +59,10 @@ public interface Builder {
     /**
      * Check if this builder is able to create a entity of a given type.
      *
-     * @param type Entity type to check.
+     * @param data Data used for this construction.
      * @return <code>true</code> if this builder can create the entity, false otherwise.
      */
-    boolean fullfilPrerequisite(EntityType type);
+    boolean fullfilPrerequisite(ConstructionData data);
 
     /**
      * @return The queue used by this builder.
