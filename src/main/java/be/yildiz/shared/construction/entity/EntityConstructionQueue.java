@@ -63,8 +63,9 @@ public final class EntityConstructionQueue {
 
     /**
      * Create a new instance.
+     *
      * @param builderId Id of the builder holding this queue.
-     *                  @throws NullPointerException If builderId is null.
+     * @throws NullPointerException If builderId is null.
      */
     public EntityConstructionQueue(@NonNull final EntityId builderId, final int maxSize) {
         super();
@@ -74,9 +75,13 @@ public final class EntityConstructionQueue {
 
     /**
      * Add a new entity to build in the queue.
+     *
      * @param e Entity to build data.
      */
-    public void add(final EntityRepresentationConstruction e) {
+    public void add(final EntityRepresentationConstruction e) throws EntityConstructionQueueFullException {
+        if(this.entities.size() == this.maxSize) {
+            throw new EntityConstructionQueueFullException();
+        }
         this.entities.add(e);
     }
 
@@ -84,13 +89,21 @@ public final class EntityConstructionQueue {
         return this.entities.isEmpty();
     }
 
-    public void set(EntityConstructionQueue l) {
+    /**
+     * Reset the construction list with new values.
+     *
+     * @param list New values to set in the list.
+     * @throws EntityConstructionQueueFullException If the list size is bigger than the max size.
+     */
+    public void set(List<EntityRepresentationConstruction> list) throws EntityConstructionQueueFullException {
         this.entities.clear();
-        List<EntityRepresentationConstruction> list = l.getList();
-        if(list.contains(null)) {
+        if (list.size() > this.maxSize) {
+            throw new EntityConstructionQueueFullException();
+        }
+        if (list.contains(null)) {
             throw new NullPointerException("The list contains null values.");
         }
-        this.entities.addAll(l.getList());
+        this.entities.addAll(list);
     }
 
     public List<EntityRepresentationConstruction> getList() {
@@ -169,17 +182,24 @@ public final class EntityConstructionQueue {
             return this.timeLeft.timeInMs;
         }
 
-
+        /**
+         * Update the time left.
+         *
+         * @param timeToRemove Time spent since the last update.
+         */
         public void reduceTimeLeft(final long timeToRemove) {
             long t = timeLeft.subtractMs(timeToRemove);
-            if(t < 0) {
+            if (t < 0) {
                 t = 0;
             }
             this.timeLeft = Time.milliSeconds(t);
         }
 
+        /**
+         * @return True if the time required to build the entity is elapsed.
+         */
         public boolean isTimeElapsed() {
-            return this.timeLeft.timeInMs == 0;
+            return this.timeLeft.timeInMs <= 0;
         }
     }
 }

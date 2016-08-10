@@ -31,6 +31,8 @@ import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.data.ConstructionData;
 
+import java.util.List;
+
 /**
  * Building having the capacity to build entities.
  *
@@ -75,7 +77,7 @@ public interface Builder {
      *
      * @param queue Queue to set
      */
-    void setQueue(EntityConstructionQueue queue);
+    void setQueue(List<EntityRepresentationConstruction> queue) throws EntityConstructionQueueFullException;
 
     /**
      * Remove an item from the building queue.
@@ -89,7 +91,7 @@ public interface Builder {
      *
      * @param r Element to build.
      */
-    void addInQueue(EntityRepresentationConstruction r);
+    void addInQueue(EntityRepresentationConstruction r) throws EntityConstructionQueueFullException;
 
     /**
      * @return The unique id of the entity containing this builder.

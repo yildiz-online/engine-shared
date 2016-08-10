@@ -33,6 +33,8 @@ import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepres
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.List;
+
 /**
  * A building able to create new entities.
  * <p>
@@ -93,7 +95,7 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
     }
 
     @Override
-    public void setQueue(EntityConstructionQueue l) {
+    public void setQueue(List<EntityRepresentationConstruction> l) throws EntityConstructionQueueFullException {
         this.queue.set(l);
     }
 
@@ -103,7 +105,7 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
     }
 
     @Override
-    public void addInQueue(EntityRepresentationConstruction r) {
+    public void addInQueue(EntityRepresentationConstruction r) throws EntityConstructionQueueFullException {
         this.queue.add(r);
     }
 }

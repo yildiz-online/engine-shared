@@ -103,7 +103,7 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
         Optional<Builder> builder = this.builderManager.getBuilderById(items.getBuilderId());
         builder.ifPresent(
                 b -> {
-                    b.setQueue(items);
+                    b.setQueue(items.getList());
                     listeners.forEach(l -> l.notify(b.getQueue()));
                 }
         );
