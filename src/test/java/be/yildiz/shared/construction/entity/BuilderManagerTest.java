@@ -25,19 +25,8 @@
 
 package be.yildiz.shared.construction.entity;
 
-import be.yildiz.common.id.EntityId;
-
 /**
- * Implementations of this interface will provide id not yet(or no longer) used.
  * @author Grégory Van den Borre
  */
-@FunctionalInterface
-public interface IdProvider {
-
-    /**
-     * Provide an unused id.
-     * @return An unused id.
-     */
-    //@Ensures("result != null")
-    EntityId getFreeId();
+public class BuilderManagerTest {
 }

@@ -57,7 +57,8 @@ public class BuilderManager {
      * @param builderId Builder unique id.
      * @return The builder matching the given id.
      */
-    public Optional<Builder> getBuilderById(EntityId builderId) {
+    //@Ensures("result != null")
+    public Optional<Builder> getBuilderById(final EntityId builderId) {
         return Optional.ofNullable(this.builderList.get(builderId));
     }
 
@@ -79,6 +80,7 @@ public class BuilderManager {
      * @param player Player owner of the builders.
      * @return the list of builders for a player.
      */
+    //@Ensures("result != null")
     public List<Builder> getBuilderByPlayer(final PlayerId player) {
         return Collections.unmodifiableList((this.buildersByPlayer.getOrDefault(player, Collections.emptyList())));
     }

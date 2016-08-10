@@ -33,6 +33,8 @@ import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstructionFactory;
 import be.yildiz.shared.entity.EntityInConstructionFactorySimple;
 
+import java.util.Optional;
+
 /**
  * This class fill the construction manager with requests comming from the queue manager.
  * @author Grégory Van den Borre
@@ -79,10 +81,11 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
 
     @Override
     public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId builderId) {
-        EntityId id = this.idProvider.getFreeId();
-        //FIXME handle the optional correctly
-        Builder builder = this.builderManager.getBuilderById(builderId).get();
-        DefaultEntityInConstruction eic = this.f.build(toBuild.type, id, toBuild.data, p, builder.getBuildPosition(), Point3D.BASE_DIRECTION);
-        this.manager.createEntity(eic, builderId, toBuild);
+        Optional<Builder> builder = this.builderManager.getBuilderById(builderId);
+        builder.ifPresent(b -> {
+            EntityId id = this.idProvider.getFreeId();
+            DefaultEntityInConstruction eic = this.f.build(toBuild.type, id, toBuild.data, p, b.getBuildPosition(), Point3D.BASE_DIRECTION);
+            this.manager.createEntity(eic, builderId, toBuild);
+        });
     }
 }

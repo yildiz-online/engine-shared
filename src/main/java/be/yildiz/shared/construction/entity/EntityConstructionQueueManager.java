@@ -30,47 +30,83 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.Entity;
+import lombok.NonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- * @param <T>
+ * Manage the different construction queues.
+ *
+ * @param <T> Entity implementation in the queues.
  * @author Grégory Van den Borre
  */
 public class EntityConstructionQueueManager<T extends Entity> implements EntityConstructionListener<T> {
 
+    /**
+     * Listeners to notify when a queue state changes.
+     */
+    //@Invariant("!listeners.contains(null)")
     private final List<EntityConstructionQueueListener> listeners = Lists.newList();
 
+    /**
+     * Manage the builders.
+     */
+    //@Invariant("builderManager != null")
     private final BuilderManager builderManager;
 
-    public EntityConstructionQueueManager(BuilderManager builderManager) {
+    /**
+     * Create a new instance.
+     *
+     * @param builderManager Associated builder manager.
+     * @throws NullPointerException If builderManager is null.
+     */
+    public EntityConstructionQueueManager(@NonNull final BuilderManager builderManager) {
         super();
         this.builderManager = builderManager;
     }
 
-    public void willNotify(final EntityConstructionQueueListener l) {
-        this.listeners.add(l);
+    /**
+     * Add a new queue listener to notify.
+     *
+     * @param listener Listener to add.
+     * @throws NullPointerException If listener is null.
+     */
+    public void willNotify(@NonNull final EntityConstructionQueueListener listener) {
+        this.listeners.add(listener);
     }
 
     /**
      * Cancel a construction and remove it from the queue.
      *
-     * @param p     Player canceling the construction.
-     * @param index Index of the construction.
+     * @param playerId Player canceling the construction.
+     * @param index    Index of the construction.
      */
-    public void cancel(final PlayerId p, final int index) {
-        List<Builder> builders = builderManager.getBuilderByPlayer(p);
+    public void cancel(final PlayerId playerId, final int index) {
+        List<Builder> builders = builderManager.getBuilderByPlayer(playerId);
         for (Builder b : builders) {
             if (b.getQueue().remove(index)) {
                 listeners.forEach(l -> l.notify(b.getQueue()));
+                break;
             }
         }
     }
 
+    /**
+     * Refresh a builder state with the updated queue.
+     * If the items is not associated with any builder, nothing happens.
+     *
+     * @param items
+     * @throws NullPointerException if items is null.
+     */
     public void update(final EntityConstructionQueue items) {
-        Builder b = this.builderManager.getBuilderById(items.getBuilderId()).get();
-        b.setQueue(items);
-        listeners.forEach(l -> l.notify(b.getQueue()));
+        Optional<Builder> builder = this.builderManager.getBuilderById(items.getBuilderId());
+        builder.ifPresent(
+                b -> {
+                    b.setQueue(items);
+                    listeners.forEach(l -> l.notify(b.getQueue()));
+                }
+        );
     }
 
     /**
@@ -81,12 +117,16 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
      * @param toBuild
      */
     public void addEntity(final PlayerId playerId, final EntityId builderId, final EntityRepresentationConstruction toBuild) {
-        Builder b = this.builderManager.getBuilderById(builderId).get();
-        b.addInQueue(toBuild);
-        if (b.getQueue().getList().size() == 1) {
-            listeners.forEach(l -> l.add(toBuild, playerId, builderId));
-        }
-        listeners.forEach(l -> l.notify(b.getQueue()));
+        Optional<Builder> builder = this.builderManager.getBuilderById(builderId);
+        builder.ifPresent(
+                b -> {
+                    b.addInQueue(toBuild);
+                    if (b.getQueue().hasOnlyOneElement()) {
+                        listeners.forEach(l -> l.add(toBuild, playerId, builderId));
+                    }
+                    listeners.forEach(l -> l.notify(b.getQueue()));
+                }
+        );
     }
 
     @Override

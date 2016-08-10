@@ -67,6 +67,7 @@ public interface Builder {
     /**
      * @return The queue used by this builder.
      */
+    //@Ensures("result != null")
     EntityConstructionQueue getQueue();
 
     /**
