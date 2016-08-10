@@ -28,7 +28,7 @@ package be.yildiz.shared.construction.entity;
 /**
  * @author Grégory Van den Borre
  */
-public class EntityConstructionQueueFullException extends Exception {
+public class EntityConstructionQueueFullException extends RuntimeException {
 
     /***/
     private static final long serialVersionUID = 1L;
