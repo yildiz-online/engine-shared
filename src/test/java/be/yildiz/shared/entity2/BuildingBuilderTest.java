@@ -102,11 +102,11 @@ public class BuildingBuilderTest {
          * @param building Associated building.
          */
         public DummyBuildingBuilder(@NonNull Building building) {
-            super(EntityId.get(10L), PlayerId.WORLD, Point3D.xyz(10, 15, 20), building);
+            super(EntityId.get(10L), PlayerId.WORLD, Point3D.xyz(10, 15, 20), building, 5);
         }
 
         public DummyBuildingBuilder(EntityId builderId, PlayerId world, Point3D xyz, Building building) {
-            super(builderId, world, xyz, building);
+            super(builderId, world, xyz, building, 5);
         }
 
         @Override

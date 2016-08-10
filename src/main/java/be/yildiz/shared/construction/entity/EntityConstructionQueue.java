@@ -32,6 +32,7 @@ import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.Collections;
@@ -49,15 +50,33 @@ public final class EntityConstructionQueue {
      */
     private final List<EntityRepresentationConstruction> entities = Lists.newList();
 
+    /**
+     * Id of the builder holding this queue.
+     */
     @Getter
     private final EntityId builderId;
 
-    public EntityConstructionQueue(EntityId builderId) {
+    /**
+     * Queue maximum size.
+     */
+    private int maxSize = 0;
+
+    /**
+     * Create a new instance.
+     * @param builderId Id of the builder holding this queue.
+     *                  @throws NullPointerException If builderId is null.
+     */
+    public EntityConstructionQueue(@NonNull final EntityId builderId, final int maxSize) {
         super();
         this.builderId = builderId;
+        this.maxSize = maxSize;
     }
 
-    public void add(EntityRepresentationConstruction e) {
+    /**
+     * Add a new entity to build in the queue.
+     * @param e Entity to build data.
+     */
+    public void add(final EntityRepresentationConstruction e) {
         this.entities.add(e);
     }
 
@@ -102,6 +121,10 @@ public final class EntityConstructionQueue {
             }
         }
         return result;
+    }
+
+    public boolean hasOnlyOneElement() {
+        return this.entities.size() == 1;
     }
 
     /**

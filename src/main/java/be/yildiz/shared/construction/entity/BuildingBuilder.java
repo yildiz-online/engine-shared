@@ -78,12 +78,12 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
      * @param buildPosition Position in the world.
      * @param building      Associated building.
      */
-    protected BuildingBuilder(@NonNull final EntityId builderId, final PlayerId owner, @NonNull final Point3D buildPosition, @NonNull final B building) {
+    protected BuildingBuilder(@NonNull final EntityId builderId, final PlayerId owner, @NonNull final Point3D buildPosition, @NonNull final B building, final int queueMaxSize) {
         super();
         this.builderId = builderId;
         this.buildPosition = buildPosition;
         this.building = building;
-        this.queue = new EntityConstructionQueue(builderId);
+        this.queue = new EntityConstructionQueue(builderId, queueMaxSize);
         this.owner = owner;
     }
 
