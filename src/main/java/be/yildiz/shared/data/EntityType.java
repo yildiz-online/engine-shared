@@ -96,7 +96,7 @@ public final class EntityType {
      * @throws NullPointerException if there is no value matching the index.
      */
     public static EntityType get(final int index) {
-        assert EntityType.MAP.containsKey(Integer.valueOf(index));
+        assert EntityType.MAP.containsKey(Integer.valueOf(index)) : "Entity type " + index + " not registered";
         return EntityType.MAP.get(Integer.valueOf(index));
     }
 

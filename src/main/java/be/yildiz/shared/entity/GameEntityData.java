@@ -47,7 +47,7 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
     /**
      * Constant for world data.
      */
-    public static final GameEntityData WORLD = new GameEntityData(EntityType.WORLD, 0, Instance.UNIQUE, Level.ZERO, new ModulesAllowed().move(ActionId.get(0)).weapon(ActionId.get(1)), new ResourceValue(new float[]{}), TimeToBuild.ZERO, false);
+    public static final GameEntityData WORLD = new GameEntityData(EntityType.WORLD, 1000, Instance.UNIQUE, Level.ZERO, new ModulesAllowed(), new ResourceValue(new float[]{}), TimeToBuild.ZERO, false);
 
     /**
      * Entity size, must be > 0
@@ -89,7 +89,7 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
         this.buildable = buildable;
         this.price = price;
         this.timeToBuild = timeToBuild;
-        assert this.invariant();
+        assert this.invariant() : "Invariant failed";
     }
 
     public final boolean isAllowed(ActionId module) {
@@ -106,7 +106,7 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
         if (this.modulesAllowed == null) {
             throw new IllegalArgumentException("modulesAllowed is null");
         }
-        Checker.exceptionNotGreaterThanZero(size);
+        Checker.exceptionNotGreaterThanZero(this.size);
         return true;
     }
 

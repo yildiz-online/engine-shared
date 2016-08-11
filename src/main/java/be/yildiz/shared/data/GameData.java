@@ -54,6 +54,7 @@ public abstract class GameData {
     private final Level requiredLevel;
 
     protected GameData(EntityType type, Instance maxInstances, Level requiredLevel) {
+        super();
         this.type = type;
         this.maxInstances = maxInstances;
         this.requiredLevel = requiredLevel;
