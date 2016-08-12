@@ -33,6 +33,7 @@ import be.yildiz.shared.data.Level;
 import be.yildiz.shared.data.TimeToBuild;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.resources.ResourceValue;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -46,6 +47,8 @@ public class GameEntityDataTest {
     private static final EntityType TYPE_OK = new EntityType(5, "test");
 
     private static final int SIZE_OK = 10;
+
+    private static final int SIZE_NOT_OK = -1;
 
     private static final Instance INSTANCE_OK = Instance.UNIQUE;
 
@@ -68,6 +71,52 @@ public class GameEntityDataTest {
         @Test
         public void happyFlow() {
             GameEntityData d = new GameEntityData(TYPE_OK, SIZE_OK, INSTANCE_OK, LEVEL_OK, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+            Assert.assertEquals(TYPE_OK, d.getType());
+            Assert.assertEquals(SIZE_OK, d.getSize());
+            Assert.assertEquals(INSTANCE_OK, d.getMaxInstances());
+            Assert.assertEquals(LEVEL_OK, d.getRequiredLevel());
+            Assert.assertEquals(ALLOWED_OK, d.getModulesAllowed());
+            Assert.assertEquals(PRICE_OK, d.getPrice());
+            Assert.assertEquals(TIME_OK, d.getTimeToBuild());
+            Assert.assertTrue(d.isBuildable());
+
+            d = new GameEntityData(TYPE_OK, SIZE_OK, INSTANCE_OK, LEVEL_OK, ALLOWED_OK, PRICE_OK, TIME_OK, false);
+            Assert.assertFalse(d.isBuildable());
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void withNegativeSize() {
+            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullType() {
+            new GameEntityData(null, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullInstance() {
+            new GameEntityData(TYPE_OK, SIZE_NOT_OK, null, LEVEL_OK, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullLevel() {
+            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, null, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullAllowed() {
+            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, null, PRICE_OK, TIME_OK, true);
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullPrice() {
+            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, ALLOWED_OK, null, TIME_OK, true);
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullTime() {
+            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, ALLOWED_OK, PRICE_OK, null, true);
         }
 
     }

@@ -31,6 +31,7 @@ import be.yildiz.shared.data.*;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.resources.ResourceValue;
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * Contains all the data proper to an Entity type.
@@ -76,38 +77,22 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
     /**
      * Full constructor.
      *
-     * @param type          Object type.
-     * @param size          Object size.
-     * @param instances     Number of units of that type allowed.
-     * @param level         Level required to build this object.
-     * @param buildable     Flag to tell if the entity can be built by the player.
+     * @param type      Object type.
+     * @param size      Object size.
+     * @param instances Number of units of that type allowed.
+     * @param level     Level required to build this object.
+     * @param buildable Flag to tell if the entity can be built by the player.
      */
-    protected GameEntityData(final EntityType type, final int size, final Instance instances, final Level level, final ModulesAllowed modulesAllowed, final ResourceValue price, final TimeToBuild timeToBuild, final boolean buildable) {
+    protected GameEntityData(@NonNull final EntityType type, final int size, @NonNull final Instance instances,
+                             @NonNull final Level level, @NonNull final ModulesAllowed modulesAllowed, @NonNull final ResourceValue price,
+                             @NonNull final TimeToBuild timeToBuild, final boolean buildable) {
         super(type, instances, level);
+        Checker.exceptionNotGreaterThanZero(size);
         this.size = size;
         this.modulesAllowed = modulesAllowed;
         this.buildable = buildable;
         this.price = price;
         this.timeToBuild = timeToBuild;
-        assert this.invariant() : "Invariant failed";
-    }
-
-    public final boolean isAllowed(ActionId module) {
-        return true;
-    }
-
-    /**
-     * Check the invariant.
-     *
-     * @return <code>true</code>.
-     * @throws IllegalArgumentException If the invariant is broken.
-     */
-    private boolean invariant() {
-        if (this.modulesAllowed == null) {
-            throw new IllegalArgumentException("modulesAllowed is null");
-        }
-        Checker.exceptionNotGreaterThanZero(this.size);
-        return true;
     }
 
     public boolean isMoveAllowed(ActionId move) {
