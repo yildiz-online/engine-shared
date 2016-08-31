@@ -85,7 +85,7 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
     }
 
     /**
-     * Add a entity to build in the builder list if time left is above 0, otherwise, building is built immediately.
+     * Add a building to build in the builder list if time left is above 0, otherwise, building is built immediately.
      *
      * @param b        Data to build the Building.
      * @param timeLeft Time to wait before the build is complete.

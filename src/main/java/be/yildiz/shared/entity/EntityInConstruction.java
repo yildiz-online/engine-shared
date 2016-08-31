@@ -36,8 +36,9 @@ import lombok.Getter;
 import lombok.NonNull;
 
 /**
- * An entity in construction contains the state of an entity to be built: its hit points, energy points, position,...
- * Once the real entity is built, it will inherit of this state.
+ * This extends the entity in construction to provide additional information for a previously built entity.
+ * This is usually used to build entities retrieved from an existing context: database loading...
+ *
  * @author Grégory Van den Borre
  */
 @Getter
@@ -45,13 +46,13 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
 
     public static final EntityInConstruction WORLD = new EntityInConstruction(EntityType.WORLD, EntityId.WORLD, PlayerId.WORLD, "World",
             new ModuleGroup.ModuleGroupBuilder()
-            .withMove(ActionId.get(0))
-            .withInteraction(ActionId.get(1))
-            .withDetector(ActionId.get(42))
-            .withHull(ActionId.get(9))
-            .withEnergy(ActionId.get(13))
-            .withNoAdditional()
-            .build(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
+                    .withMove(ActionId.get(0))
+                    .withInteraction(ActionId.get(1))
+                    .withDetector(ActionId.get(42))
+                    .withHull(ActionId.get(9))
+                    .withEnergy(ActionId.get(13))
+                    .withNoAdditional()
+                    .build(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
 
     /**
      * Name of the entity.
@@ -68,8 +69,23 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
      */
     private final int energy;
 
-    public EntityInConstruction(EntityType et, EntityId id, PlayerId owner, @NonNull String name, ModuleGroup modules, Point3D position, Point3D direction, int hp, int energy) {
-        super(et, id, owner, modules, position, direction);
+    /**
+     * Create a new instance.
+     *
+     * @param type      Type of the entity to build.
+     * @param id
+     * @param owner
+     * @param name      Name of the entity.
+     * @param modules
+     * @param position
+     * @param direction
+     * @param hp        Entity hit points when built.
+     * @param energy    Entity energy points when built.
+     * @throws NullPointerException     if any parameter is null.
+     * @throws IllegalArgumentException If hp or energy is not a positive value.
+     */
+    public EntityInConstruction(EntityType type, EntityId id, PlayerId owner, @NonNull String name, ModuleGroup modules, Point3D position, Point3D direction, int hp, int energy) {
+        super(type, id, owner, modules, position, direction);
         Checker.exceptionNotPositive(hp);
         Checker.exceptionNotPositive(energy);
         this.name = name;
