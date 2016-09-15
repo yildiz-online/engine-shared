@@ -32,7 +32,7 @@ import lombok.Getter;
  * Simple wrapper class to represent time between 2 attacks.
  *
  * @author Grégory Van den Borre
- * @immutable
+ * Immutable class
  */
 public final class AttackTime {
 
