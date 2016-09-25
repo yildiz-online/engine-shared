@@ -25,6 +25,7 @@
 
 package be.yildiz.shared.entity;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
@@ -43,7 +44,15 @@ public class DefaultEntityInConstructionTest {
 
     public static final EntityId ID_OK = EntityId.get(3L);
     public static final PlayerId OWNER_OK = PlayerId.get(2);
-    public static final ModuleGroup MODULES_OK = new ModuleGroup();
+    public static final ModuleGroup MODULES_OK = new ModuleGroup
+            .ModuleGroupBuilder()
+            .withMove(ActionId.get(1))
+            .withHull(ActionId.get(2))
+            .withInteraction(ActionId.get(3))
+            .withEnergy(ActionId.get(4))
+            .withDetector(ActionId.get(5))
+            .withNoAdditional()
+            .build();
     public static final Point3D POSITION_OK = Point3D.xyz(1, 2, 3);
     public static final Point3D DIRECTION_OK = Point3D.xyz(5, 8, 3);
     public static final EntityType TYPE_OK = new EntityType(4, "test");
