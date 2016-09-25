@@ -79,6 +79,7 @@ public final class ResearchManager {
     /**
      * Retrieve the research state for a given research.
      *
+     * @param player Player to check.
      * @param research Research to check.
      * @return The state of the given research.
      */
@@ -94,17 +95,19 @@ public final class ResearchManager {
     }
 
     /**
-     * @param player
-     * @param res
-     * @return
+     * Check if a given player has a research complete.
+     * @param player Player to check.
+     * @param res Research to check.
+     * @return <code>true</code> If the given player has completed to given research.
      */
     public boolean hasResearch(final Player player, final Research res) {
         return this.researches.putIfAbsent(player, Sets.newSet()).contains(res);
     }
 
     /**
-     * @param player
-     * @return
+     * Get all the researches for a player.
+     * @param player Player to get the researches.
+     * @return All the researches completed for the given player.
      */
     public Set<Research> getResearchList(final Player player) {
         return this.researches.getOrDefault(player, Collections.emptySet());

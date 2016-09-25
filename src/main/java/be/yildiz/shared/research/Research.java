@@ -74,22 +74,24 @@ public final class Research extends BaseRegisterable {
     }
 
     /**
-     * @param name          Research unique name.
-     * @param researchPrice Research price.
-     * @param bonus         Bonus received when this research is bought.
-     * @effects Create a new Research with no prerequisite.
+     * @param name  Research unique name.
+     * @param price Research price.
+     * @param bonus Bonus received when this research is bought.
+     * @return The created research.
      */
+    //@effects Create a new Research with no prerequisite.
     public static Research createAndRegister(final String name, final float price, final EntityBonus bonus) {
         return new Research(name, price, bonus, Optional.empty());
     }
 
     /**
      * @param name          Research unique name.
-     * @param researchPrice Research price.
+     * @param price         Research price.
      * @param bonus         Bonus received when this research is bought.
      * @param prerequisite  Research needed before buying this one.
-     * @effects Create a new Research with a prerequisite.
+     * @return The created research.
      */
+    //@effects Create a new Research with a prerequisite.
     public static Research createAndRegister(final String name, final float price, final EntityBonus bonus, final Research prerequisite) {
         return new Research(name, price, bonus, Optional.of(prerequisite));
     }
