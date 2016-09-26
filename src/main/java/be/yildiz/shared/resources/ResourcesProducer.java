@@ -75,7 +75,7 @@ public final class ResourcesProducer {
     /**
      * Full constructor.
      *
-     * @param player    Associated player.
+     * @param cityId    Associated city.
      * @param time      Time when the resources were updated for the last time.
      * @param resources Contains the last computed resource values.
      * @pre player != null
@@ -139,8 +139,8 @@ public final class ResourcesProducer {
     /**
      * Update the producer values.
      *
-     * @param time              Time since last computing.
-     * @param resourceFullValue Value at the last time computed.
+     * @param time          Time since last computing.
+     * @param resourceValue Value at the last time computed.
      */
     public void setNewValues(final long time, final ResourceValue resourceValue) {
         this.lastUpdate = time;

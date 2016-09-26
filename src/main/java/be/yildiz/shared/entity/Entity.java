@@ -48,66 +48,66 @@ import java.util.Set;
  * by a player, it can be the world.
  *
  * @author Grégory Van den Borre
- * @specfield id : Id : must be unique through the system, immutable.
- * @specfield hitPointMax: int : Maximum value reachable by the hitPoint value.
- * @specfield hitPoint : int : Hit point value for this entity, if reaching 0,
+ * specfield id : Id : must be unique through the system, immutable.
+ * specfield hitPointMax: int : Maximum value reachable by the hitPoint value.
+ * specfield hitPoint : int : Hit point value for this entity, if reaching 0,
  * the entity is considered as destroyed if it is not invincible.
- * @specfield energyMax : int : Maximum value reachable by the energy value.
- * @specfield energy : int Entity energy point value, can be used to activate
+ * specfield energyMax : int : Maximum value reachable by the energy value.
+ * specfield energy : int Entity energy point value, can be used to activate
  * actions.
- * @specfield position: Point3D: entity current position.
- * @specfield direction: Point3D: entity current direction vector, the value is
+ * specfield position: Point3D: entity current position.
+ * specfield direction: Point3D: entity current direction vector, the value is
  * normalized.
- * @specfield owner : Player : player owner of this entity, must be existing in
+ * specfield owner : Player : player owner of this entity, must be existing in
  * the system, can be set.
- * @specfield states: Set : Cannot contains null values.
- * @invariant id != null.
- * @invariant owner != null.
- * @invariant 0 <= hitPoint <= hitPointMax.
- * @invariant 0 <= energy <= energyMax.
- * @invariant position != null.
- * @invariant direction != null.
- * @invariant direction.x + direction.y + direction.z = 1.
- * @invariant !states.contains(null).
+ * specfield states: Set : Cannot contains null values.
+ * invariant id != null.
+ * invariant owner != null.
+ * invariant 0 <= hitPoint <= hitPointMax.
+ * invariant 0 <= energy <= energyMax.
+ * invariant position != null.
+ * invariant direction != null.
+ * invariant direction.x + direction.y + direction.z = 1.
+ * invariant !states.contains(null).
  */
 public interface Entity extends Target {
 
     /**
      * @param e Entity to check if visible or not.
      * @return true if the provided entity can be seen by this one.
-     * @Requires e != null.
      */
+    //@Requires e != null.
     boolean see(Entity e);
 
     /**
      * @param time Time since the last call.
-     * @Requires time >= 0. Run every actions for this entity.
      */
+    //@Requires time >= 0. Run every actions for this entity.
     void doActions(long time);
 
     /**
      * @return The id of the player owner of this entity.
-     * @Ensures result != null.
-     * @Ensures Player.get(result).contains(this) == true
      */
+    //@Ensures result != null.
+    //@Ensures Player.get(result).contains(this) == true
     PlayerId getOwner();
 
     /**
      * Change the entity owner.
      *
      * @param owner Id of the new owner.
-     * @Requires owner != null.
-     * @Requires owner is a valid player id.
-     * @Ensures this.owner == owner
      */
+    //@Requires owner != null.
+    //@Requires owner is a valid player id.
+    //@Ensures this.owner == owner
     void setOwner(PlayerId owner);
 
     /**
      * Provide this entity type.
      *
      * @return this entity type.
-     * @Ensures EntityType != null;
      */
+    //@Ensures EntityType != null;
     EntityType getType();
 
     void setPosition(Point3D position);
@@ -116,8 +116,8 @@ public interface Entity extends Target {
      * Provide this entity hit points.
      *
      * @return The hit points.
-     * @Ensures 0 >= result <= getMaxHitPoints
      */
+    //@Ensures 0 >= result <= getMaxHitPoints
     int getHitPoints();
 
     void setHitPoints(int hitPoint);
@@ -130,9 +130,9 @@ public interface Entity extends Target {
      * @param actionId Id of the action to find.
      * @return The matching action in this entity.
      * @throws IllegalArgumentException If no matching action is found in this entity.
-     * @Requires actionId != null.
-     * @Ensures result.id == actionId
      */
+    //@Requires actionId != null.
+    //@Ensures result.id == actionId
     Action getAction(ActionId actionId);
 
     List<Action> getActions();
@@ -141,23 +141,23 @@ public interface Entity extends Target {
 
     /**
      * @return The energy points current value.
-     * @Ensures 0 >= result <= getMaxEnergyPoints()
      */
+    //@Ensures 0 >= result <= getMaxEnergyPoints()
     int getEnergyPoints();
 
     void setEnergyPoints(int energy);
 
     /**
      * @return The maximum energy points value.
-     * @Ensures result >= 0
      */
+    //@Ensures result >= 0
     int getMaxEnergyPoints();
 
     /**
      * @return The entity current direction.
-     * @Ensures result != null
-     * @Ensures result == entity.direction
      */
+    //@Ensures result != null
+    //@Ensures result == entity.direction
     Point3D getDirection();
 
     void setDirection(Point3D direction);
@@ -168,9 +168,9 @@ public interface Entity extends Target {
      * @param state State to check.
      * @return <code>true</code> if this entity has the given state, false
      * otherwise.
-     * @Requires state != null
-     * @Ensures result == true if this.hull.states.contains(state)
      */
+    //@Requires state != null
+    //@Ensures result == true if this.hull.states.contains(state)
     boolean hasState(State state);
 
     void removeState(State state);
@@ -207,8 +207,8 @@ public interface Entity extends Target {
 
     /**
      * @return The ratio between the current hit point and the max hit points.
-     * @Ensures result == getHitPoints / getMaxHitPoint
      */
+    //@Ensures result == getHitPoints / getMaxHitPoint
     float getHitPointsRatio();
 
     float getEnergyPointsRatio();
@@ -233,8 +233,8 @@ public interface Entity extends Target {
 
     /**
      * @return The entity name.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     String getName();
 
     /**
@@ -242,8 +242,8 @@ public interface Entity extends Target {
      *
      * @param name Name to set
      * @throws NullPointerException if name == null
-     * @Ensures this.name == name
      */
+    //@Ensures this.name == name
     void setName(String name);
 
     /**
@@ -261,12 +261,10 @@ public interface Entity extends Target {
      * the default move action will be used.
      *
      * @param destination Destination coordinates.
-     * @See prepareAction
-     * @prerequisites destination != null
-     * @ensures this.actionToPrepare.isPresent() ?
-     * this.actionToPrepare.destination == destination :
-     * this.move.destination == destination
+     * see <code>prepareAction(Optional <ActionId> action);</code>
      */
+    //@prerequisites destination != null
+    //@ensures this.actionToPrepare.isPresent() ? this.actionToPrepare.destination == destination : this.move.destination == destination
     void setDestination(Point3D destination);
 
     void startPreparedAction();

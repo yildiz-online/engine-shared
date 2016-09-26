@@ -36,10 +36,11 @@ import be.yildiz.shared.entity.EntityData;
 import java.util.Map;
 
 /**
- * @param <T>
- * @param <B>
- * @param <D>
- * @param <E>
+ * @param <T> Entity implementation.
+ * @param <B> Building implementation.
+ * @param <D> BuildingData implementation.
+ * @param <E> EntityData implementation.
+ * @param <C> City implementation.
  * @author Grégory Van den Borre
  */
 public final class PlayerMonitorManager<T extends Entity, B extends Building, D extends BuildingData, E extends EntityData, C extends City<B, D>> {

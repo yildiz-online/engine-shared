@@ -100,7 +100,7 @@ public final class Message {
     /**
      * Create a message from a String to parse.
      *
-     * @param toParse
+     * @param toParse String to parse to create the message.
      */
     public Message(final String toParse) {
         super();

@@ -204,7 +204,6 @@ public final class BaseEntity implements Entity, Target {
         this.additional3 = additional3;
         this.completeModule(this.additional3);
         this.mat = mat;
-
     }
 
     /**

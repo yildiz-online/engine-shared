@@ -39,26 +39,26 @@ import be.yildiz.shared.resources.bonus.BonusResources;
  * Mutable class.
  *
  * @author Grégory Van den Borre
- * @specfield type:EntityType:Building unique type, mutable value, but can only change from empty building to another type.
- * @specfield level:Level:Building level, between 0 and the building max level.
- * @specfield staff:Staff:Staff assigned in the building, between 0 and the building max staff.
- * @specfield city:EntityId:Id of the city holding this building, immutable value.
- * @specfield position:BuildingPosition:Position of the building in the city.
- * @invariant city != null
- * @invariant position != null
- * @invariant 0 <= position <= max building in the holding city
- * @invariant type != null
- * @invariant level != null
- * @invariant 0 <= level <= maxLevel
- * @invariant staff != null
- * @invariant 0 <= staff <= maxStaff
+ * specfield type:EntityType:Building unique type, mutable value, but can only change from empty building to another type.
+ * specfield level:Level:Building level, between 0 and the building max level.
+ * specfield staff:Staff:Staff assigned in the building, between 0 and the building max staff.
+ * specfield city:EntityId:Id of the city holding this building, immutable value.
+ * specfield position:BuildingPosition:Position of the building in the city.
+ * invariant city != null
+ * invariant position != null
+ * invariant 0 <= position <= max building in the holding city
+ * invariant type != null
+ * invariant level != null
+ * invariant 0 <= level <= maxLevel
+ * invariant staff != null
+ * invariant 0 <= staff <= maxStaff
  */
 public interface Building {
 
     /**
      * @return The id of the city containing this building.
-     * @Ensures result != null.
      */
+    //@Ensures result != null.
     EntityId getCity();
 
     /**
@@ -77,8 +77,8 @@ public interface Building {
 
     /**
      * @return The position of the building in the holding city.
-     * @Ensures The position is contained in the city.
      */
+    //@Ensures The position is contained in the city.
     BuildingPosition getBuildingPosition();
 
     /**
@@ -95,8 +95,8 @@ public interface Building {
 
     /**
      * @return The building level.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     Level getLevel();
 
     /**
@@ -108,20 +108,20 @@ public interface Building {
 
     /**
      * @return The building type.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     EntityType getType();
 
     /**
      * @return The bonus to apply with the level of the building.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     BonusResources getLevelBonus();
 
     /**
      * @return The bonus to apply with the number of staff assigned in the building.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     BonusResources getStaffBonus();
 
     /**
@@ -164,9 +164,9 @@ public interface Building {
      *
      * @param level Building level.
      * @return The time to build this building.
-     * @Ensures result != null
-     * @Throws NullPointerException if level is null.
+     * @throws NullPointerException if level is null.
      */
+    //@Ensures result != null
     TimeToBuild getTimeToBuild(final Level level);
 
     boolean exists();

@@ -75,8 +75,8 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
         for (int i = 0; i < entities.size(); i++) {
             T e = entities.get(i);
             e.doActions(time);
-            e.getActionRunning().forEach(a -> this.listeners.forEach(l -> l.execute(e.getId(), a)));
-            e.getActionDone().forEach(a -> this.listeners.forEach(l -> l.complete(e.getId(), a)));
+            e.getActionRunning().forEach(a -> this.listeners.forEach(l -> l.execute(e.getId(), e.getOwner(), a)));
+            e.getActionDone().forEach(a -> this.listeners.forEach(l -> l.complete(e.getId(), e.getOwner(), a)));
             if (e.isDeleted()) {
                 this.entityManager.removeEntity(e);
                 this.destructionListeners.forEach(l -> l.entityDestroyed(e));
@@ -91,7 +91,7 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
      * Beware that nothing prevent to add the same listener several times.
      *
      * @throws NullPointerException if l parameter is <code>null</code>
-     * @post listener.size() == getSize()@pre + 1
+     * post listener.size() == getSize()@pre + 1
      */
     public void addListener(@NonNull final ActionListener l) {
         this.listeners.add(l);

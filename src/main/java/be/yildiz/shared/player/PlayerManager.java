@@ -74,7 +74,7 @@ public final class PlayerManager {
      * Check if a player exists from its Id.
      *
      * @param id Id to check.
-     * @return
+     * @return <code>true</code> if the id is found.
      */
     public boolean exists(final PlayerId id) {
         return this.playerIdList.containsKey(id);
@@ -180,8 +180,9 @@ public final class PlayerManager {
     }
 
     /**
-     * @param name
-     * @return
+     * Check if a player exists.
+     * @param name Name of the player to check.
+     * @return <code>true</code> if the player is found.
      */
     public boolean exists(final String name) {
         return this.playerNameList.containsKey(name);

@@ -49,7 +49,7 @@ public final class AttackDamage {
     /**
      * Full constructor.
      *
-     * @param damage Damage value, negative value will restore hit points.
+     * @param hitPoint Damage value, negative value will restore hit points.
      */
     public AttackDamage(final int hitPoint) {
         super();

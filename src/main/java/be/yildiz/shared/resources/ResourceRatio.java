@@ -59,6 +59,7 @@ public final class ResourceRatio {
     }
 
     /**
+     * @param position Position of the resource in the array.
      * @return The generation rate for a given resource.
      */
     public float getValues(final int position) {

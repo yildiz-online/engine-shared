@@ -74,19 +74,19 @@ public abstract class AbstractGameEngine implements FrameManager, AutoCloseable 
 
     /**
      * Simple constructor.
-     *
-     * @pre this.actionManager != null
-     * @pre this.staffAllocator != null
-     * @pre this.builderManager != null
-     * @pre this.worldList != null
-     * @pre this.researchManager != null
-     * @pre this.frameListenerList != null
-     * @pre this.limit == 0
-     * @post this.frameListenerList.contains(this.actionManager)
-     * @post this.frameListenerList.contains(this.staffAllocator)
-     * @post this.frameListenerList.contains(this.builderManager)
-     * @post this.losManager != null
+     * @param version Game version.
      */
+    //@pre this.actionManager != null
+    //@pre this.staffAllocator != null
+    //@pre this.builderManager != null
+    //@pre this.worldList != null
+    //@pre this.researchManager != null
+    //@pre this.frameListenerList != null
+    //@pre this.limit == 0
+    //@post this.frameListenerList.contains(this.actionManager)
+    //@post this.frameListenerList.contains(this.staffAllocator)
+    //@post this.frameListenerList.contains(this.builderManager)
+    //@post this.losManager != null
     protected AbstractGameEngine(final Version version) {
         super();
         this.gameVersion = version;
