@@ -29,6 +29,7 @@ import be.yildiz.common.BoundedValue;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
+import be.yildiz.shared.entity.fields.PositionData;
 import be.yildiz.shared.entity.fields.SharedPosition;
 import be.yildiz.shared.entity.fields.StateHolder;
 import be.yildiz.shared.entity.fields.Target;
@@ -237,5 +238,9 @@ public abstract class Action {
 
     public final void setId(ActionId id) {
         this.id = id;
+    }
+
+    public final PositionData getPosition() {
+        return position;
     }
 }
