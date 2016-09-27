@@ -79,6 +79,7 @@ public class EntityManager<T extends Entity, D extends EntityData> {
     /**
      * Get the number of entities owned by a player for a given type.
      *
+     * @param player Player to get the number of entities.
      * @param type Entity type.
      * @return The number of entities.
      */
@@ -94,6 +95,7 @@ public class EntityManager<T extends Entity, D extends EntityData> {
     }
 
     /**
+     * @param player Player to retrieve the entities for.
      * @return All entities owned by a player.
      */
     public Set<T> getEntities(final PlayerId player) {
@@ -125,12 +127,12 @@ public class EntityManager<T extends Entity, D extends EntityData> {
      * Remove an entity, this method is meant to be used automatically when an entity is destroyed, and should not be called manually.
      *
      * @param entity Entity to remove.
-     * @precondition: entity is existing in this system.
-     * @precondition: entity is not nil.
-     * @modify: this
-     * @affect: entityList, entities.
-     * @postcondition: entity is removed from this system.
      */
+    //@precondition: entity is existing in this system.
+    //@precondition: entity is not nil.
+    //@modify: this
+    //@affect: entityList, entities.
+    //@postcondition: entity is removed from this system.
     public void removeEntity(final T entity) {
         // FIXME also remove all bonus && visible.
         assert this.entityList.containsKey(entity.getOwner());
@@ -147,6 +149,7 @@ public class EntityManager<T extends Entity, D extends EntityData> {
     /**
      * Add a bonus to entities.
      *
+     * @param p Player that will receive the bonus.
      * @param bonus Bonus to add.
      */
     public void addBonus(final PlayerId p, final EntityBonus bonus) {
@@ -175,8 +178,8 @@ public class EntityManager<T extends Entity, D extends EntityData> {
     /**
      * Update the owner for an Entity
      *
-     * @param entity
-     * @param player
+     * @param entity Entity to change the owner.
+     * @param player New owner.
      */
     public void setOwner(final T entity, final PlayerId player) {
         // FIXME bonus not recomputed, needed in gameplay?
@@ -195,8 +198,8 @@ public class EntityManager<T extends Entity, D extends EntityData> {
     }
 
     /**
-     * @param ids
-     * @return
+     * @param ids List of ids.
+     * @return The entities matching the provided list of id.
      */
     public List<T> getById(final List<EntityId> ids) {
         List<T> result = Lists.newList(ids.size());

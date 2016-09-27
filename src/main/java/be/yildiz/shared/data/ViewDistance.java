@@ -30,9 +30,9 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper for view distance.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 @EqualsAndHashCode
 public final class ViewDistance {

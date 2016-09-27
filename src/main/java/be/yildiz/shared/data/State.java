@@ -29,11 +29,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Wrapper class to represent a state. The identity of the state is its name, it must be unique.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
- * @specfield name:String:State name, must be different for every states.
- * @invariant name != null
+ * specfield name:String:State name, must be different for every states.
+ * invariant name != null
  */
 @EqualsAndHashCode
 public final class State {
@@ -47,8 +47,8 @@ public final class State {
      * Create a new State.
      *
      * @param name State unique name, cannot be null.
-     * @Requires The same name is not used for another state.
      */
+    //@Requires The same name is not used for another state.
     public State(final String name) {
         super();
         this.name = name;

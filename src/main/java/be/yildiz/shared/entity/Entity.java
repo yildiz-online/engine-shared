@@ -48,28 +48,24 @@ import java.util.Set;
  * by a player, it can be the world.
  *
  * @author Grégory Van den Borre
- * specfield id : Id : must be unique through the system, immutable.
- * specfield hitPointMax: int : Maximum value reachable by the hitPoint value.
- * specfield hitPoint : int : Hit point value for this entity, if reaching 0,
- * the entity is considered as destroyed if it is not invincible.
- * specfield energyMax : int : Maximum value reachable by the energy value.
- * specfield energy : int Entity energy point value, can be used to activate
- * actions.
- * specfield position: Point3D: entity current position.
- * specfield direction: Point3D: entity current direction vector, the value is
- * normalized.
- * specfield owner : Player : player owner of this entity, must be existing in
- * the system, can be set.
- * specfield states: Set : Cannot contains null values.
- * invariant id != null.
- * invariant owner != null.
- * invariant 0 <= hitPoint <= hitPointMax.
- * invariant 0 <= energy <= energyMax.
- * invariant position != null.
- * invariant direction != null.
- * invariant direction.x + direction.y + direction.z = 1.
- * invariant !states.contains(null).
  */
+//@specfield id : Id : must be unique through the system, immutable.
+//@specfield hitPointMax: int : Maximum value reachable by the hitPoint value.
+//@specfield hitPoint : int : Hit point value for this entity, if reaching 0, the entity is considered as destroyed if it is not invincible.
+//@specfield energyMax : int : Maximum value reachable by the energy value.
+//@specfield energy : int Entity energy point value, can be used to activate actions.
+//@specfield position: Point3D: entity current position.
+//@specfield direction: Point3D: entity current direction vector, the value is normalized.
+//@specfield owner : Player : player owner of this entity, must be existing in the system, can be set.
+//@specfield states: Set : Cannot contains null values.
+//@invariant id != null.
+//@invariant owner != null.
+//@invariant 0 <= hitPoint <= hitPointMax.
+//@invariant 0 <= energy <= energyMax.
+//@invariant position != null.
+//@invariant direction != null.
+//@invariant direction.x + direction.y + direction.z = 1.
+//@invariant !states.contains(null).
 public interface Entity extends Target {
 
     /**

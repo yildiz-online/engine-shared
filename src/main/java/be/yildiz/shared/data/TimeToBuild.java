@@ -31,9 +31,9 @@ import lombok.Getter;
 
 /**
  * Time to build an object in the game.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 @EqualsAndHashCode
 public final class TimeToBuild {

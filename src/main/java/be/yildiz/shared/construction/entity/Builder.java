@@ -42,20 +42,20 @@ public interface Builder {
 
     /**
      * @return The unique id of this builder.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     EntityId getBuilderId();
 
     /**
      * @return The unique id of the player owning the builder.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     PlayerId getOwner();
 
     /**
      * @return The position where the built entity will be created.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     Point3D getBuildPosition();
 
     /**
@@ -95,8 +95,8 @@ public interface Builder {
 
     /**
      * @return The unique id of the entity containing this builder.
-     * @Ensures result != null
      */
+    //@Ensures result != null
     EntityId getCity();
 
 }

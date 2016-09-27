@@ -78,7 +78,12 @@ public final class ResourceUpdateResponse extends NetworkMessage implements Serv
     /**
      * Full constructor.
      *
-     * @param resources New resource values.
+     * @param city        Id of the city.
+     * @param metal       Metal value.
+     * @param energy      Energy value.
+     * @param credits     Credits value.
+     * @param research    Research value.
+     * @param inhabitants Inhabitants value.
      */
     public ResourceUpdateResponse(final EntityId city, final float metal, final float energy, final float credits, final float research, final float inhabitants, final long time) {
         super(NetworkMessage.convertParams(city.value, metal, energy, credits, research, inhabitants, time));

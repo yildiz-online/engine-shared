@@ -35,14 +35,14 @@ import lombok.NonNull;
 
 /**
  * Contains all the data proper to an Entity type.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
- * @specfield size:int:Entity size, always > 0.
- * @specfield moduleAllowed:List:List of modules allowed to be used.
- * @invariant size > 0
- * @invariant moduleAllowed != null
  */
+//@specfield size:int:Entity size, always > 0
+//@specfield moduleAllowed:List:List of modules allowed to be used.
+//@invariant size > 0
+//@invariant moduleAllowed != null
 public class GameEntityData extends GameData implements ConstructionData, EntityData {
 
     /**

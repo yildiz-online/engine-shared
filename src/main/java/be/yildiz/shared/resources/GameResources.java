@@ -60,8 +60,8 @@ public interface GameResources {
      *
      * @param researchPoint Research points value.
      */
-    static ResourceValue research(final float researchPoints) {
-        return new ResourceValue(new float[]{0.0f, 0.0f, 0.0f, researchPoints, 0.0f});
+    static ResourceValue research(final float researchPoint) {
+        return new ResourceValue(new float[]{0.0f, 0.0f, 0.0f, researchPoint, 0.0f});
     }
 
     static ResourceValue empty() {

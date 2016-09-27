@@ -64,7 +64,7 @@ public final class PlayerManager {
      *
      * @param name Name of the player to retrieve.
      * @return The player matching the name.
-     * @throw InvalidParameterException If a matching player is not found in the list.
+     * @throws IllegalArgumentException If a matching player is not found in the list.
      */
     public Player getFromName(final String name) {
         return this.playerNameList.get(name);
