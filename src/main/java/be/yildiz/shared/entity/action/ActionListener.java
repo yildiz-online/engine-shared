@@ -26,6 +26,7 @@
 package be.yildiz.shared.entity.action;
 
 import be.yildiz.common.id.EntityId;
+import be.yildiz.common.id.PlayerId;
 
 /**
  * @author Grégory Van den Borre
@@ -33,12 +34,15 @@ import be.yildiz.common.id.EntityId;
 @FunctionalInterface
 public interface ActionListener {
 
-    default void create(EntityId id, Action a) {
+    //FIXME DO NOT expose action object complete, make it implement interface exposing only safe(read only) methods
+    default void create(EntityId id, PlayerId owner, Action a) {
     }
 
-    void execute(EntityId id, Action a);
+    //FIXME DO NOT expose action object complete, make it implement interface exposing only safe(read only) methods
+    void execute(EntityId id, PlayerId owner, Action a);
 
-    default void complete(EntityId id, Action a) {
+    //FIXME DO NOT expose action object complete, make it implement interface exposing only safe(read only) methods
+    default void complete(EntityId id, PlayerId owner, Action a) {
     }
 
 }
