@@ -54,8 +54,8 @@ public class Module<A extends Action> {
     /**
      * Delete the wrapped action object.
      *
-     * @Ensures call this.action.delete();
      */
+    //@Ensures call this.action.delete()
     public final void delete() {
         this.action.delete();
     }

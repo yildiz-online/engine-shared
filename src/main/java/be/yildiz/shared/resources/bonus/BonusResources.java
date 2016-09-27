@@ -29,9 +29,10 @@ import java.util.Arrays;
 
 /**
  * A bonus for resources, it can contains bonus for the resource limits, or the resource ratios. This class is meant to be inherited.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
+ *
  */
 public class BonusResources {
 
@@ -60,8 +61,8 @@ public class BonusResources {
      * @throws NullPointerException     if ratio is <code>null</code>.
      * @throws NullPointerException     if limit is <code>null</code>.
      * @throws IllegalArgumentException if ratio.length != limit.length
-     * @requires index >= 0.
      */
+    //@requires index >= 0
     protected BonusResources(final float[] ratio, final float[] limit, final int index) {
         super();
         this.ratio = Arrays.copyOf(ratio, ratio.length);
@@ -85,10 +86,10 @@ public class BonusResources {
 
     /**
      * @return <code>true</code> if at least of the ratio value is not positive.
-     * @requires none.
-     * @modifies none.
-     * @ensures This object state is not affected.
      */
+    //@requires none.
+    //@modifies none.
+    //@ensures This object state is not affected.
     public final boolean hasMalus() {
         for (float f : this.ratio) {
             if (f < 0) {
@@ -103,10 +104,10 @@ public class BonusResources {
      *
      * @param i Index of the ratio value to retrieve.
      * @return The ratio value matching the given index.
-     * @requires i < this.ratio.length.
-     * @modifies none.
-     * @ensures This object state is not affected.
      */
+    //@requires i < this.ratio.length.
+    //@modifies none.
+    //@ensures This object state is not affected.
     public final float getRatio(final int i) {
         return this.ratio[i];
     }
@@ -116,10 +117,10 @@ public class BonusResources {
      *
      * @param i Index of the limit value to retrieve.
      * @return The limit value matching the given index.
-     * @requires i < this.limit.length.
-     * @modifies none.
-     * @ensures This object state is not affected.
      */
+    //@requires i < this.limit.length.
+    //@modifies none.
+    //@ensures This object state is not affected.
     public final float getLimit(final int i) {
         return this.limit[i];
     }
@@ -135,10 +136,10 @@ public class BonusResources {
      *
      * @param obj Object to test equality with this one.
      * @return <code>true</code> if objects are considered equals.
-     * @requires none.
-     * @modifies none.
-     * @ensures to return true if given object is equal to this one.
      */
+    //@requires none.
+    //@modifies none.
+    //@ensures to return true if given object is equal to this one.
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof BonusResources)) {

@@ -78,13 +78,13 @@ public final class ResourcesProducer {
      * @param cityId    Associated city.
      * @param time      Time when the resources were updated for the last time.
      * @param resources Contains the last computed resource values.
-     * @pre player != null
-     * @pre time > 0
-     * @pre resources != null
-     * @post this.lastUpdate = time
-     * @post this.resources == resources
-     * @post this.initialized == false
      */
+    //@pre player != null
+    //@pre time > 0
+    //@pre resources != null
+    //@post this.lastUpdate = time
+    //@post this.resources == resources
+    //@post this.initialized == false
     public ResourcesProducer(final EntityId cityId, final long time, final ResourceValue resources) {
         super();
         this.city = cityId;
@@ -110,9 +110,9 @@ public final class ResourcesProducer {
      * Add a bonus to the production limit or ratio to increase it. As resources are not recomputed, if it is needed, call getResource to update values.
      *
      * @param bonus To add to this production limit or ratio.
-     * @requires bonus != null
-     * @ensures this.bonus.size() == (@pre this.bonus.size()+1)
      */
+    //@requires bonus != null
+    //@ensures this.bonus.size() == (@pre this.bonus.size()+1)
     public void addBonus(final BonusResources bonus) {
         this.getResources();
         this.limit.addBonus(bonus);
@@ -227,9 +227,9 @@ public final class ResourcesProducer {
      * Add a new bonus listener, if already in the list, it will not be added.
      *
      * @param bl Listener to add.
-     * @requires bl != null
-     * @ensure if(list!contains(bl)) list.size = pre.list.size + 1
      */
+    //@requires bl != null
+    //@ensure if(list!contains(bl)) list.size = pre.list.size + 1
     public void addBonusListener(final BonusListener bl) {
         this.bonusListenerList.add(bl);
         for (BonusResources m : this.bonus) {

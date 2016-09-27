@@ -33,12 +33,12 @@ import java.util.Map;
 /**
  * Simple wrapper class for an entity type. An Entity type is composed of a type
  * and a name, both must be unique in the application instance.
- *
+ * Immutable class.
  * @author Grégory Van den Borre
- * @immutable
- * @specfield type : int : positive not null value, 2 different types cannot
+ *
+ * specfield type : int : positive not null value, 2 different types cannot
  * have the same type value.
- * @specfield name : String : not null value, 2 different types cannot have the
+ * specfield name : String : not null value, 2 different types cannot have the
  * same name.
  */
 @EqualsAndHashCode
@@ -69,14 +69,12 @@ public final class EntityType {
      *
      * @param value Entity type index, must be unique.
      * @param name  Type name, must be unique.
-     * @requires value >=0 && value != null &&
-     * !EntityType.MAP.containsKey(value);
-     * @requires name != null && !name.empty &&
-     * !EntityType.MAP.containsValue(name);
-     * @ensures EntityType.MAP.get(value) == this;
-     * @ensures this.type = value;
-     * @ensures this.name = name;
      */
+    //@requires value >=0 && value != null && !EntityType.MAP.containsKey(value);
+    //@requires name != null && !name.empty && !EntityType.MAP.containsValue(name);
+    //@ensures EntityType.MAP.get(value) == this;
+    //@ensures this.type = value;
+    //@ensures this.name = name;
     public EntityType(final int value, final String name) {
         super();
         assert !EntityType.MAP.containsKey(value) : "Type already exists";
