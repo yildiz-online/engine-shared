@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 
 /**
  * Check all builder List and execute their build method. Primary task is Call all builder to create their units, if they don't have anything to create, they are removed from the builder list.
- *
+ * @param <T> Entity implementation.
  * @author Grégory Van den Borre
  */
 public class EntityConstructionManager<T extends Entity> extends EndFrameListener implements CompleteEntityConstructionManager<T> {
@@ -64,7 +64,9 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
 
     /**
      * Create a new BuilderManager.
-     *
+     * @param frame Frame manager listening to this object.
+     * @param actionManager Unused to remove.
+     * @param factory Entity factory to materialize entities.
      */
     public EntityConstructionManager(FrameManager frame, ActionManager<T, ? extends EntityData> actionManager, EntityFactory<T> factory) {
         super();

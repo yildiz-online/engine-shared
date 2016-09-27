@@ -67,12 +67,12 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
      * @param type         Entity type.
      * @param bonusFactory Associated bonus factory.
      * @param instance     Number of building of that type allowed.
-     * @requires all parameters not being null.
-     * @requires level data size at least 1.
-     * @requires type to be unique for every instance.
-     * @effect Create a new instance, add it to the static list.
-     * @modifies this.
      */
+    //@requires all parameters not being null.
+    //@requires level data size at least 1.
+    //@requires type to be unique for every instance.
+    //@effect Create a new instance, add it to the static list.
+    //@modifies this.
     protected GameBuildingData(final EntityType type, final BonusFactory bonusFactory, final Instance instance, final boolean buildable) {
         this(type, bonusFactory, instance, false, false, buildable);
     }

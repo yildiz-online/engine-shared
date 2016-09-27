@@ -31,6 +31,9 @@ import be.yildiz.shared.city.City;
 
 /**
  * Listener to notify for event about staff allocation in buildings.
+ * @param <B> Building implementation.
+ * @param <D> Building data implementation.
+ * @param <C> City implementation.
  *
  * @author Grégory Van den Borre
  */
@@ -41,19 +44,19 @@ public interface StaffAllocationListener<B extends Building, D extends BuildingD
      * Notify for the time left to allocate the staff.
      *
      * @param city     BaseCity where the allocation occurs.
-     * @param position Building position in the city.
+     * @param building Building in the city.
      * @param timeLeft Time left to allocate the staff.
      */
-    default void updateTime(C c, B b, long timeLeft) {
+    default void updateTime(C city, B building, long timeLeft) {
     }
 
     /**
      * Notify when the allocation has occurred.
      *
      * @param city     BaseCity where the allocation occurs.
-     * @param position Building position in the city.
+     * @param building Building in the city.
      * @param number   number of worker allocated.
      */
-    void staffAllocated(C c, B b, int number);
+    void staffAllocated(C city, B building, int number);
 
 }

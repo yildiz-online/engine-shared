@@ -30,9 +30,9 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Maximum number of instances for a given entity.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 @EqualsAndHashCode
 public final class Instance {

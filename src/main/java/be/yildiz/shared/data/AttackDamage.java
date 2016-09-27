@@ -29,9 +29,9 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper class to represent attack damage.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 @EqualsAndHashCode
 public final class AttackDamage {

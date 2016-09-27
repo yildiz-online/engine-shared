@@ -39,8 +39,8 @@ public final class BonusAttackDamage extends EntityBonus {
      *
      * @param damage    Damage bonus to apply.
      * @param moduleIds Modules allowed to receive that bonus.
-     * @requires moduleIds > 0.
      */
+    //@requires moduleIds > 0
     public BonusAttackDamage(final float damage, final ActionId... moduleIds) {
         super(damage, true, moduleIds);
     }

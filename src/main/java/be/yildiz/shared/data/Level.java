@@ -30,9 +30,9 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper class to represent level.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 @EqualsAndHashCode
 public final class Level {

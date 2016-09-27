@@ -66,6 +66,8 @@ public final class ActionRequest extends NetworkMessage implements ServerRequest
 
     /**
      * Full constructor.
+     * @param e Entity id.
+     * @param a Action to request.
      */
     public ActionRequest(final EntityId e, final Action a) {
         super(NetworkMessage.convertParams(e, a.id, a.getDestination(), a.getTargetId()));
