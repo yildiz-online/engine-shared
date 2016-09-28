@@ -27,9 +27,9 @@ package be.yildiz.shared.entity.fields;
 
 /**
  * Contains the result of an attack hit.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 public final class AttackHitResult {
 

@@ -65,6 +65,7 @@ public final class EntityConstructionQueue {
      * Create a new instance.
      *
      * @param builderId Id of the builder holding this queue.
+     * @param maxSize Maximum size for the queue.
      * @throws NullPointerException If builderId is null.
      */
     public EntityConstructionQueue(@NonNull final EntityId builderId, final int maxSize) {

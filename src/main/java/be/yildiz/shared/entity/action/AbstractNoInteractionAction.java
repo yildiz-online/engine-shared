@@ -39,12 +39,11 @@ public abstract class AbstractNoInteractionAction extends Action {
     /**
      * Build a new no interaction action.
      *
-     * @param e       Entity using the action.
      * @param id      action unique Id.
      * @param passive Is the action passive or active?
      */
-    protected AbstractNoInteractionAction(final EntityId e, final boolean passive) {
-        super(e, passive);
+    protected AbstractNoInteractionAction(final EntityId id, final boolean passive) {
+        super(id, passive);
     }
 
     protected AbstractNoInteractionAction(final EntityId e, final boolean passive, boolean self) {
@@ -52,7 +51,7 @@ public abstract class AbstractNoInteractionAction extends Action {
     }
 
     /**
-     * @return World.
+     * @return World id.
      */
     @Override
     public final EntityId getTargetId() {

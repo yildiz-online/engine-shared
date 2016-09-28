@@ -38,9 +38,12 @@ import lombok.NonNull;
 
 /**
  * An action can be done by an Entity, an Entity can do only one action at a time. 2 actions are considered equals if they share the same Entity. An action can have different states, defined by the
- * combination of 2 booleans: <li>Prepare to run(init()): toRun is true, running is false.</li> <li>
- * Running(run(time)): toRun is true, running is true.</li> <li>Stopped(stop()): toRun is false, running is false.</li>
- *
+ * combination of 2 booleans:
+ * <ul>
+ * <li>Prepare to run(init()): toRun is true, running is false.</li>
+ * <li>Running(run(time)): toRun is true, running is true.</li>
+ * <li>Stopped(stop()): toRun is false, running is false.</li>
+ *</ul>
  * @author Grégory Van den Borre
  */
 public abstract class Action {

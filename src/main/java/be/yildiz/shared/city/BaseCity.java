@@ -45,15 +45,16 @@ import java.util.Set;
 
 /**
  * A BaseCity.
+ * @param <T> Building implementation.
+ * @param <D> BuildingData implementation.
  *
  * @author Grégory Van den Borre
- *         <T> Building implementation. <D> BuildingData implementation.
- * @specfield id:EntityId:BaseCity unique id.
- * @specfield name:BaseCity name in the game, must not be unique, can only contains alpha numeric characters, size is 1-10.
- * @specfield owner:PlayerId:Player owner of this city.
- * @specfield producer:ResourcesProducer:Resource production for this city.
- * @specfield position:Point3D:BaseCity position in the world.
  */
+//@specfield id:EntityId:BaseCity unique id.
+//@specfield name:BaseCity name in the game, must not be unique, can only contains alpha numeric characters, size is 1-10.
+//@specfield owner:PlayerId:Player owner of this city.
+//@specfield producer:ResourcesProducer:Resource production for this city.
+//@specfield position:Point3D:BaseCity position in the world.
 public class BaseCity<T extends Building, D extends BuildingData> implements City<T, D> {
 
     /**

@@ -29,21 +29,21 @@ import be.yildiz.shared.data.EntityType;
 
 /**
  * Provide the data only available for entities.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @immutable
  */
 public interface EntityData {
 
     /**
      * @return The type for this entity.
-     * @Ensures result != null.
      */
+    //@Ensures result != null.
     EntityType getType();
 
     /**
      * @return The size of this entity.
-     * @Ensures result > 0.
      */
+    //@Ensures result > 0.
     int getSize();
 }

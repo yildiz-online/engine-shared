@@ -44,9 +44,9 @@ public abstract class ProduceEnergy extends AbstractNoInteractionAction {
     protected abstract void energyReplenishStrategy(long time);
 
     /**
-     * Only run if energy is not at max (and thus if energy.max is > 0).
+     * Only run if energy is not at max (and thus if energy.max is smaller than 0).
      *
-     * @return
+     * @return <code>true</code> if the energy is not at max.
      */
     @Override
     public boolean checkPrerequisite() {

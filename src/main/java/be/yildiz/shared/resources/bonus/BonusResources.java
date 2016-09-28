@@ -75,7 +75,6 @@ public class BonusResources {
      *
      * @param ratio Ratio to add.
      * @param limit Limit to add.
-     * @param index Unique index.
      * @throws NullPointerException     if ratio is <code>null</code>.
      * @throws NullPointerException     if limit is <code>null</code>.
      * @throws IllegalArgumentException if ratio.length != limit.length

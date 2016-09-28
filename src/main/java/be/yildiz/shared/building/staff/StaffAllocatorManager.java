@@ -38,6 +38,9 @@ import java.util.Set;
 
 /**
  * Manager to allocate staff in a building.
+ * @param <B> Building implementation.
+ * @param <D> Building data implementation.
+ * @param <C> City implementation.
  *
  * @author Grégory Van den Borre
  */
@@ -60,6 +63,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
 
     /**
      * Simple constructor.
+     * @param cityManager Associated city manager.
      */
     public StaffAllocatorManager(final CityManager<B,D,C> cityManager) {
         super();
@@ -71,6 +75,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
      * Allocate staff in a building.
      *
      * @param building Building where the staff is allocated.
+     * @param number   Number of worker to allocate.
      * @param time     Time left to complete the allocation.
      */
     public void add(final B building, final int number, final long time) {

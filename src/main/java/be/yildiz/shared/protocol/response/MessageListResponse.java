@@ -45,6 +45,7 @@ public final class MessageListResponse extends NetworkMessage implements ServerR
 
     /**
      * Full constructor.
+     * @param messageList List of message to send.
      */
     public MessageListResponse(final List<Message> messageList) {
         super(NetworkMessage.convertParams(messageList));

@@ -44,8 +44,8 @@ public interface CompleteEntityConstructionManager<T extends Entity> extends Sim
      * Cancel an entity to build.
      *
      * @param w Entity to cancel.
-     * @Requires w != null
      */
+    //@Requires w != null
     void cancel(WaitingEntity w);
 
     /**
@@ -64,6 +64,7 @@ public interface CompleteEntityConstructionManager<T extends Entity> extends Sim
     List<WaitingEntity> getEntityToBuildList();
 
     /**
+     * @param id Id of the owner.
      * @return The list of entities in the building queue for a given player.
      * @throws NullPointerException if id is null.
      */

@@ -34,16 +34,16 @@ import java.util.Map;
 /**
  * Register EntityType with their matching data, and Modules data.
  *
- * @param <T> Entity
- * @param <D> EntityData
+ * @param <T> Entity implementation.
+ * @param <D> EntityData implementation.
  * @author Grégory Van den Borre
  */
 public interface EntityTypeFactory<T extends Entity, D extends EntityData> {
 
     /**
      * @return The map containing all registered types, the key is the type, the value is the data.
-     * @Ensures result != null.
      */
+    //@Ensures result != null.
     Map<EntityType, D> getRegisteredData();
 
     /**
@@ -52,9 +52,9 @@ public interface EntityTypeFactory<T extends Entity, D extends EntityData> {
      * @param type Type to get the matching data.
      * @return The data matching the type.
      * @throws IllegalArgumentException if no data matches the type.
-     * @Ensures result != null.
-     * @Ensures result == this.types.get(type);
      */
+    //@Ensures result != null.
+    //@Ensures result == this.types.get(type)
     D getByType(EntityType type);
 
     /**
@@ -63,8 +63,8 @@ public interface EntityTypeFactory<T extends Entity, D extends EntityData> {
      * @param type Type to get the matching data.
      * @return The data matching the type.
      * @throws IllegalArgumentException if no data matches the type.
-     * @Ensures result != null.
-     * @Ensures result == this.types.get(type);
      */
+    //@Ensures result != null.
+    //@Ensures result == this.types.get(type)
     DataModule getByType(ActionId type);
 }

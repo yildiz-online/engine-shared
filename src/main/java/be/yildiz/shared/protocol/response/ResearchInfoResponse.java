@@ -64,7 +64,6 @@ public final class ResearchInfoResponse extends NetworkMessage implements Server
      * Full constructor.
      *
      * @param researches List of research names.
-     * @throws InvalidNetworkMessage
      */
     public ResearchInfoResponse(final Set<Research> researches) {
         super(NetworkMessage.convertParams("[" + StringUtil.toString(researches) + "]"));

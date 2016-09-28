@@ -61,8 +61,8 @@ public interface BuildingData {
      *
      * @param staff Allocated staff in the building.
      * @return The matching bonus.
-     * @requires staff >= 0.
      */
+    //@requires staff >= 0.
     BonusResources getStaffBonus(int staff);
 
     /**
@@ -70,8 +70,8 @@ public interface BuildingData {
      *
      * @param level Building current level.
      * @return The matching bonus.
-     * @requires level not null.
      */
+    //@requires level not null.
     BonusResources getLevelBonus(Level level);
 
     /**
@@ -107,8 +107,8 @@ public interface BuildingData {
      *
      * @param level Level matching the data to retrieve.
      * @return The time max population in this building.
-     * @requires level <= this.maxLevel
      */
+    //@requires level <= this.maxLevel
     int getMaxPopulation(final Level level);
 
     /**

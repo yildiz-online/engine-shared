@@ -98,9 +98,8 @@ public final class ResourcesProducer {
 
     /**
      * Must only be called once all bonus have been applied to avoid being limited to 0.
-     *
-     * @post this.initialized == true
      */
+    //@ensures this.initialized == true
     public void setInitialised() {
         this.initialized = true;
         assert this.invariant();

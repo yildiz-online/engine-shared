@@ -41,7 +41,8 @@ public class NoWeaponModule extends Weapon {
     public static final ActionId MODULE = ActionId.get(1);
 
     /**
-     *
+     * Create a new instance.
+     * @param id Id of the entity containing this module.
      */
     public NoWeaponModule(EntityId id) {
         super(new NoAttack(id), MODULE, AttackDamage.ZERO, AttackRange.ZERO, AttackTime.ZERO);

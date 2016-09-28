@@ -83,6 +83,7 @@ public final class ResourceTransfertResponse extends NetworkMessage implements S
      * @param receiver  Id of the player receiving resources.
      * @param giver     Id of the player giving the resources.
      * @param resources Amount of transfered resources.
+     * @param cause     Cause of the transfert.
      */
     public ResourceTransfertResponse(final PlayerId receiver, final PlayerId giver, final List<Float> resources, final TransfertCause cause) {
         super(NetworkMessage.convertParams(receiver, giver, Arrays.asList(resources), Integer.valueOf(cause.ordinal())));

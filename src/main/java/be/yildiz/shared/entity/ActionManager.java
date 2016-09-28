@@ -90,6 +90,7 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
      * Register an action listener to notify when an action is created, run or completed.
      * Beware that nothing prevent to add the same listener several times.
      *
+     * @param l Listener to add.
      * @throws NullPointerException if l parameter is <code>null</code>
      * post listener.size() == getSize()@pre + 1
      */

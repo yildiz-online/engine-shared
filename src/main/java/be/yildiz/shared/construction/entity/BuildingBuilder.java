@@ -40,7 +40,7 @@ import java.util.List;
  * <p>
  * Immutable class.
  *
- * <B> Building implementation type.
+ * @param <B> Building implementation type.
  *
  * @author Grégory Van den Borre
  */
@@ -79,6 +79,7 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
      * @param owner         Player owning this building.
      * @param buildPosition Position in the world.
      * @param building      Associated building.
+     * @param queueMaxSize Maximum size of the builder queue.
      */
     protected BuildingBuilder(@NonNull final EntityId builderId, final PlayerId owner, @NonNull final Point3D buildPosition, @NonNull final B building, final int queueMaxSize) {
         super();

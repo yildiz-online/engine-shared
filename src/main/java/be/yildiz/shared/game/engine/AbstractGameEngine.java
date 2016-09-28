@@ -130,7 +130,6 @@ public abstract class AbstractGameEngine implements FrameManager, AutoCloseable 
      * Add a frame listener to be called every time a frame is started or finished.
      *
      * @param listener FrameListener to add.
-     * @return This for method chaining.
      */
     @Override
     public final void addFrameListener(final FrameListener listener) {

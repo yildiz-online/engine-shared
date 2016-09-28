@@ -47,6 +47,7 @@ public final class BuildCancelRequest extends NetworkMessage implements ServerRe
 
     /**
      * Full Constructor. Create the object and prepare it to be sent.
+     * @param requestIndex Construction unique index.
      */
     public BuildCancelRequest(final int requestIndex) {
         super(NetworkMessage.convertParams(requestIndex));

@@ -30,6 +30,7 @@ import be.yildiz.shared.entity.Entity;
 
 /**
  * To call when a building task is completed.
+ * @param <T> Entity implementation.
  *
  * @author Grégory Van den Borre
  */
@@ -43,6 +44,7 @@ public interface EntityConstructionListener<T extends Entity> {
      * Provide the newly created Entity and its builder Id.
      *
      * @param entity  New Entity.
+     * @param builder Id of the builder of the entity.
      * @param request An index to retrieve an entity against a request.
      */
     default void entityComplete(T entity, EntityId builder, int request) {

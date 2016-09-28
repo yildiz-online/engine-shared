@@ -142,8 +142,16 @@ public final class BaseEntity implements Entity, Target {
 
     /**
      * Create a new Entity.
-     *
-     * @requires true
+     * @param e Entity metadata.
+     * @param move Move module.
+     * @param weapon Interaction module.
+     * @param detector Detection module.
+     * @param hull Hull module.
+     * @param eg Energy generation module.
+     * @param additional1 Optional module.
+     * @param additional2 Optional module.
+     * @param additional3 Optional module.
+     * @param mat Entity materialization.
      */
     public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon, Detector detector, Hull hull, EnergyGenerator eg, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
         super();
@@ -177,6 +185,19 @@ public final class BaseEntity implements Entity, Target {
 
     }
 
+    /**
+     * Create a new Entity.
+     * @param e Entity metadata.
+     * @param move Move module.
+     * @param weapon Interaction module.
+     * @param detector Detection module.
+     * @param hull Hull module.
+     * @param eg Energy generation module.
+     * @param additional1 Optional module.
+     * @param additional2 Optional module.
+     * @param additional3 Optional module.
+     * @param mat Entity materialization.
+     */
     public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, Detector detector, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
         super();
         this.type = e.getType();
@@ -210,12 +231,12 @@ public final class BaseEntity implements Entity, Target {
      * Fill a module with all this entity shared variable.
      *
      * @param module Module to fill.
-     * @requires module != null
-     * @ensures module.position == this.position
-     * @ensures module.hp == this.hp
-     * @ensures module.energy == this.energy
-     * @ensures module.states == this.states
      */
+    //@requires module != null
+    //@ensures module.position == this.position
+    //@ensures module.hp == this.hp
+    //@ensures module.energy == this.energy
+    //@ensures module.states == this.states
     private void completeModule(Module<? extends Action> module) {
         module.setSharedPosition(this.position);
         module.setEnergy(this.energy);

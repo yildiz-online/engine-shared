@@ -50,6 +50,7 @@ public interface GameResources {
      * @param credits       Credit value.
      * @param researchPoint Research points value.
      * @param inhabitant    Number of inhabitants.
+     * @return The value.
      */
     static ResourceValue fullValue(final float metal, final float energy, final float credits, final float researchPoint, final float inhabitant) {
         return new ResourceValue(new float[]{metal, energy, credits, researchPoint, inhabitant});
@@ -59,6 +60,7 @@ public interface GameResources {
      * Create a new resource values, all values are set to 0, except for research points.
      *
      * @param researchPoint Research points value.
+     * @return The value.
      */
     static ResourceValue research(final float researchPoint) {
         return new ResourceValue(new float[]{0.0f, 0.0f, 0.0f, researchPoint, 0.0f});

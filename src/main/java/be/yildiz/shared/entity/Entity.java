@@ -65,7 +65,7 @@ import java.util.Set;
 //@invariant position != null.
 //@invariant direction != null.
 //@invariant direction.x + direction.y + direction.z = 1.
-//@invariant !states.contains(null).
+//@rructinvariant !states.contains(null).
 public interface Entity extends Target {
 
     /**
@@ -257,7 +257,7 @@ public interface Entity extends Target {
      * the default move action will be used.
      *
      * @param destination Destination coordinates.
-     * see <code>prepareAction(Optional <ActionId> action);</code>
+     * see <code>prepareAction(Optional ActionId action);</code>
      */
     //@prerequisites destination != null
     //@ensures this.actionToPrepare.isPresent() ? this.actionToPrepare.destination == destination : this.move.destination == destination

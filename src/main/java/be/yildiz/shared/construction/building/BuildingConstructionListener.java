@@ -30,8 +30,9 @@ import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.city.City;
 
 /**
- * @param <B>
- * @param <D>
+ * @param <B> Building implementation.
+ * @param <D> Building data implementation.
+ * @param <C> City implementation.
  * @author Grégory Van den Borre
  */
 public interface BuildingConstructionListener<B extends Building, D extends BuildingData, C extends City<B, D>> {
@@ -39,6 +40,7 @@ public interface BuildingConstructionListener<B extends Building, D extends Buil
     /**
      * Called when a building has been completed.
      *
+     * @param city City where the building is built.
      * @param b Completed building.
      */
     default void buildingComplete(C city, B b) {

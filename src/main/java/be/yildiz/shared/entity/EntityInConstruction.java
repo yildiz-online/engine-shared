@@ -73,12 +73,12 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
      * Create a new instance.
      *
      * @param type      Type of the entity to build.
-     * @param id
-     * @param owner
+     * @param id Entity id.
+     * @param owner Owner of the entity.
      * @param name      Name of the entity.
-     * @param modules
-     * @param position
-     * @param direction
+     * @param modules Modules composing this entity.
+     * @param position Position when built.
+     * @param direction Direction when built.
      * @param hp        Entity hit points when built.
      * @param energy    Entity energy points when built.
      * @throws NullPointerException     if any parameter is null.

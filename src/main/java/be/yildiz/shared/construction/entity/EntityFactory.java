@@ -42,8 +42,8 @@ public interface EntityFactory<T extends Entity> {
      * @param e Entity template.
      * @return The created entity.
      * @throws NullPointerException If the parameter is null.
-     * @Ensures result != null.
      */
+    //@Ensures result != null.
     T createEntity(EntityInConstruction e);
 
     /**
@@ -52,8 +52,8 @@ public interface EntityFactory<T extends Entity> {
      * @param e Entity template.
      * @return The created entity.
      * @throws NullPointerException If the parameter is null.
-     * @Ensures result != null.
      */
+    //@Ensures result != null.
     T createEntity(DefaultEntityInConstruction e);
 
 }

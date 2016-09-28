@@ -63,6 +63,8 @@ public final class ActionResponse extends NetworkMessage implements ServerRespon
 
     /**
      * Full constructor.
+     * @param e Id of the entity doing the action.
+     * @param a Action to do.
      */
     public ActionResponse(final EntityId e, final Action a) {
         super(NetworkMessage.convertParams(e, a.id, a.getDestination(), a.getTargetId()));

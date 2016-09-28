@@ -39,9 +39,9 @@ public final class ProtectInvincible extends Protect {
      * Create the action.
      *
      * @param entity Associated entity.
-     * @requires entity != null
-     * @requires id != null
      */
+    //@requires entity != null
+    //@requires id != null
     public ProtectInvincible(final EntityId entity) {
         super(entity);
     }

@@ -41,17 +41,17 @@ public interface BuildingTypeFactory<B extends Building, D extends BuildingData>
 
     /**
      * @return The map containing all registered data.
-     * @Ensures result != null.
      */
+    //@Ensures result != null.
     Map<EntityType, D> getRegisteredData();
 
     /**
      * Create all the building contained in an empty city.
      *
-     * @param city BaseCity to build.
-     * @Requires city != null.
-     * @Ensures the city will contains a building for all its building positions.
+     * @param city City to build.
      */
+    //Requires city != null.
+    //@Ensures the city will contains a building for all its building positions.
     void createEmptyCity(City<B, D> city);
 
 }

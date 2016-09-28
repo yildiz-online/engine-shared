@@ -39,20 +39,20 @@ import be.yildiz.shared.resources.bonus.BonusResources;
  * Mutable class.
  *
  * @author Grégory Van den Borre
- * specfield type:EntityType:Building unique type, mutable value, but can only change from empty building to another type.
- * specfield level:Level:Building level, between 0 and the building max level.
- * specfield staff:Staff:Staff assigned in the building, between 0 and the building max staff.
- * specfield city:EntityId:Id of the city holding this building, immutable value.
- * specfield position:BuildingPosition:Position of the building in the city.
- * invariant city != null
- * invariant position != null
- * invariant 0 <= position <= max building in the holding city
- * invariant type != null
- * invariant level != null
- * invariant 0 <= level <= maxLevel
- * invariant staff != null
- * invariant 0 <= staff <= maxStaff
  */
+//@specfield type:EntityType:Building unique type, mutable value, but can only change from empty building to another type.
+//@specfield level:Level:Building level, between 0 and the building max level.
+//@specfield staff:Staff:Staff assigned in the building, between 0 and the building max staff.
+//@specfield city:EntityId:Id of the city holding this building, immutable value.
+//@specfield position:BuildingPosition:Position of the building in the city.
+//@invariant city != null
+//@invariant position != null
+//@invariant 0 <= position <= max building in the holding city
+//@invariant type != null
+//@invariant level != null
+//@invariant 0 <= level <= maxLevel
+//@invariant staff != null
+//@invariant 0 <= staff <= maxStaff
 public interface Building {
 
     /**

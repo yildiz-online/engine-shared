@@ -26,6 +26,7 @@
 package be.yildiz.shared.player;
 
 import be.yildiz.common.id.EntityId;
+import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.common.util.ElapsedTimeComputer;
 import be.yildiz.shared.building.Building;
@@ -93,20 +94,7 @@ public final class PlayerMonitor<T extends Entity, B extends Building, D extends
     }
 
     @Override
-    public void create(final EntityId id, final Action a) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void execute(final EntityId id, final Action a) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void complete(final EntityId id, final Action a) {
-        // TODO Auto-generated method stub
+    public void execute(EntityId id, PlayerId owner, Action a) {
 
     }
 }

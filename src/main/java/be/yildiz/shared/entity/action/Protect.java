@@ -33,9 +33,6 @@ import be.yildiz.shared.entity.fields.AttackHitResult;
  */
 public abstract class Protect extends AbstractNoInteractionAction {
 
-    /**
-     *
-     */
     protected Protect(final EntityId e) {
         super(e, true);
     }
@@ -52,7 +49,7 @@ public abstract class Protect extends AbstractNoInteractionAction {
     /**
      * Compute Hp after being hit.
      *
-     * @param time
+     * @param time Time since last call.
      */
     protected abstract void updateHp(long time);
 

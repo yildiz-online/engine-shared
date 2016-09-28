@@ -122,6 +122,8 @@ public final class EntityInfoResponse extends NetworkMessage implements ServerRe
      * Full constructor, builder is assumed to be World.
      *
      * @param e Entity to send on the network.
+     * @param builderId Id of the builder building this entity.
+     * @param index Construction unique index.
      */
     public EntityInfoResponse(final Entity e, final EntityId builderId, final int index) {
         super(NetworkMessage.convertParams(e.getId(), e.getName(), Integer.valueOf(e.getType().type), e.getOwner(), e.getPosition(), e.getDirection(), e.getHitPoints(), e

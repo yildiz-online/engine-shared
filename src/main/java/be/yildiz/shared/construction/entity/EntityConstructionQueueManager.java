@@ -96,7 +96,7 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
      * Refresh a builder state with the updated queue.
      * If the items is not associated with any builder, nothing happens.
      *
-     * @param items
+     * @param items New values in the queue.
      * @throws NullPointerException if items is null.
      */
     public void update(final EntityConstructionQueue items) {
@@ -112,9 +112,9 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
     /**
      * Add an entity in a list, if the list was empty, notify listener to start building.
      *
-     * @param playerId
-     * @param builderId
-     * @param toBuild
+     * @param playerId Player owner of the entity.
+     * @param builderId Id of the builder of the entity.
+     * @param toBuild Data of the entity to build.
      */
     public void addEntity(final PlayerId playerId, final EntityId builderId, final EntityRepresentationConstruction toBuild) {
         Optional<Builder> builder = this.builderManager.getBuilderById(builderId);

@@ -81,6 +81,9 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
      * @param size      Object size.
      * @param instances Number of units of that type allowed.
      * @param level     Level required to build this object.
+     * @param modulesAllowed Configuration allowed.
+     * @param price Price to build.
+     * @param timeToBuild Time to build.
      * @param buildable Flag to tell if the entity can be built by the player.
      */
     protected GameEntityData(@NonNull final EntityType type, final int size, @NonNull final Instance instances,

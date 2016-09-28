@@ -28,7 +28,7 @@ package be.yildiz.shared.construction.building;
 import be.yildiz.shared.building.Building;
 
 /**
- * @param <B>
+ * @param <B> Building implementation.
  * @author Grégory Van den Borre
  */
 @FunctionalInterface

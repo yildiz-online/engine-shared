@@ -42,8 +42,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @param <T>
- * @param <D>
+ * @param <T> Building implementation.
+ * @param <D> Building data implementation.
+ * @param <C> City implementation.
  * @author Grégory Van den Borre
  */
 public abstract class BaseCityManager<T extends Building, D extends BuildingData, C extends City<T, D>> implements CityManager<T, D, C> {

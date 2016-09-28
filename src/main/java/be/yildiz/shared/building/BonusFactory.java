@@ -47,8 +47,8 @@ public interface BonusFactory {
      *
      * @param staff Allocated staff.
      * @return The matching bonus.
-     * @requires staff >= 0.
      */
+    //@requires staff >= 0.
     BonusResources getStaffBonus(int staff);
 
     boolean hasRatioBonus();

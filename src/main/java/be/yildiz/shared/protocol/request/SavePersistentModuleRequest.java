@@ -45,6 +45,7 @@ public final class SavePersistentModuleRequest extends NetworkMessage implements
 
     /**
      * Full Constructor. Create the object and prepare it to be sent.
+     * @param config Configuration to persist.
      */
     public SavePersistentModuleRequest(final ModuleConfiguration config) {
         super(NetworkMessage.convertParams(config.getPlayer(), Integer.valueOf(config.getType().type), config.getName(), config.getModules()));
