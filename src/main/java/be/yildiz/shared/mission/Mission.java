@@ -26,6 +26,7 @@
 package be.yildiz.shared.mission;
 
 import be.yildiz.common.collections.Sets;
+import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.task.TaskId;
 
 import java.util.Collections;
@@ -48,8 +49,15 @@ public class Mission {
 
     private final Set<TaskId> tasks = Sets.newSet();
 
-    public Mission(List<TaskId> tasks) {
+    private final MissionPrerequisite prerequisite;
+
+    public Mission(List<TaskId> tasks, MissionPrerequisite p) {
         this.tasks.addAll(tasks);
+        this.prerequisite = p;
+    }
+
+    public boolean canStartFor(PlayerId p) {
+        return this.prerequisite.check(p);
     }
 
     public Set<TaskId> getTasks() {

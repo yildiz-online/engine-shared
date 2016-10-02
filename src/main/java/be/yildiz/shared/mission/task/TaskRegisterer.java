@@ -25,17 +25,18 @@
 
 package be.yildiz.shared.mission.task;
 
-import be.yildiz.common.collections.Lists;
+import be.yildiz.common.collections.Maps;
 import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.DestructionListener;
 import be.yildiz.shared.entity.action.ActionListener;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TaskRegisterer {
+public class TaskRegisterer implements TaskStatusListener {
 
     //TODO the register goes in the factory: factory know true type -> register(ActionListener) register(destructionListener)...
     //The custom listener will be added in the derived class(like default register does)
@@ -44,21 +45,45 @@ public class TaskRegisterer {
 
     private final ActionManager action;
 
-    private final List<ActionListener> actionListenerRegistered = Lists.newList();
+    private final Map<TaskId, ActionListener> actionListenerRegistered = Maps.newMap();
 
-    private final List<DestructionListener> destructionListenerRegistered = Lists.newList();
+    private final Map<TaskId, DestructionListener> destructionListenerRegistered = Maps.newMap();
 
     public TaskRegisterer(ActionManager action) {
         this.action = action;
     }
 
-    public final void registerTask(ActionListener l) {
+    public final void registerTask(TaskId id, ActionListener l) {
         this.action.addListener(l);
-        this.actionListenerRegistered.add(l);
+        this.actionListenerRegistered.put(id, l);
     }
 
-    public final void registerTask(DestructionListener l) {
+    public final void registerTask(TaskId id, DestructionListener l) {
         this.action.addDestructionListener(l);
-        this.destructionListenerRegistered.add(l);
+        this.destructionListenerRegistered.put(id, l);
+    }
+
+    /**
+     * Fired when the task is successfully completed.
+     *
+     * @param taskId Id of the task completed.
+     */
+    @Override
+    public void taskCompleted(TaskId taskId) {
+        Optional
+                .ofNullable(this.actionListenerRegistered.get(taskId))
+                .ifPresent(this.action::removeListener);
+    }
+
+    /**
+     * Fired when the task has failed to complete.
+     *
+     * @param taskId Id of the task failed.
+     */
+    @Override
+    public void taskFailed(TaskId taskId) {
+        Optional
+                .ofNullable(this.actionListenerRegistered.get(taskId))
+                .ifPresent(this.action::removeListener);
     }
 }

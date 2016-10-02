@@ -25,45 +25,44 @@
 
 package be.yildiz.shared.mission.task;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.entity.action.Action;
-import be.yildiz.shared.entity.action.ActionListener;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ReachDestinationTask extends Task implements ActionListener {
+@RunWith(Enclosed.class)
+public class TaskTest {
 
-    //FIXME the implementation must create a ghost object to act as a trigger
+    public static class Constructor {
 
-    /**
-     * Destination to reach to complete the task.
-     */
-    private final Point3D destination;
-
-    /**
-     * Define the distance around the destination to validate the task.
-     */
-    private final float squaredDistance;
-
-    private final PlayerId playerId;
-
-    public ReachDestinationTask(Point3D destination, float distance, PlayerId playerId) {
-        super(new TaskId(2, new TaskType(TaskTypeConstant.DESTINATION)));
-        this.destination = destination;
-        this.squaredDistance = distance * distance;
-        this.playerId = playerId;
-    }
-
-    @Override
-    public void execute(EntityId id, PlayerId owner, Action a) {
-        if(!owner.equals(this.playerId)) {
-            return;
+        @Test
+        public void happyFlow() {
+            new Task(new TaskId(1, new TaskType("test")));
         }
-        if(a.getPosition().squaredDistance(this.destination) <= squaredDistance) {
-            this.setCompleted();
+
+        @Test(expected = NullPointerException.class)
+        public void withNull() {
+            new Task(null);
         }
     }
+
+    public static class IsCompleted {
+
+        @Test
+        public void initialStatus() {
+            Task t = new Task(new TaskId(1, new TaskType("test")));
+            Assert.assertFalse(t.isCompleted());
+        }
+
+        @Test
+        public void setCompleted() {
+            Task t = new Task(new TaskId(1, new TaskType("test")));
+            t.setCompleted();
+            Assert.assertTrue(t.isCompleted());
+        }
+    }
+
 }

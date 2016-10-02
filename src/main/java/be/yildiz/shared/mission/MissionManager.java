@@ -28,6 +28,9 @@ package be.yildiz.shared.mission;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.task.TaskFactory;
+import be.yildiz.shared.player.Player;
+import be.yildiz.shared.player.PlayerManager;
 
 import java.util.List;
 import java.util.Map;
@@ -39,12 +42,29 @@ import java.util.Set;
  */
 public class MissionManager {
 
+    private final PlayerManager playerManager;
+
     /**
      * The list of all possible missions.
      */
-    private final Set<MissionId> availableMissions = Sets.newSet();
+    private final Set<Mission> availableMissions = Sets.newSet();
 
     private final Map<PlayerId, List<Mission>> activeMissions = Maps.newMap();
+    private final TaskFactory taskFactory;
 
-   //TODO should contains all event dispatchers(action manager, entity construction manager, ...)and add them listener
+    public MissionManager(PlayerManager playerManager, TaskFactory taskFactory) {
+        this.playerManager = playerManager;
+        this.taskFactory = taskFactory;
+    }
+
+    public void addMission(Mission mission) {
+        this.availableMissions.add(mission);
+        for(Player p : this.playerManager.getPlayerList()) {
+            if(mission.canStartFor(p.id)) {
+                mission.getTasks().forEach(t -> this.taskFactory.createTask(t, p.id));
+            }
+        }
+    }
+
+    //TODO should contains all event dispatchers(action manager, entity construction manager, ...)and add them listener
 }

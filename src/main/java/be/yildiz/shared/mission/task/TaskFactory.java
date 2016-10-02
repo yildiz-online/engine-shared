@@ -25,10 +25,12 @@
 
 package be.yildiz.shared.mission.task;
 
+import be.yildiz.common.id.PlayerId;
+
 /**
  * @author Grégory Van den Borre
  */
 public interface TaskFactory {
 
-    Task createTask(TaskId id);
+    Task createTask(TaskId id, PlayerId p);
 }

@@ -33,6 +33,7 @@ import lombok.NonNull;
  */
 public class TaskId {
 
+    @Getter
     private final long value;
 
     @Getter

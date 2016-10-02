@@ -23,35 +23,14 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.mission.task;
+package be.yildiz.shared.mission;
 
-import be.yildiz.common.collections.Lists;
-import be.yildiz.shared.data.EntityType;
-
-import java.util.List;
+import be.yildiz.common.id.PlayerId;
 
 /**
  * @author Grégory Van den Borre
  */
-public class DestroyEntity extends Task {
+public interface MissionPrerequisite {
 
-    /**
-     * Number of entities to destroy to complete the task.
-     */
-    private final int numberToReach;
-
-    /**
-     * Current number of destroyed entities.
-     */
-    private int currentNumber;
-
-    /**
-     * Type of the entities to complete the task.
-     */
-    private final List<EntityType> types = Lists.newList();
-
-    public DestroyEntity(int numberToReach) {
-        super(new TaskId(1, new TaskType(TaskTypeConstant.DESTROY)));
-        this.numberToReach = numberToReach;
-    }
+    boolean check(PlayerId p);
 }

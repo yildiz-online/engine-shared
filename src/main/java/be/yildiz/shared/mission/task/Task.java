@@ -62,13 +62,17 @@ public class Task {
         this.id = id;
     }
 
-    public final void setFailed() {
+    protected final void setFailed() {
         this.failed = true;
         this.listeners.forEach(t -> t.taskFailed(this.getId()));
     }
 
-    public final void setCompleted() {
+    protected final void setCompleted() {
         this.completed = true;
         this.listeners.forEach(t -> t.taskCompleted(this.getId()));
+    }
+
+    public final void addListener(final TaskStatusListener taskStatusListener) {
+        this.listeners.add(taskStatusListener);
     }
 }

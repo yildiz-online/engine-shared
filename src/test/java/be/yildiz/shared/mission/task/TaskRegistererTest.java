@@ -23,14 +23,11 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.mission;
-
-import be.yildiz.common.id.PlayerId;
+package be.yildiz.shared.mission.task;
 
 /**
  * @author Grégory Van den Borre
  */
-public interface MissionFactory {
+public class TaskRegistererTest {
 
-    Mission buildMission(MissionId id, PlayerId player);
 }
