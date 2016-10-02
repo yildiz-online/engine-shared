@@ -57,6 +57,8 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
      */
     private final EntityManager<T, E> entityManager;
 
+    private final List<ActionListener> listenerToRemove = Lists.newList();
+
     public ActionManager(final FrameManager frame, final EntityManager<T, E> em) {
         super();
         this.entityManager = em;
@@ -72,6 +74,7 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
     @Override
     public boolean frameEnded(final long time) {
         List<T> entities = this.entityManager.getEntities();
+        this.listenerToRemove.forEach(this.listeners::remove);
         for (int i = 0; i < entities.size(); i++) {
             T e = entities.get(i);
             e.doActions(time);
@@ -99,7 +102,7 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
     }
 
     public void removeListener(@NonNull final ActionListener l) {
-        this.listeners.remove(l);
+        this.listenerToRemove.add(l);
     }
 
     public void addDestructionListener(@NonNull final DestructionListener<T> l) {
