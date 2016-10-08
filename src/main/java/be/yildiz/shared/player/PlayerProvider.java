@@ -23,30 +23,18 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.mission.task;
+package be.yildiz.shared.player;
 
-import be.yildiz.common.collections.Maps;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.mission.Mission;
-
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 /**
+ * Expose the list of all players in the game.
  * @author Grégory Van den Borre
  */
-public class TaskManager {
+public interface PlayerProvider {
 
-    private final TaskFactory factory;
-
-    private final Map<PlayerId, Set<Task>> tasks = Maps.newMap();
-
-
-    public TaskManager(TaskFactory factory) {
-        this.factory = factory;
-    }
-
-    public void startMission(Mission m, PlayerId player) {
-    }
-
+    /**
+     * @return The list of all players.
+     */
+    List<Player> getPlayerList();
 }

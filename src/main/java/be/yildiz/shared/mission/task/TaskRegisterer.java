@@ -26,6 +26,8 @@
 package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.collections.Maps;
+import be.yildiz.common.id.PlayerId;
+import be.yildiz.common.util.Pair;
 import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.DestructionListener;
 import be.yildiz.shared.entity.action.ActionListener;
@@ -45,33 +47,29 @@ public class TaskRegisterer implements TaskStatusListener {
 
     private final ActionManager action;
 
-    private final Map<TaskId, ActionListener> actionListenerRegistered = Maps.newMap();
+    private final Map<Pair<TaskId, PlayerId>, ActionListener> actionListenerRegistered = Maps.newMap();
 
-    private final Map<TaskId, DestructionListener> destructionListenerRegistered = Maps.newMap();
+    private final Map<Pair<TaskId, PlayerId>, DestructionListener> destructionListenerRegistered = Maps.newMap();
 
     public TaskRegisterer(ActionManager action) {
         this.action = action;
     }
 
-    public final void registerTask(TaskId id, ActionListener l) {
+    public final void registerTask(TaskId id, PlayerId player, ActionListener l) {
         this.action.addListener(l);
-        this.actionListenerRegistered.put(id, l);
+        this.actionListenerRegistered.put(new Pair<>(id, player), l);
     }
 
-    public final void registerTask(TaskId id, DestructionListener l) {
+    public final void registerTask(TaskId id, PlayerId player, DestructionListener l) {
         this.action.addDestructionListener(l);
-        this.destructionListenerRegistered.put(id, l);
+        this.destructionListenerRegistered.put(new Pair<>(id, player), l);
     }
 
-    /**
-     * Fired when the task is successfully completed.
-     *
-     * @param taskId Id of the task completed.
-     */
+
     @Override
-    public void taskCompleted(TaskId taskId) {
+    public void taskCompleted(TaskId taskId, PlayerId playerId) {
         Optional
-                .ofNullable(this.actionListenerRegistered.get(taskId))
+                .ofNullable(this.actionListenerRegistered.get(new Pair<>(taskId, playerId)))
                 .ifPresent(this.action::removeListener);
     }
 
@@ -81,9 +79,9 @@ public class TaskRegisterer implements TaskStatusListener {
      * @param taskId Id of the task failed.
      */
     @Override
-    public void taskFailed(TaskId taskId) {
+    public void taskFailed(TaskId taskId, PlayerId playerId) {
         Optional
-                .ofNullable(this.actionListenerRegistered.get(taskId))
+                .ofNullable(this.actionListenerRegistered.get(new Pair<>(taskId, playerId)))
                 .ifPresent(this.action::removeListener);
     }
 }

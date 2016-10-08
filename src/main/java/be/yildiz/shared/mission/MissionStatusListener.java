@@ -25,12 +25,14 @@
 
 package be.yildiz.shared.mission;
 
+import be.yildiz.common.id.PlayerId;
+
 /**
  * @author Grégory Van den Borre
  */
 public interface MissionStatusListener {
 
-    void missionSuccess(Mission mission);
+    void missionSuccess(Mission mission, PlayerId playerId);
 
-    void missionFailed(Mission mission);
+    void missionFailed(Mission mission, PlayerId playerId);
 }

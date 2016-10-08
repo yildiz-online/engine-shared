@@ -25,6 +25,8 @@
 
 package be.yildiz.shared.mission.task;
 
+import be.yildiz.common.id.PlayerId;
+
 /**
  * The task listener will notify once a task is completed or has failed.
  * @author Grégory Van den Borre
@@ -34,14 +36,16 @@ public interface TaskStatusListener {
     /**
      * Fired when the task is successfully completed.
      * @param taskId Id of the task completed.
+     * @param playerId Id of the player completing the task.
      */
     //@Ensures taskId != null
-    void taskCompleted(TaskId taskId);
+    void taskCompleted(TaskId taskId, PlayerId playerId);
 
     /**
      * Fired when the task has failed to complete.
      * @param taskId Id of the task failed.
+     * @param playerId Id of the player failing the task.
      */
     //@Ensures taskId != null
-    void taskFailed(TaskId taskId);
+    void taskFailed(TaskId taskId, PlayerId playerId);
 }

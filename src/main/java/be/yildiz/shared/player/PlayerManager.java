@@ -38,7 +38,7 @@ import java.util.Map;
  *
  * @author Grégory Van den Borre
  */
-public final class PlayerManager {
+public final class PlayerManager implements PlayerProvider {
 
     /**
      * List of all created player, the key is their id.
@@ -133,9 +133,7 @@ public final class PlayerManager {
         return PlayerRelation.ENEMY;
     }
 
-    /**
-     * @return The list of all players.
-     */
+    @Override
     public List<Player> getPlayerList() {
         return Lists.newList(this.playerIdList.values());
     }

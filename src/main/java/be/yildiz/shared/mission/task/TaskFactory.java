@@ -25,12 +25,22 @@
 
 package be.yildiz.shared.mission.task;
 
+import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.PlayerId;
+import lombok.NonNull;
+
+import java.util.List;
 
 /**
  * @author Grégory Van den Borre
  */
-public interface TaskFactory {
+public abstract class TaskFactory {
 
-    Task createTask(TaskId id, PlayerId p);
+    protected final List<TaskStatusListener> taskStatusListeners = Lists.newList();
+
+    public abstract  Task createTask(TaskId id, PlayerId p);
+
+    public final void addTaskListener(@NonNull TaskStatusListener l) {
+        this.taskStatusListeners.add(l);
+    }
 }

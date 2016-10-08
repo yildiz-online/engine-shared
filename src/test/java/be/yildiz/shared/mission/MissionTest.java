@@ -23,47 +23,81 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.mission.task;
+package be.yildiz.shared.mission;
 
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.task.TaskId;
+import be.yildiz.shared.mission.task.TaskType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Grégory Van den Borre
  */
 @RunWith(Enclosed.class)
-public class TaskTest {
+public class MissionTest {
+
+    public static Mission givenANewMission() {
+        List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
+        return new Mission(l, p -> {return true;});
+    }
 
     public static class Constructor {
 
         @Test
         public void happyFlow() {
-            new Task(new TaskId(1, new TaskType("test")), PlayerId.get(5));
+            givenANewMission();
         }
 
         @Test(expected = NullPointerException.class)
-        public void withNull() {
-            new Task(null, PlayerId.WORLD);
+        public void withNullList() {
+            new Mission(null, p -> {return true;});
         }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void willListContainsNull() {
+            List<TaskId> l = new ArrayList<>();
+            l.add(new TaskId(5L, new TaskType("ok")));
+            l.add(null);
+            new Mission(l, p -> {return true;});
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void withNullPrerequisite() {
+            List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
+            new Mission(l, null);
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void withEmptyTaskList() {
+            List<TaskId> l = new ArrayList<>();
+            new Mission(l, p -> {return true;});
+        }
+
     }
 
-    public static class IsCompleted {
+    public static class CanStart {
 
         @Test
-        public void initialStatus() {
-            Task t = new Task(new TaskId(1, new TaskType("test")),PlayerId.get(5));
-            Assert.assertFalse(t.isCompleted());
+        public void withTruePrerequisite() {
+            List<TaskId> l = new ArrayList<>();
+            l.add(new TaskId(5L, new TaskType("ok")));
+            Mission m = new Mission(l, p -> {return true;});
+            Assert.assertTrue(m.canStartFor(PlayerId.WORLD));
         }
 
         @Test
-        public void setCompleted() {
-            Task t = new Task(new TaskId(1, new TaskType("test")),PlayerId.get(5));
-            t.setCompleted();
-            Assert.assertTrue(t.isCompleted());
+        public void withFalsePrerequisite() {
+            List<TaskId> l = new ArrayList<>();
+            l.add(new TaskId(5L, new TaskType("ok")));
+            Mission m = new Mission(l, p -> {return false;});
+            Assert.assertFalse(m.canStartFor(PlayerId.WORLD));
         }
     }
-
 }

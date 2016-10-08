@@ -26,6 +26,7 @@
 package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.collections.Lists;
+import be.yildiz.common.id.PlayerId;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -45,6 +46,7 @@ public class Task {
     private final TaskId id;
 
     private final List<TaskStatusListener> listeners = Lists.newList();
+    private final PlayerId player;
 
     /**
      * Flag to check if the task is completed or not.
@@ -58,18 +60,19 @@ public class Task {
     @Getter
     private boolean failed = false;
 
-    protected Task(@NonNull TaskId id) {
+    protected Task(@NonNull TaskId id, PlayerId p) {
         this.id = id;
+        this.player = p;
     }
 
     protected final void setFailed() {
         this.failed = true;
-        this.listeners.forEach(t -> t.taskFailed(this.getId()));
+        this.listeners.forEach(t -> t.taskFailed(this.id, this.player));
     }
 
     protected final void setCompleted() {
         this.completed = true;
-        this.listeners.forEach(t -> t.taskCompleted(this.getId()));
+        this.listeners.forEach(t -> t.taskCompleted(this.id, this.player));
     }
 
     public final void addListener(final TaskStatusListener taskStatusListener) {
