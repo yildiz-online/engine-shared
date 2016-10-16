@@ -44,7 +44,7 @@ import java.util.Set;
  * The mission manager will handle the mission creation and assignment to ad hoc players.
  * @author Grégory Van den Borre
  */
-public class MissionManager implements TaskStatusListener {
+public class MissionManager <T extends Mission> implements TaskStatusListener {
 
     /**
      * Provides the list of players.
@@ -54,9 +54,9 @@ public class MissionManager implements TaskStatusListener {
     /**
      * The list of all possible missions.
      */
-    private final Set<Mission> availableMissions = Sets.newSet();
+    private final Set<T> availableMissions = Sets.newSet();
 
-    private final Map<PlayerId, Set<Mission>> activeMissions = Maps.newMap();
+    private final Map<PlayerId, Set<T>> activeMissions = Maps.newMap();
 
     private final List<MissionStatusListener> listeners = Lists.newList();
 
@@ -73,7 +73,7 @@ public class MissionManager implements TaskStatusListener {
         this.taskFactory.addTaskListener(this);
     }
 
-    public final void addMission(Mission mission) {
+    public final void addMission(T mission) {
         this.availableMissions.add(mission);
         this.playerProvider.getPlayerList()
                 .stream()
@@ -83,34 +83,24 @@ public class MissionManager implements TaskStatusListener {
                     CollectionUtil.getOrCreateSetFromMap(this.activeMissions, id).add(mission);
                     mission.getTasks()
                             .forEach(t -> this.taskFactory.createTask(t, id));
+                    this.listeners.forEach(l->l.missionStarted(mission, id));
                 });
     }
 
-    /**
-     * Fired when the task is successfully completed.
-     *
-     * @param taskId   Id of the task completed.
-     * @param playerId Id of the player completing the task.
-     */
     @Override
     public final void taskCompleted(TaskId taskId, PlayerId playerId) {
         CollectionUtil.getOrCreateSetFromMap(this.taskCompleted, playerId).add(taskId);
         boolean success = this.checkMissionCompleted(taskId, playerId);
         if(success) {
-            Mission mission = this.getMissionFromTaskId(taskId, playerId);
+            T mission = this.getMissionFromTaskId(taskId, playerId);
             this.activeMissions.get(playerId).remove(mission);
             this.listeners.forEach(l -> l.missionSuccess(mission, playerId));
         }
     }
-    /**
-     * Fired when the task has failed to complete.
-     *
-     * @param taskId   Id of the task failed.
-     * @param playerId Id of the player failing the task.
-     */
+
     @Override
     public final void taskFailed(TaskId taskId, PlayerId playerId) {
-        Mission mission = this.getMissionFromTaskId(taskId, playerId);
+        T mission = this.getMissionFromTaskId(taskId, playerId);
         this.activeMissions.get(playerId).remove(mission);
         this.listeners.forEach(l -> l.missionFailed(mission, playerId));
     }
@@ -121,7 +111,7 @@ public class MissionManager implements TaskStatusListener {
 
     private boolean checkMissionCompleted(TaskId taskId, PlayerId playerId) {
         Set<TaskId> tasks = CollectionUtil.getOrCreateSetFromMap(this.taskCompleted, playerId);
-        Mission m = this.getMissionFromTaskId(taskId, playerId);
+        T m = this.getMissionFromTaskId(taskId, playerId);
         for(TaskId t : m.getTasks()) {
             if(!tasks.contains(t)) {
                 return false;
@@ -130,7 +120,7 @@ public class MissionManager implements TaskStatusListener {
         return true;
     }
 
-    private Mission getMissionFromTaskId(TaskId taskId, PlayerId playerId) {
+    private T getMissionFromTaskId(TaskId taskId, PlayerId playerId) {
         return this.activeMissions.get(playerId)
                 .stream()
                 .filter(m -> m.hasTask(taskId))

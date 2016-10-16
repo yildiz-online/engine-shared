@@ -25,25 +25,28 @@
 
 package be.yildiz.shared.mission;
 
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.mission.task.TaskId;
-
-import java.util.Set;
-
 /**
  * @author Grégory Van den Borre
  */
-public interface Mission {
-    //@Ensures p != null
-    boolean canStartFor(PlayerId p);
+public class MissionId {
 
-    /**
-     * Provide the list of tasks to fulfill in the mission.
-     * @return The immutable list of tasks.
-     */
-    Set<TaskId> getTasks();
+    public final int value;
 
-    boolean hasTask(TaskId task);
 
-    MissionId getId();
+    public MissionId(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof MissionId)) {
+            return false;
+        }
+        return ((MissionId) o).value == this.value;
+    }
 }

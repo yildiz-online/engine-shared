@@ -30,9 +30,11 @@ import be.yildiz.common.id.PlayerId;
 /**
  * @author Grégory Van den Borre
  */
-public interface MissionStatusListener {
+public interface MissionStatusListener <T extends Mission> {
 
-    void missionSuccess(Mission mission, PlayerId playerId);
+    void missionStarted(T mission, PlayerId playerId);
 
-    void missionFailed(Mission mission, PlayerId playerId);
+    void missionSuccess(T mission, PlayerId playerId);
+
+    void missionFailed(T mission, PlayerId playerId);
 }

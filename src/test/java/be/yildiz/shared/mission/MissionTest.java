@@ -45,10 +45,12 @@ public class MissionTest {
 
     public static Mission givenANewMission() {
         List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
-        return new Mission(l, p -> {return true;});
+        return new BaseMission(new MissionId(1), l, p -> {return true;});
     }
 
     public static class Constructor {
+
+        private final MissionId id = new MissionId(2);
 
         @Test
         public void happyFlow() {
@@ -57,7 +59,7 @@ public class MissionTest {
 
         @Test(expected = NullPointerException.class)
         public void withNullList() {
-            new Mission(null, p -> {return true;});
+            new BaseMission(id, null, p -> {return true;});
         }
 
         @Test(expected = IllegalArgumentException.class)
@@ -65,30 +67,32 @@ public class MissionTest {
             List<TaskId> l = new ArrayList<>();
             l.add(new TaskId(5L, new TaskType("ok")));
             l.add(null);
-            new Mission(l, p -> {return true;});
+            new BaseMission(id, l, p -> {return true;});
         }
 
         @Test(expected = NullPointerException.class)
         public void withNullPrerequisite() {
             List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
-            new Mission(l, null);
+            new BaseMission(id, l, null);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void withEmptyTaskList() {
             List<TaskId> l = new ArrayList<>();
-            new Mission(l, p -> {return true;});
+            new BaseMission(id, l, p -> {return true;});
         }
 
     }
 
     public static class CanStart {
 
+        private final MissionId id = new MissionId(2);
+
         @Test
         public void withTruePrerequisite() {
             List<TaskId> l = new ArrayList<>();
             l.add(new TaskId(5L, new TaskType("ok")));
-            Mission m = new Mission(l, p -> {return true;});
+            Mission m = new BaseMission(id, l, p -> {return true;});
             Assert.assertTrue(m.canStartFor(PlayerId.WORLD));
         }
 
@@ -96,7 +100,7 @@ public class MissionTest {
         public void withFalsePrerequisite() {
             List<TaskId> l = new ArrayList<>();
             l.add(new TaskId(5L, new TaskType("ok")));
-            Mission m = new Mission(l, p -> {return false;});
+            Mission m = new BaseMission(id, l, p -> {return false;});
             Assert.assertFalse(m.canStartFor(PlayerId.WORLD));
         }
     }
