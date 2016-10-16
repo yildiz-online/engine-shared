@@ -44,6 +44,12 @@ import be.yildiz.shared.entity.module.move.StaticModule;
  */
 public class Helper {
 
+    public static final EntityId ID_OK = EntityId.get(3L);
+    public static final PlayerId OWNER_OK = PlayerId.get(2);
+    public static final Point3D POSITION_OK = Point3D.xyz(1, 2, 3);
+    public static final Point3D DIRECTION_OK = Point3D.xyz(5, 8, 3);
+    public static final EntityType TYPE_OK = new EntityType(4, "test");
+
     public static Entity anEntity(long id) {
         return anEntity(id, 5);
     }

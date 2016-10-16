@@ -25,6 +25,7 @@
 
 package be.yildiz.shared.data;
 
+import be.yildiz.helper.Helper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -66,7 +67,7 @@ public final class EntityTypeTest {
 
     @Test
     public void testEntityTypeDuplicate() {
-        new EntityType(4, "test");
+        EntityType e = Helper.TYPE_OK;
         this.rule.expect(AssertionError.class);
         new EntityType(4, "test2");
     }
