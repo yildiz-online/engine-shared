@@ -154,35 +154,9 @@ public final class BaseEntity implements Entity, Target {
      * @param mat Entity materialization.
      */
     public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon, Detector detector, Hull hull, EnergyGenerator eg, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
-        super();
-        this.type = e.getType();
-        this.owner = e.getOwner();
-        this.id = e.getId();
-        this.name = e.getName();
-        this.position.setPosition(e.getPosition());
-        this.position.setDirection(e.getDirection());
-        this.hp.setMax(hull.getMaxHp());
+        this(e, e.getName(), move, weapon, hull, eg, detector, additional1, additional2, additional3, mat);
         this.hp.setValue(e.getHp());
-        this.energy.setMax(eg.getEnergyMax());
         this.energy.setValue(e.getEnergy());
-        this.weapon = weapon;
-        this.completeModule(this.weapon);
-        this.moveEngine = move;
-        this.completeModule(this.moveEngine);
-        this.hull = hull;
-        this.completeModule(this.hull);
-        this.energyGenerator = eg;
-        this.completeModule(this.energyGenerator);
-        this.detector = detector;
-        this.completeModule(detector);
-        this.additional1 = additional1;
-        this.completeModule(this.additional1);
-        this.additional2 = additional2;
-        this.completeModule(this.additional2);
-        this.additional3 = additional3;
-        this.completeModule(this.additional3);
-        this.mat = mat;
-
     }
 
     /**
@@ -199,15 +173,29 @@ public final class BaseEntity implements Entity, Target {
      * @param mat Entity materialization.
      */
     public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, Detector detector, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
+        this(e, e.getType().name, move, weapon, hull, eg, detector, additional1, additional2, additional3, mat);
+        this.hp.setValue(hull.getMaxHp());
+        this.energy.setValue(eg.getEnergyMax());
+    }
+
+    private BaseEntity(DefaultEntityInConstruction e,
+                       String name,
+                       MoveEngine move,
+                       Weapon weapon,
+                       Hull hull,
+                       EnergyGenerator eg,
+                       Detector detector,
+                       Module additional1,
+                       Module additional2,
+                       Module additional3,
+                       GameMaterialization mat) {
         super();
         this.type = e.getType();
+        this.name = name;
         this.owner = e.getOwner();
         this.id = e.getId();
-        this.name = e.getType().name;
         this.position.setPosition(e.getPosition());
         this.position.setDirection(e.getDirection());
-        this.hp.setValueAndMax(hull.getMaxHp());
-        this.energy.setValueAndMax(eg.getEnergyMax());
         this.weapon = weapon;
         this.completeModule(this.weapon);
         this.moveEngine = move;
@@ -217,7 +205,7 @@ public final class BaseEntity implements Entity, Target {
         this.energyGenerator = eg;
         this.completeModule(this.energyGenerator);
         this.detector = detector;
-        this.completeModule(detector);
+        this.completeModule(this.detector);
         this.additional1 = additional1;
         this.completeModule(this.additional1);
         this.additional2 = additional2;
@@ -225,6 +213,8 @@ public final class BaseEntity implements Entity, Target {
         this.additional3 = additional3;
         this.completeModule(this.additional3);
         this.mat = mat;
+        this.hp.setMax(hull.getMaxHp());
+        this.energy.setMax(eg.getEnergyMax());
     }
 
     /**

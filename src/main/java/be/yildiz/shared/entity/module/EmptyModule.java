@@ -30,12 +30,21 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.shared.entity.action.NoAction;
 
 /**
+ * This module will do nothing, it is associated with the NoAction action.
  * @author Grégory Van den Borre
  */
 public class EmptyModule extends Module<NoAction> {
 
-    public static ActionId MODULE = ActionId.get(255);
+    /**
+     * Module unique id.
+     */
+    public static final ActionId MODULE = ActionId.get(255);
 
+    /**
+     * Create a new module.
+     * @param id Id of the entity containing this module.
+     * @throws NullPointerException If id is null.
+     */
     public EmptyModule(EntityId id) {
         super(new NoAction(id), MODULE);
     }
