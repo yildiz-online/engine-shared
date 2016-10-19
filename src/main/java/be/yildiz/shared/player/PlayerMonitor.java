@@ -74,7 +74,7 @@ public final class PlayerMonitor<T extends Entity, B extends Building, D extends
 
     @Override
     public void entityComplete(final T entity, EntityId builder, int index) {
-        if (player.equals(this.player.id)) {
+        if (entity.getOwner().equals(this.player.id)) {
             Logger.info(this.playerName + " entity complete " + entity);
         }
     }
