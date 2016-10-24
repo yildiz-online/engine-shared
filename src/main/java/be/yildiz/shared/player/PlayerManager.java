@@ -49,6 +49,8 @@ public final class PlayerManager implements PlayerProvider {
      */
     private final Map<String, Player> playerNameList = Maps.newMap();
 
+    private final List <PlayerCreationListener> playerCreationListeners = Lists.newList();
+
     /**
      * Retrieve a player from its id.
      *
@@ -100,6 +102,7 @@ public final class PlayerManager implements PlayerProvider {
         Player player = new Player(id, name, right);
         this.playerIdList.put(id, player);
         this.playerNameList.put(name, player);
+        this.playerCreationListeners.forEach(l -> l.playerCreated(player));
         return player;
     }
 
@@ -184,6 +187,10 @@ public final class PlayerManager implements PlayerProvider {
      */
     public boolean exists(final String name) {
         return this.playerNameList.containsKey(name);
+    }
+
+    public void addListener(PlayerCreationListener l) {
+        this.playerCreationListeners.add(l);
     }
 
     /**
