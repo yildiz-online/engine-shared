@@ -23,42 +23,60 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-package be.yildiz.shared.mission;
+package be.yildiz.shared.mission.task;
+
+import be.yildiz.common.collections.Lists;
+import be.yildiz.common.id.PlayerId;
+import lombok.Getter;
+import lombok.NonNull;
+
+import java.util.List;
 
 /**
- * Unique identifier for a mission.
+ * A mission is composed of one or several task.
+ * Those task must be completed to complete the mission.
+ * A task can be optional or mandatory.
+ * A mission must contains at least one mandatory task.
+ * To complete a task, a player must do some action, or have a certain status.
  * @author Grégory Van den Borre
  */
-public class MissionId {
+public class BaseTask implements Task {
+
+    @Getter
+    private final TaskId id;
+
+    private final List<TaskStatusListener> listeners = Lists.newList();
+    private final PlayerId player;
 
     /**
-     * Id value.
+     * Flag to check if the task is completed or not.
      */
-    public final int value;
+    @Getter
+    private boolean completed = false;
 
-    public MissionId(final int value) {
-        super();
-        this.value = value;
+    /**
+     * Flag to check if the task is failed or not.
+     */
+    @Getter
+    private boolean failed = false;
+
+    protected BaseTask(@NonNull TaskId id, PlayerId p) {
+        this.id = id;
+        this.player = p;
+    }
+
+    protected final void setFailed() {
+        this.failed = true;
+        this.listeners.forEach(t -> t.taskFailed(this.id, this.player));
+    }
+
+    protected final void setCompleted() {
+        this.completed = true;
+        this.listeners.forEach(t -> t.taskCompleted(this.id, this.player));
     }
 
     @Override
-    public int hashCode() {
-        return this.value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if(this == o) {
-            return true;
-        }
-        if(!(o instanceof MissionId)) {
-            return false;
-        }
-        return ((MissionId) o).value == this.value;
-    }
-
-    @Override
-    public String toString() {
-        return "Id value = " + value;
+    public final void addListener(final TaskStatusListener taskStatusListener) {
+        this.listeners.add(taskStatusListener);
     }
 }

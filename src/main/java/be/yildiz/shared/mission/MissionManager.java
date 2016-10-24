@@ -33,6 +33,8 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.task.TaskFactory;
 import be.yildiz.shared.mission.task.TaskId;
 import be.yildiz.shared.mission.task.TaskStatusListener;
+import be.yildiz.shared.player.Player;
+import be.yildiz.shared.player.PlayerCreationListener;
 import be.yildiz.shared.player.PlayerProvider;
 import lombok.NonNull;
 
@@ -44,7 +46,7 @@ import java.util.Set;
  * The mission manager will handle the mission creation and assignment to ad hoc players.
  * @author Grégory Van den Borre
  */
-public class MissionManager <T extends Mission> implements TaskStatusListener {
+public class MissionManager <T extends Mission> implements TaskStatusListener, PlayerCreationListener {
 
     /**
      * Provides the list of players.
@@ -126,5 +128,10 @@ public class MissionManager <T extends Mission> implements TaskStatusListener {
                 .filter(m -> m.hasTask(taskId))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public void playerCreated(Player player) {
+
     }
 }

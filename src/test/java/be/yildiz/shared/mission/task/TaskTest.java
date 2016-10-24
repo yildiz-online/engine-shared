@@ -41,12 +41,12 @@ public class TaskTest {
 
         @Test
         public void happyFlow() {
-            new Task(new TaskId(1, new TaskType("test")), PlayerId.get(5));
+            new BaseTask(new TaskId(1, new TaskType("test")), PlayerId.get(5));
         }
 
         @Test(expected = NullPointerException.class)
         public void withNull() {
-            new Task(null, PlayerId.WORLD);
+            new BaseTask(null, PlayerId.WORLD);
         }
     }
 
@@ -54,13 +54,13 @@ public class TaskTest {
 
         @Test
         public void initialStatus() {
-            Task t = new Task(new TaskId(1, new TaskType("test")),PlayerId.get(5));
+            Task t = new BaseTask(new TaskId(1, new TaskType("test")),PlayerId.get(5));
             Assert.assertFalse(t.isCompleted());
         }
 
         @Test
         public void setCompleted() {
-            Task t = new Task(new TaskId(1, new TaskType("test")),PlayerId.get(5));
+            BaseTask t = new BaseTask(new TaskId(1, new TaskType("test")),PlayerId.get(5));
             t.setCompleted();
             Assert.assertTrue(t.isCompleted());
         }

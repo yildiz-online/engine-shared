@@ -25,40 +25,23 @@
 
 package be.yildiz.shared.mission;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
- * Unique identifier for a mission.
  * @author Grégory Van den Borre
  */
-public class MissionId {
+public class MissionIdTest {
 
-    /**
-     * Id value.
-     */
-    public final int value;
-
-    public MissionId(final int value) {
-        super();
-        this.value = value;
+    @Test
+    public void testConstructor() {
+        MissionId id = new MissionId(12);
+        Assert.assertEquals(12, id.value);
     }
 
-    @Override
-    public int hashCode() {
-        return this.value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if(this == o) {
-            return true;
-        }
-        if(!(o instanceof MissionId)) {
-            return false;
-        }
-        return ((MissionId) o).value == this.value;
-    }
-
-    @Override
-    public String toString() {
-        return "Id value = " + value;
+    @Test
+    public void testHashCode() {
+        MissionId id = new MissionId(9);
+        Assert.assertEquals(9, id.hashCode());
     }
 }

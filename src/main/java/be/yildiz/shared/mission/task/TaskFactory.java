@@ -34,11 +34,11 @@ import java.util.List;
 /**
  * @author Grégory Van den Borre
  */
-public abstract class TaskFactory {
+public abstract class TaskFactory <T extends Task> {
 
     protected final List<TaskStatusListener> taskStatusListeners = Lists.newList();
 
-    public abstract  Task createTask(TaskId id, PlayerId p);
+    public abstract  T createTask(TaskId id, PlayerId p);
 
     public final void addTaskListener(@NonNull TaskStatusListener l) {
         this.taskStatusListeners.add(l);

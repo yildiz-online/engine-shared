@@ -25,57 +25,15 @@
 
 package be.yildiz.shared.mission.task;
 
-import be.yildiz.common.collections.Lists;
-import be.yildiz.common.id.PlayerId;
-import lombok.Getter;
-import lombok.NonNull;
-
-import java.util.List;
-
 /**
- * A mission is composed of one or several task.
- * Those task must be completed to complete the mission.
- * A task can be optional or mandatory.
- * A mission must contains at least one mandatory task.
- * To complete a task, a player must do some action, or have a certain status.
  * @author Grégory Van den Borre
  */
-public class Task {
+public interface Task {
+    void addListener(TaskStatusListener taskStatusListener);
 
-    @Getter
-    private final TaskId id;
+    TaskId getId();
 
-    private final List<TaskStatusListener> listeners = Lists.newList();
-    private final PlayerId player;
+    boolean isCompleted();
 
-    /**
-     * Flag to check if the task is completed or not.
-     */
-    @Getter
-    private boolean completed = false;
-
-    /**
-     * Flag to check if the task is failed or not.
-     */
-    @Getter
-    private boolean failed = false;
-
-    protected Task(@NonNull TaskId id, PlayerId p) {
-        this.id = id;
-        this.player = p;
-    }
-
-    protected final void setFailed() {
-        this.failed = true;
-        this.listeners.forEach(t -> t.taskFailed(this.id, this.player));
-    }
-
-    protected final void setCompleted() {
-        this.completed = true;
-        this.listeners.forEach(t -> t.taskCompleted(this.id, this.player));
-    }
-
-    public final void addListener(final TaskStatusListener taskStatusListener) {
-        this.listeners.add(taskStatusListener);
-    }
+    boolean isFailed();
 }
