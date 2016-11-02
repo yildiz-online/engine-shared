@@ -40,7 +40,7 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public final class ResourceTransfertResponse extends NetworkMessage implements ServerResponse {
+public final class ResourceTransferResponse extends NetworkMessage implements ServerResponse {
 
     /**
      * Player receiving resources.
@@ -61,7 +61,7 @@ public final class ResourceTransfertResponse extends NetworkMessage implements S
      * Cause of this transfer.
      */
     @Getter
-    private final TransfertCause cause;
+    private final TransferCause cause;
 
     /**
      * Full constructor.
@@ -69,12 +69,12 @@ public final class ResourceTransfertResponse extends NetworkMessage implements S
      * @param message Message from the server to parse.
      * @throws InvalidNetworkMessage If an error occurs while parsing the message.
      */
-    public ResourceTransfertResponse(final MessageWrapper message) throws InvalidNetworkMessage {
+    public ResourceTransferResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
         this.receiver = this.getPlayerId();
         this.giver = this.getPlayerId();
         this.resources = this.getFloatList();
-        this.cause = TransfertCause.values()[this.getInt()];
+        this.cause = TransferCause.values()[this.getInt()];
     }
 
     /**
@@ -82,11 +82,11 @@ public final class ResourceTransfertResponse extends NetworkMessage implements S
      *
      * @param receiver  Id of the player receiving resources.
      * @param giver     Id of the player giving the resources.
-     * @param resources Amount of transfered resources.
-     * @param cause     Cause of the transfert.
+     * @param resources Amount of transferred resources.
+     * @param cause     Cause of the transfer.
      */
-    public ResourceTransfertResponse(final PlayerId receiver, final PlayerId giver, final List<Float> resources, final TransfertCause cause) {
-        super(NetworkMessage.convertParams(receiver, giver, Arrays.asList(resources), Integer.valueOf(cause.ordinal())));
+    public ResourceTransferResponse(final PlayerId receiver, final PlayerId giver, final List<Float> resources, final TransferCause cause) {
+        super(NetworkMessage.convertParams(receiver, giver, Arrays.asList(resources), cause.ordinal()));
         this.receiver = receiver;
         this.giver = giver;
         this.resources = resources;
@@ -94,11 +94,11 @@ public final class ResourceTransfertResponse extends NetworkMessage implements S
     }
 
     /**
-     * @return The value of ServerCommand RESOURCE_TRANSFERT.
+     * @return The value of ServerCommand RESOURCE_TRANSFER.
      */
     @Override
     public int command() {
-        return ServerCommand.RESOURCE_TRANSFERT.value;
+        return ServerCommand.RESOURCE_TRANSFER.value;
     }
 
 
@@ -107,7 +107,7 @@ public final class ResourceTransfertResponse extends NetworkMessage implements S
      *
      * @author Van den Borre
      */
-    public enum TransfertCause {
+    public enum TransferCause {
 
         /**
          * Resources have been stolen from another player.
