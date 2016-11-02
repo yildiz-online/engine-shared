@@ -90,7 +90,7 @@ public enum ServerCommand {
     /**
      * Send information about resources transfered from a player to another.
      */
-    RESOURCE_TRANSFERT(12),
+    RESOURCE_TRANSFER(12),
 
     /**
      * Send information for an Entity to stop attacking..
@@ -116,11 +116,13 @@ public enum ServerCommand {
 
     CLOSE_SESSION(18),
 
-    MESSAGELIST(19),
+    MESSAGE_LIST(19),
 
     ACTION(20),
 
     ENTITY_CONSTRUCTION_QUEUE(21),
+
+    MISSION_STATUS(22),
 
     AUTHENTICATION_RESPONSE(99);
 
