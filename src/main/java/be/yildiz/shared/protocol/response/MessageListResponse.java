@@ -25,7 +25,6 @@
 
 package be.yildiz.shared.protocol.response;
 
-import be.yildiz.common.collections.Lists;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
@@ -34,6 +33,7 @@ import be.yildiz.shared.player.Message;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Grégory Van den Borre
@@ -61,14 +61,14 @@ public final class MessageListResponse extends NetworkMessage implements ServerR
     public MessageListResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
         List<String> l = this.getStringList();
-        this.messageList = Lists.newList();
-        for (String s : l) {
-            this.messageList.add(new Message(s));
-        }
+        this.messageList = l
+                        .stream()
+                        .map(Message::new)
+                        .collect(Collectors.toList());
     }
 
     @Override
     public int command() {
-        return ServerCommand.MESSAGELIST.value;
+        return ServerCommand.MESSAGE_LIST.value;
     }
 }
