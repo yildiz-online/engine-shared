@@ -32,6 +32,8 @@ import be.yildiz.common.id.PlayerId;
  */
 public interface MissionStatusListener <T extends Mission> {
 
+    void missionReady(T mission, PlayerId playerId);
+
     void missionStarted(T mission, PlayerId playerId);
 
     void missionSuccess(T mission, PlayerId playerId);
