@@ -27,6 +27,7 @@ package be.yildiz.shared.entity;
 
 import be.yildiz.common.BoundedValue;
 import be.yildiz.common.collections.Lists;
+import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.gameobject.GameMaterialization;
 import be.yildiz.common.gameobject.Movable;
@@ -54,6 +55,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -128,10 +130,10 @@ public final class BaseEntity implements Entity, Target {
     @Getter
     @Setter
     private String name;
+
     @Getter
-    @Setter
-    @NonNull
     private PlayerId owner;
+
     @Getter
     private List<Action> actionRunning = Lists.newList();
     @Getter
@@ -139,6 +141,8 @@ public final class BaseEntity implements Entity, Target {
     private Movable mat;
 
     private Optional<Action> actionToPrepare = Optional.empty();
+
+    private Map<ActionId, Action> actions = Maps.newMap();
 
     /**
      * Create a new Entity.
@@ -153,7 +157,17 @@ public final class BaseEntity implements Entity, Target {
      * @param additional3 Optional module.
      * @param mat Entity materialization.
      */
-    public BaseEntity(EntityInConstruction e, MoveEngine move, Weapon weapon, Detector detector, Hull hull, EnergyGenerator eg, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
+    public BaseEntity(
+            EntityInConstruction e,
+            MoveEngine move,
+            Weapon weapon,
+            Detector detector,
+            Hull hull,
+            EnergyGenerator eg,
+            Module additional1,
+            Module additional2,
+            Module additional3,
+            GameMaterialization mat) {
         this(e, e.getName(), move, weapon, hull, eg, detector, additional1, additional2, additional3, mat);
         this.hp.setValue(e.getHp());
         this.energy.setValue(e.getEnergy());
@@ -172,23 +186,33 @@ public final class BaseEntity implements Entity, Target {
      * @param additional3 Optional module.
      * @param mat Entity materialization.
      */
-    public BaseEntity(DefaultEntityInConstruction e, MoveEngine move, Weapon weapon, Hull hull, EnergyGenerator eg, Detector detector, Module additional1, Module additional2, Module additional3, GameMaterialization mat) {
+    public BaseEntity(
+            DefaultEntityInConstruction e,
+            MoveEngine move, Weapon weapon,
+            Hull hull,
+            EnergyGenerator eg,
+            Detector detector,
+            Module additional1,
+            Module additional2,
+            Module additional3,
+            GameMaterialization mat) {
         this(e, e.getType().name, move, weapon, hull, eg, detector, additional1, additional2, additional3, mat);
         this.hp.setValue(hull.getMaxHp());
         this.energy.setValue(eg.getEnergyMax());
     }
 
-    private BaseEntity(DefaultEntityInConstruction e,
-                       String name,
-                       MoveEngine move,
-                       Weapon weapon,
-                       Hull hull,
-                       EnergyGenerator eg,
-                       Detector detector,
-                       Module additional1,
-                       Module additional2,
-                       Module additional3,
-                       GameMaterialization mat) {
+    private BaseEntity(
+            DefaultEntityInConstruction e,
+            String name,
+            MoveEngine move,
+            Weapon weapon,
+            Hull hull,
+            EnergyGenerator eg,
+            Detector detector,
+            Module additional1,
+            Module additional2,
+            Module additional3,
+            GameMaterialization mat) {
         super();
         this.type = e.getType();
         this.name = name;
@@ -215,6 +239,14 @@ public final class BaseEntity implements Entity, Target {
         this.mat = mat;
         this.hp.setMax(hull.getMaxHp());
         this.energy.setMax(eg.getEnergyMax());
+        this.actions.put(this.moveEngine.getId(), this.moveEngine.getAction());
+        this.actions.put(this.weapon.getId(), this.weapon.getAction());
+        this.actions.put(this.hull.getId(), this.hull.getAction());
+        this.actions.put(this.energyGenerator.getId(), this.energyGenerator.getAction());
+        this.actions.put(this.detector.getId(), this.detector.getAction());
+        this.actions.put(this.additional1.getId(), this.additional1.getAction());
+        this.actions.put(this.additional2.getId(), this.additional2.getAction());
+        this.actions.put(this.additional3.getId(), this.additional3.getAction());
     }
 
     /**
@@ -331,31 +363,10 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public Action getAction(final ActionId actionId) {
-        if (this.moveEngine.getId() == actionId) {
-            return this.moveEngine.getAction();
+        if(!actions.containsKey(actionId)) {
+            throw new IllegalArgumentException("actionId is invalid: " + actionId + " for entity " + this.id);
         }
-        if (this.weapon.getId() == actionId) {
-            return this.weapon.getAction();
-        }
-        if (this.hull.getId() == actionId) {
-            return this.hull.getAction();
-        }
-        if (this.detector.getId() == actionId) {
-            return this.detector.getAction();
-        }
-        if (this.energyGenerator.getId() == actionId) {
-            return this.energyGenerator.getAction();
-        }
-        if (this.additional1.getId() == actionId) {
-            return this.additional1.getAction();
-        }
-        if (this.additional2.getId() == actionId) {
-            return this.additional2.getAction();
-        }
-        if (this.additional3.getId() == actionId) {
-            return this.additional3.getAction();
-        }
-        throw new IllegalArgumentException("actionId is invalid: " + actionId + " for entity " + this.id);
+        return this.actions.get(actionId);
     }
 
     @Override
@@ -588,6 +599,11 @@ public final class BaseEntity implements Entity, Target {
             this.actionToPrepare = Optional.of(this.moveEngine.getAction());
         }
         this.actionToPrepare.get().setDestination(p);
+    }
+
+    @Override
+    public void setOwner(@NonNull PlayerId ownerId) {
+        this.owner = ownerId;
     }
 
     @Override
