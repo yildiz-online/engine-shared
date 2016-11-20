@@ -28,7 +28,10 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.util.Checker;
 import be.yildiz.shared.data.*;
+import be.yildiz.shared.entity.module.DefaultModuleProvider;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
+import be.yildiz.shared.entity.module.WorldModuleProvider;
 import be.yildiz.shared.resources.ResourceValue;
 import lombok.Getter;
 import lombok.NonNull;
@@ -48,7 +51,16 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
     /**
      * Constant for world data.
      */
-    public static final GameEntityData WORLD = new GameEntityData(EntityType.WORLD, 1000, Instance.UNIQUE, Level.ZERO, new ModulesAllowed(), new ResourceValue(new float[]{}), TimeToBuild.ZERO, false);
+    public static final GameEntityData WORLD = new GameEntityData(
+            EntityType.WORLD,
+            1000,
+            Instance.UNIQUE,
+            Level.ZERO,
+            new WorldModuleProvider(),
+            new ModulesAllowed(),
+            new ResourceValue(new float[]{}),
+            TimeToBuild.ZERO,
+            false);
 
     /**
      * Entity size, must be > 0
@@ -61,6 +73,8 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
      */
     @Getter
     private final ModulesAllowed modulesAllowed;
+
+    private final DefaultModuleProvider defaultModuleProvider;
 
     /**
      * Flag to tell if the entity can be built by the player.
@@ -87,12 +101,13 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
      * @param buildable Flag to tell if the entity can be built by the player.
      */
     protected GameEntityData(@NonNull final EntityType type, final int size, @NonNull final Instance instances,
-                             @NonNull final Level level, @NonNull final ModulesAllowed modulesAllowed, @NonNull final ResourceValue price,
+                             @NonNull final Level level, @NonNull final DefaultModuleProvider defaultModuleProvider, @NonNull final ModulesAllowed modulesAllowed, @NonNull final ResourceValue price,
                              @NonNull final TimeToBuild timeToBuild, final boolean buildable) {
         super(type, instances, level);
         Checker.exceptionNotGreaterThanZero(size);
         this.size = size;
         this.modulesAllowed = modulesAllowed;
+        this.defaultModuleProvider = defaultModuleProvider;
         this.buildable = buildable;
         this.price = price;
         this.timeToBuild = timeToBuild;
@@ -120,6 +135,10 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
 
     public boolean isOtherAllowed(ActionId module) {
         return this.modulesAllowed.isOtherAllowed(module);
+    }
+
+    public final ModuleGroup getDefaultModules() {
+        return this.defaultModuleProvider.getModules();
     }
 
 }
