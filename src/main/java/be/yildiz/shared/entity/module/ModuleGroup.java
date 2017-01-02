@@ -156,11 +156,11 @@ public final class ModuleGroup {
 
         private ActionId detector;
 
-        private ActionId additional1;
+        private ActionId additional1 = EmptyModule.MODULE;
 
-        private ActionId additional2;
+        private ActionId additional2 = EmptyModule.MODULE;
 
-        private ActionId additional3;
+        private ActionId additional3 = EmptyModule.MODULE;
 
         public ModuleGroupBuilder withHull(ActionId hull) {
             this.hull = hull;
@@ -221,9 +221,9 @@ public final class ModuleGroup {
         }
 
         public ModuleGroupBuilder withNoAdditional() {
-            this.additional1 = ActionId.get(255);
-            this.additional2 = ActionId.get(255);
-            this.additional3 = ActionId.get(255);
+            this.additional1 = EmptyModule.MODULE;
+            this.additional2 = EmptyModule.MODULE;
+            this.additional3 = EmptyModule.MODULE;
             return this;
         }
 
