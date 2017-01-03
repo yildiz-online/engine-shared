@@ -26,6 +26,7 @@ package be.yildiz.shared.entity.module;
 /**
  * @author Grégory Van den Borre
  */
+@FunctionalInterface
 public interface DefaultModuleProvider {
 
     ModuleGroup getModules();

@@ -26,6 +26,7 @@ package be.yildiz.shared.player;
 /**
  * @author Grégory Van den Borre
  */
+@FunctionalInterface
 public interface PlayerCreationListener {
 
     void playerCreated(Player player);

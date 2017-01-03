@@ -29,6 +29,7 @@ import java.util.List;
  * Expose the list of all players in the game.
  * @author Grégory Van den Borre
  */
+@FunctionalInterface
 public interface PlayerProvider {
 
     /**

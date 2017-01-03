@@ -28,6 +28,7 @@ import be.yildiz.common.id.PlayerId;
 /**
  * @author Grégory Van den Borre
  */
+@FunctionalInterface
 public interface MissionPrerequisite {
 
     boolean check(PlayerId p);
