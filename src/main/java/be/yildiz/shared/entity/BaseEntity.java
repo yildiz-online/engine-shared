@@ -585,18 +585,12 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public void setTarget(final Target t) {
-        if (!this.actionToPrepare.isPresent()) {
-            this.actionToPrepare = Optional.of(this.weapon.getAction());
-        }
-        this.actionToPrepare.get().setTarget(t);
+        this.actionToPrepare.orElse(this.weapon.getAction()).setTarget(t);
     }
 
     @Override
     public void setDestination(final Point3D p) {
-        if (!this.actionToPrepare.isPresent()) {
-            this.actionToPrepare = Optional.of(this.moveEngine.getAction());
-        }
-        this.actionToPrepare.get().setDestination(p);
+        this.actionToPrepare.orElse(this.moveEngine.getAction()).setDestination(p);
     }
 
     @Override
@@ -606,7 +600,7 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public void startPreparedAction() {
-        this.startAction(this.actionToPrepare.get());
+        this.actionToPrepare.ifPresent(this::startAction);
     }
 
     @Override

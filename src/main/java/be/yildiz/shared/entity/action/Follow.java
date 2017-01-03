@@ -61,8 +61,10 @@ public final class Follow extends Action {
 
     @Override
     public void runImpl(final long time) {
-        this.move.setDestination(this.target.get().getPosition());
-        this.move.run(time);
+        this.target.ifPresent(t -> {
+            this.move.setDestination(t.getPosition());
+            this.move.run(time);
+        });
     }
 
     @Override
