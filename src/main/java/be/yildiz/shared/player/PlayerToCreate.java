@@ -21,24 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.entity;
+package be.yildiz.shared.player;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.ModuleGroup;
+import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
-public interface EntityInConstructionFactory {
+@Getter
+public class PlayerToCreate {
 
-    EntityInConstruction build(EntityType type, EntityId id, String name, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir, int hp, int energy);
+    private final String login;
 
-    DefaultEntityInConstruction build(EntityType type, EntityId id, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir);
+    private final String password;
 
-    default DefaultEntityInConstruction build(EntityId id,  EntityToCreate etc) {
-        return this.build(etc.getType(), id, etc.getModules(), etc.getOwner(), etc.getPosition(), etc.getDirection());
+    private final String email;
+
+    public PlayerToCreate(String login, String password, String email) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
     }
 }

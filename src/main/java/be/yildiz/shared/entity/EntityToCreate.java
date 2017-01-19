@@ -23,22 +23,33 @@
 
 package be.yildiz.shared.entity;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
+import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
-public interface EntityInConstructionFactory {
+@Getter
+public class EntityToCreate {
 
-    EntityInConstruction build(EntityType type, EntityId id, String name, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir, int hp, int energy);
+    private final EntityType type;
 
-    DefaultEntityInConstruction build(EntityType type, EntityId id, ModuleGroup modules, PlayerId owner, Point3D pos, Point3D dir);
+    private final ModuleGroup modules;
 
-    default DefaultEntityInConstruction build(EntityId id,  EntityToCreate etc) {
-        return this.build(etc.getType(), id, etc.getModules(), etc.getOwner(), etc.getPosition(), etc.getDirection());
+    private final Point3D position;
+
+    private final Point3D direction;
+
+    private final PlayerId owner;
+
+    public EntityToCreate(EntityType type, ModuleGroup modules, Point3D position, Point3D direction, PlayerId owner) {
+        this.type = type;
+        this.modules = modules;
+        this.position = position;
+        this.direction = direction;
+        this.owner = owner;
     }
 }
