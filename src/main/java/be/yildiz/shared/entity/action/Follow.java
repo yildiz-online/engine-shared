@@ -37,7 +37,7 @@ public final class Follow extends Action {
 
     private final Move move;
 
-    private Optional<Target> target;
+    private Target target;
 
     @Setter
     private float distance;
@@ -51,17 +51,16 @@ public final class Follow extends Action {
     public Follow(final Move move, final EntityId entity) {
         super(entity, false);
         this.move = move;
-        this.target = Optional.empty();
     }
 
     @Override
     public boolean checkPrerequisite() {
-        return this.target.isPresent() && !this.target.get().isZeroHp();
+        return this.target != null && !this.target.isZeroHp();
     }
 
     @Override
     public void runImpl(final long time) {
-        this.target.ifPresent(t -> {
+        Optional.ofNullable(this.target).ifPresent(t -> {
             this.move.setDestination(t.getPosition());
             this.move.run(time);
         });
@@ -69,21 +68,22 @@ public final class Follow extends Action {
 
     @Override
     public void setTarget(final Target target) {
-        this.target = Optional.of(target);
+        this.target = target;
     }
 
     @Override
     public Point3D getDestination() {
-        return this.target.get().getPosition();
+        return Optional.ofNullable(this.target).orElseThrow(IllegalArgumentException::new).getPosition();
     }
 
     @Override
     public void setDestination(final Point3D destination) {
+        // Unused.
     }
 
     @Override
     public EntityId getTargetId() {
-        return this.target.get().getId();
+        return Optional.ofNullable(this.target).orElseThrow(IllegalArgumentException::new).getId();
     }
 
     @Override
@@ -99,6 +99,6 @@ public final class Follow extends Action {
 
     @Override
     public void delete() {
-
+        //Unused.
     }
 }
