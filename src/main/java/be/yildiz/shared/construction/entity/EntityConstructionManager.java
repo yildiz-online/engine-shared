@@ -59,16 +59,18 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
      * Listener to notify when a construction is completed.
      */
     private final Set<EntityConstructionListener<T>> listenerList = Sets.newInsertionOrderedSet();
+    private final EntityCreator<T> creator;
+    private List<EntityToCreate> entityToCreateList = Lists.newList();
 
     /**
      * Create a new BuilderManager.
      * @param frame Frame manager listening to this object.
-     * @param actionManager Unused to remove.
      * @param factory Entity factory to materialize entities.
      */
-    public EntityConstructionManager(FrameManager frame, ActionManager<T, ? extends EntityData> actionManager, EntityFactory<T> factory) {
+    public EntityConstructionManager(FrameManager frame, EntityFactory<T> factory, EntityCreator<T> creator) {
         super();
         this.associatedFactory = factory;
+        this.creator = creator;
         frame.addFrameListener(this);
     }
 
@@ -84,6 +86,12 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
         WaitingEntity data = new WaitingEntity(entity, c, builderId);
         this.entityToBuildList.add(data);
         this.listenerList.forEach(l -> l.addEntityToCreate(data));
+    }
+
+    @Override
+    public void createEntity(final EntityToCreate entity) {
+        this.entityToCreateList.add(entity);
+        //FIXME missing listener call -> REQUIRED TO NOTIFY THE QUEUE WHEN A BUILD IS COMPLETE.
     }
 
     @Override
@@ -110,7 +118,10 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
                 this.entityToBuildList.remove(i);
                 i--;
             }
-
+        }
+        while(!this.entityToCreateList.isEmpty()) {
+            Entity e = this.creator.create(this.entityToCreateList.remove(0));
+            //FIXME missing listener call?
         }
         return true;
     }

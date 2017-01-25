@@ -28,6 +28,7 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.DefaultEntityInConstruction;
 import be.yildiz.shared.entity.Entity;
+import be.yildiz.shared.entity.EntityToCreate;
 
 import java.util.List;
 
@@ -37,6 +38,8 @@ import java.util.List;
  * @author Grégory Van den Borre
  */
 public interface CompleteEntityConstructionManager<T extends Entity> extends SimpleEntityConstructionManager<T> {
+
+    void createEntity(EntityToCreate entity);
 
     /**
      * Cancel an entity to build.

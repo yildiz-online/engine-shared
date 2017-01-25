@@ -26,10 +26,8 @@ package be.yildiz.shared.construction.entity;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.entity.DefaultEntityInConstruction;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityInConstructionFactory;
-import be.yildiz.shared.entity.EntityInConstructionFactorySimple;
+import be.yildiz.shared.entity.EntityToCreate;
 
 import java.util.Optional;
 
@@ -45,16 +43,6 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
     private final EntityConstructionManager<T> manager;
 
     /**
-     * Helper class to create entity in construction instances.
-     */
-    private final EntityInConstructionFactory f = new EntityInConstructionFactorySimple();
-
-    /**
-     * Provider for unused unique entity id.
-     */
-    private final IdProvider idProvider;
-
-    /**
      * Manager responsible to handle the builders.
      */
     private final BuilderManager builderManager;
@@ -62,13 +50,11 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
     /**
      * Create a new instance filler.
      * @param manager Manager responsible to build entities.
-     * @param provider Provider for unused unique entity id.
      * @param builderManager Manager responsible to handle the builders.
      */
-    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, IdProvider provider, BuilderManager builderManager) {
+    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, BuilderManager builderManager) {
         super();
         this.manager = manager;
-        this.idProvider = provider;
         this.builderManager = builderManager;
     }
 
@@ -81,9 +67,13 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
     public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId builderId) {
         Optional<Builder> builder = this.builderManager.getBuilderById(builderId);
         builder.ifPresent(b -> {
-            EntityId id = this.idProvider.getFreeId();
-            DefaultEntityInConstruction eic = this.f.build(toBuild.type, id, toBuild.data, p, b.getBuildPosition(), Point3D.BASE_DIRECTION);
-            this.manager.createEntity(eic, builderId, toBuild);
+            EntityToCreate etc = new EntityToCreate(
+                    toBuild.type,
+                    toBuild.data,
+                    b.getBuildPosition(),
+                    Point3D.BASE_DIRECTION,
+                    p);
+            this.manager.createEntity(etc);
         });
     }
 }
