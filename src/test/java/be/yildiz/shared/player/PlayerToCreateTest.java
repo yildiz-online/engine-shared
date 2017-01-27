@@ -23,41 +23,57 @@
 
 package be.yildiz.shared.player;
 
-import be.yildiz.common.log.Logger;
-import lombok.Getter;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-@Getter
-public class PlayerToCreate {
+@RunWith(Enclosed.class)
+public class PlayerToCreateTest {
 
-    private final String login;
+    public static class Constructor {
 
-    private final String password;
-
-    private final String email;
-
-    public PlayerToCreate(String login, String password, String email) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        assert this.invariant();
-    }
-
-    private boolean invariant() {
-        if(login == null || login.isEmpty()) {
-            Logger.error("Login cannot be null or empty.");
-            return false;
+        @Test
+        public void happyFlow() {
+            PlayerToCreate ptc = new PlayerToCreate("l", "p", "e");
+            Assert.assertEquals("l", ptc.getLogin());
+            Assert.assertEquals("p", ptc.getPassword());
+            Assert.assertEquals("e", ptc.getEmail());
         }
-        if(password == null || password.isEmpty()) {
-            Logger.error("Password cannot be null or empty.");
-            return false;
+
+        @Test(expected = AssertionError.class)
+        public void withNullLogin() {
+            new PlayerToCreate(null, "p", "e");
         }
-        if(email == null || email.isEmpty()) {
-            Logger.error("Email cannot be null or empty.");
-            return false;
+
+        @Test(expected = AssertionError.class)
+        public void withNullPassword() {
+            new PlayerToCreate("l", null, "e");
         }
-        return true;
+
+        @Test(expected = AssertionError.class)
+        public void withNullEmail() {
+            new PlayerToCreate("l", "p", null);
+        }
+
+
+        @Test(expected = AssertionError.class)
+        public void withEmptyLogin() {
+            new PlayerToCreate(null, "p", "e");
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withEmptyPassword() {
+            new PlayerToCreate("l", null, "e");
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withEmptyEmail() {
+            new PlayerToCreate("l", "p", null);
+        }
     }
 }
