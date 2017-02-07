@@ -53,6 +53,7 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>module-physics</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
