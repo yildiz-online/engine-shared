@@ -38,7 +38,7 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public class ActionManager<T extends Entity, E extends EntityData> extends EndFrameListener {
+public class ActionManager<T extends Entity> extends EndFrameListener {
 
     /**
      * Listeners to notify when an action is created, has run or is complete.
@@ -53,11 +53,11 @@ public class ActionManager<T extends Entity, E extends EntityData> extends EndFr
     /**
      * To get the list of active entities.
      */
-    private final EntityManager<T, E> entityManager;
+    private final EntityManager<T> entityManager;
 
     private final List<ActionListener> listenerToRemove = Lists.newList();
 
-    public ActionManager(final FrameManager frame, final EntityManager<T, E> em) {
+    public ActionManager(final FrameManager frame, final EntityManager<T> em) {
         super();
         this.entityManager = em;
         frame.addFrameListener(this);

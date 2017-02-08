@@ -26,13 +26,10 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.collections.CollectionUtil;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
-import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.bonus.EntityBonus;
-import be.yildiz.shared.entity.module.DataModule;
-import be.yildiz.shared.entity.module.ModuleGroup;
 
 import java.util.List;
 import java.util.Map;
@@ -44,7 +41,7 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-public class EntityManager<T extends Entity, D extends EntityData> {
+public class EntityManager<T extends Entity> {
 
     /**
      * List of all entities by Player.
@@ -61,17 +58,10 @@ public class EntityManager<T extends Entity, D extends EntityData> {
      */
     private final Map<PlayerId, Set<EntityBonus>> bonusList = Maps.newMap();
 
-    private final EntityTypeFactory<T, D> typeFactory;
-
     private final T world;
 
-    public EntityManager(EntityTypeFactory<T, D> typeFactory, T world) {
-        this.typeFactory = typeFactory;
+    public EntityManager(T world) {
         this.world = world;
-    }
-
-    public D getByType(final EntityType type) {
-        return this.typeFactory.getByType(type);
     }
 
     /**
@@ -207,14 +197,4 @@ public class EntityManager<T extends Entity, D extends EntityData> {
         return result;
     }
 
-    public List<D> getAllType() {
-        return Lists.newList(this.typeFactory.getRegisteredData().values());
-    }
-
-    public List<DataModule> getDataModule(ModuleGroup modules) {
-        List<ActionId> ids = modules.getAll();
-        List<DataModule> datas = Lists.newList(ids.size());
-        ids.forEach(id -> datas.add(this.typeFactory.getByType(id)));
-        return datas;
-    }
 }

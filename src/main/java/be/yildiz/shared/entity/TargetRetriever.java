@@ -34,14 +34,14 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-public final class TargetRetriever<T extends Entity, E extends EntityData> {
+public final class TargetRetriever<T extends Entity> {
 
     /**
      * Associated entity manager.
      */
-    private final EntityManager<T, E> manager;
+    private final EntityManager<T> manager;
 
-    public TargetRetriever(EntityManager<T, E> manager) {
+    public TargetRetriever(EntityManager<T> manager) {
         super();
         this.manager = manager;
     }

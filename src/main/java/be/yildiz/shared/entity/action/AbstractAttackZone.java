@@ -26,7 +26,6 @@ package be.yildiz.shared.entity.action;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityData;
 import be.yildiz.shared.entity.TargetRetriever;
 import be.yildiz.shared.entity.fields.Target;
 
@@ -38,12 +37,12 @@ import java.util.Set;
  *
  * @author Grégory Van den Borre
  */
-public abstract class AbstractAttackZone<T extends Entity, E extends EntityData> extends AbstractAttack {
+public abstract class AbstractAttackZone<T extends Entity> extends AbstractAttack {
 
     /**
      * Logic to compute the entities in the target zone.
      */
-    private final TargetRetriever<T, E> targetRetriever;
+    private final TargetRetriever<T> targetRetriever;
 
     /**
      * Size of the damage zone.
@@ -66,7 +65,7 @@ public abstract class AbstractAttackZone<T extends Entity, E extends EntityData>
      * @param attacker   Entity using the action.
      * @param retriever  Logic to compute the entities to find in the zone.
      */
-    public AbstractAttackZone(final EntityId attacker, final TargetRetriever<T, E> retriever) {
+    public AbstractAttackZone(final EntityId attacker, final TargetRetriever<T> retriever) {
         super(attacker);
         //FIXME implements
         this.damageZone = 0;

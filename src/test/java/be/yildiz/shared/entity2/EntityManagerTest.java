@@ -27,7 +27,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.helper.Helper;
 import be.yildiz.shared.entity.BaseEntity;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityData;
 import be.yildiz.shared.entity.EntityManager;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -48,7 +47,7 @@ public class EntityManagerTest {
 
     @Test
     public void testRemoveEntity() {
-        EntityManager<Entity, EntityData> em = new EntityManager<>(null, BaseEntity.WORLD);
+        EntityManager<Entity> em = new EntityManager<>(BaseEntity.WORLD);
         Entity e = Helper.anEntity(2, 5);
         em.addEntity(e);
         Assert.assertEquals(e, em.findById(EntityId.get(2L)));
@@ -62,7 +61,7 @@ public class EntityManagerTest {
 
     @Test
     public void testNullEntity() {
-        EntityManager<Entity, EntityData> em = new EntityManager<>(null, BaseEntity.WORLD);
+        EntityManager<Entity> em = new EntityManager<>(BaseEntity.WORLD);
         this.rule.expect(NullPointerException.class);
         Entity e = null;
         em.removeEntity(e);

@@ -29,7 +29,6 @@ import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.city.City;
 import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityData;
 
 import java.util.Map;
 
@@ -37,20 +36,19 @@ import java.util.Map;
  * @param <T> Entity implementation.
  * @param <B> Building implementation.
  * @param <D> BuildingData implementation.
- * @param <E> EntityData implementation.
  * @param <C> City implementation.
  * @author Grégory Van den Borre
  */
-public final class PlayerMonitorManager<T extends Entity, B extends Building, D extends BuildingData, E extends EntityData, C extends City<B, D>> {
+public final class PlayerMonitorManager<T extends Entity, B extends Building, D extends BuildingData, C extends City<B, D>> {
 
-    private final ActionManager<T, E> actionManager;
+    private final ActionManager<T> actionManager;
 
     /**
      * Keep a list of all monitored players.
      */
     private final Map<Player, PlayerMonitor<T, B, D, C>> list = Maps.newMap();
 
-    public PlayerMonitorManager(ActionManager<T, E> actionManager) {
+    public PlayerMonitorManager(ActionManager<T> actionManager) {
         this.actionManager = actionManager;
     }
 
