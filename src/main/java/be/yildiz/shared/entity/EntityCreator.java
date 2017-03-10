@@ -26,6 +26,7 @@ package be.yildiz.shared.entity;
 /**
  * @author Grégory Van den Borre
  */
+@FunctionalInterface
 public interface EntityCreator<T extends Entity> {
 
     T create(EntityToCreate e);
