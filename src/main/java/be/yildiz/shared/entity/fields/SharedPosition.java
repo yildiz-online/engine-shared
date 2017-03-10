@@ -51,6 +51,7 @@ public class SharedPosition implements PositionData {
         this.position = position;
     }
 
+    @Override
     public Point3D getPosition() {
         return this.position;
     }
@@ -59,6 +60,7 @@ public class SharedPosition implements PositionData {
         this.direction = direction;
     }
 
+    @Override
     public Point3D getDirection() {
         return this.direction;
     }
