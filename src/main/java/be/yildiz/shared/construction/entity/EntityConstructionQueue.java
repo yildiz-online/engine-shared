@@ -77,7 +77,7 @@ public final class EntityConstructionQueue {
      *
      * @param e Entity to build data.
      */
-    public void add(final EntityRepresentationConstruction e) throws EntityConstructionQueueFullException {
+    public void add(final EntityRepresentationConstruction e) {
         if(this.entities.size() == this.maxSize) {
             throw new EntityConstructionQueueFullException();
         }
@@ -94,7 +94,7 @@ public final class EntityConstructionQueue {
      * @param list New values to set in the list.
      * @throws EntityConstructionQueueFullException If the list size is bigger than the max size.
      */
-    public void set(List<EntityRepresentationConstruction> list) throws EntityConstructionQueueFullException {
+    public void set(List<EntityRepresentationConstruction> list) {
         this.entities.clear();
         if (list.size() > this.maxSize) {
             throw new EntityConstructionQueueFullException();

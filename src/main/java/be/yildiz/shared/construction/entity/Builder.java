@@ -75,7 +75,7 @@ public interface Builder {
      *
      * @param queue Queue to set
      */
-    void setQueue(List<EntityRepresentationConstruction> queue) throws EntityConstructionQueueFullException;
+    void setQueue(List<EntityRepresentationConstruction> queue);
 
     /**
      * Remove an item from the building queue.
@@ -89,7 +89,7 @@ public interface Builder {
      *
      * @param r Element to build.
      */
-    void addInQueue(EntityRepresentationConstruction r) throws EntityConstructionQueueFullException;
+    void addInQueue(EntityRepresentationConstruction r);
 
     /**
      * @return The unique id of the entity containing this builder.
