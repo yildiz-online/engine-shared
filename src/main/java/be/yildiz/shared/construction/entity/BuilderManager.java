@@ -80,7 +80,7 @@ public class BuilderManager {
      */
     //@Ensures("result != null")
     public List<Builder> getBuilderByPlayer(final PlayerId player) {
-        return Collections.unmodifiableList((this.buildersByPlayer.getOrDefault(player, Collections.emptyList())));
+        return Collections.unmodifiableList(this.buildersByPlayer.getOrDefault(player, Collections.emptyList()));
     }
 
 }
