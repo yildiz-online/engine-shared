@@ -31,4 +31,8 @@ public class TaskTypeConstant {
     public static final String DESTINATION = "destination";
 
     public static final String DESTROY = "destroy";
+
+    private TaskTypeConstant() {
+        super();
+    }
 }
