@@ -23,8 +23,46 @@
 
 package be.yildiz.shared.construction.entity;
 
+import be.yildiz.common.id.PlayerId;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+
+import java.util.List;
+
 /**
  * @author Grégory Van den Borre
  */
+@RunWith(Enclosed.class)
 public class BuilderManagerTest {
+
+    public static class GetBuilderByPlayer {
+
+        @Test
+        public void happyFlow() {
+            BuilderManager bm = new BuilderManager();
+            Builder b = Mockito.mock(Builder.class);
+            Mockito.when(b.getOwner()).thenReturn(PlayerId.get(2));
+            bm.addBuilder(b);
+            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.get(2));
+            Assert.assertEquals(1, builders.size());
+        }
+
+        @Test
+        public void withEmptyResult() {
+            BuilderManager bm = new BuilderManager();
+            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.get(2));
+            Assert.assertTrue(builders.isEmpty());
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withNull() {
+            BuilderManager bm = new BuilderManager();
+            bm.getBuilderByPlayer(null);
+        }
+
+    }
+
 }
