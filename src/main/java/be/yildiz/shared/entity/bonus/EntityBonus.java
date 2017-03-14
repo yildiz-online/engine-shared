@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 /**
- * A bonus applicable on an entity, this class must be subclassed with every different bonus, the bonus identity (use by the oneInstance principle) is based on the bonus class.
+ * A bonus applicable on an entity, this class must be inherited with every different bonus, the bonus identity (use by the oneInstance principle) is based on the bonus class.
  *
  * @author Grégory Van den Borre
  */
