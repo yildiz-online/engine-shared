@@ -99,6 +99,6 @@ public class EntityBonus {
             return obj.getClass().equals(this.getClass());
         }
         EntityBonus other = (EntityBonus) obj;
-        return this.value == other.value && this.moduleIds.equals(other.moduleIds);
+        return (Math.abs(this.value - other.value) < 0.001f) && this.moduleIds.equals(other.moduleIds);
     }
 }
