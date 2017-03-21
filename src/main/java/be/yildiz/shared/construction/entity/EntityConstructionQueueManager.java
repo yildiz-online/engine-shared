@@ -132,23 +132,26 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
         if (builder.equals(EntityId.WORLD)) {
             return;
         }
-        Builder b = this.builderManager.getBuilderById(builder).get();
-        b.removeFromQueue(index);
-        if (!b.getQueue().isEmpty()) {
-            EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);
-            listeners.forEach(l -> l.add(nextToBuild, entity.getOwner(), builder));
-        }
-        listeners.forEach(l -> l.notify(b.getQueue()));
+        this.builderManager.getBuilderById(builder).ifPresent(b -> {
+            b.removeFromQueue(index);
+            if (!b.getQueue().isEmpty()) {
+                EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);
+                listeners.forEach(l -> l.add(nextToBuild, entity.getOwner(), builder));
+            }
+            listeners.forEach(l -> l.notify(b.getQueue()));
+        });
+
     }
 
     @Override
     public void entityConstructionCanceled(WaitingEntity w) {
-        Builder b = this.builderManager.getBuilderById(w.builderId).get();
-        b.removeFromQueue(w.representation.index);
-        if (!b.getQueue().isEmpty()) {
-            EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);
-            listeners.forEach(l -> l.add(nextToBuild, w.entity.getOwner(), w.builderId));
-        }
-        listeners.forEach(l -> l.notify(b.getQueue()));
+        this.builderManager.getBuilderById(w.builderId).ifPresent(b -> {
+            b.removeFromQueue(w.representation.index);
+            if (!b.getQueue().isEmpty()) {
+                EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);
+                listeners.forEach(l -> l.add(nextToBuild, w.entity.getOwner(), w.builderId));
+            }
+            listeners.forEach(l -> l.notify(b.getQueue()));
+        });
     }
 }
