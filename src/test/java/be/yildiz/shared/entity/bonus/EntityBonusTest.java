@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.bonus;
 
+import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
@@ -34,6 +35,7 @@ public class EntityBonusTest {
 
     public static class Equals {
 
+        @Test
         public void isEqual() {
 
         }
