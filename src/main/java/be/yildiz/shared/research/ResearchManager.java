@@ -86,7 +86,7 @@ public final class ResearchManager {
         if (list.contains(research)) {
             return ResearchState.DONE;
         }
-        if (!research.getPrerequesite().isPresent() || list.contains(research.getPrerequesite())) {
+        if (!research.getPrerequesite().isPresent() || list.contains(research.getPrerequesite().get())) {
             return ResearchState.AVAILABLE;
         }
         return ResearchState.UNAVAILABLE;
