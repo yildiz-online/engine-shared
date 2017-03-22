@@ -29,7 +29,6 @@ import lombok.Getter;
 /**
  * @author Grégory Van den Borre
  */
-@Getter
 public class MutableSpeed {
 
     //FIXME DELETE, this should be in the appropriate module(basicmove), not shared, and data retrieved trough getter
@@ -42,6 +41,10 @@ public class MutableSpeed {
     public final void setCurrentSpeed(final float speed) {
         Checker.exceptionNotPositive(speed);
         this.currentSpeed = speed;
+    }
+
+    public float getCurrentSpeed() {
+        return this.currentSpeed;
     }
 
 }
