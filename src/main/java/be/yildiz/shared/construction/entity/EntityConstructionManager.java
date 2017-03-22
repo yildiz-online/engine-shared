@@ -66,6 +66,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
      * Create a new BuilderManager.
      * @param frame Frame manager listening to this object.
      * @param factory Entity factory to materialize entities.
+     * @param creator The class creating the entities in the system.
      */
     public EntityConstructionManager(FrameManager frame, EntityFactory<T> factory, EntityCreator<T> creator) {
         super();
