@@ -224,9 +224,9 @@ public final class ResourcesProducer {
      * Add a new bonus listener, if already in the list, it will not be added.
      *
      * @param bl Listener to add.
+     * requires bl != null
+     * ensure if(list!contains(bl)) list.size = pre.list.size + 1
      */
-    //@requires bl != null
-    //@ensure if(list!contains(bl)) list.size = pre.list.size + 1
     public void addBonusListener(final BonusListener bl) {
         this.bonusListenerList.add(bl);
         for (BonusResources m : this.bonus) {
