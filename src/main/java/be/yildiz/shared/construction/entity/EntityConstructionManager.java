@@ -120,7 +120,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
             }
         }
         while(!this.entityToCreateList.isEmpty()) {
-            Entity e = this.creator.create(this.entityToCreateList.remove(0));
+            this.creator.create(this.entityToCreateList.remove(0));
             //FIXME missing listener call?
         }
         return true;
@@ -129,9 +129,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     @Override
     public void willNotify(final EntityConstructionListener<T>... listeners) {
         if (listeners != null) {
-            for (EntityConstructionListener<T> listener : listeners) {
-                this.listenerList.add(listener);
-            }
+            Collections.addAll(this.listenerList, listeners);
         }
 
     }
