@@ -128,10 +128,9 @@ public class EntityManager<T extends Entity> {
         this.entities.remove(entity.getId());
     }
 
-    public T removeEntity(EntityId entityId) {
-        Optional<T> e = Optional.ofNullable(this.entities.get(entityId));
-        e.ifPresent(this::removeEntity);
-        return e.get();
+    public void removeEntity(EntityId entityId) {
+        assert this.entities.get(entityId) != null;
+        Optional.ofNullable(this.entities.get(entityId)).ifPresent(this::removeEntity);
     }
 
     /**
