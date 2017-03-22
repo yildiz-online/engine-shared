@@ -112,7 +112,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
 
     @Override
     public final void playerCreated(Player player) {
-
+        //FIXME implement
     }
 
     public final Set<T> getMissionReady(PlayerId p) {
