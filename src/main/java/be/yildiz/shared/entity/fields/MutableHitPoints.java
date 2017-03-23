@@ -24,7 +24,6 @@
 package be.yildiz.shared.entity.fields;
 
 import be.yildiz.common.BoundedValue;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
@@ -33,7 +32,6 @@ public class MutableHitPoints {
 
     //FIXME DELETE, this should be in the appropriate module(hull), not shared, and data retrieved trough getter
 
-    @Getter
     private final BoundedValue hp = new BoundedValue();
 
     public void setMax(int max) {
@@ -54,5 +52,9 @@ public class MutableHitPoints {
 
     public boolean isZero() {
         return this.hp.isZero();
+    }
+
+    public BoundedValue getHp() {
+        return hp;
     }
 }

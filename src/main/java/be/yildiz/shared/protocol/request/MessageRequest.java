@@ -28,7 +28,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.player.Message;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
@@ -39,7 +38,6 @@ public class MessageRequest extends NetworkMessage implements ServerRequest {
     /**
      * Message to send.
      */
-    @Getter
     private final Message message;
 
     /**
@@ -66,5 +64,9 @@ public class MessageRequest extends NetworkMessage implements ServerRequest {
     @Override
     public final int command() {
         return ClientCommand.SEND_MESSAGE.ordinal();
+    }
+
+    public Message getMessage() {
+        return message;
     }
 }

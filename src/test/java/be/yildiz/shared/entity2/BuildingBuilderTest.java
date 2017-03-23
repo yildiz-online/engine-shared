@@ -32,7 +32,6 @@ import be.yildiz.shared.building.Building;
 import be.yildiz.shared.construction.entity.Builder;
 import be.yildiz.shared.construction.entity.BuildingBuilder;
 import be.yildiz.shared.data.ConstructionData;
-import lombok.NonNull;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,13 +50,13 @@ public class BuildingBuilderTest {
         Building building = new BaseBuilding(BaseBuildingTest.OK_CITY, BaseBuildingTest.OK_DATA, BaseBuildingTest.OK_POSITION, BaseBuildingTest.OK_LEVEL, BaseBuildingTest.OK_STAFF);
         new DummyBuildingBuilder(building);
 
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         new DummyBuildingBuilder(null, PlayerId.WORLD, Point3D.xyz(10, 15, 20), building);
 
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         new DummyBuildingBuilder(EntityId.get(10L), PlayerId.WORLD, null, building);
 
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         new DummyBuildingBuilder(EntityId.get(10L), PlayerId.WORLD, Point3D.xyz(10, 15, 20), null);
     }
 
@@ -99,7 +98,7 @@ public class BuildingBuilderTest {
          *
          * @param building Associated building.
          */
-        public DummyBuildingBuilder(@NonNull Building building) {
+        public DummyBuildingBuilder(Building building) {
             super(EntityId.get(10L), PlayerId.WORLD, Point3D.xyz(10, 15, 20), building, 5);
         }
 

@@ -132,22 +132,22 @@ public class BaseBuildingTest {
         Assert.assertEquals(OK_STAFF, b.getOldStaff());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorNullCity() {
         new BaseBuilding(null, OK_DATA, OK_POSITION, OK_LEVEL, OK_STAFF);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorNullData() {
         new BaseBuilding(OK_CITY, null, OK_POSITION, OK_LEVEL, OK_STAFF);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorNullPosition() {
         new BaseBuilding(OK_CITY, OK_DATA, null, OK_LEVEL, OK_STAFF);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorNullLevel() {
         new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, null, OK_STAFF);
     }

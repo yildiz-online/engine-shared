@@ -29,7 +29,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Response from the server when an chat message is received, contains the user id and the message.
@@ -42,13 +41,11 @@ public final class ChatResponse extends NetworkMessage implements ServerResponse
     /**
      * Player sending the message id.
      */
-    @Getter
     private final PlayerId player;
 
     /**
      * Message sent by the player.
      */
-    @Getter
     private final String chatMessage;
 
     /**
@@ -81,5 +78,13 @@ public final class ChatResponse extends NetworkMessage implements ServerResponse
     @Override
     public int command() {
         return ServerCommand.CHAT.value;
+    }
+
+    public PlayerId getPlayer() {
+        return player;
+    }
+
+    public String getChatMessage() {
+        return chatMessage;
     }
 }

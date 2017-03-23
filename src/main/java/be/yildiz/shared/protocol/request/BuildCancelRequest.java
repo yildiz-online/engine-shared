@@ -27,20 +27,17 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import lombok.Getter;
 
 /**
  * A request from the client to the server for an entity building another entity.
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class BuildCancelRequest extends NetworkMessage implements ServerRequest {
 
     /**
      * Index of the request to cancel.
      */
-    @Getter
     private final int requestIndex;
 
     /**
@@ -69,5 +66,9 @@ public final class BuildCancelRequest extends NetworkMessage implements ServerRe
     @Override
     public int command() {
         return ClientCommand.BUILD_CANCEL.ordinal();
+    }
+
+    public int getRequestIndex() {
+        return requestIndex;
     }
 }

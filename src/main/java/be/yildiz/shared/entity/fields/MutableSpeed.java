@@ -24,7 +24,6 @@
 package be.yildiz.shared.entity.fields;
 
 import be.yildiz.common.util.Checker;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre

@@ -24,7 +24,6 @@
 package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
-import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.Arrays;
@@ -35,7 +34,6 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class ModuleGroup {
 
     /**
@@ -86,6 +84,38 @@ public final class ModuleGroup {
         this.additional1 = additional1;
         this.additional2 = additional2;
         this.additional3 = additional3;
+    }
+
+    public ActionId getMove() {
+        return move;
+    }
+
+    public ActionId getInteraction() {
+        return interaction;
+    }
+
+    public ActionId getHull() {
+        return hull;
+    }
+
+    public ActionId getEnergy() {
+        return energy;
+    }
+
+    public ActionId getDetector() {
+        return detector;
+    }
+
+    public ActionId getAdditional1() {
+        return additional1;
+    }
+
+    public ActionId getAdditional2() {
+        return additional2;
+    }
+
+    public ActionId getAdditional3() {
+        return additional3;
     }
 
     @Override

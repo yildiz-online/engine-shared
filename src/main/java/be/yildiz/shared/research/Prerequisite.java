@@ -23,8 +23,6 @@
 
 package be.yildiz.shared.research;
 
-import lombok.Getter;
-
 /**
  * Represent a condition to fill to make an action.
  *
@@ -49,13 +47,11 @@ public interface Prerequisite {
         /**
          * <code>true</code> if the condition is filled.
          */
-        @Getter
         private final boolean filled;
 
         /**
          * Cause description if not filled.
          */
-        @Getter
         private final String cause;
 
         /**
@@ -73,6 +69,14 @@ public interface Prerequisite {
             } else {
                 this.cause = cause;
             }
+        }
+
+        public boolean isFilled() {
+            return filled;
+        }
+
+        public String getCause() {
+            return cause;
         }
     }
 }

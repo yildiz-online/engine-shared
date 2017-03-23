@@ -25,14 +25,12 @@ package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.data.EntityType;
-import lombok.Getter;
 
 /**
  * Simple object to store information about a custom entity module set.
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class ModuleConfiguration {
 
     /**
@@ -60,5 +58,21 @@ public final class ModuleConfiguration {
         this.player = player;
         this.type = type;
         this.modules = modules;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public PlayerId getPlayer() {
+        return player;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public ModuleGroup getModules() {
+        return modules;
     }
 }

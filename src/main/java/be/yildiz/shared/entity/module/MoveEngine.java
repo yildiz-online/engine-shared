@@ -25,17 +25,14 @@ package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.Move;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 public class MoveEngine extends Module<Move> {
 
-    @Getter
     private final float acceleration;
 
-    @Getter
     private final float maxSpeed;
 
     public MoveEngine(Move action, ActionId id, float acceleration, float maxSpeed) {
@@ -44,6 +41,14 @@ public class MoveEngine extends Module<Move> {
         this.maxSpeed = maxSpeed;
         action.setAcceleration(this.acceleration);
         action.setMaxSpeed(this.maxSpeed);
+    }
+
+    public float getAcceleration() {
+        return acceleration;
+    }
+
+    public float getMaxSpeed() {
+        return maxSpeed;
     }
 
     public static abstract class MoveEngineTemplate<T extends Move> {

@@ -24,14 +24,12 @@
 package be.yildiz.shared.entity.fields;
 
 import be.yildiz.common.BoundedValue;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 public class SharedEnergy {
 
-    @Getter
     private final BoundedValue energy = new BoundedValue();
 
     public void setMax(int max) {
@@ -52,5 +50,9 @@ public class SharedEnergy {
 
     public boolean isZero() {
         return this.energy.isZero();
+    }
+
+    public BoundedValue getEnergy() {
+        return energy;
     }
 }

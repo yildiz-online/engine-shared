@@ -26,7 +26,6 @@ package be.yildiz.shared.entity.action;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.Target;
-import lombok.Setter;
 
 import java.util.Optional;
 
@@ -39,7 +38,6 @@ public final class Follow extends Action {
 
     private Target target;
 
-    @Setter
     private float distance;
 
     /**
@@ -69,6 +67,10 @@ public final class Follow extends Action {
     @Override
     public void setTarget(final Target target) {
         this.target = target;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     @Override

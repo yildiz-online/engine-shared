@@ -28,7 +28,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import lombok.Getter;
 
 /**
  * Request to monitor a player.
@@ -40,13 +39,11 @@ public final class AdminMonitorPlayer extends NetworkMessage implements ServerRe
     /**
      * Player to monitor.
      */
-    @Getter
     private final PlayerId player;
 
     /**
      * <code>true</code> to monitor a player, <code>false</code> to stop monitoring it.
      */
-    @Getter
     private final boolean monitor;
 
     /**
@@ -76,5 +73,13 @@ public final class AdminMonitorPlayer extends NetworkMessage implements ServerRe
     @Override
     public int command() {
         return ClientCommand.ADMIN_MONITOR_PLAYER.ordinal();
+    }
+
+    public PlayerId getPlayer() {
+        return player;
+    }
+
+    public boolean isMonitor() {
+        return monitor;
     }
 }

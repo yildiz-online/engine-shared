@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Checker;
-import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper class to represent level.
@@ -32,7 +31,6 @@ import lombok.EqualsAndHashCode;
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class Level {
 
     /**
@@ -78,5 +76,24 @@ public final class Level {
 
     public boolean isNotZero() {
         return this.value > 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Level level = (Level) o;
+
+        return value == level.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
     }
 }

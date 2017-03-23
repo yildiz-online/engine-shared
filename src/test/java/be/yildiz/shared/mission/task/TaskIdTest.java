@@ -46,7 +46,7 @@ public class TaskIdTest {
             new TaskId(-1, new TaskType("ok"));
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullType() {
             new TaskId(1, null);
         }

@@ -31,8 +31,6 @@ import be.yildiz.shared.data.Level;
 import be.yildiz.shared.data.TimeToBuild;
 import be.yildiz.shared.resources.ResourceValue;
 import be.yildiz.shared.resources.bonus.BonusResources;
-import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Class containing data for a building(city, level, position, type).
@@ -44,7 +42,6 @@ public final class BaseBuilding implements Building {
     /**
      * BaseCity containing this building.
      */
-    @Getter
     private final EntityId city;
 
     /**
@@ -55,25 +52,21 @@ public final class BaseBuilding implements Building {
     /**
      * Position of this building in the city.
      */
-    @Getter
     private final BuildingPosition buildingPosition;
 
     /**
      * Building current level.
      */
-    @Getter
     private Level level;
 
     /**
      * Staff currently affected to this building.
      */
-    @Getter
     private int staff;
 
     /**
      * Staff currently affected to this building while it is upgraded.
      */
-    @Getter
     private int oldStaff;
 
     /**
@@ -87,8 +80,12 @@ public final class BaseBuilding implements Building {
      * @throws NullPointerException     If any parameter is null.
      * @throws IllegalArgumentException If level is above max level, if staff is negative or if staff if above max for the current level.
      */
-    public BaseBuilding(@NonNull final EntityId city, @NonNull final BuildingData data, @NonNull final BuildingPosition buildingPosition, final Level level, final int staff) {
+    public BaseBuilding(final EntityId city, final BuildingData data, final BuildingPosition buildingPosition, final Level level, final int staff) {
         super();
+        assert city != null;
+        assert data != null;
+        assert buildingPosition != null;
+        assert level != null;
         this.city = city;
         this.data = data;
         this.buildingPosition = buildingPosition;
@@ -153,6 +150,31 @@ public final class BaseBuilding implements Building {
     @Override
     public BonusResources getStaffBonus() {
         return this.data.getStaffBonus(this.oldStaff);
+    }
+
+    @Override
+    public EntityId getCity() {
+        return city;
+    }
+
+    @Override
+    public BuildingPosition getBuildingPosition() {
+        return buildingPosition;
+    }
+
+    @Override
+    public Level getLevel() {
+        return level;
+    }
+
+    @Override
+    public int getStaff() {
+        return staff;
+    }
+
+    @Override
+    public int getOldStaff() {
+        return oldStaff;
     }
 
     /**

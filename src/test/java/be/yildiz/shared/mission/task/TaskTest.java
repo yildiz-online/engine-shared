@@ -42,7 +42,7 @@ public class TaskTest {
             new BaseTask(new TaskId(1, new TaskType("test")), PlayerId.get(5));
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNull() {
             new BaseTask(null, PlayerId.WORLD);
         }

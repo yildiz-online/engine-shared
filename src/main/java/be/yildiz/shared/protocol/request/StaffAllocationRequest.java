@@ -29,7 +29,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.data.BuildingPosition;
-import lombok.Getter;
 
 /**
  * Request the sever to allocate staff in a building.
@@ -41,19 +40,16 @@ public final class StaffAllocationRequest extends NetworkMessage implements Serv
     /**
      * Id of the city containing the building where staff will be allocated.
      */
-    @Getter
     private final EntityId cityId;
 
     /**
      * Building position in the city.
      */
-    @Getter
     private final BuildingPosition position;
 
     /**
      * Number of staff to allocate.
      */
-    @Getter
     private final int staff;
 
     /**
@@ -89,5 +85,17 @@ public final class StaffAllocationRequest extends NetworkMessage implements Serv
     @Override
     public int command() {
         return ClientCommand.STAFF.ordinal();
+    }
+
+    public EntityId getCityId() {
+        return cityId;
+    }
+
+    public BuildingPosition getPosition() {
+        return position;
+    }
+
+    public int getStaff() {
+        return staff;
     }
 }

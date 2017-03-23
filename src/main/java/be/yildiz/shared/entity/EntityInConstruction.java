@@ -30,7 +30,6 @@ import be.yildiz.common.util.Checker;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -39,7 +38,6 @@ import lombok.NonNull;
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public class EntityInConstruction extends DefaultEntityInConstruction {
 
     public static final EntityInConstruction WORLD = new EntityInConstruction(EntityType.WORLD, EntityId.WORLD, PlayerId.WORLD, "World",
@@ -89,5 +87,17 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
         this.name = name;
         this.hp = hp;
         this.energy = energy;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getEnergy() {
+        return energy;
     }
 }

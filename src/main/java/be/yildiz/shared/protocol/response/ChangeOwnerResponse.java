@@ -30,7 +30,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Response from the server when an entity changes its owner.
@@ -43,13 +42,11 @@ public final class ChangeOwnerResponse extends NetworkMessage implements ServerR
     /**
      * Id of the entity changing its owner.
      */
-    @Getter
     private final EntityId entity;
 
     /**
      * Id of the entity new owner.
      */
-    @Getter
     private final PlayerId newOwnerId;
 
     /**
@@ -73,5 +70,13 @@ public final class ChangeOwnerResponse extends NetworkMessage implements ServerR
     @Override
     public int command() {
         return ServerCommand.CHANGE_OWNER.value;
+    }
+
+    public EntityId getEntity() {
+        return entity;
+    }
+
+    public PlayerId getNewOwnerId() {
+        return newOwnerId;
     }
 }

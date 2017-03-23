@@ -31,7 +31,6 @@ import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.entity.module.WorldModuleProvider;
 import be.yildiz.shared.resources.ResourceValue;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -63,13 +62,11 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
     /**
      * Entity size, must be > 0
      */
-    @Getter
     private final int size;
 
     /**
      * List of modules allowed to be used.
      */
-    @Getter
     private final ModulesAllowed modulesAllowed;
 
     private final DefaultModuleProvider defaultModuleProvider;
@@ -77,13 +74,10 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
     /**
      * Flag to tell if the entity can be built by the player.
      */
-    @Getter
     private final boolean buildable;
 
-    @Getter
     private final ResourceValue price;
 
-    @Getter
     private final TimeToBuild timeToBuild;
 
     /**
@@ -140,4 +134,27 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
         return this.defaultModuleProvider.getModules();
     }
 
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    public ModulesAllowed getModulesAllowed() {
+        return modulesAllowed;
+    }
+
+    @Override
+    public boolean isBuildable() {
+        return buildable;
+    }
+
+    @Override
+    public ResourceValue getPrice() {
+        return price;
+    }
+
+    @Override
+    public TimeToBuild getTimeToBuild() {
+        return timeToBuild;
+    }
 }

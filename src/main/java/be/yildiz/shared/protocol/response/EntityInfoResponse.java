@@ -34,7 +34,6 @@ import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Message sent from the server to the client when an Entity is created.
@@ -42,7 +41,6 @@ import lombok.Getter;
  * @author Grégory Van den Borre
  */
 @EqualsAndHashCode(callSuper = false)
-@Getter
 public final class EntityInfoResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -145,5 +143,49 @@ public final class EntityInfoResponse extends NetworkMessage implements ServerRe
     @Override
     public int command() {
         return ServerCommand.BUILD.value;
+    }
+
+    public EntityId getEntity() {
+        return entity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public PlayerId getOwner() {
+        return owner;
+    }
+
+    public Point3D getPosition() {
+        return position;
+    }
+
+    public Point3D getOrientation() {
+        return orientation;
+    }
+
+    public int getHitPoint() {
+        return hitPoint;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public ModuleGroup getModules() {
+        return modules;
+    }
+
+    public EntityId getBuilderId() {
+        return builderId;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

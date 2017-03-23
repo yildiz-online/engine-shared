@@ -30,7 +30,6 @@ import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.Getter;
 
 /**
  * A request from the client to the server for an entity building another entity.
@@ -43,25 +42,21 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
     /**
      * Builder entity id.
      */
-    @Getter
     private final EntityId builderId;
 
     /**
      * Type of the entity to build.
      */
-    @Getter
     private final EntityType type;
 
     /**
      * Ids of the modules associated to the entity to build.
      */
-    @Getter
     private final ModuleGroup moduleIds;
 
     /**
      * A request index to match with the message response.
      */
-    @Getter
     private final int requestIndex;
 
     /**
@@ -100,5 +95,21 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
     @Override
     public int command() {
         return ClientCommand.BUILD_ENTITY.ordinal();
+    }
+
+    public EntityId getBuilderId() {
+        return builderId;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public ModuleGroup getModuleIds() {
+        return moduleIds;
+    }
+
+    public int getRequestIndex() {
+        return requestIndex;
     }
 }

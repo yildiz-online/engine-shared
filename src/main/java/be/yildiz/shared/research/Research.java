@@ -28,7 +28,6 @@ import be.yildiz.common.util.Registerer;
 import be.yildiz.shared.entity.bonus.EntityBonus;
 import be.yildiz.shared.resources.GameResources;
 import be.yildiz.shared.resources.ResourceValue;
-import lombok.Getter;
 
 import java.util.Optional;
 
@@ -47,19 +46,16 @@ public final class Research extends BaseRegisterable {
     /**
      * Bonus obtained the this research is done.
      */
-    @Getter
     private final EntityBonus bonus;
 
     /**
      * Research price.
      */
-    @Getter
     private final ResourceValue price;
 
     /**
      * Research needed to be done before making this one, optional. none.
      */
-    @Getter
     private final Optional<Research> prerequesite;
 
 
@@ -102,5 +98,17 @@ public final class Research extends BaseRegisterable {
      */
     public static Research get(final String name) {
         return Research.REGISTERER.get(name);
+    }
+
+    public EntityBonus getBonus() {
+        return bonus;
+    }
+
+    public ResourceValue getPrice() {
+        return price;
+    }
+
+    public Optional<Research> getPrerequesite() {
+        return prerequesite;
     }
 }

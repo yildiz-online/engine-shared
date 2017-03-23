@@ -28,7 +28,6 @@ import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.MutableSpeed;
 import be.yildiz.shared.entity.fields.Target;
 import lombok.NonNull;
-import lombok.Setter;
 
 /**
  * action to move an entity to a different place.
@@ -44,7 +43,6 @@ public abstract class Move extends Action {
     /**
      * Distance to the destination to consider the move as complete.
      */
-    @Setter
     protected float distance;
     /**
      * Acceleration factor.
@@ -95,6 +93,10 @@ public abstract class Move extends Action {
     @Override
     public Point3D getDestination() {
         return destination;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     /**

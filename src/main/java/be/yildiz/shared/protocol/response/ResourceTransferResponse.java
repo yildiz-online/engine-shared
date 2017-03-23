@@ -28,7 +28,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,22 +42,18 @@ public final class ResourceTransferResponse extends NetworkMessage implements Se
     /**
      * Player receiving resources.
      */
-    @Getter
     private final PlayerId receiver;
     /**
      * Player giving resources.
      */
-    @Getter
     private final PlayerId giver;
     /**
      * Resources values.
      */
-    @Getter
     private final List<Float> resources;
     /**
      * Cause of this transfer.
      */
-    @Getter
     private final TransferCause cause;
 
     /**
@@ -99,6 +94,21 @@ public final class ResourceTransferResponse extends NetworkMessage implements Se
         return ServerCommand.RESOURCE_TRANSFER.value;
     }
 
+    public PlayerId getReceiver() {
+        return receiver;
+    }
+
+    public PlayerId getGiver() {
+        return giver;
+    }
+
+    public List<Float> getResources() {
+        return resources;
+    }
+
+    public TransferCause getCause() {
+        return cause;
+    }
 
     /**
      * Possible causes for a resource transfer.

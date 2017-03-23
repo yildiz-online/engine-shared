@@ -28,7 +28,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.shared.resources.bonus.BonusListener;
 import be.yildiz.shared.resources.bonus.BonusResources;
-import lombok.Getter;
 
 import java.util.Date;
 import java.util.Set;
@@ -58,12 +57,10 @@ public final class ResourcesProducer {
      */
     private final Set<BonusListener> bonusListenerList = Sets.newSet();
     private final Set<BonusResources> bonus = Sets.newSet();
-    @Getter
     private final EntityId city;
     /**
      * Time when the resources were computed for the last time.
      */
-    @Getter
     private long lastUpdate;
     /**
      * When the producer is built, it has no bonus, if resource value is recomputed, it would always compute it as 0(limit is 0 an ratio is 0).
@@ -311,5 +308,13 @@ public final class ResourcesProducer {
      */
     public boolean hasNegativeRatio() {
         return this.ratio.hasNegative();
+    }
+
+    public EntityId getCity() {
+        return city;
+    }
+
+    public long getLastUpdate() {
+        return lastUpdate;
     }
 }

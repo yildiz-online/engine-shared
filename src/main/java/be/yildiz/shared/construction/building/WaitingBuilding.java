@@ -25,7 +25,6 @@ package be.yildiz.shared.construction.building;
 
 import be.yildiz.shared.building.Building;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Class with building data and building time.
@@ -33,7 +32,6 @@ import lombok.Getter;
  * @author Grégory Van den Borre
  */
 @EqualsAndHashCode
-@Getter
 public final class WaitingBuilding<B extends Building> {
 
     /**
@@ -49,5 +47,13 @@ public final class WaitingBuilding<B extends Building> {
     public WaitingBuilding(B b, final long time) {
         this.b = b;
         this.time = time;
+    }
+
+    public B getB() {
+        return b;
+    }
+
+    public long getTime() {
+        return time;
     }
 }

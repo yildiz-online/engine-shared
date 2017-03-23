@@ -28,7 +28,6 @@ import be.yildiz.shared.data.Level;
 import be.yildiz.shared.data.TimeToBuild;
 import be.yildiz.shared.resources.ResourceValue;
 import be.yildiz.shared.resources.bonus.BonusResources;
-import lombok.Getter;
 
 /**
  * Contains all the data to create a building.
@@ -121,7 +120,6 @@ public interface BuildingData {
      *
      * @author Van den Borre Grégory
      */
-    @Getter
     final class LevelData {
 
         /**
@@ -150,6 +148,22 @@ public interface BuildingData {
             this.timeToBuild = timeToBuild;
             this.price = price;
             this.maxPopulation = maxPopulation;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public TimeToBuild getTimeToBuild() {
+            return timeToBuild;
+        }
+
+        public ResourceValue getPrice() {
+            return price;
+        }
+
+        public int getMaxPopulation() {
+            return maxPopulation;
         }
     }
 }

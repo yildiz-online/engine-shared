@@ -34,7 +34,6 @@ import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.resources.ResourceValue;
 import be.yildiz.shared.resources.ResourcesProducer;
-import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -68,13 +67,11 @@ public class BaseCity<T extends Building, D extends BuildingData> implements Cit
     /**
      * List of buildings.
      */
-    @Getter
     private final List<T> buildings;
 
     /**
      * Resource production for this city.
      */
-    @Getter
     private final ResourcesProducer producer;
 
     /**
@@ -181,5 +178,15 @@ public class BaseCity<T extends Building, D extends BuildingData> implements Cit
     @Override
     public void initializeProducer() {
         this.getProducer().setInitialised();
+    }
+
+    @Override
+    public List<T> getBuildings() {
+        return buildings;
+    }
+
+    @Override
+    public ResourcesProducer getProducer() {
+        return producer;
     }
 }

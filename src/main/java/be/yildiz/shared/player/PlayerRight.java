@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.player;
 
-import lombok.Getter;
 
 /**
  * Possible player rights.
@@ -47,11 +46,13 @@ public enum PlayerRight {
      */
     ADMIN(2);
 
-    @Getter
     private int ordinal;
 
     PlayerRight(final int ordinal) {
         this.ordinal = ordinal;
     }
 
+    public int getOrdinal() {
+        return ordinal;
+    }
 }

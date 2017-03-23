@@ -31,7 +31,6 @@ import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
-import lombok.Getter;
 
 /**
  * A request from the client to the server to build or upgrade a building.
@@ -43,31 +42,26 @@ public final class BuildingConstructionRequest extends NetworkMessage implements
     /**
      * Id of the base containing the building.
      */
-    @Getter
     private final EntityId cityId;
 
     /**
      * Type of the building.
      */
-    @Getter
     private final EntityType type;
 
     /**
      * Level of the building.
      */
-    @Getter
     private final Level level;
 
     /**
      * Position of the building in the base.
      */
-    @Getter
     private final BuildingPosition position;
 
     /**
      * Staff allocated to the building.
      */
-    @Getter
     private final int staff;
 
     /**
@@ -109,5 +103,25 @@ public final class BuildingConstructionRequest extends NetworkMessage implements
     @Override
     public int command() {
         return ClientCommand.CREATE_BUILDING.ordinal();
+    }
+
+    public EntityId getCityId() {
+        return cityId;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public BuildingPosition getPosition() {
+        return position;
+    }
+
+    public int getStaff() {
+        return staff;
     }
 }

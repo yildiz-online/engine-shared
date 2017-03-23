@@ -27,12 +27,10 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
-@Getter
 public class EntityToCreate {
 
     private final EntityType type;
@@ -51,5 +49,25 @@ public class EntityToCreate {
         this.position = position;
         this.direction = direction;
         this.owner = owner;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public ModuleGroup getModules() {
+        return modules;
+    }
+
+    public Point3D getPosition() {
+        return position;
+    }
+
+    public Point3D getDirection() {
+        return direction;
+    }
+
+    public PlayerId getOwner() {
+        return owner;
     }
 }

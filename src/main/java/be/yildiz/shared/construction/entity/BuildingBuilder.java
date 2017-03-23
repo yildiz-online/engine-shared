@@ -28,7 +28,6 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.building.Building;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
-import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.List;
@@ -47,13 +46,11 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
     /**
      * Builder unique id.
      */
-    @Getter
     private final EntityId builderId;
 
     /**
      * Position where the newly build entities will be located once built.
      */
-    @Getter
     private final Point3D buildPosition;
 
     /**
@@ -61,13 +58,11 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
      */
     private final Building building;
 
-    @Getter
     private final EntityConstructionQueue queue;
 
     /**
      * Player owning this building.
      */
-    @Getter
     private final PlayerId owner;
 
     /**
@@ -79,8 +74,12 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
      * @param building      Associated building.
      * @param queueMaxSize Maximum size of the builder queue.
      */
-    protected BuildingBuilder(@NonNull final EntityId builderId, final PlayerId owner, @NonNull final Point3D buildPosition, @NonNull final B building, final int queueMaxSize) {
+    protected BuildingBuilder( final EntityId builderId, final PlayerId owner, final Point3D buildPosition, final B building, final int queueMaxSize) {
         super();
+        assert builderId != null;
+        assert owner != null;
+        assert buildPosition != null;
+        assert building != null;
         this.builderId = builderId;
         this.buildPosition = buildPosition;
         this.building = building;
@@ -106,5 +105,25 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
     @Override
     public void addInQueue(EntityRepresentationConstruction r) throws EntityConstructionQueueFullException {
         this.queue.add(r);
+    }
+
+    @Override
+    public EntityId getBuilderId() {
+        return builderId;
+    }
+
+    @Override
+    public Point3D getBuildPosition() {
+        return buildPosition;
+    }
+
+    @Override
+    public EntityConstructionQueue getQueue() {
+        return queue;
+    }
+
+    @Override
+    public PlayerId getOwner() {
+        return owner;
     }
 }

@@ -29,7 +29,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Response from the server when an entity is hit in an attack.
@@ -42,13 +41,11 @@ public final class EntityHitResponse extends NetworkMessage implements ServerRes
     /**
      * Id of the damaged entity.
      */
-    @Getter
     private final EntityId entity;
 
     /**
      * Current entity hp.
      */
-    @Getter
     private final int hitPoint;
 
     /**
@@ -69,5 +66,13 @@ public final class EntityHitResponse extends NetworkMessage implements ServerRes
     @Override
     public int command() {
         return ServerCommand.HIT.value;
+    }
+
+    public EntityId getEntity() {
+        return entity;
+    }
+
+    public int getHitPoint() {
+        return hitPoint;
     }
 }

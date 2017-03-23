@@ -29,12 +29,10 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.research.Research;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
-@Getter
 public final class ResearchRequest extends NetworkMessage implements ServerRequest {
 
     private final Research research;
@@ -59,5 +57,13 @@ public final class ResearchRequest extends NetworkMessage implements ServerReque
     @Override
     public int command() {
         return ClientCommand.RESEARCH.ordinal();
+    }
+
+    public Research getResearch() {
+        return research;
+    }
+
+    public EntityId getCityId() {
+        return cityId;
     }
 }

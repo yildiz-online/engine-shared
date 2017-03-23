@@ -25,7 +25,6 @@ package be.yildiz.shared.entity.bonus;
 
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.ActionId;
-import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -49,7 +48,6 @@ public class EntityBonus {
     /**
      * Only module with those ids are affected by the bonus.
      */
-    @Getter
     private final Set<ActionId> moduleIds = Sets.newSet();
 
     /**
@@ -64,6 +62,10 @@ public class EntityBonus {
         this.oneInstance = oneInstance;
         this.value = value;
         this.moduleIds.addAll(Arrays.asList(moduleIds));
+    }
+
+    public Set<ActionId> getModuleIds() {
+        return moduleIds;
     }
 
     /**

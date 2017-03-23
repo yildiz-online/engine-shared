@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.collections.Maps;
-import lombok.EqualsAndHashCode;
 
 import java.util.Map;
 
@@ -39,7 +38,6 @@ import java.util.Map;
  * specfield name : String : not null value, 2 different types cannot have the
  * same name.
  */
-@EqualsAndHashCode
 public final class EntityType {
 
     /**
@@ -107,5 +105,29 @@ public final class EntityType {
         assert this.name != null : "Name must not be null";
         assert EntityType.MAP.get(this.type) == this : "This object is not registered";
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityType that = (EntityType) o;
+
+        if (type != that.type) {
+            return false;
+        }
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }

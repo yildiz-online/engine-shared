@@ -27,7 +27,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
@@ -37,19 +36,16 @@ public final class AdminCreateAccountRequest extends NetworkMessage implements S
     /**
      * Player login.
      */
-    @Getter
     private final String login;
 
     /**
      * Player hashed password.
      */
-    @Getter
     private final String password;
 
     /**
      * Player email.
      */
-    @Getter
     private final String email;
 
     /**
@@ -75,5 +71,17 @@ public final class AdminCreateAccountRequest extends NetworkMessage implements S
     @Override
     public int command() {
         return ClientCommand.ADMIN_CREATE_ACCOUNT.ordinal();
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

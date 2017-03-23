@@ -96,9 +96,9 @@ public class EntityTest {
         Assert.assertTrue(e1.hasState(s2));
         e1.removeState(s1);
         Assert.assertFalse(e1.hasState(s1));
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         e1.addState(null);
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         e1.removeState(null);
     }
 
@@ -139,7 +139,7 @@ public class EntityTest {
         Entity e1 = Helper.givenAnEntity();
         e1.setPosition(new Point3D(10));
         Assert.assertEquals(new Point3D(10), e1.getPosition());
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         e1.setPosition(null);
     }
 
@@ -171,7 +171,7 @@ public class EntityTest {
         Player p2 = pm.createPlayer(PlayerId.get(6), "test2");
         e1.setOwner(p2.id);
         Assert.assertEquals(p2.id, e1.getOwner());
-        this.rule.expect(NullPointerException.class);
+        this.rule.expect(AssertionError.class);
         e1.setOwner(null);
     }
 }

@@ -27,7 +27,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import lombok.Getter;
 
 /**
  * A request from the client to the server for a player sending a chat message.
@@ -39,13 +38,11 @@ public final class ChatRequest extends NetworkMessage implements ServerRequest {
     /**
      * Message to send.
      */
-    @Getter
     private final String message;
 
     /**
      * Channel receiving the message.
      */
-    @Getter
     private final int channel;
 
     /**
@@ -78,5 +75,13 @@ public final class ChatRequest extends NetworkMessage implements ServerRequest {
     @Override
     public int command() {
         return ClientCommand.CHAT.ordinal();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public int getChannel() {
+        return channel;
     }
 }

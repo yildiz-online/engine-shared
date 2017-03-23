@@ -29,7 +29,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Message sent from the server to the client when an Entity is destroyed.
@@ -42,7 +41,6 @@ public final class DestroyEntityResponse extends NetworkMessage implements Serve
     /**
      * Entity to destroy uniqueId.
      */
-    @Getter
     private final EntityId entity;
 
     /**
@@ -72,5 +70,9 @@ public final class DestroyEntityResponse extends NetworkMessage implements Serve
     @Override
     public int command() {
         return ServerCommand.DESTROY.value;
+    }
+
+    public EntityId getEntity() {
+        return entity;
     }
 }

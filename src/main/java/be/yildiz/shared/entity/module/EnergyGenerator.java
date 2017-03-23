@@ -25,14 +25,12 @@ package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.ProduceEnergy;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 public class EnergyGenerator extends Module<ProduceEnergy> {
 
-    @Getter
     private final int energyMax;
 
     public EnergyGenerator(ProduceEnergy action, ActionId id, int energyMax) {
@@ -40,8 +38,11 @@ public class EnergyGenerator extends Module<ProduceEnergy> {
         this.energyMax = energyMax;
     }
 
+    public final int getEnergyMax() {
+        return energyMax;
+    }
 
-    public static abstract class EnergyGeneratorTemplate<T extends ProduceEnergy> {
+    public abstract static class EnergyGeneratorTemplate<T extends ProduceEnergy> {
 
         public final int maxEnergy;
 

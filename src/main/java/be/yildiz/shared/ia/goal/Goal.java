@@ -26,30 +26,25 @@ package be.yildiz.shared.ia.goal;
 import be.yildiz.shared.entity.action.AbstractAttack;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.action.Move;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
 /**
  * A goal represent something an entity is trying to achieve, it combines an action with a level of desirability to complete this action.
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class Goal implements Comparable<Goal> {
 
     /**
      * Associated action.
      */
     private final Action action;
-    @Getter
+
     private final boolean move;
-    @Getter
+
     private final boolean attack;
     /**
      * Goal desirability, between 0(no interest) and 1(high priority).
      */
-    @Setter
     private Desirability desirability;
 
     /**
@@ -57,28 +52,51 @@ public final class Goal implements Comparable<Goal> {
      *
      * @param action Goal type.
      */
-    public Goal(@NonNull final Action action) {
+    public Goal(final Action action) {
         super();
+        assert action != null;
         this.action = action;
         this.desirability = Desirability.NONE;
         this.move = false;
         this.attack = false;
     }
 
-    public Goal(@NonNull final Move action) {
+    public Goal(final Move action) {
         super();
+        assert action != null;
         this.action = action;
         this.desirability = Desirability.NONE;
         this.move = true;
         this.attack = false;
     }
 
-    public Goal(@NonNull final AbstractAttack action) {
+    public Goal(final AbstractAttack action) {
         super();
+        assert action != null;
         this.action = action;
         this.desirability = Desirability.NONE;
         this.move = false;
         this.attack = true;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public boolean isMove() {
+        return move;
+    }
+
+    public boolean isAttack() {
+        return attack;
+    }
+
+    public Desirability getDesirability() {
+        return desirability;
+    }
+
+    public void setDesirability(Desirability desirability) {
+        this.desirability = desirability;
     }
 
     /**

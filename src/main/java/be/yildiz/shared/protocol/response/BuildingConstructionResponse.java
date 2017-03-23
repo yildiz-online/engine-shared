@@ -32,14 +32,12 @@ import be.yildiz.shared.building.Building;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.Level;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Response from the server to build or upgrade a building in a base.
  *
  * @author Grégory Van den Borre
  */
-@Getter
 @EqualsAndHashCode(callSuper = false)
 public final class BuildingConstructionResponse extends NetworkMessage implements ServerResponse {
 
@@ -112,5 +110,29 @@ public final class BuildingConstructionResponse extends NetworkMessage implement
     @Override
     public int command() {
         return ServerCommand.BUILDING_INFO.value;
+    }
+
+    public EntityId getCityId() {
+        return cityId;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public BuildingPosition getPosition() {
+        return position;
+    }
+
+    public int getStaff() {
+        return staff;
+    }
+
+    public long getTime() {
+        return time;
     }
 }

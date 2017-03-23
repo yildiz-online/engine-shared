@@ -31,14 +31,12 @@ import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class SavePersistentModuleRequest extends NetworkMessage implements ServerRequest {
 
-    @Getter
     private final ModuleConfiguration moduleConfiguration;
 
     /**
@@ -70,4 +68,7 @@ public final class SavePersistentModuleRequest extends NetworkMessage implements
         return ClientCommand.SAVE_MODULE_CONFIG.ordinal();
     }
 
+    public ModuleConfiguration getModuleConfiguration() {
+        return moduleConfiguration;
+    }
 }

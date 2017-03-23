@@ -28,7 +28,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.player.Message;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +37,6 @@ import java.util.stream.Collectors;
  */
 public final class MessageListResponse extends NetworkMessage implements ServerResponse {
 
-    @Getter
     private final List<Message> messageList;
 
     /**
@@ -68,5 +66,9 @@ public final class MessageListResponse extends NetworkMessage implements ServerR
     @Override
     public int command() {
         return ServerCommand.MESSAGE_LIST.value;
+    }
+
+    public List<Message> getMessageList() {
+        return messageList;
     }
 }

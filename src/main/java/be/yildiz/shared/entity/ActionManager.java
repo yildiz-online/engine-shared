@@ -28,7 +28,6 @@ import be.yildiz.common.framelistener.EndFrameListener;
 import be.yildiz.common.framelistener.FrameManager;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.action.ActionListener;
-import lombok.NonNull;
 
 import java.util.List;
 
@@ -95,15 +94,18 @@ public class ActionManager<T extends Entity> extends EndFrameListener {
      * @throws NullPointerException if l parameter is <code>null</code>
      * post listener.size() == getSize()@pre + 1
      */
-    public void addListener(@NonNull final ActionListener l) {
+    public void addListener(final ActionListener l) {
+        assert l != null;
         this.listeners.add(l);
     }
 
-    public void removeListener(@NonNull final ActionListener l) {
+    public void removeListener(final ActionListener l) {
+        assert l != null;
         this.listenerToRemove.add(l);
     }
 
-    public void addDestructionListener(@NonNull final DestructionListener<T> l) {
+    public void addDestructionListener(final DestructionListener<T> l) {
+        assert l != null;
         this.destructionListeners.add(l);
     }
 }

@@ -25,7 +25,6 @@ package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Time;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * Time to build an object in the game.
@@ -41,7 +40,6 @@ public final class TimeToBuild {
     /**
      * Time.
      */
-    @Getter
     private final Time time;
 
     /**
@@ -52,6 +50,10 @@ public final class TimeToBuild {
     public TimeToBuild(final Time t) {
         super();
         this.time = t;
+    }
+
+    public Time getTime() {
+        return time;
     }
 
     @Override

@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Time;
-import lombok.Getter;
 
 /**
  * Simple wrapper class to represent time between 2 attacks.
@@ -42,7 +41,6 @@ public final class AttackTime {
     /**
      * Time.
      */
-    @Getter
     private final Time time;
 
     /**
@@ -53,5 +51,9 @@ public final class AttackTime {
     public AttackTime(final Time t) {
         super();
         this.time = t;
+    }
+
+    public Time getTime() {
+        return time;
     }
 }

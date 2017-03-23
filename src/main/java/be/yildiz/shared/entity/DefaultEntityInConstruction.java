@@ -28,7 +28,6 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -38,7 +37,6 @@ import lombok.NonNull;
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public class DefaultEntityInConstruction {
 
     /**
@@ -88,5 +86,29 @@ public class DefaultEntityInConstruction {
         this.modules = modules;
         this.position = position;
         this.direction = direction;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public EntityId getId() {
+        return id;
+    }
+
+    public PlayerId getOwner() {
+        return owner;
+    }
+
+    public ModuleGroup getModules() {
+        return modules;
+    }
+
+    public Point3D getPosition() {
+        return position;
+    }
+
+    public Point3D getDirection() {
+        return direction;
     }
 }

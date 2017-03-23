@@ -24,9 +24,6 @@
 package be.yildiz.shared.player;
 
 import be.yildiz.common.id.PlayerId;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
 import java.util.Date;
 
@@ -50,13 +47,11 @@ public final class Message {
     /**
      * Id of the player sending the message.
      */
-    @Getter
     private final PlayerId sender;
 
     /**
      * Id of the player receiving the message.
      */
-    @Getter
     private final PlayerId receiver;
 
     /**
@@ -67,14 +62,11 @@ public final class Message {
     /**
      * Message date.
      */
-    @Getter
     private final Date date;
 
     /**
      * <code>true</code> if the message has been read, <code>false</code> otherwise.
      */
-    @Getter
-    @Setter
     private boolean read;
 
     /**
@@ -86,8 +78,12 @@ public final class Message {
      * @param date     Message send date.
      * @param read     Message read status.
      */
-    public Message(@NonNull final PlayerId sender, @NonNull final PlayerId receiver, @NonNull final String message, @NonNull final Date date, final boolean read) {
+    public Message(final PlayerId sender, final PlayerId receiver, final String message, final Date date, final boolean read) {
         super();
+        assert sender != null;
+        assert receiver != null;
+        assert message != null;
+        assert date != null;
         this.sender = sender;
         this.receiver = receiver;
         this.content = message.replaceAll(SEPARATOR, "").replaceAll(",", COMMA);
@@ -115,6 +111,26 @@ public final class Message {
      */
     public String getMessage() {
         return this.content.replaceAll(COMMA, ",");
+    }
+
+    public PlayerId getSender() {
+        return sender;
+    }
+
+    public PlayerId getReceiver() {
+        return receiver;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 
     @Override

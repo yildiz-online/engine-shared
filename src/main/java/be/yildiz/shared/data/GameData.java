@@ -23,8 +23,6 @@
 
 package be.yildiz.shared.data;
 
-import lombok.Getter;
-
 /**
  * Abstract type for the different game data.
  *
@@ -35,20 +33,17 @@ public abstract class GameData {
     /**
      * Object type.
      */
-    @Getter
     private final EntityType type;
 
     /**
      * Number of instance of this type allowed to be built.
      */
-    @Getter
     private final Instance maxInstances;
 
     /**
      * Required level to build this object(it can be player or building level
      * depending on the context).
      */
-    @Getter
     private final Level requiredLevel;
 
     protected GameData(EntityType type, Instance maxInstances, Level requiredLevel) {
@@ -56,6 +51,18 @@ public abstract class GameData {
         this.type = type;
         this.maxInstances = maxInstances;
         this.requiredLevel = requiredLevel;
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public Instance getMaxInstances() {
+        return maxInstances;
+    }
+
+    public Level getRequiredLevel() {
+        return requiredLevel;
     }
 
     @Override

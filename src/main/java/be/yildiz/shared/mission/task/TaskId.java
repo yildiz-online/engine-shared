@@ -23,23 +23,28 @@
 
 package be.yildiz.shared.mission.task;
 
-import lombok.Getter;
-import lombok.NonNull;
-
 /**
  * @author Grégory Van den Borre
  */
 public class TaskId {
 
-    @Getter
     private final long value;
 
-    @Getter
     private final TaskType type;
 
-    public TaskId(long value, @NonNull TaskType type) {
+    public TaskId(long value, TaskType type) {
+        super();
+        assert type != null;
         this.value = value;
         this.type = type;
+    }
+
+    public long getValue() {
+        return value;
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     @Override
@@ -59,7 +64,6 @@ public class TaskId {
         }
 
         TaskId taskId = (TaskId) o;
-
         if (value != taskId.value) {
             return false;
         }

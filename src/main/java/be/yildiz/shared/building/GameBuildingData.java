@@ -27,7 +27,6 @@ import be.yildiz.common.util.Checker;
 import be.yildiz.shared.data.*;
 import be.yildiz.shared.resources.ResourceValue;
 import be.yildiz.shared.resources.bonus.BonusResources;
-import lombok.Getter;
 
 /**
  * Base implementation for the BuildingData
@@ -56,7 +55,6 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
      */
     private final boolean builder;
 
-    @Getter
     private final boolean buildable;
 
     /**
@@ -120,17 +118,17 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
     }
 
     @Override
-    public ResourceValue getPrice(final Level level) {
+    public final ResourceValue getPrice(final Level level) {
         return this.getForLevel(level).getPrice();
     }
 
     @Override
-    public TimeToBuild getTimeToBuild() {
+    public final TimeToBuild getTimeToBuild() {
         return this.getForLevel(Level.ONE).getTimeToBuild();
     }
 
     @Override
-    public TimeToBuild getTimeToBuild(final Level level) {
+    public final TimeToBuild getTimeToBuild(final Level level) {
         return this.getForLevel(level).getTimeToBuild();
     }
 
@@ -145,19 +143,24 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
     }
 
     @Override
+    public final boolean isBuildable() {
+        return buildable;
+    }
+
+    @Override
     public final boolean isEmpty() {
         return this.empty;
     }
 
     @Override
-    public boolean isBuilder() {
+    public final boolean isBuilder() {
         return this.builder;
     }
 
     protected abstract LevelData[] generateLevelData();
 
     @Override
-    public String toString() {
+    public final String toString() {
         return this.getType().toString();
     }
 }

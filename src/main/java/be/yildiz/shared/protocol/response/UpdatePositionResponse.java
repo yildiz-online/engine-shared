@@ -29,14 +29,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.Getter;
 
 /**
  * Response from the server to update an Entity position.
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class UpdatePositionResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -87,5 +85,17 @@ public final class UpdatePositionResponse extends NetworkMessage implements Serv
     @Override
     public int command() {
         return ServerCommand.POSITION.value;
+    }
+
+    public EntityId getEntity() {
+        return entity;
+    }
+
+    public Point3D getPosition() {
+        return position;
+    }
+
+    public Point3D getOrientation() {
+        return orientation;
     }
 }

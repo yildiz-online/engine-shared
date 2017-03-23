@@ -29,7 +29,6 @@ import be.yildiz.common.util.Time;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -51,7 +50,6 @@ public final class EntityConstructionQueue {
     /**
      * Id of the builder holding this queue.
      */
-    @Getter
     private final EntityId builderId;
 
     /**
@@ -137,6 +135,10 @@ public final class EntityConstructionQueue {
 
     public boolean hasOnlyOneElement() {
         return this.entities.size() == 1;
+    }
+
+    public EntityId getBuilderId() {
+        return builderId;
     }
 
     /**

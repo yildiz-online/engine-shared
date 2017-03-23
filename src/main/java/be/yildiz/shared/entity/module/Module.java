@@ -28,7 +28,6 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.fields.SharedPosition;
 import be.yildiz.shared.entity.fields.StateHolder;
-import lombok.Getter;
 
 /**
  * A module is a part of an Entity, it contains its specific action.
@@ -40,7 +39,6 @@ public class Module<A extends Action> {
     /**
      * action associated to the module.
      */
-    @Getter
     private final A action;
 
     protected Module(A action, ActionId id) {
@@ -81,4 +79,7 @@ public class Module<A extends Action> {
         return this.action.id;
     }
 
+    public final A getAction() {
+        return action;
+    }
 }

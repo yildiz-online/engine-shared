@@ -48,9 +48,6 @@ import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
 import be.yildiz.shared.entity.module.hull.Invincible;
 import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
 import be.yildiz.shared.entity.module.move.StaticModule;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -75,16 +72,13 @@ public final class BaseEntity implements Entity, Target {
     /**
      * List of all entity visible by this one.
      */
-    @Getter
     private final Set<Entity> visibleEntities = Sets.newSet();
 
-    @Getter
     private final Set<PlayerId> seenBy = Sets.newSet();
 
     /**
      * Entity unique Id, this value is used as an identifier for equals method.
      */
-    @Getter
     private final EntityId id;
     /**
      * Position, shared between this entity and its modules.
@@ -116,25 +110,19 @@ public final class BaseEntity implements Entity, Target {
     private final MoveEngine moveEngine;
     private final EntityType type;
 
-    @Getter
     private final Module additional1;
 
-    @Getter
     private final Module additional2;
 
-    @Getter
     private final Module additional3;
 
-    @Getter
-    @Setter
     private String name;
 
-    @Getter
     private PlayerId owner;
 
-    @Getter
+
     private List<Action> actionRunning = Lists.newList();
-    @Getter
+
     private List<Action> actionComplete = Lists.newList();
     private Movable mat;
 
@@ -315,7 +303,8 @@ public final class BaseEntity implements Entity, Target {
     }
 
     @Override
-    public void removeState(@NonNull final State state) {
+    public void removeState(final State state) {
+        assert state != null;
         this.states.removeState(state);
     }
 
@@ -408,8 +397,9 @@ public final class BaseEntity implements Entity, Target {
     }
 
     @Override
-    public void setPosition(@NonNull Point3D position) {
+    public void setPosition(Point3D position) {
         //FIXME use the module to set the position instead, to avoid to be able to set the position even if the module cannot move.
+        assert position != null;
         this.position.setPosition(position);
     }
 
@@ -594,7 +584,8 @@ public final class BaseEntity implements Entity, Target {
     }
 
     @Override
-    public void setOwner(@NonNull PlayerId ownerId) {
+    public void setOwner(PlayerId ownerId) {
+        assert ownerId != null;
         this.owner = ownerId;
     }
 
@@ -606,5 +597,58 @@ public final class BaseEntity implements Entity, Target {
     @Override
     public Action getPreparedAction() {
         return this.actionToPrepare.orElse(this.moveEngine.getAction());
+    }
+
+    public Set<Entity> getVisibleEntities() {
+        return visibleEntities;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public PlayerId getOwner() {
+        return owner;
+    }
+
+    @Override
+    public List<Action> getActionRunning() {
+        return actionRunning;
+    }
+
+    public List<Action> getActionComplete() {
+        return actionComplete;
+    }
+
+    @Override
+    public Set<PlayerId> getSeenBy() {
+        return seenBy;
+    }
+
+    @Override
+    public EntityId getId() {
+        return id;
+    }
+
+    @Override
+    public Module getAdditional1() {
+        return additional1;
+    }
+
+    @Override
+    public Module getAdditional2() {
+        return additional2;
+    }
+
+    @Override
+    public Module getAdditional3() {
+        return additional3;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 }
