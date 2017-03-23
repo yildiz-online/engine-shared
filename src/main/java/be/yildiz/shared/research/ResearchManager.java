@@ -27,7 +27,6 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.shared.player.Player;
-import lombok.NoArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +38,6 @@ import java.util.Set;
 /**
  * @author Grégory Van den Borre
  */
-@NoArgsConstructor
 public final class ResearchManager {
 
     /**
@@ -47,7 +45,11 @@ public final class ResearchManager {
      */
     private final List<ResearchListener> listenerList = Lists.newList();
 
-    private Map<Player, Set<Research>> researches = Maps.newMap();
+    private final Map<Player, Set<Research>> researches = Maps.newMap();
+
+    public ResearchManager() {
+        super();
+    }
 
     /**
      * Add a new research.

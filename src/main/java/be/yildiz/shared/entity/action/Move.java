@@ -27,7 +27,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.MutableSpeed;
 import be.yildiz.shared.entity.fields.Target;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -59,7 +58,6 @@ public abstract class Move extends Action {
     /**
      * Destination to reach.
      */
-    @Getter
     private Point3D destination = Point3D.ZERO;
 
     /**
@@ -92,6 +90,11 @@ public abstract class Move extends Action {
     @Override
     public final EntityId getTargetId() {
         return EntityId.WORLD;
+    }
+
+    @Override
+    public Point3D getDestination() {
+        return destination;
     }
 
     /**

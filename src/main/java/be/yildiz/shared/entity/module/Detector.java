@@ -26,19 +26,21 @@ package be.yildiz.shared.entity.module;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.data.ViewDistance;
 import be.yildiz.shared.entity.action.Detect;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 public class Detector extends Module<Detect> {
 
-    @Getter
     private final ViewDistance lineOfSight;
 
     public Detector(Detect action, ActionId id, ViewDistance lineOfSight) {
         super(action, id);
         this.lineOfSight = lineOfSight;
+    }
+
+    public ViewDistance getLineOfSight() {
+        return lineOfSight;
     }
 
     public static abstract class DetectorTemplate<T extends Detect> {

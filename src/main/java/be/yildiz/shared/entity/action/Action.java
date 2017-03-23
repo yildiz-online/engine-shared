@@ -31,7 +31,6 @@ import be.yildiz.shared.entity.fields.PositionData;
 import be.yildiz.shared.entity.fields.SharedPosition;
 import be.yildiz.shared.entity.fields.StateHolder;
 import be.yildiz.shared.entity.fields.Target;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -57,7 +56,6 @@ public abstract class Action {
     /**
      * True if the action is only interacting with the entity itself.
      */
-    @Getter
     private final boolean self;
     /**
      * action type, defined by the class.
@@ -101,6 +99,10 @@ public abstract class Action {
 
     public void setHp(final BoundedValue hp) {
         this.hp = hp;
+    }
+
+    public boolean isSelf() {
+        return self;
     }
 
     /**

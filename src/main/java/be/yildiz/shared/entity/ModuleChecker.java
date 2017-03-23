@@ -26,7 +26,6 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
@@ -34,8 +33,11 @@ import lombok.NonNull;
  *
  * @author Grégory Van den Borre
  */
-@NoArgsConstructor
 public final class ModuleChecker {
+
+    public ModuleChecker() {
+        super();
+    }
 
     /**
      * Check a list of ids against a game entity data.

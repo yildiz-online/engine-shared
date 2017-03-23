@@ -24,12 +24,10 @@
 package be.yildiz.shared.player;
 
 import be.yildiz.common.log.Logger;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
-@Getter
 public class PlayerToCreate {
 
     private final String login;
@@ -43,6 +41,18 @@ public class PlayerToCreate {
         this.password = password;
         this.email = email;
         assert this.invariant();
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     private boolean invariant() {
