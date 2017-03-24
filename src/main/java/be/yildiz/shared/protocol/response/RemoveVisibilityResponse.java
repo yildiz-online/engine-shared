@@ -28,7 +28,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.Getter;
 
 /**
  * Message sent from the server to the client when an Entity is no longer visible.
@@ -40,7 +39,6 @@ public final class RemoveVisibilityResponse extends NetworkMessage implements Se
     /**
      * No longer visible Entity Id.
      */
-    @Getter
     private final EntityId entity;
 
     /**
@@ -70,5 +68,9 @@ public final class RemoveVisibilityResponse extends NetworkMessage implements Se
     @Override
     public int command() {
         return ServerCommand.UNIT_NO_LONGER_VISIBLE.value;
+    }
+
+    public EntityId getEntity() {
+        return entity;
     }
 }

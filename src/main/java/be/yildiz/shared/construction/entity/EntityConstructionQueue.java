@@ -28,9 +28,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.Time;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.ToString;
 
 import java.util.Collections;
 import java.util.List;
@@ -64,8 +61,9 @@ public final class EntityConstructionQueue {
      * @param maxSize Maximum size for the queue.
      * @throws NullPointerException If builderId is null.
      */
-    public EntityConstructionQueue(@NonNull final EntityId builderId, final int maxSize) {
+    public EntityConstructionQueue(final EntityId builderId, final int maxSize) {
         super();
+        assert builderId != null;
         this.builderId = builderId;
         this.maxSize = maxSize;
     }
@@ -145,8 +143,6 @@ public final class EntityConstructionQueue {
      * An entity representation construction is the state of the build of an entity,
      * it contains the type, the modules to be built and the unique build index.
      */
-    @EqualsAndHashCode
-    @ToString
     public static final class EntityRepresentationConstruction {
 
         /**
@@ -201,6 +197,48 @@ public final class EntityConstructionQueue {
          */
         public boolean isTimeElapsed() {
             return this.timeLeft.timeInMs <= 0;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            EntityRepresentationConstruction that = (EntityRepresentationConstruction) o;
+
+            if (index != that.index) {
+                return false;
+            }
+            if (!type.equals(that.type)) {
+                return false;
+            }
+            if (!data.equals(that.data)) {
+                return false;
+            }
+            return timeLeft.equals(that.timeLeft);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = type.hashCode();
+            result = 31 * result + data.hashCode();
+            result = 31 * result + index;
+            result = 31 * result + timeLeft.hashCode();
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "EntityRepresentationConstruction{" +
+                    "type=" + type +
+                    ", data=" + data +
+                    ", index=" + index +
+                    ", timeLeft=" + timeLeft +
+                    '}';
         }
     }
 }

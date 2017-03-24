@@ -26,7 +26,6 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.log.Logger;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.NonNull;
 
 /**
  * To check the validity of a list of modules against a given data type, it does not check if the user has the right to use those modules.
@@ -46,7 +45,9 @@ public final class ModuleChecker {
      * @param modules List of modules to check.
      * @return <code>true</code> only if the size of the list is at least 3 elements, and if the data allows the id at the given position in the list to be used.
      */
-    public boolean checkIds(@NonNull final GameEntityData data, final ModuleGroup modules) {
+    public boolean checkIds(final GameEntityData data, final ModuleGroup modules) {
+        assert data != null;
+        assert modules != null;
         ActionId move = modules.getMove();
         ActionId interaction = modules.getInteraction();
         ActionId hull = modules.getHull();

@@ -91,32 +91,32 @@ public class GameEntityDataTest {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullType() {
             new GameEntityData(null, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullInstance() {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, null, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullLevel() {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, null, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullAllowed() {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, null, PRICE_OK, TIME_OK, true);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullPrice() {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, null, TIME_OK, true);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullTime() {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, null, true);
         }

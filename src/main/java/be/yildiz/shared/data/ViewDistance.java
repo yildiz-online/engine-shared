@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Checker;
-import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper for view distance.
@@ -32,7 +31,6 @@ import lombok.EqualsAndHashCode;
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class ViewDistance {
 
     public static final ViewDistance ZERO = new ViewDistance(0.0001f);
@@ -53,4 +51,22 @@ public final class ViewDistance {
         this.distance = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ViewDistance that = (ViewDistance) o;
+
+        return Float.compare(that.distance, distance) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return (distance != +0.0f ? Float.floatToIntBits(distance) : 0);
+    }
 }

@@ -55,7 +55,7 @@ public class MissionTest {
             givenANewMission();
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullList() {
             new BaseMission(id, null, p -> {return true;});
         }
@@ -68,7 +68,7 @@ public class MissionTest {
             new BaseMission(id, l, p -> {return true;});
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullPrerequisite() {
             List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
             new BaseMission(id, l, null);

@@ -28,17 +28,14 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.mission.MissionId;
-import lombok.Getter;
 
 /**
  * @author Grégory Van den Borre
  */
 public class MissionStatusResponse extends NetworkMessage implements ServerResponse {
 
-    @Getter
     private final MissionId missionId;
 
-    @Getter
     private final MissionStatus status;
 
     /**
@@ -66,6 +63,14 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
     @Override
     public int command() {
         return ServerCommand.MISSION_STATUS.value;
+    }
+
+    public MissionId getMissionId() {
+        return missionId;
+    }
+
+    public MissionStatus getStatus() {
+        return status;
     }
 
     public enum MissionStatus {

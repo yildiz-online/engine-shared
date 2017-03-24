@@ -26,7 +26,6 @@ package be.yildiz.shared.player;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
-import lombok.NonNull;
 
 import java.util.List;
 import java.util.Map;
@@ -90,7 +89,10 @@ public final class PlayerManager implements PlayerProvider {
      * @throws ExistingPlayerException if the name already exists.
      * @throws ExistingPlayerException if the id already exists.
      */
-    public Player createPlayer(@NonNull final PlayerId id, @NonNull final String name, @NonNull final PlayerRight right) {
+    public Player createPlayer(final PlayerId id, final String name, final PlayerRight right) {
+        assert id != null;
+        assert name != null;
+        assert right != null;
         if (this.playerNameList.containsKey(name)) {
             throw new ExistingPlayerException("A player already exists with name " + name);
         }

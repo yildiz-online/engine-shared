@@ -28,14 +28,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.EqualsAndHashCode;
 
 /**
  * Message sent from the server to the client when an Entity is destroyed.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class DestroyEntityResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -74,5 +72,24 @@ public final class DestroyEntityResponse extends NetworkMessage implements Serve
 
     public EntityId getEntity() {
         return entity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        DestroyEntityResponse that = (DestroyEntityResponse) o;
+
+        return entity.equals(that.entity);
+    }
+
+    @Override
+    public int hashCode() {
+        return entity.hashCode();
     }
 }

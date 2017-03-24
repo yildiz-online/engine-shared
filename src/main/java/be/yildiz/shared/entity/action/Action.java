@@ -31,7 +31,6 @@ import be.yildiz.shared.entity.fields.PositionData;
 import be.yildiz.shared.entity.fields.SharedPosition;
 import be.yildiz.shared.entity.fields.StateHolder;
 import be.yildiz.shared.entity.fields.Target;
-import lombok.NonNull;
 
 /**
  * An action can be done by an Entity, an Entity can do only one action at a time. 2 actions are considered equals if they share the same Entity. An action can have different states, defined by the
@@ -74,12 +73,13 @@ public abstract class Action {
      */
     private boolean toRun;
 
-    protected Action(@NonNull final EntityId e, final boolean passive) {
+    protected Action(final EntityId e, final boolean passive) {
         this(e, passive, false);
     }
 
-    protected Action(@NonNull final EntityId e, final boolean passive, final boolean self) {
+    protected Action(final EntityId e, final boolean passive, final boolean self) {
         super();
+        assert e != null;
         this.entity = e;
         this.passive = passive;
         this.self = self;

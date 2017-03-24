@@ -29,7 +29,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.player.PlayerStatus;
-import lombok.Getter;
 
 /**
  * Response from the server with a player data.
@@ -41,19 +40,16 @@ public final class PlayerInfoResponse extends NetworkMessage implements ServerRe
     /**
      * Player unique Id.
      */
-    @Getter
     private final PlayerId player;
 
     /**
      * Player name.
      */
-    @Getter
     private final String login;
 
     /**
      * Player status for the current player.
      */
-    @Getter
     private final PlayerStatus status;
 
     /**
@@ -86,5 +82,17 @@ public final class PlayerInfoResponse extends NetworkMessage implements ServerRe
     @Override
     public int command() {
         return ServerCommand.PLAYER_INFO.value;
+    }
+
+    public PlayerId getPlayer() {
+        return player;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public PlayerStatus getStatus() {
+        return status;
     }
 }

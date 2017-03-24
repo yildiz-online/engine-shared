@@ -31,14 +31,12 @@ import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.building.Building;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.Level;
-import lombok.EqualsAndHashCode;
 
 /**
  * Response from the server to build or upgrade a building in a base.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class BuildingConstructionResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -134,5 +132,45 @@ public final class BuildingConstructionResponse extends NetworkMessage implement
 
     public long getTime() {
         return time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        BuildingConstructionResponse that = (BuildingConstructionResponse) o;
+
+        if (type != that.type) {
+            return false;
+        }
+        if (staff != that.staff) {
+            return false;
+        }
+        if (time != that.time) {
+            return false;
+        }
+        if (!cityId.equals(that.cityId)) {
+            return false;
+        }
+        if (!level.equals(that.level)) {
+            return false;
+        }
+        return position.equals(that.position);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cityId.hashCode();
+        result = 31 * result + type;
+        result = 31 * result + level.hashCode();
+        result = 31 * result + position.hashCode();
+        result = 31 * result + staff;
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
     }
 }

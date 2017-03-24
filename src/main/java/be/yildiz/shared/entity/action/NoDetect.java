@@ -24,14 +24,13 @@
 package be.yildiz.shared.entity.action;
 
 import be.yildiz.common.id.EntityId;
-import lombok.NonNull;
 
 /**
  * @author Grégory Van den Borre
  */
 public class NoDetect extends Detect{
 
-    public NoDetect(@NonNull EntityId e) {
+    public NoDetect(EntityId e) {
         super(e);
     }
 

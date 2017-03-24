@@ -26,14 +26,12 @@ package be.yildiz.shared.protocol.response;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.EqualsAndHashCode;
 
 /**
  * Simple message to notify that the initialization messages have all been sent.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class InitialisationCompleteResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -56,4 +54,6 @@ public final class InitialisationCompleteResponse extends NetworkMessage impleme
     public int command() {
         return ServerCommand.INITIALISED.value;
     }
+
+
 }

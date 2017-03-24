@@ -23,8 +23,6 @@
 
 package be.yildiz.shared.data;
 
-import lombok.EqualsAndHashCode;
-
 /**
  * Wrapper class to represent a state. The identity of the state is its name, it must be unique.
  * Immutable class.
@@ -33,7 +31,6 @@ import lombok.EqualsAndHashCode;
  * specfield name:String:State name, must be different for every states.
  * invariant name != null
  */
-@EqualsAndHashCode
 public final class State {
 
     /**
@@ -51,6 +48,25 @@ public final class State {
         super();
         this.name = name;
         assert this.invariant();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        State state = (State) o;
+
+        return name.equals(state.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 
     /**

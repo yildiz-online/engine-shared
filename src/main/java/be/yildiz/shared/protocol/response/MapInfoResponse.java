@@ -27,12 +27,10 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author Grégory Van Den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class MapInfoResponse extends NetworkMessage implements ServerResponse {
 
     public MapInfoResponse() {

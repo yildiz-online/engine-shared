@@ -30,7 +30,6 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.research.Research;
-import lombok.Getter;
 
 import java.util.Set;
 
@@ -44,7 +43,6 @@ public final class ResearchInfoResponse extends NetworkMessage implements Server
     /**
      * List of the researches name.
      */
-    @Getter
     private final Set<String> researches;
 
     /**
@@ -75,5 +73,9 @@ public final class ResearchInfoResponse extends NetworkMessage implements Server
     @Override
     public int command() {
         return ServerCommand.RESEARCH_INFO.value;
+    }
+
+    public Set<String> getResearches() {
+        return researches;
     }
 }

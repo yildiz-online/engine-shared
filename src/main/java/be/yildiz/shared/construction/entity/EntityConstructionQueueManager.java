@@ -28,7 +28,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.Entity;
-import lombok.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,8 +58,9 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
      * @param builderManager Associated builder manager.
      * @throws NullPointerException If builderManager is null.
      */
-    public EntityConstructionQueueManager(@NonNull final BuilderManager builderManager) {
+    public EntityConstructionQueueManager( final BuilderManager builderManager) {
         super();
+        assert builderManager != null;
         this.builderManager = builderManager;
     }
 
@@ -70,7 +70,8 @@ public class EntityConstructionQueueManager<T extends Entity> implements EntityC
      * @param listener Listener to add.
      * @throws NullPointerException If listener is null.
      */
-    public void willNotify(@NonNull final EntityConstructionQueueListener listener) {
+    public void willNotify( final EntityConstructionQueueListener listener) {
+        assert listener != null;
         this.listeners.add(listener);
     }
 

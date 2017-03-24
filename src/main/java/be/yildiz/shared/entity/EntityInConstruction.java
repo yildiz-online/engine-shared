@@ -30,7 +30,6 @@ import be.yildiz.common.util.Checker;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.NonNull;
 
 /**
  * This extends the entity in construction to provide additional information for a previously built entity.
@@ -80,10 +79,11 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
      * @throws NullPointerException     if any parameter is null.
      * @throws IllegalArgumentException If hp or energy is not a positive value.
      */
-    public EntityInConstruction(EntityType type, EntityId id, PlayerId owner, @NonNull String name, ModuleGroup modules, Point3D position, Point3D direction, int hp, int energy) {
+    public EntityInConstruction(EntityType type, EntityId id, PlayerId owner, String name, ModuleGroup modules, Point3D position, Point3D direction, int hp, int energy) {
         super(type, id, owner, modules, position, direction);
         Checker.exceptionNotPositive(hp);
         Checker.exceptionNotPositive(energy);
+        assert name != null;
         this.name = name;
         this.hp = hp;
         this.energy = energy;

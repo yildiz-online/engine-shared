@@ -28,7 +28,6 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.Getter;
 
 /**
  * Message sent from the server to the client when an Entity moves.
@@ -40,7 +39,6 @@ public final class StopAttackResponse extends NetworkMessage implements ServerRe
     /**
      * Attacking Entity Id.
      */
-    @Getter
     private final EntityId attacker;
 
     /**
@@ -70,5 +68,9 @@ public final class StopAttackResponse extends NetworkMessage implements ServerRe
     @Override
     public int command() {
         return ServerCommand.STOP_ATTACK.value;
+    }
+
+    public EntityId getAttacker() {
+        return attacker;
     }
 }

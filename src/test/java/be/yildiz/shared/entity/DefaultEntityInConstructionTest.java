@@ -61,17 +61,17 @@ public class DefaultEntityInConstructionTest {
             Assert.assertEquals(DIRECTION_OK, d.getDirection());
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullType() {
             new DefaultEntityInConstruction(null, ID_OK, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullId() {
             new DefaultEntityInConstruction(TYPE_OK, null, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK);
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullOwner() {
             new DefaultEntityInConstruction(TYPE_OK, ID_OK, null, MODULES_OK, POSITION_OK, DIRECTION_OK);
         }

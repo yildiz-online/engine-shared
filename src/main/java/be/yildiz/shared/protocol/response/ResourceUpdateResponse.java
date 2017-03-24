@@ -30,14 +30,12 @@ import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.resources.GameResources;
 import be.yildiz.shared.resources.ResourceValue;
-import lombok.Getter;
 
 /**
  * Message to update the resource values client side.
  *
  * @author Grégory Van den Borre
  */
-@Getter
 public final class ResourceUpdateResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -94,5 +92,17 @@ public final class ResourceUpdateResponse extends NetworkMessage implements Serv
     @Override
     public int command() {
         return ServerCommand.RESOURCE.value;
+    }
+
+    public EntityId getCityId() {
+        return cityId;
+    }
+
+    public ResourceValue getResources() {
+        return resources;
+    }
+
+    public long getTime() {
+        return time;
     }
 }

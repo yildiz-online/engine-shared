@@ -27,15 +27,12 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.DefaultEntityInConstruction;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 
 /**
  * Class with entity data and building time.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class WaitingEntity {
 
     /**
@@ -56,7 +53,36 @@ public final class WaitingEntity {
         this.builderId = builderId;
     }
 
-    public boolean isOwned(@NonNull final PlayerId player) {
+    public boolean isOwned(final PlayerId player) {
+        assert player != null;
         return this.entity.getOwner().equals(player);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        WaitingEntity that = (WaitingEntity) o;
+
+        if (!entity.equals(that.entity)) {
+            return false;
+        }
+        if (!representation.equals(that.representation)) {
+            return false;
+        }
+        return builderId.equals(that.builderId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + representation.hashCode();
+        result = 31 * result + builderId.hashCode();
+        return result;
     }
 }

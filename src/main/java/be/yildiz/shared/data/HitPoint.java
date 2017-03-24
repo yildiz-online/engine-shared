@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Checker;
-import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper class to represent hit points.
@@ -32,7 +31,6 @@ import lombok.EqualsAndHashCode;
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class HitPoint {
 
     /**
@@ -54,5 +52,24 @@ public final class HitPoint {
         super();
         Checker.exceptionNotPositive(hitPoint);
         this.points = hitPoint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        HitPoint hitPoint = (HitPoint) o;
+
+        return points == hitPoint.points;
+    }
+
+    @Override
+    public int hashCode() {
+        return points;
     }
 }

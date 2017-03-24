@@ -31,7 +31,6 @@ import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.entity.module.WorldModuleProvider;
 import be.yildiz.shared.resources.ResourceValue;
-import lombok.NonNull;
 
 /**
  * Contains all the data proper to an Entity type.
@@ -93,10 +92,14 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
      * @param timeToBuild Time to build.
      * @param buildable Flag to tell if the entity can be built by the player.
      */
-    protected GameEntityData(@NonNull final EntityType type, final int size, @NonNull final Instance instances,
-                             @NonNull final Level level, @NonNull final DefaultModuleProvider defaultModuleProvider, @NonNull final ModulesAllowed modulesAllowed, @NonNull final ResourceValue price,
-                             @NonNull final TimeToBuild timeToBuild, final boolean buildable) {
+    protected GameEntityData(final EntityType type, final int size, final Instance instances,
+                             final Level level, final DefaultModuleProvider defaultModuleProvider, final ModulesAllowed modulesAllowed, final ResourceValue price,
+                             final TimeToBuild timeToBuild, final boolean buildable) {
         super(type, instances, level);
+        assert defaultModuleProvider != null;
+        assert modulesAllowed != null;
+        assert price != null;
+        assert timeToBuild != null;
         Checker.exceptionNotGreaterThanZero(size);
         this.size = size;
         this.modulesAllowed = modulesAllowed;

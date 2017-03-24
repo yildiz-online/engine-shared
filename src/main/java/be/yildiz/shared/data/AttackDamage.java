@@ -23,15 +23,12 @@
 
 package be.yildiz.shared.data;
 
-import lombok.EqualsAndHashCode;
-
 /**
  * Simple wrapper class to represent attack damage.
  * Immutable class.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class AttackDamage {
 
     /**
@@ -52,5 +49,24 @@ public final class AttackDamage {
     public AttackDamage(final int hitPoint) {
         super();
         this.points = hitPoint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AttackDamage that = (AttackDamage) o;
+
+        return Float.compare(that.points, points) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return (points != +0.0f ? Float.floatToIntBits(points) : 0);
     }
 }

@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Checker;
-import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper class to represent the building position in a city.
@@ -32,7 +31,6 @@ import lombok.EqualsAndHashCode;
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class BuildingPosition {
 
     /**
@@ -56,4 +54,22 @@ public final class BuildingPosition {
         return "Building position:" + value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        BuildingPosition that = (BuildingPosition) o;
+
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
+    }
 }

@@ -26,7 +26,6 @@ package be.yildiz.shared.mission;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.task.TaskId;
-import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +59,10 @@ public class BaseMission implements Mission {
 
     private final MissionId id;
 
-    public BaseMission(MissionId id, List<TaskId> tasks, @NonNull MissionPrerequisite p) {
+    public BaseMission(MissionId id, List<TaskId> tasks, MissionPrerequisite p) {
+        assert id != null;
+        assert tasks != null;
+        assert p != null;
         this.id = id;
         if(tasks.contains(null)) {
             throw new IllegalArgumentException("Task list cannot contains null values.");

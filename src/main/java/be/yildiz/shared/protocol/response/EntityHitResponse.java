@@ -28,14 +28,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.EqualsAndHashCode;
 
 /**
  * Response from the server when an entity is hit in an attack.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class EntityHitResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -74,5 +72,29 @@ public final class EntityHitResponse extends NetworkMessage implements ServerRes
 
     public int getHitPoint() {
         return hitPoint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityHitResponse that = (EntityHitResponse) o;
+
+        if (hitPoint != that.hitPoint) {
+            return false;
+        }
+        return entity.equals(that.entity);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + hitPoint;
+        return result;
     }
 }

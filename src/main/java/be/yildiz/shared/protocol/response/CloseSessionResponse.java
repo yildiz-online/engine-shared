@@ -25,14 +25,12 @@ package be.yildiz.shared.protocol.response;
 
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.EqualsAndHashCode;
 
 /**
  * Message to notify the server to close the player session.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class CloseSessionResponse extends NetworkMessage implements ServerResponse {
 
 
@@ -47,4 +45,5 @@ public final class CloseSessionResponse extends NetworkMessage implements Server
     public int command() {
         return ServerCommand.CLOSE_SESSION.value;
     }
+
 }

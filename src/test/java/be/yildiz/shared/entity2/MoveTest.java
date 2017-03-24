@@ -50,7 +50,7 @@ public class MoveTest {
         Assert.assertEquals(Point3D.xyz(1, 2, 3), m.getDestination());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testSetDestinationNull() {
         Move m = new DummyMove();
         m.setDestination(null);

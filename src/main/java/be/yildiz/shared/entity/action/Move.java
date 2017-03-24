@@ -27,7 +27,6 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.MutableSpeed;
 import be.yildiz.shared.entity.fields.Target;
-import lombok.NonNull;
 
 /**
  * action to move an entity to a different place.
@@ -103,10 +102,11 @@ public abstract class Move extends Action {
      * Set a new destination.
      *
      * @param d New destination coordinates.
-     * @throws NullPointerException if the destination is null.
+     * @throws AssertionError if the destination is null.
      */
     @Override
-    public final void setDestination(@NonNull final Point3D d) {
+    public final void setDestination( final Point3D d) {
+        assert d != null;
         this.destination = d;
     }
 

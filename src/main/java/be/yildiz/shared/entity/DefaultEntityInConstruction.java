@@ -28,7 +28,6 @@ import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.NonNull;
 
 /**
  * An entity in construction contains the state of an entity to be built: its hit points, energy points, position,...
@@ -79,7 +78,14 @@ public class DefaultEntityInConstruction {
      * @param direction World direction of the entity to build.
      * @throws NullPointerException If any parameter is null.
      */
-    public DefaultEntityInConstruction(@NonNull EntityType type, @NonNull EntityId id, @NonNull PlayerId owner, @NonNull ModuleGroup modules, @NonNull Point3D position, @NonNull Point3D direction) {
+    public DefaultEntityInConstruction(EntityType type, EntityId id, PlayerId owner, ModuleGroup modules, Point3D position, Point3D direction) {
+        super();
+        assert type != null;
+        assert id != null;
+        assert owner != null;
+        assert modules != null;
+        assert position != null;
+        assert direction != null;
         this.type = type;
         this.id = id;
         this.owner = owner;

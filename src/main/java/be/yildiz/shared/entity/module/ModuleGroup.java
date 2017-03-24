@@ -24,7 +24,6 @@
 package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
-import lombok.NonNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -74,8 +73,16 @@ public final class ModuleGroup {
      * @param interaction Id used for interaction module.
      * @throws NullPointerException if any parameter is null.
      */
-    private ModuleGroup(@NonNull ActionId hull, @NonNull ActionId energy, @NonNull ActionId detector, @NonNull ActionId move, @NonNull ActionId interaction, @NonNull ActionId additional1, @NonNull ActionId additional2, @NonNull ActionId additional3) {
+    private ModuleGroup(ActionId hull, ActionId energy, ActionId detector, ActionId move, ActionId interaction, ActionId additional1, ActionId additional2, ActionId additional3) {
         super();
+        assert hull != null;
+        assert energy != null;
+        assert detector != null;
+        assert move != null;
+        assert interaction != null;
+        assert additional1 != null;
+        assert additional2 != null;
+        assert additional3 != null;
         this.move = move;
         this.interaction = interaction;
         this.hull = hull;
@@ -233,11 +240,12 @@ public final class ModuleGroup {
         }
 
         public ModuleGroupBuilder fromList(List<ActionId> actionIds) {
+            assert actionIds != null;
             if(actionIds.size() != 8) {
                 throw new IllegalArgumentException("Size must be 8 actual is " + actionIds.size());
             }
             if(actionIds.contains(null)) {
-                throw new NullPointerException("The list should not contain null values");
+                throw new IllegalArgumentException("The list should not contain null values");
             }
             this.hull = actionIds.get(0);
             this.energy = actionIds.get(1);

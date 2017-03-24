@@ -29,14 +29,12 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import lombok.EqualsAndHashCode;
 
 /**
  * Response from the server when an entity changes its owner.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class ChangeOwnerResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -78,5 +76,29 @@ public final class ChangeOwnerResponse extends NetworkMessage implements ServerR
 
     public PlayerId getNewOwnerId() {
         return newOwnerId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ChangeOwnerResponse that = (ChangeOwnerResponse) o;
+
+        if (!entity.equals(that.entity)) {
+            return false;
+        }
+        return newOwnerId.equals(that.newOwnerId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + newOwnerId.hashCode();
+        return result;
     }
 }

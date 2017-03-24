@@ -48,6 +48,9 @@ public abstract class GameData {
 
     protected GameData(EntityType type, Instance maxInstances, Level requiredLevel) {
         super();
+        assert type != null;
+        assert maxInstances != null;
+        assert requiredLevel != null;
         this.type = type;
         this.maxInstances = maxInstances;
         this.requiredLevel = requiredLevel;

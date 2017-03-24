@@ -79,7 +79,7 @@ public class ModuleGroupTest {
             Assert.assertEquals(OTHER_3, modules.getAdditional3());
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withOneNull() {
             new ModuleGroup.ModuleGroupBuilder()
                     .withHull(HULL)
@@ -92,7 +92,7 @@ public class ModuleGroupTest {
                     .withAdditional3(OTHER_3).build();
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withOneNullInOptionalParameters() {
             new ModuleGroup.ModuleGroupBuilder()
                     .withHull(HULL)
@@ -122,13 +122,13 @@ public class ModuleGroupTest {
             Assert.assertEquals(OTHER_3, modules.getAdditional3());
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = IllegalArgumentException.class)
         public void withNullList() {
             List<ActionId> l = Arrays.asList(HULL, null, DETECTOR, MOVE, INTERACTION, OTHER_1, OTHER_2, OTHER_3);
             new ModuleGroup.ModuleGroupBuilder().fromList(l).build();
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullValue() {
             new ModuleGroup.ModuleGroupBuilder().fromList(null).build();
         }

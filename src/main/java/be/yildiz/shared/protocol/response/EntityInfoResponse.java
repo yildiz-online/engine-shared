@@ -33,14 +33,12 @@ import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import lombok.EqualsAndHashCode;
 
 /**
  * Message sent from the server to the client when an Entity is created.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode(callSuper = false)
 public final class EntityInfoResponse extends NetworkMessage implements ServerResponse {
 
     /**
@@ -187,5 +185,65 @@ public final class EntityInfoResponse extends NetworkMessage implements ServerRe
 
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityInfoResponse that = (EntityInfoResponse) o;
+
+        if (hitPoint != that.hitPoint) {
+            return false;
+        }
+        if (energy != that.energy) {
+            return false;
+        }
+        if (index != that.index) {
+            return false;
+        }
+        if (!entity.equals(that.entity)) {
+            return false;
+        }
+        if (!name.equals(that.name)) {
+            return false;
+        }
+        if (!type.equals(that.type)) {
+            return false;
+        }
+        if (!owner.equals(that.owner)) {
+            return false;
+        }
+        if (!position.equals(that.position)) {
+            return false;
+        }
+        if (!orientation.equals(that.orientation)) {
+            return false;
+        }
+        if (!modules.equals(that.modules)) {
+            return false;
+        }
+        return builderId.equals(that.builderId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + owner.hashCode();
+        result = 31 * result + position.hashCode();
+        result = 31 * result + orientation.hashCode();
+        result = 31 * result + hitPoint;
+        result = 31 * result + energy;
+        result = 31 * result + modules.hashCode();
+        result = 31 * result + builderId.hashCode();
+        result = 31 * result + index;
+        return result;
     }
 }

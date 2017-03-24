@@ -25,7 +25,6 @@ package be.yildiz.shared.resources;
 
 import be.yildiz.common.collections.CollectionUtil;
 import be.yildiz.common.util.Util;
-import lombok.NonNull;
 
 import java.util.Arrays;
 
@@ -46,8 +45,9 @@ public class ResourceValue {
      *
      * @param values Values to set a initialization, a copy will be used.
      */
-    public ResourceValue(@NonNull final float[] values) {
+    public ResourceValue (final float[] values) {
         super();
+        assert  values != null;
         this.values = CollectionUtil.arrayCopy(values);
     }
 

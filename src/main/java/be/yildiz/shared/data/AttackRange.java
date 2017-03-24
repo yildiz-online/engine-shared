@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Checker;
-import lombok.EqualsAndHashCode;
 
 /**
  * Simple wrapper class to represent attack range.
@@ -32,7 +31,6 @@ import lombok.EqualsAndHashCode;
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class AttackRange {
 
     /**
@@ -54,5 +52,24 @@ public final class AttackRange {
         super();
         Checker.exceptionNotPositive(distance);
         this.distance = distance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AttackRange that = (AttackRange) o;
+
+        return Float.compare(that.distance, distance) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return (distance != +0.0f ? Float.floatToIntBits(distance) : 0);
     }
 }

@@ -24,14 +24,12 @@
 package be.yildiz.shared.construction.building;
 
 import be.yildiz.shared.building.Building;
-import lombok.EqualsAndHashCode;
 
 /**
  * Class with building data and building time.
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class WaitingBuilding<B extends Building> {
 
     /**
@@ -55,5 +53,29 @@ public final class WaitingBuilding<B extends Building> {
 
     public long getTime() {
         return time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        WaitingBuilding<?> that = (WaitingBuilding<?>) o;
+
+        if (time != that.time) {
+            return false;
+        }
+        return b.equals(that.b);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = b.hashCode();
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
     }
 }

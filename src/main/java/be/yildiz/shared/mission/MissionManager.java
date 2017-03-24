@@ -33,7 +33,6 @@ import be.yildiz.shared.mission.task.TaskId;
 import be.yildiz.shared.mission.task.TaskStatusListener;
 import be.yildiz.shared.player.Player;
 import be.yildiz.shared.player.PlayerCreationListener;
-import lombok.NonNull;
 
 import java.util.List;
 import java.util.Map;
@@ -106,7 +105,8 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
         this.listeners.forEach(l -> l.missionFailed(mission, playerId));
     }
 
-    public final void addMissionListener(@NonNull MissionStatusListener<T> listener) {
+    public final void addMissionListener(MissionStatusListener<T> listener) {
+        assert listener != null;
         this.listeners.add(listener);
     }
 

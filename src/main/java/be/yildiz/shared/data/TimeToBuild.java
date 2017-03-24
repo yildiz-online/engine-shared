@@ -24,7 +24,6 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.common.util.Time;
-import lombok.EqualsAndHashCode;
 
 /**
  * Time to build an object in the game.
@@ -32,7 +31,6 @@ import lombok.EqualsAndHashCode;
  *
  * @author Grégory Van den Borre
  */
-@EqualsAndHashCode
 public final class TimeToBuild {
 
     public static final TimeToBuild ZERO = new TimeToBuild(Time.ZERO);
@@ -54,6 +52,25 @@ public final class TimeToBuild {
 
     public Time getTime() {
         return time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TimeToBuild that = (TimeToBuild) o;
+
+        return time.equals(that.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return time.hashCode();
     }
 
     @Override
