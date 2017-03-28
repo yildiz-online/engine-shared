@@ -83,8 +83,8 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
         // Staff is allocated now to prevent being reused while countdown is
         // active
         // but listeners will not be notified of it.
-        toAllocate.b.setOldStaff();
-        toAllocate.b.setStaff(toAllocate.workerNumber);
+        toAllocate.building.setOldStaff();
+        toAllocate.building.setStaff(toAllocate.workerNumber);
     }
 
     @Override
@@ -92,18 +92,15 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
         long now = System.currentTimeMillis();
         for (int i = 0; i < this.toAllocateList.size(); i++) {
             BuildingToAllocate<B> toAllocate = this.toAllocateList.get(i);
-            C c = this.cityManager.getCityById(toAllocate.b.getCity());
+            C c = this.cityManager.getCityById(toAllocate.building.getCity());
             if (now >= toAllocate.timeAdded + toAllocate.timeToAllocate) {
-                toAllocate.b.setOldStaff();
-                for (StaffAllocationListener<B, D, C> listener : this.listenerList) {
-                    listener.staffAllocated(c, toAllocate.b, toAllocate.workerNumber);
-                }
+                toAllocate.building.setOldStaff();
+                this.listenerList.forEach(l -> l.staffAllocated(c, toAllocate.building, toAllocate.workerNumber));
                 this.toAllocateList.remove(i);
                 i--;
             } else {
-                for (StaffAllocationListener<B, D, C> listener : this.listenerList) {
-                    listener.updateTime(c, toAllocate.b, toAllocate.timeToAllocate - (now - toAllocate.timeAdded));
-                }
+                long timeLeft = toAllocate.timeToAllocate - (now - toAllocate.timeAdded);
+                this.listenerList.forEach(l -> l.updateTime(c, toAllocate.building, timeLeft));
             }
         }
         return true;
@@ -133,7 +130,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
         /**
          * Building.
          */
-        private final B b;
+        private final B building;
 
         /**
          * Number of workers to allocate to that building.
@@ -157,7 +154,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
          */
         private BuildingToAllocate(final B building, final int workerNumber, final long timeToAllocate) {
             super();
-            this.b = building;
+            this.building = building;
             this.workerNumber = workerNumber;
             this.timeAdded = System.currentTimeMillis();
             this.timeToAllocate = timeToAllocate;
