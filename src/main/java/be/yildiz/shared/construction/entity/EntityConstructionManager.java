@@ -92,7 +92,6 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     @Override
     public void createEntity(final EntityToCreate entity) {
         this.entityToCreateList.add(entity);
-        //FIXME missing listener call -> REQUIRED TO NOTIFY THE QUEUE WHEN A BUILD IS COMPLETE.
     }
 
     @Override
