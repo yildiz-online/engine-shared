@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 
 /**
@@ -30,8 +31,8 @@ import be.yildiz.common.id.EntityId;
  */
 public abstract class Detect extends AbstractNoInteractionAction {
 
-    protected Detect(EntityId e) {
-        super(e, true);
+    protected Detect(ActionId id, EntityId e) {
+        super(id, e, true);
     }
 
 }

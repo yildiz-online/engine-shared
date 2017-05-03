@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.entity.module;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.Move;
 
 /**
@@ -35,8 +34,8 @@ public class MoveEngine extends Module<Move> {
 
     private final float maxSpeed;
 
-    public MoveEngine(Move action, ActionId id, float acceleration, float maxSpeed) {
-        super(action, id);
+    public MoveEngine(Move action, float acceleration, float maxSpeed) {
+        super(action);
         this.acceleration = acceleration;
         this.maxSpeed = maxSpeed;
         action.setAcceleration(this.acceleration);

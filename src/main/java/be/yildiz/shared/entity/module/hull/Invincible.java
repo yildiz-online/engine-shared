@@ -36,6 +36,6 @@ public final class Invincible extends Hull {
     public static final ActionId MODULE = ActionId.get(9);
 
     public Invincible(final EntityId entity) {
-        super(new ProtectInvincible(entity), MODULE, 0);
+        super(new ProtectInvincible(entity, MODULE), 0);
     }
 }

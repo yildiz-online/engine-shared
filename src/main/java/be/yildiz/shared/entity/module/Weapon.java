@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.entity.module;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.data.AttackDamage;
 import be.yildiz.shared.data.AttackRange;
 import be.yildiz.shared.data.AttackTime;
@@ -34,8 +33,8 @@ import be.yildiz.shared.entity.action.AbstractAttack;
  */
 public class Weapon extends Module<AbstractAttack> {
 
-    public Weapon(AbstractAttack action, ActionId id, AttackDamage damage, AttackRange range, AttackTime time) {
-        super(action, id);
+    public Weapon(AbstractAttack action, AttackDamage damage, AttackRange range, AttackTime time) {
+        super(action);
         action.setDamage(damage);
         action.setRange(range);
         action.setAttackTime(time);

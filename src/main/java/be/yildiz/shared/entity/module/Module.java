@@ -41,10 +41,9 @@ public class Module<A extends Action> {
      */
     private final A action;
 
-    protected Module(A action, ActionId id) {
+    protected Module(A action) {
         super();
         this.action = action;
-        this.action.setId(id);
     }
 
     /**

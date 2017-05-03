@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.entity.module;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.ProduceEnergy;
 
 /**
@@ -33,8 +32,8 @@ public class EnergyGenerator extends Module<ProduceEnergy> {
 
     private final int energyMax;
 
-    public EnergyGenerator(ProduceEnergy action, ActionId id, int energyMax) {
-        super(action, id);
+    public EnergyGenerator(ProduceEnergy action, int energyMax) {
+        super(action);
         this.energyMax = energyMax;
     }
 

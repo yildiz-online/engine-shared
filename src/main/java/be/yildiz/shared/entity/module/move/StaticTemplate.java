@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.entity.module.move;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.NoMove;
 import be.yildiz.shared.entity.module.MoveEngine;
 import be.yildiz.shared.entity.module.MoveEngine.MoveEngineTemplate;
@@ -33,11 +32,9 @@ import be.yildiz.shared.entity.module.MoveEngine.MoveEngineTemplate;
  */
 public class StaticTemplate extends MoveEngineTemplate<NoMove> {
 
-    public static final ActionId MODULE = ActionId.get(0);
-
     @Override
     public MoveEngine materialize(NoMove action) {
-        return new MoveEngine(action, MODULE, 0, 0);
+        return new MoveEngine(action, 0, 0);
     }
 
 }

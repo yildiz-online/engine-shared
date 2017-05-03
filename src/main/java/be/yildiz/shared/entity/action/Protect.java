@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.shared.entity.fields.AttackHitResult;
 
@@ -31,8 +32,8 @@ import be.yildiz.shared.entity.fields.AttackHitResult;
  */
 public abstract class Protect extends AbstractNoInteractionAction {
 
-    protected Protect(final EntityId e) {
-        super(e, true);
+    protected Protect(final ActionId id, final EntityId e) {
+        super(id, e, true);
     }
 
     public abstract void addHitResult(AttackHitResult r);

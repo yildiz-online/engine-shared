@@ -27,7 +27,6 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
-import be.yildiz.shared.entity.BaseEntity;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.fields.Target;
 import org.junit.Assert;
@@ -43,9 +42,6 @@ public class ActionTest {
     @Rule
     public final ExpectedException rule = ExpectedException.none();
 
-    /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#hashCode()}.
-     */
     @Test
     public void testHashCode() {
     }
@@ -56,7 +52,7 @@ public class ActionTest {
     @Test
     public void testEqualsObject() {
         Action a = new ActionMock();
-        Action b = new Action(Helper.anEntity(5, 5).getId(), false) {
+        Action b = new Action(ActionId.WORLD, Helper.anEntity(5, 5).getId(), false) {
 
             @Override
             public void setTarget(Target target) {
@@ -112,11 +108,9 @@ public class ActionTest {
     @Test
     public void testIsSameType() {
         Action a = new ActionMock();
-        a.setId(ActionId.get(5));
         Action b = new ActionMock();
-        b.setId(ActionId.get(5));
         Assert.assertTrue(a.isSameType(b));
-        Action c = new Action(Helper.anEntity(4, 5).getId(), false) {
+        Action c = new Action(ActionId.get(1), Helper.anEntity(4, 5).getId(), false) {
 
             @Override
             public void setTarget(Target target) {
@@ -159,7 +153,6 @@ public class ActionTest {
 
             }
         };
-        c.setId(ActionId.get(4));
         Assert.assertFalse(a.isSameType(c));
     }
 
@@ -205,17 +198,11 @@ public class ActionTest {
     public void testGetDestination() {
     }
 
-    /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#setTarget(be.yildiz.shared.entity2.BaseEntity)} .
-     */
     @Test
     public void testSetTarget() {
 
     }
 
-    /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#getTarget()}.
-     */
     @Test
     public void testGetTarget() {
     }
@@ -251,18 +238,12 @@ public class ActionTest {
         Assert.assertFalse("action 'b' is running, shouldnt be if not initialized", b.isRunning());
     }
 
-    /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#Action(BaseEntity)}.
-     */
     @Test
     public void testActionNullEntity() {
         this.rule.expect(NullPointerException.class);
         new ActionMock(null);
     }
 
-    /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#Action(BaseEntity)}.
-     */
     @Test
     public void testAction() {
         new ActionMock();

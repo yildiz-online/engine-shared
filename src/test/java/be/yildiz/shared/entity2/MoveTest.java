@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity2;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.action.Move;
@@ -65,7 +66,7 @@ public class MoveTest {
          * Create a new Move action.
          */
         protected DummyMove() {
-            super(EntityId.get(5L));
+            super(ActionId.get(3), EntityId.get(5L));
         }
 
         @Override

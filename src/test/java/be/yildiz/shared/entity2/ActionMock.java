@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity2;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
@@ -39,14 +40,14 @@ public final class ActionMock extends Action {
      * @param entity
      */
     public ActionMock(Entity entity) {
-        super(entity.getId(), false);
+        super(ActionId.WORLD, entity.getId(), false);
     }
 
     /**
      *
      */
     public ActionMock() {
-        super(Helper.anEntity(5, 5).getId(), false);
+        super(ActionId.WORLD, Helper.anEntity(5, 5).getId(), false);
     }
 
     @Override

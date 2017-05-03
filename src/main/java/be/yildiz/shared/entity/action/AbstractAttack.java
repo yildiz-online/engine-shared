@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.ElapsedTimeComputer;
 import be.yildiz.shared.data.AttackDamage;
@@ -60,8 +61,8 @@ public abstract class AbstractAttack extends Action {
      *
      * @param attacker Entity attacking.
      */
-    protected AbstractAttack(final EntityId attacker) {
-        super(attacker, false);
+    protected AbstractAttack(final EntityId attacker, ActionId id) {
+        super(id, attacker, false);
     }
 
     /**

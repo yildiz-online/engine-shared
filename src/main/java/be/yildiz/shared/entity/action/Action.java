@@ -59,7 +59,7 @@ public abstract class Action {
     /**
      * action type, defined by the class.
      */
-    public ActionId id;
+    public final ActionId id;
     protected SharedPosition position;
     protected StateHolder states;
     protected BoundedValue energy;
@@ -73,16 +73,17 @@ public abstract class Action {
      */
     private boolean toRun;
 
-    protected Action(final EntityId e, final boolean passive) {
-        this(e, passive, false);
+    protected Action(final ActionId id, final EntityId e, final boolean passive) {
+        this(id, e, passive, false);
     }
 
-    protected Action(final EntityId e, final boolean passive, final boolean self) {
+    protected Action(final ActionId id, final EntityId e, final boolean passive, final boolean self) {
         super();
         assert e != null;
         this.entity = e;
         this.passive = passive;
         this.self = self;
+        this.id = id;
     }
 
     public void setSharedPosition(SharedPosition position) {
@@ -238,10 +239,6 @@ public abstract class Action {
     protected abstract void stopImpl();
 
     public abstract void delete();
-
-    public final void setId(ActionId id) {
-        this.id = id;
-    }
 
     public final PositionData getPosition() {
         return position;

@@ -36,6 +36,6 @@ public class StaticModule extends MoveEngine {
     public static final ActionId MODULE = ActionId.get(0);
 
     public StaticModule(EntityId id) {
-        super(new NoMove(id), MODULE, 0, 0);
+        super(new NoMove(id, MODULE), 0, 0);
     }
 }

@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.Target;
@@ -40,12 +41,12 @@ public abstract class AbstractNoInteractionAction extends Action {
      * @param id      action unique Id.
      * @param passive Is the action passive or active?
      */
-    protected AbstractNoInteractionAction(final EntityId id, final boolean passive) {
-        super(id, passive);
+    protected AbstractNoInteractionAction(final ActionId action, final EntityId id, final boolean passive) {
+        super(action, id, passive);
     }
 
-    protected AbstractNoInteractionAction(final EntityId e, final boolean passive, boolean self) {
-        super(e, passive, self);
+    protected AbstractNoInteractionAction(final ActionId action, final EntityId e, final boolean passive, boolean self) {
+        super(action, e, passive, self);
     }
 
     /**

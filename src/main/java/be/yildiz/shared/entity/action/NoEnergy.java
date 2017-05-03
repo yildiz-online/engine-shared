@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 
 /**
@@ -30,8 +31,8 @@ import be.yildiz.common.id.EntityId;
  */
 public class NoEnergy extends ProduceEnergy {
 
-    public NoEnergy(EntityId e) {
-        super(e);
+    public NoEnergy(EntityId e, ActionId id) {
+        super(e, id);
     }
 
     @Override

@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 
 /**
@@ -30,8 +31,8 @@ import be.yildiz.common.id.EntityId;
  */
 public class NoDetect extends Detect{
 
-    public NoDetect(EntityId e) {
-        super(e);
+    public NoDetect(EntityId e, ActionId id) {
+        super(id, e);
     }
 
     @Override

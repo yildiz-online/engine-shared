@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.MutableSpeed;
@@ -62,8 +63,8 @@ public abstract class Move extends Action {
      *
      * @param e Entity executing the action.
      */
-    protected Move(final EntityId e) {
-        super(e, false);
+    protected Move(final ActionId id, final EntityId e) {
+        super(id, e, false);
     }
 
     /**

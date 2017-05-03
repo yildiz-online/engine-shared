@@ -37,6 +37,6 @@ public class BlindDetector extends Detector {
     public static final ActionId MODULE = ActionId.get(42);
 
     public BlindDetector(EntityId id) {
-        super(new NoDetect(id), MODULE, ViewDistance.ZERO);
+        super(new NoDetect(id, MODULE), ViewDistance.ZERO);
     }
 }

@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.Entity;
@@ -65,8 +66,8 @@ public abstract class AbstractAttackZone<T extends Entity> extends AbstractAttac
      * @param attacker   Entity using the action.
      * @param retriever  Logic to compute the entities to find in the zone.
      */
-    public AbstractAttackZone(final EntityId attacker, final TargetRetriever<T> retriever) {
-        super(attacker);
+    public AbstractAttackZone(ActionId id, final EntityId attacker, final TargetRetriever<T> retriever) {
+        super(attacker, id);
         //FIXME implements
         this.damageZone = 0;
         this.targetRetriever = retriever;

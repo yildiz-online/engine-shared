@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 
 /**
@@ -30,8 +31,8 @@ import be.yildiz.common.id.EntityId;
  */
 public abstract class ProduceEnergy extends AbstractNoInteractionAction {
 
-    protected ProduceEnergy(EntityId e) {
-        super(e, true);
+    protected ProduceEnergy(EntityId e, ActionId id) {
+        super(id, e, true);
     }
 
     @Override

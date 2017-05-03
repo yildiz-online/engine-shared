@@ -44,6 +44,6 @@ public class EmptyModule extends Module<NoAction> {
      * @throws NullPointerException If id is null.
      */
     public EmptyModule(EntityId id) {
-        super(new NoAction(id), MODULE);
+        super(new NoAction(id, MODULE));
     }
 }

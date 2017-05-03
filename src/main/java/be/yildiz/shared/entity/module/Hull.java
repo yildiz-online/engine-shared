@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.entity.module;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.action.Protect;
 
 /**
@@ -33,8 +32,8 @@ public class Hull extends Module<Protect> {
 
     private final int maxHp;
 
-    public Hull(Protect action, ActionId id, final int maxHp) {
-        super(action, id);
+    public Hull(Protect action, final int maxHp) {
+        super(action);
         this.maxHp = maxHp;
     }
 

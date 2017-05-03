@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 
 /**
@@ -37,8 +38,8 @@ public final class NoMove extends Move {
      *
      * @param e Associated entity.
      */
-    public NoMove(final EntityId e) {
-        super(e);
+    public NoMove(final EntityId e, ActionId id) {
+        super(id, e);
     }
 
     /**

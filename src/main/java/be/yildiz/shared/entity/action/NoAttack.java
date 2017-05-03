@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.Target;
@@ -39,8 +40,8 @@ public class NoAttack extends AbstractAttack {
      *
      * @param attacker Associated entity.
      */
-    public NoAttack(final EntityId attacker) {
-        super(attacker);
+    public NoAttack(final EntityId attacker, ActionId id) {
+        super(attacker, id);
     }
 
     /**

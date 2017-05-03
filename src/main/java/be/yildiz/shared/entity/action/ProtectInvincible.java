@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.shared.entity.fields.AttackHitResult;
 
@@ -40,8 +41,8 @@ public final class ProtectInvincible extends Protect {
      */
     //@requires entity != null
     //@requires id != null
-    public ProtectInvincible(final EntityId entity) {
-        super(entity);
+    public ProtectInvincible(final EntityId entity, ActionId id) {
+        super(id, entity);
     }
 
     @Override

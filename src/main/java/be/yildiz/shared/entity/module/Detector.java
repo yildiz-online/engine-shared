@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.entity.module;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.data.ViewDistance;
 import be.yildiz.shared.entity.action.Detect;
 
@@ -34,8 +33,8 @@ public class Detector extends Module<Detect> {
 
     private final ViewDistance lineOfSight;
 
-    public Detector(Detect action, ActionId id, ViewDistance lineOfSight) {
-        super(action, id);
+    public Detector(Detect action, ViewDistance lineOfSight) {
+        super(action);
         this.lineOfSight = lineOfSight;
     }
 

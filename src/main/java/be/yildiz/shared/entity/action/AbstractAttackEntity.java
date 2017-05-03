@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity.action;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.fields.Target;
@@ -36,10 +37,9 @@ public abstract class AbstractAttackEntity extends AbstractAttack {
 
     protected Target target;
 
-    public AbstractAttackEntity(final EntityId attacker, final Move move) {
-        super(attacker);
+    public AbstractAttackEntity(final ActionId id, final EntityId attacker, final Move move) {
+        super(attacker, id);
         this.follow = new Follow(move, attacker);
-        this.follow.setId(move.id);
         //FIXME distance hardcoded
         this.follow.setDistance(200);
     }

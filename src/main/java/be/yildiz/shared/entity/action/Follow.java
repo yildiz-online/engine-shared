@@ -47,7 +47,7 @@ public final class Follow extends Action {
      * @param entity Entity doing this action.
      */
     public Follow(final Move move, final EntityId entity) {
-        super(entity, false);
+        super(move.id, entity, false);
         this.move = move;
     }
 
