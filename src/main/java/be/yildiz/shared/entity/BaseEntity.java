@@ -27,8 +27,6 @@ import be.yildiz.common.BoundedValue;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
-import be.yildiz.common.gameobject.GameMaterialization;
-import be.yildiz.common.gameobject.Movable;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
@@ -65,7 +63,7 @@ public final class BaseEntity implements Entity, Target {
      * This Entity represent the world, it is used to represent an empty or non existing entity.
      */
     public static final BaseEntity WORLD = new BaseEntity(EntityInConstruction.WORLD, new StaticModule(EntityId.WORLD), new NoWeaponModule(EntityId.WORLD), new BlindDetector(EntityId.WORLD), new Invincible(EntityId.WORLD),
-            new NoEnergyGenerator(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD), null);
+            new NoEnergyGenerator(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD));
 
     private static final State destroyed = new State("destroyed");
 
@@ -124,7 +122,6 @@ public final class BaseEntity implements Entity, Target {
     private List<Action> actionRunning = Lists.newList();
 
     private List<Action> actionComplete = Lists.newList();
-    private Movable mat;
 
     private Optional<Action> actionToPrepare = Optional.empty();
 
@@ -141,7 +138,6 @@ public final class BaseEntity implements Entity, Target {
      * @param additional1 Optional module.
      * @param additional2 Optional module.
      * @param additional3 Optional module.
-     * @param mat Entity materialization.
      */
     public BaseEntity(
             EntityInConstruction e,
@@ -152,9 +148,8 @@ public final class BaseEntity implements Entity, Target {
             EnergyGenerator eg,
             Module additional1,
             Module additional2,
-            Module additional3,
-            GameMaterialization mat) {
-        this(e, e.getName(), move, weapon, hull, eg, detector, additional1, additional2, additional3, mat);
+            Module additional3) {
+        this(e, e.getName(), move, weapon, hull, eg, detector, additional1, additional2, additional3);
         this.hp.setValue(e.getHp());
         this.energy.setValue(e.getEnergy());
     }
@@ -170,7 +165,6 @@ public final class BaseEntity implements Entity, Target {
      * @param additional1 Optional module.
      * @param additional2 Optional module.
      * @param additional3 Optional module.
-     * @param mat Entity materialization.
      */
     public BaseEntity(
             DefaultEntityInConstruction e,
@@ -180,9 +174,8 @@ public final class BaseEntity implements Entity, Target {
             Detector detector,
             Module additional1,
             Module additional2,
-            Module additional3,
-            GameMaterialization mat) {
-        this(e, e.getType().name, move, weapon, hull, eg, detector, additional1, additional2, additional3, mat);
+            Module additional3) {
+        this(e, e.getType().name, move, weapon, hull, eg, detector, additional1, additional2, additional3);
         this.hp.setValue(hull.getMaxHp());
         this.energy.setValue(eg.getEnergyMax());
     }
@@ -197,8 +190,7 @@ public final class BaseEntity implements Entity, Target {
             Detector detector,
             Module additional1,
             Module additional2,
-            Module additional3,
-            GameMaterialization mat) {
+            Module additional3) {
         super();
         this.type = e.getType();
         this.name = name;
@@ -222,7 +214,6 @@ public final class BaseEntity implements Entity, Target {
         this.completeModule(this.additional2);
         this.additional3 = additional3;
         this.completeModule(this.additional3);
-        this.mat = mat;
         this.hp.setMax(hull.getMaxHp());
         this.energy.setMax(eg.getEnergyMax());
         this.actions.put(this.moveEngine.getId(), this.moveEngine.getAction());
@@ -366,7 +357,6 @@ public final class BaseEntity implements Entity, Target {
         this.additional2.delete();
         this.additional3.delete();
         this.hull.delete();
-        this.mat.delete();
     }
 
     @Override
@@ -518,12 +508,6 @@ public final class BaseEntity implements Entity, Target {
         return this.weapon.getAction().isRunning();
     }
 
-    //FIXME do not expose actions outside of this entity.
-//    @Override
-//    public Move getMoveAction() {
-//        return this.moveEngine.getAction();
-//    }
-
     @Override
     public AbstractAttack getAttackAction() {
         return this.weapon.getAction();
@@ -551,11 +535,6 @@ public final class BaseEntity implements Entity, Target {
                 .withAdditional2(this.additional2.getId())
                 .withAdditional3(this.additional3.getId())
                 .build();
-         }
-
-    @Override
-    public Movable getMaterialization() {
-        return this.mat;
     }
 
     @Override

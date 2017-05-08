@@ -54,7 +54,7 @@ public class Helper {
 
     public static Entity anEntity(long id, int player) {
         EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.get(id), PlayerId.get(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
-        return new BaseEntity(eic, new StaticModule(eic.getId()), new NoWeaponModule(eic.getId()), new BlindDetector(eic.getId()), new Invincible(eic.getId()), new NoEnergyGenerator(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()), null);
+        return new BaseEntity(eic, new StaticModule(eic.getId()), new NoWeaponModule(eic.getId()), new BlindDetector(eic.getId()), new Invincible(eic.getId()), new NoEnergyGenerator(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()));
     }
 
     /**
