@@ -39,6 +39,7 @@ public class NoAttack extends AbstractAttack {
      * Create a new NoAttack action.
      *
      * @param attacker Associated entity.
+     * @param id Action id of the associated module.
      */
     public NoAttack(final EntityId attacker, ActionId id) {
         super(attacker, id);

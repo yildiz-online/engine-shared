@@ -62,6 +62,7 @@ public abstract class Move extends Action {
      * Create a new Move action.
      *
      * @param e Entity executing the action.
+     * @param id Action id of the associated module.
      */
     protected Move(final ActionId id, final EntityId e) {
         super(id, e, false);

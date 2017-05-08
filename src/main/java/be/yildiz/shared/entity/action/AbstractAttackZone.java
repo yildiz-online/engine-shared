@@ -63,6 +63,7 @@ public abstract class AbstractAttackZone<T extends Entity> extends AbstractAttac
     /**
      * Build the Attack Zone.
      *
+     * @param id Action id of the associated module.
      * @param attacker   Entity using the action.
      * @param retriever  Logic to compute the entities to find in the zone.
      */

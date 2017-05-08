@@ -37,6 +37,7 @@ public final class NoMove extends Move {
      * Create a new action.
      *
      * @param e Associated entity.
+     * @param id Action id of the associated module.
      */
     public NoMove(final EntityId e, ActionId id) {
         super(id, e);

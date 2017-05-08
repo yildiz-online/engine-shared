@@ -38,6 +38,7 @@ public final class ProtectInvincible extends Protect {
      * Create the action.
      *
      * @param entity Associated entity.
+     * @param id Action id of the associated module.
      */
     //@requires entity != null
     //@requires id != null

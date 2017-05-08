@@ -38,7 +38,8 @@ public abstract class AbstractNoInteractionAction extends Action {
     /**
      * Build a new no interaction action.
      *
-     * @param id      action unique Id.
+     * @param action Action id of the associated module.
+     * @param id      entity unique Id.
      * @param passive Is the action passive or active?
      */
     protected AbstractNoInteractionAction(final ActionId action, final EntityId id, final boolean passive) {

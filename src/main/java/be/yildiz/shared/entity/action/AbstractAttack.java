@@ -58,7 +58,7 @@ public abstract class AbstractAttack extends Action {
 
     /**
      * Create a new Attack action.
-     *
+     * @param id Action id of the associated module.
      * @param attacker Entity attacking.
      */
     protected AbstractAttack(final EntityId attacker, ActionId id) {
