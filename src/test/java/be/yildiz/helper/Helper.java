@@ -30,10 +30,12 @@ import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.BaseEntity;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstruction;
+import be.yildiz.shared.entity.action.ProtectInvincible;
+import be.yildiz.shared.entity.action.materialization.EmptyProtectMaterialization;
 import be.yildiz.shared.entity.module.EmptyModule;
 import be.yildiz.shared.entity.module.detector.BlindDetector;
 import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
-import be.yildiz.shared.entity.module.hull.Invincible;
+import be.yildiz.shared.entity.module.hull.InvincibleTemplate;
 import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
 import be.yildiz.shared.entity.module.move.StaticModule;
 
@@ -54,7 +56,7 @@ public class Helper {
 
     public static Entity anEntity(long id, int player) {
         EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.get(id), PlayerId.get(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
-        return new BaseEntity(eic, new StaticModule(eic.getId()), new NoWeaponModule(eic.getId()), new BlindDetector(eic.getId()), new Invincible(eic.getId()), new NoEnergyGenerator(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()));
+        return new BaseEntity(eic, new StaticModule(eic.getId()), new NoWeaponModule(eic.getId()), new BlindDetector(eic.getId()), new InvincibleTemplate(eic.getHp()).materialize(new ProtectInvincible(eic.getId(), eic.getModules().getHull(), new EmptyProtectMaterialization(eic.getId()))), new NoEnergyGenerator(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()));
     }
 
     /**

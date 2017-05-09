@@ -21,55 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.entity.action;
+package be.yildiz.shared.entity.action.materialization;
 
-import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.shared.entity.action.materialization.ProtectMaterialization;
-import be.yildiz.shared.entity.fields.AttackHitResult;
+import be.yildiz.common.gameobject.GameMaterialization;
 
 /**
- * action handling the hit points for entities invincible.
+ * Materialization for the protect action.
+ * 
+ * @author Van den Borre Grégory
  *
- * @author Grégory Van den Borre
  */
-public final class ProtectInvincible extends Protect {
+public interface ProtectMaterialization {
 
     /**
-     * Create the action.
-     *
-     * @param entity Associated entity.
-     * @param id Action id of the associated module.
+     * Destroy the entity materialization.
      */
-    //@requires entity != null
-    //@requires id != null
-    public ProtectInvincible(final EntityId entity, ActionId id, ProtectMaterialization mat) {
-        super(id, entity, mat);
-    }
+    void destroy();
 
-    @Override
-    protected void updateHp(long timeToAdd) {
-    }
-
-    @Override
-    protected void updateIfDestroyed(long timeToAdd) {
-    }
-
-    @Override
-    protected void hpReplenishStrategy(long timeToAdd) {
-    }
-
-    @Override
-    public boolean checkPrerequisite() {
-        return true;
-    }
-
-    @Override
-    public void delete() {
-    }
-
-    @Override
-    public void addHitResult(AttackHitResult r) {
-    }
+    GameMaterialization getObject();
 
 }

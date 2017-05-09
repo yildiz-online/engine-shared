@@ -24,18 +24,28 @@
 package be.yildiz.shared.entity.module.hull;
 
 import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
 import be.yildiz.shared.entity.action.ProtectInvincible;
 import be.yildiz.shared.entity.module.Hull;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class Invincible extends Hull {
+public class InvincibleTemplate extends Hull.HullTemplate<ProtectInvincible> {
 
     public static final ActionId MODULE = ActionId.get(9);
 
-    public Invincible(final EntityId entity) {
-        super(new ProtectInvincible(entity, MODULE), 0);
+    public InvincibleTemplate() {
+        super(0);
     }
+
+    public InvincibleTemplate(int maxHp) {
+        super(maxHp);
+    }
+
+    @Override
+    public Hull materialize(ProtectInvincible action) {
+        return new Hull(action, this.maxHp);
+    }
+
+
 }

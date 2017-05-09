@@ -25,7 +25,7 @@ package be.yildiz.shared.entity.module;
 
 import be.yildiz.shared.entity.module.detector.BlindDetector;
 import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
-import be.yildiz.shared.entity.module.hull.Invincible;
+import be.yildiz.shared.entity.module.hull.InvincibleTemplate;
 import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
 import be.yildiz.shared.entity.module.move.StaticModule;
 
@@ -40,7 +40,7 @@ public class WorldModuleProvider implements DefaultModuleProvider {
                 .ModuleGroupBuilder()
                 .withMove(StaticModule.MODULE)
                 .withInteraction(NoWeaponModule.MODULE)
-                .withHull(Invincible.MODULE)
+                .withHull(InvincibleTemplate.MODULE)
                 .withEnergy(NoEnergyGenerator.MODULE)
                 .withDetector(BlindDetector.MODULE)
                 .withNoAdditional()

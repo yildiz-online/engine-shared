@@ -27,6 +27,7 @@ import be.yildiz.common.BoundedValue;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
+import be.yildiz.common.gameobject.Movable;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
@@ -36,6 +37,8 @@ import be.yildiz.shared.data.State;
 import be.yildiz.shared.data.ViewDistance;
 import be.yildiz.shared.entity.action.AbstractAttack;
 import be.yildiz.shared.entity.action.Action;
+import be.yildiz.shared.entity.action.ProtectInvincible;
+import be.yildiz.shared.entity.action.materialization.EmptyProtectMaterialization;
 import be.yildiz.shared.entity.fields.AttackHitResult;
 import be.yildiz.shared.entity.fields.SharedPosition;
 import be.yildiz.shared.entity.fields.StateHolder;
@@ -43,7 +46,7 @@ import be.yildiz.shared.entity.fields.Target;
 import be.yildiz.shared.entity.module.*;
 import be.yildiz.shared.entity.module.detector.BlindDetector;
 import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
-import be.yildiz.shared.entity.module.hull.Invincible;
+import be.yildiz.shared.entity.module.hull.InvincibleTemplate;
 import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
 import be.yildiz.shared.entity.module.move.StaticModule;
 
@@ -62,7 +65,8 @@ public final class BaseEntity implements Entity, Target {
     /**
      * This Entity represent the world, it is used to represent an empty or non existing entity.
      */
-    public static final BaseEntity WORLD = new BaseEntity(EntityInConstruction.WORLD, new StaticModule(EntityId.WORLD), new NoWeaponModule(EntityId.WORLD), new BlindDetector(EntityId.WORLD), new Invincible(EntityId.WORLD),
+    public static final BaseEntity WORLD = new BaseEntity(EntityInConstruction.WORLD, new StaticModule(EntityId.WORLD), new NoWeaponModule(EntityId.WORLD), new BlindDetector(EntityId.WORLD), new InvincibleTemplate()
+            .materialize(new ProtectInvincible(EntityId.WORLD, InvincibleTemplate.MODULE, new EmptyProtectMaterialization(EntityId.WORLD))),
             new NoEnergyGenerator(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD), new EmptyModule(EntityId.WORLD));
 
     private static final State destroyed = new State("destroyed");
@@ -544,17 +548,17 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public void prepareAction(Optional<ActionId> action) {
-        if (action.isPresent()) {
-            this.actionToPrepare = Optional.of(this.getAction(action.get()));
-        } else {
-            this.actionToPrepare = Optional.empty();
-        }
-
+        this.actionToPrepare = action.map(this::getAction);
     }
 
     @Override
     public void setTarget(final Target t) {
         this.actionToPrepare.orElse(this.weapon.getAction()).setTarget(t);
+    }
+
+    @Override
+    public Movable getMaterialization() {
+        return this.hull.getAction().getMaterialization().getObject();
     }
 
     @Override

@@ -25,6 +25,7 @@ package be.yildiz.shared.entity.action;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
+import be.yildiz.shared.entity.action.materialization.ProtectMaterialization;
 import be.yildiz.shared.entity.fields.AttackHitResult;
 
 /**
@@ -32,8 +33,11 @@ import be.yildiz.shared.entity.fields.AttackHitResult;
  */
 public abstract class Protect extends AbstractNoInteractionAction {
 
-    protected Protect(final ActionId id, final EntityId e) {
+    private final ProtectMaterialization materialization;
+
+    protected Protect(final ActionId id, final EntityId e, ProtectMaterialization mat) {
         super(id, e, true);
+        this.materialization = mat;
     }
 
     public abstract void addHitResult(AttackHitResult r);
@@ -62,5 +66,9 @@ public abstract class Protect extends AbstractNoInteractionAction {
 
     @Override
     protected final void initImpl() {
+    }
+
+    public final ProtectMaterialization getMaterialization() {
+        return this.materialization;
     }
 }

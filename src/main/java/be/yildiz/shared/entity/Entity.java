@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.entity;
 
+import be.yildiz.common.gameobject.Movable;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
@@ -246,6 +247,8 @@ public interface Entity extends Target {
     void prepareAction(Optional<ActionId> action);
 
     void setTarget(Target t);
+
+    Movable getMaterialization();
 
     /**
      * Set the action to prepare destination, if there is no action to prepare,
