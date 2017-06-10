@@ -250,18 +250,19 @@ public final class BaseEntity implements Entity, Target {
     @Override
     public void doActions(final long time) {
         this.actionComplete.clear();
-        for (Action a : this.actionRunning) {
-            if (!a.checkPrerequisite()) {
-                this.actionComplete.add(a);
-            } else {
-                boolean running = a.run(time);
-                if (!running) {
+        if(!this.actionRunning.isEmpty()) {
+            for (Action a : this.actionRunning) {
+                if (!a.checkPrerequisite()) {
                     this.actionComplete.add(a);
+                } else {
+                    boolean running = a.run(time);
+                    if (!running) {
+                        this.actionComplete.add(a);
+                    }
                 }
             }
+            this.actionRunning.removeAll(this.actionComplete);
         }
-        this.actionRunning.removeAll(this.actionComplete);
-
     }
 
     @Override
@@ -269,7 +270,10 @@ public final class BaseEntity implements Entity, Target {
         Action move = this.moveEngine.getAction();
         move.setDestination(destination);
         move.init();
-        this.actionRunning.add(move);
+        System.out.println(move.isRunning());
+        if(!move.isRunning()) {
+            this.actionRunning.add(move);
+        }
         return move;
     }
 
@@ -277,8 +281,10 @@ public final class BaseEntity implements Entity, Target {
     public Action attack(final Target target) {
         Action attack = this.weapon.getAction();
         attack.setTarget(target);
-        attack.init();
-        this.actionRunning.add(attack);
+        if(!attack.isRunning()) {
+            attack.init();
+            this.actionRunning.add(attack);
+        }
         return attack;
     }
 

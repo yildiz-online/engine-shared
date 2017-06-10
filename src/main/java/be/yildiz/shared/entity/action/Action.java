@@ -106,6 +106,10 @@ public abstract class Action {
         return self;
     }
 
+    public ActionId getId() {
+        return this.id;
+    }
+
     /**
      * @return The used Entity hashCode.
      */

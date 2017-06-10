@@ -26,6 +26,7 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.framelistener.EndFrameListener;
 import be.yildiz.common.framelistener.FrameManager;
+import be.yildiz.shared.construction.entity.EntityConstructionListener;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.action.ActionListener;
 
@@ -48,6 +49,11 @@ public class ActionManager<T extends Entity> extends EndFrameListener {
      * Listeners to notify when an entity is destroyed.
      */
     private final List<DestructionListener<T>> destructionListeners = Lists.newList();
+
+    /**
+     * Listeners to notify when an entity is destroyed.
+     */
+    private final List<EntityConstructionListener<T>> constructionListeners = Lists.newList();
 
     /**
      * To get the list of active entities.
@@ -107,5 +113,10 @@ public class ActionManager<T extends Entity> extends EndFrameListener {
     public void addDestructionListener(final DestructionListener<T> l) {
         assert l != null;
         this.destructionListeners.add(l);
+    }
+
+    public void addConstructionListener(final EntityConstructionListener<T> l) {
+        assert l != null;
+        this.constructionListeners.add(l);
     }
 }
