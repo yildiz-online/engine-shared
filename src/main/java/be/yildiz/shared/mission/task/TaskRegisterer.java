@@ -26,8 +26,10 @@ package be.yildiz.shared.mission.task;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.util.Pair;
+import be.yildiz.shared.construction.entity.EntityConstructionListener;
 import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.DestructionListener;
+import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.action.ActionListener;
 
 import java.util.Map;
@@ -36,7 +38,7 @@ import java.util.Optional;
 /**
  * @author Grégory Van den Borre
  */
-public class TaskRegisterer implements TaskStatusListener {
+public class TaskRegisterer<T extends Entity> implements TaskStatusListener {
 
     //TODO the register goes in the factory: factory know true type -> register(ActionListener) register(destructionListener)...
     //The custom listener will be added in the derived class(like default register does)
@@ -49,6 +51,8 @@ public class TaskRegisterer implements TaskStatusListener {
 
     private final Map<Pair<TaskId, PlayerId>, DestructionListener> destructionListenerRegistered = Maps.newMap();
 
+    private final Map<Pair<TaskId, PlayerId>, EntityConstructionListener> constructionListenerRegistered = Maps.newMap();
+
     public TaskRegisterer(ActionManager action) {
         this.action = action;
     }
@@ -58,9 +62,14 @@ public class TaskRegisterer implements TaskStatusListener {
         this.actionListenerRegistered.put(new Pair<>(id, player), l);
     }
 
-    public final void registerTask(TaskId id, PlayerId player, DestructionListener l) {
+    public final void registerTask(TaskId id, PlayerId player, DestructionListener<T> l) {
         this.action.addDestructionListener(l);
         this.destructionListenerRegistered.put(new Pair<>(id, player), l);
+    }
+
+    public final void registerTask(TaskId id, PlayerId player, EntityConstructionListener<T> l) {
+        this.action.addConstructionListener(l);
+        this.constructionListenerRegistered.put(new Pair<>(id, player), l);
     }
 
 
