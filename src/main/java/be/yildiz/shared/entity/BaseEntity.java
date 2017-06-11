@@ -270,7 +270,6 @@ public final class BaseEntity implements Entity, Target {
         Action move = this.moveEngine.getAction();
         move.setDestination(destination);
         move.init();
-        System.out.println(move.isRunning());
         if(!move.isRunning()) {
             this.actionRunning.add(move);
         }
@@ -443,7 +442,11 @@ public final class BaseEntity implements Entity, Target {
     @Override
     public void startAction(Action a) {
         a.init();
-        this.actionRunning.add(a);
+        if(a.id == this.moveEngine.getId() && !this.moveEngine.getAction().isRunning()
+                ||
+                a.id == this.weapon.getId() && !this.weapon.getAction().isRunning()) {
+            this.actionRunning.add(a);
+        }
     }
 
     @Override
