@@ -320,13 +320,7 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof BaseEntity)) {
-            return false;
-        }
-        return this.id.equals(((BaseEntity) o).id);
+        return this == o || o instanceof BaseEntity && this.id.equals(((BaseEntity) o).id);
     }
 
     @Override

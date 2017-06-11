@@ -86,27 +86,27 @@ public abstract class Action {
         this.id = id;
     }
 
-    public void setSharedPosition(SharedPosition position) {
+    public final void setSharedPosition(SharedPosition position) {
         this.position = position;
     }
 
-    public void setStates(final StateHolder states) {
+    public final void setStates(final StateHolder states) {
         this.states = states;
     }
 
-    public void setEnergy(final BoundedValue energy) {
+    public final void setEnergy(final BoundedValue energy) {
         this.energy = energy;
     }
 
-    public void setHp(final BoundedValue hp) {
+    public final void setHp(final BoundedValue hp) {
         this.hp = hp;
     }
 
-    public boolean isSelf() {
+    public final boolean isSelf() {
         return self;
     }
 
-    public ActionId getId() {
+    public final ActionId getId() {
         return this.id;
     }
 
@@ -126,10 +126,7 @@ public abstract class Action {
      */
     @Override
     public final boolean equals(final Object o) {
-        if (!(o instanceof Action)) {
-            return false;
-        }
-        return this.entity.equals(((Action) o).entity);
+        return o instanceof Action && this.entity.equals(((Action) o).entity);
     }
 
     /**
