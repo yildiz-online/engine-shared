@@ -378,18 +378,6 @@ public final class BaseEntity implements Entity, Target {
         return this.type;
     }
 
-    @Deprecated
-    //Use getHitPoints
-    public int getHp() {
-        return this.hp.getValue();
-    }
-
-    @Deprecated
-    //use get Max hit points
-    public int getMaxHp() {
-        return this.hp.getMax();
-    }
-
     @Override
     public Point3D getPosition() {
         return this.position.getPosition();
