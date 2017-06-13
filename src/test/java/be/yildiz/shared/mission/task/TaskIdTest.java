@@ -38,18 +38,14 @@ public class TaskIdTest {
 
         @Test
         public void happyFlow() {
-            new TaskId(1, new TaskType("ok"));
+            new TaskId(1);
         }
 
         @Test
         public void withNegativeValue() {
-            new TaskId(-1, new TaskType("ok"));
+            new TaskId(-1);
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullType() {
-            new TaskId(1, null);
-        }
     }
 
     /**
@@ -59,8 +55,8 @@ public class TaskIdTest {
 
         @Test
         public void sameValues() {
-            int i1 = new TaskId(1, new TaskType("ok")).hashCode();
-            int i2 = new TaskId(1, new TaskType("ok")).hashCode();
+            int i1 = new TaskId(1).hashCode();
+            int i2 = new TaskId(1).hashCode();
             Assert.assertEquals(i1, i2);
         }
     }
@@ -69,33 +65,26 @@ public class TaskIdTest {
 
         @Test
         public void sameValues() {
-            TaskId i1 = new TaskId(1, new TaskType("ok"));
-            TaskId i2 = new TaskId(1, new TaskType("ok"));
+            TaskId i1 = new TaskId(1);
+            TaskId i2 = new TaskId(1);
             Assert.assertEquals(i1, i2);
         }
 
         @Test
         public void differentId() {
-            TaskId i1 = new TaskId(1, new TaskType("ok"));
-            TaskId i2 = new TaskId(2, new TaskType("ok"));
-            Assert.assertNotEquals(i1, i2);
-        }
-
-        @Test
-        public void differentType() {
-            TaskId i1 = new TaskId(1, new TaskType("ok"));
-            TaskId i2 = new TaskId(1, new TaskType("nok"));
+            TaskId i1 = new TaskId(1);
+            TaskId i2 = new TaskId(2);
             Assert.assertNotEquals(i1, i2);
         }
 
         @Test
         public void nullValue() {
-            Assert.assertNotEquals(new TaskId(1, new TaskType("ok")), null);
+            Assert.assertNotEquals(new TaskId(1), null);
         }
 
         @Test
         public void differentClass() {
-            Assert.assertNotEquals(new TaskId(1, new TaskType("ok")), "ok");
+            Assert.assertNotEquals(new TaskId(1), "ok");
         }
     }
 }

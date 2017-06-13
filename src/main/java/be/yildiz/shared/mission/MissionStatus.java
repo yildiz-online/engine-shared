@@ -23,6 +23,8 @@
 
 package be.yildiz.shared.mission;
 
+import java.util.Arrays;
+
 /**
  * The different states applicable to a mission.
  * @author Grégory Van den Borre
@@ -32,35 +34,52 @@ public enum MissionStatus {
     /**
      * If the player has not fulfilled the necessary prerequisites to start the mission.
      */
-    UNAVAILABLE,
+    UNAVAILABLE(0),
 
     /**
      * If the player has fulfilled the prerequisite to start but has not accepted yet.
      */
-    WAITING_FOR_ACCEPTANCE,
+    WAITING_FOR_ACCEPTANCE(1),
 
     /**
      * If the player has accepted the mission.
      */
-    STARTED,
+    STARTED(2),
 
     /**
      * If the player has completed the mission with success.
      */
-    SUCCESS,
+    SUCCESS(3),
 
     /**
      * If the player has completed the mission with failure.
      */
-    FAILED,
+    FAILED(4),
 
     /**
      * If the player stops the mission before completing it.
      */
-    ABORTED,
+    ABORTED(5),
 
     /**
      * If the player do not want to start the mission, only possible for optional missions.
      */
-    REFUSED
+    REFUSED(6);
+
+    private final int value;
+
+    MissionStatus(int value) {
+        this.value = value;
+    }
+
+    public static MissionStatus valueOf(int value) {
+        return Arrays.stream(MissionStatus.values())
+                .filter(m -> m.value == value)
+                .findFirst()
+                .orElseThrow(AssertionError::new);
+    }
+
+    public int getValue() {
+        return value;
+    }
 }

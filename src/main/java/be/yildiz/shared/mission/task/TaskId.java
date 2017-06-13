@@ -30,28 +30,19 @@ public class TaskId {
 
     private final long value;
 
-    private final TaskType type;
-
-    public TaskId(long value, TaskType type) {
+    public TaskId(long value) {
         super();
-        assert type != null;
         this.value = value;
-        this.type = type;
     }
 
     public long getValue() {
         return value;
     }
 
-    public TaskType getType() {
-        return type;
-    }
 
     @Override
     public final int hashCode() {
-        int result = (int) (value ^ (value >>> 32));
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
+        return (int) (value ^ (value >>> 32));
     }
 
     @Override
@@ -64,10 +55,6 @@ public class TaskId {
         }
 
         TaskId taskId = (TaskId) o;
-        if (value != taskId.value) {
-            return false;
-        }
-        return type != null ? type.equals(taskId.type) : taskId.type == null;
-
+        return value == taskId.value;
     }
 }

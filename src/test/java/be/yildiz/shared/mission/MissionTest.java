@@ -25,14 +25,13 @@ package be.yildiz.shared.mission;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.task.TaskId;
-import be.yildiz.shared.mission.task.TaskType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,8 +41,8 @@ import java.util.List;
 public class MissionTest {
 
     public static Mission givenANewMission() {
-        List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
-        return new BaseMission(new MissionId(1), l, p -> {return true;});
+        List<TaskId> l = Collections.singletonList(new TaskId(5L));
+        return new BaseMission(new MissionId(1), l, p -> true);
     }
 
     public static class Constructor {
@@ -57,27 +56,27 @@ public class MissionTest {
 
         @Test(expected = AssertionError.class)
         public void withNullList() {
-            new BaseMission(id, null, p -> {return true;});
+            new BaseMission(id, null, p -> true);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void willListContainsNull() {
             List<TaskId> l = new ArrayList<>();
-            l.add(new TaskId(5L, new TaskType("ok")));
+            l.add(new TaskId(5L));
             l.add(null);
-            new BaseMission(id, l, p -> {return true;});
+            new BaseMission(id, l, p -> true);
         }
 
         @Test(expected = AssertionError.class)
         public void withNullPrerequisite() {
-            List<TaskId> l = Arrays.asList(new TaskId(5L, new TaskType("ok")));
+            List<TaskId> l = Collections.singletonList(new TaskId(5L));
             new BaseMission(id, l, null);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void withEmptyTaskList() {
             List<TaskId> l = new ArrayList<>();
-            new BaseMission(id, l, p -> {return true;});
+            new BaseMission(id, l, p -> true);
         }
 
     }
@@ -89,16 +88,16 @@ public class MissionTest {
         @Test
         public void withTruePrerequisite() {
             List<TaskId> l = new ArrayList<>();
-            l.add(new TaskId(5L, new TaskType("ok")));
-            Mission m = new BaseMission(id, l, p -> {return true;});
+            l.add(new TaskId(5L));
+            Mission m = new BaseMission(id, l, p -> true);
             Assert.assertTrue(m.canStartFor(PlayerId.WORLD));
         }
 
         @Test
         public void withFalsePrerequisite() {
             List<TaskId> l = new ArrayList<>();
-            l.add(new TaskId(5L, new TaskType("ok")));
-            Mission m = new BaseMission(id, l, p -> {return false;});
+            l.add(new TaskId(5L));
+            Mission m = new BaseMission(id, l, p -> false);
             Assert.assertFalse(m.canStartFor(PlayerId.WORLD));
         }
     }
