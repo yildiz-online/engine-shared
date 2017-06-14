@@ -112,7 +112,10 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
 
     @Override
     public final void playerCreated(Player player) {
-        //FIXME implement
+        availableMissions.values()
+                .stream()
+                .filter(m -> m.canStartFor(player.id))
+                .forEach(m -> this.startMission(m.getId(), player.id));
     }
 
     public final Set<T> getMissionReady(PlayerId p) {
