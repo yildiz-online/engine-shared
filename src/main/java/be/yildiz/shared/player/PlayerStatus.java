@@ -35,28 +35,30 @@ public enum PlayerStatus {
     /**
      * Represent the current player in this session, only one by game.
      */
-    ME,
+    ME(0),
 
     /**
      * For all player who are ally with this session.
      */
-    ALLY,
+    ALLY(1),
 
     /**
      * Default status for all unit.
      */
-    HOSTILE,
+    HOSTILE(2),
 
     /**
      * Default status for all doodads.
      */
-    NEUTRAL;
+    NEUTRAL(3);
 
+    public final int value;
 
     /**
      * Simple constructor.
      */
-    PlayerStatus() {
+    PlayerStatus(int value) {
+        this.value = value;
     }
 
 
@@ -66,6 +68,20 @@ public enum PlayerStatus {
      * @param ord Place of the enumeration value to retrieve.
      * @return The matching enumeration value.
      */
+    public static PlayerStatus valueOf(final int ord) {
+        if (!Checker.inArrayRange(ord, PlayerStatus.values())) {
+            throw new IllegalArgumentException(ord + " is invalid value.");
+        }
+        return PlayerStatus.values()[ord];
+    }
+
+    /**
+     * Get a status from an ordinal value.
+     *
+     * @param ord Place of the enumeration value to retrieve.
+     * @return The matching enumeration value.
+     */
+    @Deprecated
     public static PlayerStatus getFromOrdinal(final int ord) {
         if (!Checker.inArrayRange(ord, PlayerStatus.values())) {
             throw new IllegalArgumentException(ord + " is invalid value.");
