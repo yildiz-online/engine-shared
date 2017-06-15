@@ -28,6 +28,7 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.mission.MissionId;
+import be.yildiz.shared.mission.MissionStatus;
 
 /**
  * @author Grégory Van den Borre
@@ -48,14 +49,14 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
         super(message);
         this.missionId = new MissionId(this.getInt());
         try {
-            this.status = MissionStatus.values()[this.getInt()];
+            this.status = MissionStatus.valueOf(this.getInt());
         }catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage("Invalid mission status", e);
         }
     }
 
     public MissionStatusResponse(final MissionId id, MissionStatus status) {
-        super(NetworkMessage.convertParams(id.value, status.ordinal()));
+        super(NetworkMessage.convertParams(id.value, status.getValue()));
         this.missionId = id;
         this.status = status;
     }
@@ -71,9 +72,5 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
 
     public MissionStatus getStatus() {
         return status;
-    }
-
-    public enum MissionStatus {
-        READY, STARTED, COMPLETED, FAILED
     }
 }
