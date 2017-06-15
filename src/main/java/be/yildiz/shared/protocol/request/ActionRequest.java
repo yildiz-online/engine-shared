@@ -28,14 +28,14 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.entity.action.Action;
+import be.yildiz.shared.protocol.BaseNetworkMessage;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class ActionRequest extends NetworkMessage implements ServerRequest {
+public final class ActionRequest extends BaseNetworkMessage implements ServerRequest {
 
     public final EntityId entityId;
 
@@ -56,10 +56,10 @@ public final class ActionRequest extends NetworkMessage implements ServerRequest
      */
     public ActionRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.entityId = this.getEntityId();
-        this.moduleId = this.getActionId();
-        this.destination = this.getPoint3D();
-        this.targetId = this.getEntityId();
+        this.entityId = this.to(EntityId.class);
+        this.moduleId = this.to(ActionId.class);
+        this.destination = this.to(Point3D.class);
+        this.targetId = this.to(EntityId.class);
     }
 
     /**
@@ -68,7 +68,11 @@ public final class ActionRequest extends NetworkMessage implements ServerRequest
      * @param a Action to request.
      */
     public ActionRequest(final EntityId e, final Action a) {
-        super(NetworkMessage.convertParams(e, a.id, a.getDestination(), a.getTargetId()));
+        super(
+                BaseNetworkMessage.from(e),
+                BaseNetworkMessage.from(a.id),
+                BaseNetworkMessage.from(a.getDestination()),
+                BaseNetworkMessage.from(a.getTargetId()));
         this.entityId = e;
         this.moduleId = a.id;
         this.destination = a.getDestination();
