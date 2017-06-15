@@ -60,7 +60,7 @@ public final class PlayerInfoResponse extends NetworkMessage implements ServerRe
      * @param playerStatus Player's status.
      */
     public PlayerInfoResponse(final PlayerId playerId, final String playerName, final PlayerStatus playerStatus) {
-        super(NetworkMessage.convertParams(playerId, playerName, Integer.valueOf(playerStatus.ordinal())));
+        super(NetworkMessage.convertParams(playerId, playerName, playerStatus.value));
         this.player = playerId;
         this.login = playerName;
         this.status = playerStatus;
@@ -76,7 +76,7 @@ public final class PlayerInfoResponse extends NetworkMessage implements ServerRe
         super(message);
         this.player = this.getPlayerId();
         this.login = this.getString();
-        this.status = PlayerStatus.getFromOrdinal(this.getInt());
+        this.status = PlayerStatus.valueOf(this.getInt());
     }
 
     @Override
