@@ -23,12 +23,17 @@
 
 package be.yildiz.shared.protocol.response;
 
+import be.yildiz.common.collections.Lists;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.mission.MissionId;
 import be.yildiz.shared.mission.MissionStatus;
+import be.yildiz.shared.mission.task.TaskStatus;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Grégory Van den Borre
@@ -38,6 +43,8 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
     private final MissionId missionId;
 
     private final MissionStatus status;
+
+    private final List<TaskStatus> tasks;
 
     /**
      * Full constructor, parse the message to build the object.
@@ -50,15 +57,17 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
         this.missionId = new MissionId(this.getInt());
         try {
             this.status = MissionStatus.valueOf(this.getInt());
-        }catch (IndexOutOfBoundsException e) {
+            this.tasks = Lists.newList();
+        }catch (AssertionError e) {
             throw new InvalidNetworkMessage("Invalid mission status", e);
         }
     }
 
-    public MissionStatusResponse(final MissionId id, MissionStatus status) {
-        super(NetworkMessage.convertParams(id.value, status.getValue()));
+    public MissionStatusResponse(final MissionId id, MissionStatus status, List<TaskStatus> tasks) {
+        super(convert(id, status, tasks));
         this.missionId = id;
         this.status = status;
+        this.tasks = tasks;
     }
 
     @Override
@@ -72,5 +81,25 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
 
     public MissionStatus getStatus() {
         return status;
+    }
+
+    public List<TaskStatus> getTasks() {
+        return this.tasks;
+    }
+
+    private static String[] convert(MissionId id, MissionStatus status, List<TaskStatus> tasks) {
+        List<String> convertedTasks = tasks.stream()
+                .map(t -> String.valueOf(t.id.getValue()) + "#" + t.status)
+                .collect(Collectors.toList());
+        return NetworkMessage.convertParams(id, status, convertedTasks);
+    }
+
+    private static List<TaskStatus> decode(List<String> toParse) {
+        List<TaskStatus> result = Lists.newList();
+        for(String v : toParse) {
+            String[] sep = v.split("@");
+
+        }
+
     }
 }
