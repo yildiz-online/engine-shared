@@ -24,6 +24,7 @@
 package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.MissionId;
 
 /**
  * The task listener will notify once a task is completed or has failed.
@@ -37,7 +38,7 @@ public interface TaskStatusListener {
      * @param playerId Id of the player completing the task.
      */
     //@Ensures taskId != null
-    void taskCompleted(TaskId taskId, PlayerId playerId);
+    void taskCompleted(TaskId taskId, MissionId missionId, PlayerId playerId);
 
     /**
      * Fired when the task has failed to complete.
@@ -45,5 +46,5 @@ public interface TaskStatusListener {
      * @param playerId Id of the player failing the task.
      */
     //@Ensures taskId != null
-    void taskFailed(TaskId taskId, PlayerId playerId);
+    void taskFailed(TaskId taskId, MissionId missionId, PlayerId playerId);
 }

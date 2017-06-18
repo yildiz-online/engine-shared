@@ -58,31 +58,52 @@ public class ActionRequestTest {
         @Test
         public void happyFlow() {
             EntityId id = EntityId.get(5L);
-            Point3D dest = Point3D.xyz(10,15,20);
+            Point3D destination = Point3D.xyz(10,15,20);
             EntityId target = EntityId.get(6L);
             ActionId actionId = ActionId.get(8);
-            Action a = givenAnAction(actionId, id, dest, target);
+            Action a = givenAnAction(actionId, id, destination, target);
 
             ActionRequest request = new ActionRequest(id, a);
 
             Assert.assertEquals(id, request.entityId);
-            Assert.assertEquals(dest, request.destination);
+            Assert.assertEquals(destination, request.destination);
             Assert.assertEquals(target, request.targetId);
             Assert.assertEquals(actionId, request.moduleId);
             Assert.assertEquals(ClientCommand.ACTION.ordinal(), request.command());
             Assert.assertEquals("&13_5_8_10.0,15.0,20.0_6#", request.buildMessage());
         }
 
+        @Test(expected = AssertionError.class)
+        public void withNullId() {
+            EntityId id = EntityId.get(5L);
+            Point3D destination = Point3D.xyz(10,15,20);
+            EntityId target = EntityId.get(6L);
+            ActionId actionId = ActionId.get(8);
+            Action a = givenAnAction(actionId, id, destination, target);
+            new ActionRequest(null, a);
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withNullAction() {
+            EntityId id = EntityId.get(5L);
+            new ActionRequest(id, null);
+        }
+
+        @Test(expected = AssertionError.class)
+        public void withNullWrapper() throws InvalidNetworkMessage {
+            new ActionRequest(null);
+        }
+
         @Test
         public void messageWrapper() throws InvalidNetworkMessage {
             EntityId id = EntityId.get(5L);
-            Point3D dest = Point3D.xyz(10,15,20);
+            Point3D destination = Point3D.xyz(10,15,20);
             EntityId target = EntityId.get(6L);
             ActionId actionId = ActionId.get(8);
 
             ActionRequest request = new ActionRequest(new MessageWrapper("13_5_8_10.0,15.0,20.0_6"));
             Assert.assertEquals(id, request.entityId);
-            Assert.assertEquals(dest, request.destination);
+            Assert.assertEquals(destination, request.destination);
             Assert.assertEquals(target, request.targetId);
             Assert.assertEquals(actionId, request.moduleId);
             Assert.assertEquals(ClientCommand.ACTION.ordinal(), request.command());
@@ -90,7 +111,7 @@ public class ActionRequestTest {
 
     }
 
-    private static Action givenAnAction(ActionId id, EntityId entity, Point3D dest, EntityId target) {
+    private static Action givenAnAction(ActionId id, EntityId entity, Point3D destination, EntityId target) {
         return new Action(id, entity, false) {
             @Override
             protected void runImpl(long time) {
@@ -109,7 +130,7 @@ public class ActionRequestTest {
 
             @Override
             public Point3D getDestination() {
-                return dest;
+                return destination;
             }
 
             @Override

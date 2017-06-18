@@ -30,6 +30,7 @@ import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.task.TaskFactory;
 import be.yildiz.shared.mission.task.TaskId;
+import be.yildiz.shared.mission.task.TaskStatus;
 import be.yildiz.shared.mission.task.TaskStatusListener;
 import be.yildiz.shared.player.Player;
 import be.yildiz.shared.player.PlayerCreationListener;
@@ -56,7 +57,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
 
     private final List<MissionStatusListener<T>> listeners = Lists.newList();
 
-    private final Map<PlayerId, Set<TaskId>> taskCompleted = Maps.newMap();
+    private final Map<PlayerId, Set<TaskStatus>> taskStatus = Maps.newMap();
 
     /**
      * Factory to build the tasks required by the missions.
@@ -88,21 +89,32 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
     }
 
     @Override
-    public final void taskCompleted(final TaskId taskId, final PlayerId playerId) {
-        CollectionUtil.getOrCreateSetFromMap(this.taskCompleted, playerId).add(taskId);
-        boolean success = this.checkMissionCompleted(taskId, playerId);
+    public final void taskCompleted(final TaskId taskId, MissionId missionId, final PlayerId playerId) {
+        CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, "SUCCESS"));
+        boolean success = this.checkMissionCompleted(taskId, missionId, playerId);
         if(success) {
-            T mission = this.getMissionFromTaskId(taskId, playerId);
+            T mission = this.availableMissions.get(missionId);
             this.activeMissions.get(playerId).remove(mission.getId());
             this.listeners.forEach(l -> l.missionSuccess(mission, playerId));
         }
     }
 
     @Override
-    public final void taskFailed(TaskId taskId, PlayerId playerId) {
-        T mission = this.getMissionFromTaskId(taskId, playerId);
+    public final void taskFailed(TaskId taskId, MissionId missionId, PlayerId playerId) {
+        CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, "FAILED"));
+        T mission = this.availableMissions.get(missionId);
         this.activeMissions.get(playerId).remove(mission.getId());
         this.listeners.forEach(l -> l.missionFailed(mission, playerId));
+    }
+
+    public void updateTaskStatus(TaskId taskId, MissionId missionId, PlayerId playerId, String status) {
+        if(status.equalsIgnoreCase("SUCCESS")) {
+            this.taskCompleted(taskId, missionId, playerId);
+        } else if(status.equalsIgnoreCase("FAILED")) {
+            this.taskFailed(taskId, missionId, playerId);
+        } else {
+            CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, status));
+        }
     }
 
     public final void addMissionListener(MissionStatusListener<T> listener) {
@@ -126,23 +138,21 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
                 .collect(Collectors.toSet());
     }
 
-    private boolean checkMissionCompleted(final TaskId taskId, final PlayerId playerId) {
-        Set<TaskId> tasks = CollectionUtil.getOrCreateSetFromMap(this.taskCompleted, playerId);
-        T m = this.getMissionFromTaskId(taskId, playerId);
-        for(TaskId t : m.getTasks()) {
-            if(!tasks.contains(t)) {
+    public final Set<TaskStatus> getTaskStatus(PlayerId p) {
+        return this.taskStatus.get(p);
+    }
+
+    private boolean checkMissionCompleted(final TaskId taskId, final MissionId missionId, final PlayerId playerId) {
+        T m = this.availableMissions.get(missionId);
+        for(TaskId tid : m.getTasks()) {
+            TaskStatus task = CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId)
+                    .stream()
+                    .filter(t -> t.id.equals(tid))
+                    .findFirst().orElseThrow(AssertionError::new);
+            if(!task.status.equalsIgnoreCase("SUCCESS")) {
                 return false;
             }
         }
         return true;
-    }
-
-    private T getMissionFromTaskId(final TaskId taskId, final PlayerId playerId) {
-        return this.activeMissions.get(playerId)
-                .stream()
-                .map(this.availableMissions::get)
-                .filter(m -> m.hasTask(taskId))
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
     }
 }

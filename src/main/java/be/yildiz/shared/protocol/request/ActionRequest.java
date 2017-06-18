@@ -68,11 +68,7 @@ public final class ActionRequest extends BaseNetworkMessage implements ServerReq
      * @param a Action to request.
      */
     public ActionRequest(final EntityId e, final Action a) {
-        super(
-                BaseNetworkMessage.from(e),
-                BaseNetworkMessage.from(a.id),
-                BaseNetworkMessage.from(a.getDestination()),
-                BaseNetworkMessage.from(a.getTargetId()));
+        super(check(e, a));
         this.entityId = e;
         this.moduleId = a.id;
         this.destination = a.getDestination();
@@ -82,5 +78,15 @@ public final class ActionRequest extends BaseNetworkMessage implements ServerReq
     @Override
     public int command() {
         return ClientCommand.ACTION.ordinal();
+    }
+
+    private static String[] check(EntityId e, Action a) {
+        assert e != null;
+        assert a != null;
+        return new String[] {
+                BaseNetworkMessage.from(e),
+                BaseNetworkMessage.from(a.id),
+                BaseNetworkMessage.from(a.getDestination()),
+                BaseNetworkMessage.from(a.getTargetId())};
     }
 }
