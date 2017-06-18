@@ -25,6 +25,7 @@ package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.MissionId;
 
 import java.util.List;
 
@@ -42,33 +43,28 @@ public class BaseTask implements Task {
 
     private final List<TaskStatusListener> listeners = Lists.newList();
     private final PlayerId player;
+    private final MissionId missionId;
 
-    /**
-     * Flag to check if the task is completed or not.
-     */
-    private boolean completed = false;
+    private String status = "";
 
-    /**
-     * Flag to check if the task is failed or not.
-     */
-    private boolean failed = false;
-
-    protected BaseTask(TaskId id, PlayerId p) {
+    protected BaseTask(TaskId id, MissionId missionId, PlayerId p) {
         super();
         assert id != null;
         assert p != null;
+        assert missionId != null;
         this.id = id;
         this.player = p;
+        this.missionId = missionId;
     }
 
     protected final void setFailed() {
-        this.failed = true;
-        this.listeners.forEach(t -> t.taskFailed(this.id, this.player));
+        this.status = "FAILED";
+        this.listeners.forEach(t -> t.taskFailed(this.id, this.missionId, this.player));
     }
 
     protected final void setCompleted() {
-        this.completed = true;
-        this.listeners.forEach(t -> t.taskCompleted(this.id, this.player));
+        this.status = "SUCCESS";
+        this.listeners.forEach(t -> t.taskCompleted(this.id, this.missionId, this.player));
     }
 
     @Override
@@ -83,11 +79,11 @@ public class BaseTask implements Task {
 
     @Override
     public boolean isCompleted() {
-        return completed;
+        return "SUCCESS".equals(this.status);
     }
 
     @Override
     public boolean isFailed() {
-        return failed;
+        return "FAILED".equals(this.status);
     }
 }

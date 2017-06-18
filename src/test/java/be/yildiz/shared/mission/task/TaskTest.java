@@ -24,6 +24,7 @@
 package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.MissionId;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -39,12 +40,12 @@ public class TaskTest {
 
         @Test
         public void happyFlow() {
-            new BaseTask(new TaskId(1), PlayerId.get(5));
+            new BaseTask(new TaskId(1), new MissionId(1), PlayerId.valueOf(5));
         }
 
         @Test(expected = AssertionError.class)
         public void withNull() {
-            new BaseTask(null, PlayerId.WORLD);
+            new BaseTask(null, new MissionId(1),PlayerId.WORLD);
         }
     }
 
@@ -52,13 +53,13 @@ public class TaskTest {
 
         @Test
         public void initialStatus() {
-            Task t = new BaseTask(new TaskId(1),PlayerId.get(5));
+            Task t = new BaseTask(new TaskId(1),new MissionId(1), PlayerId.valueOf(5));
             Assert.assertFalse(t.isCompleted());
         }
 
         @Test
         public void setCompleted() {
-            BaseTask t = new BaseTask(new TaskId(1),PlayerId.get(5));
+            BaseTask t = new BaseTask(new TaskId(1),new MissionId(1),PlayerId.valueOf(5));
             t.setCompleted();
             Assert.assertTrue(t.isCompleted());
         }

@@ -31,6 +31,7 @@ import be.yildiz.shared.entity.ActionManager;
 import be.yildiz.shared.entity.DestructionListener;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.action.ActionListener;
+import be.yildiz.shared.mission.MissionId;
 
 import java.util.Map;
 import java.util.Optional;
@@ -74,7 +75,7 @@ public class TaskRegisterer<T extends Entity> implements TaskStatusListener {
 
 
     @Override
-    public void taskCompleted(TaskId taskId, PlayerId playerId) {
+    public void taskCompleted(TaskId taskId, MissionId missionId, PlayerId playerId) {
         Optional
                 .ofNullable(this.actionListenerRegistered.get(new Pair<>(taskId, playerId)))
                 .ifPresent(this.action::removeListener);
@@ -86,7 +87,7 @@ public class TaskRegisterer<T extends Entity> implements TaskStatusListener {
      * @param taskId Id of the task failed.
      */
     @Override
-    public void taskFailed(TaskId taskId, PlayerId playerId) {
+    public void taskFailed(TaskId taskId, MissionId missionId, PlayerId playerId) {
         Optional
                 .ofNullable(this.actionListenerRegistered.get(new Pair<>(taskId, playerId)))
                 .ifPresent(this.action::removeListener);
