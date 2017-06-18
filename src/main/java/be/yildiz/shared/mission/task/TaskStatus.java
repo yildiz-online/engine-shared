@@ -23,6 +23,8 @@
 
 package be.yildiz.shared.mission.task;
 
+import be.yildiz.shared.mission.MissionId;
+
 /**
  * @author Grégory Van den Borre
  */
@@ -32,9 +34,30 @@ public class TaskStatus {
 
     public final String status;
 
-    public TaskStatus(TaskId id, String status) {
+    public final MissionId missionId;
+
+    public TaskStatus(TaskId id, MissionId missionId, String status) {
         super();
         this.id = id;
+        this.missionId = missionId;
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TaskStatus that = (TaskStatus) o;
+
+        if (!id.equals(that.id)) return false;
+        return missionId.equals(that.missionId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + missionId.hashCode();
+        return result;
     }
 }

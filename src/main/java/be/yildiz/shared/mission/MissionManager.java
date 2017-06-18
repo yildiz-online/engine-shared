@@ -90,8 +90,11 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
 
     @Override
     public final void taskCompleted(final TaskId taskId, MissionId missionId, final PlayerId playerId) {
-        CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, "SUCCESS"));
-        boolean success = this.checkMissionCompleted(taskId, missionId, playerId);
+        TaskStatus status = new TaskStatus(taskId, missionId, "SUCCESS");
+        Set<TaskStatus> statusSet = CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId);
+        statusSet.remove(status);
+        statusSet.add(status);
+        boolean success = this.checkMissionCompleted(missionId, playerId);
         if(success) {
             T mission = this.availableMissions.get(missionId);
             this.activeMissions.get(playerId).remove(mission.getId());
@@ -101,7 +104,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
 
     @Override
     public final void taskFailed(TaskId taskId, MissionId missionId, PlayerId playerId) {
-        CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, "FAILED"));
+        CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, missionId, "FAILED"));
         T mission = this.availableMissions.get(missionId);
         this.activeMissions.get(playerId).remove(mission.getId());
         this.listeners.forEach(l -> l.missionFailed(mission, playerId));
@@ -113,7 +116,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
         } else if(status.equalsIgnoreCase("FAILED")) {
             this.taskFailed(taskId, missionId, playerId);
         } else {
-            CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, status));
+            CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, missionId, status));
         }
     }
 
@@ -142,7 +145,12 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
         return this.taskStatus.get(p);
     }
 
-    private boolean checkMissionCompleted(final TaskId taskId, final MissionId missionId, final PlayerId playerId) {
+    public final Set<TaskStatus> getTaskStatusByMission(PlayerId p, MissionId id) {
+        return this.taskStatus.get(p).stream().filter(t -> t.missionId.value == id.value)
+                .collect(Collectors.toSet());
+    }
+
+    private boolean checkMissionCompleted(final MissionId missionId, final PlayerId playerId) {
         T m = this.availableMissions.get(missionId);
         for(TaskId tid : m.getTasks()) {
             TaskStatus task = CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId)
