@@ -31,10 +31,12 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.protocol.NetworkMessage;
+import be.yildiz.shared.mission.task.TaskStatusList;
 import be.yildiz.shared.player.PlayerManager;
 import be.yildiz.shared.protocol.mapper.ActionIdMapper;
 import be.yildiz.shared.protocol.mapper.EntityIdMapper;
 import be.yildiz.shared.protocol.mapper.Point3DMapper;
+import be.yildiz.shared.protocol.mapper.TaskStatusListMapper;
 import be.yildiz.shared.research.ResearchManager;
 
 import java.util.List;
@@ -94,6 +96,7 @@ public abstract class AbstractGameEngine implements FrameManager, AutoCloseable 
         NetworkMessage.registerMapper(EntityId.class, new EntityIdMapper());
         NetworkMessage.registerMapper(ActionId.class, new ActionIdMapper());
         NetworkMessage.registerMapper(Point3D.class, new Point3DMapper());
+        NetworkMessage.registerMapper(TaskStatusList.class, new TaskStatusListMapper());
     }
 
     /**

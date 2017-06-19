@@ -25,7 +25,7 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.MissionId;
 import be.yildiz.shared.mission.task.TaskId;
 import be.yildiz.shared.mission.task.TaskStatus;
