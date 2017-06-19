@@ -122,6 +122,8 @@ public enum ServerCommand {
 
     MISSION_STATUS(22),
 
+    TASK_STATUS(23),
+
     AUTHENTICATION_RESPONSE(99);
 
     public final int value;
