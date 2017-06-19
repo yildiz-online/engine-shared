@@ -33,7 +33,7 @@ import be.yildiz.shared.mission.task.TaskStatus;
 import be.yildiz.shared.mission.task.TaskStatusList;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Grégory Van den Borre
@@ -63,7 +63,7 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
         }
     }
 
-    public MissionStatusResponse(final MissionId id, MissionStatus status, List<TaskStatus> tasks) {
+    public MissionStatusResponse(final MissionId id, MissionStatus status, Set<TaskStatus> tasks) {
         super(NetworkMessage.convertParams(id, status, NetworkMessage.from(new TaskStatusList(tasks), TaskStatusList.class)));
         this.missionId = id;
         this.status = status;
