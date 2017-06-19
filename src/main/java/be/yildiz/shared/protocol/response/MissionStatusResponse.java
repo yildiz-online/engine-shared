@@ -30,7 +30,7 @@ import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.mission.MissionId;
 import be.yildiz.shared.mission.MissionStatus;
 import be.yildiz.shared.mission.task.TaskStatus;
-import be.yildiz.shared.protocol.mapper.TaskStatusListMapper;
+import be.yildiz.shared.mission.task.TaskStatusList;
 
 import java.util.Collection;
 import java.util.List;
@@ -39,8 +39,6 @@ import java.util.List;
  * @author Grégory Van den Borre
  */
 public class MissionStatusResponse extends NetworkMessage implements ServerResponse {
-
-    private static final TaskStatusListMapper mapper = new TaskStatusListMapper();
 
     private final MissionId missionId;
 
@@ -59,14 +57,14 @@ public class MissionStatusResponse extends NetworkMessage implements ServerRespo
         this.missionId = new MissionId(this.getInt());
         try {
             this.status = MissionStatus.valueOf(this.getInt());
-            this.tasks = mapper.to(this.getString());
+            this.tasks = this.to(TaskStatusList.class).getList();
         }catch (AssertionError e) {
             throw new InvalidNetworkMessage("Invalid mission status", e);
         }
     }
 
     public MissionStatusResponse(final MissionId id, MissionStatus status, List<TaskStatus> tasks) {
-        super(NetworkMessage.convertParams(id, status, mapper.from(tasks)));
+        super(NetworkMessage.convertParams(id, status, NetworkMessage.from(new TaskStatusList(tasks), TaskStatusList.class)));
         this.missionId = id;
         this.status = status;
         this.tasks = tasks;
