@@ -47,8 +47,8 @@ public class MoveTest {
     @Test
     public void testSetDestination() {
         Move m = new DummyMove();
-        m.setDestination(Point3D.xyz(1, 2, 3));
-        Assert.assertEquals(Point3D.xyz(1, 2, 3), m.getDestination());
+        m.setDestination(Point3D.valueOf(1, 2, 3));
+        Assert.assertEquals(Point3D.valueOf(1, 2, 3), m.getDestination());
     }
 
     @Test(expected = AssertionError.class)
@@ -66,7 +66,7 @@ public class MoveTest {
          * Create a new Move action.
          */
         protected DummyMove() {
-            super(ActionId.get(3), EntityId.get(5L));
+            super(ActionId.valueOf(3), EntityId.valueOf(5L));
         }
 
         @Override
