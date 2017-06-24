@@ -57,10 +57,10 @@ public class ActionRequestTest {
 
         @Test
         public void happyFlow() {
-            EntityId id = EntityId.get(5L);
-            Point3D destination = Point3D.xyz(10,15,20);
-            EntityId target = EntityId.get(6L);
-            ActionId actionId = ActionId.get(8);
+            EntityId id = EntityId.valueOf(5L);
+            Point3D destination = Point3D.valueOf(10,15,20);
+            EntityId target = EntityId.valueOf(6L);
+            ActionId actionId = ActionId.valueOf(8);
             Action a = givenAnAction(actionId, id, destination, target);
 
             ActionRequest request = new ActionRequest(id, a);
@@ -75,17 +75,17 @@ public class ActionRequestTest {
 
         @Test(expected = AssertionError.class)
         public void withNullId() {
-            EntityId id = EntityId.get(5L);
-            Point3D destination = Point3D.xyz(10,15,20);
-            EntityId target = EntityId.get(6L);
-            ActionId actionId = ActionId.get(8);
+            EntityId id = EntityId.valueOf(5L);
+            Point3D destination = Point3D.valueOf(10,15,20);
+            EntityId target = EntityId.valueOf(6L);
+            ActionId actionId = ActionId.valueOf(8);
             Action a = givenAnAction(actionId, id, destination, target);
             new ActionRequest(null, a);
         }
 
         @Test(expected = AssertionError.class)
         public void withNullAction() {
-            EntityId id = EntityId.get(5L);
+            EntityId id = EntityId.valueOf(5L);
             new ActionRequest(id, null);
         }
 
@@ -96,10 +96,10 @@ public class ActionRequestTest {
 
         @Test
         public void messageWrapper() throws InvalidNetworkMessage {
-            EntityId id = EntityId.get(5L);
-            Point3D destination = Point3D.xyz(10,15,20);
-            EntityId target = EntityId.get(6L);
-            ActionId actionId = ActionId.get(8);
+            EntityId id = EntityId.valueOf(5L);
+            Point3D destination = Point3D.valueOf(10,15,20);
+            EntityId target = EntityId.valueOf(6L);
+            ActionId actionId = ActionId.valueOf(8);
 
             ActionRequest request = new ActionRequest(new MessageWrapper("13_5_8_10.0,15.0,20.0_6"));
             Assert.assertEquals(id, request.entityId);
