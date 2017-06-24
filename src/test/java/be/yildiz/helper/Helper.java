@@ -44,10 +44,10 @@ import be.yildiz.shared.entity.module.move.StaticModule;
  */
 public class Helper {
 
-    public static final EntityId ID_OK = EntityId.get(3L);
-    public static final PlayerId OWNER_OK = PlayerId.get(2);
-    public static final Point3D POSITION_OK = Point3D.xyz(1, 2, 3);
-    public static final Point3D DIRECTION_OK = Point3D.xyz(5, 8, 3);
+    public static final EntityId ID_OK = EntityId.valueOf(3L);
+    public static final PlayerId OWNER_OK = PlayerId.valueOf(2);
+    public static final Point3D POSITION_OK = Point3D.valueOf(1, 2, 3);
+    public static final Point3D DIRECTION_OK = Point3D.valueOf(5, 8, 3);
     public static final EntityType TYPE_OK = new EntityType(4, "test");
 
     public static Entity anEntity(long id) {
@@ -55,7 +55,7 @@ public class Helper {
     }
 
     public static Entity anEntity(long id, int player) {
-        EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.get(id), PlayerId.get(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
+        EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.valueOf(id), PlayerId.valueOf(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
         return new BaseEntity(eic, new StaticModule(eic.getId()), new NoWeaponModule(eic.getId()), new BlindDetector(eic.getId()), new InvincibleTemplate(eic.getHp()).materialize(new ProtectInvincible(eic.getId(), eic.getModules().getHull(), new EmptyProtectMaterialization(eic.getId()))), new NoEnergyGenerator(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()), new EmptyModule(eic.getId()));
     }
 

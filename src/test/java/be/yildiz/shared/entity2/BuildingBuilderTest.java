@@ -51,13 +51,13 @@ public class BuildingBuilderTest {
         new DummyBuildingBuilder(building);
 
         this.rule.expect(AssertionError.class);
-        new DummyBuildingBuilder(null, PlayerId.WORLD, Point3D.xyz(10, 15, 20), building);
+        new DummyBuildingBuilder(null, PlayerId.WORLD, Point3D.valueOf(10, 15, 20), building);
 
         this.rule.expect(AssertionError.class);
-        new DummyBuildingBuilder(EntityId.get(10L), PlayerId.WORLD, null, building);
+        new DummyBuildingBuilder(EntityId.valueOf(10L), PlayerId.WORLD, null, building);
 
         this.rule.expect(AssertionError.class);
-        new DummyBuildingBuilder(EntityId.get(10L), PlayerId.WORLD, Point3D.xyz(10, 15, 20), null);
+        new DummyBuildingBuilder(EntityId.valueOf(10L), PlayerId.WORLD, Point3D.valueOf(10, 15, 20), null);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class BuildingBuilderTest {
     public void testGetBuilderId() {
         Building building = new BaseBuilding(BaseBuildingTest.OK_CITY, BaseBuildingTest.OK_DATA, BaseBuildingTest.OK_POSITION, BaseBuildingTest.OK_LEVEL, BaseBuildingTest.OK_STAFF);
         Builder b = new DummyBuildingBuilder(building);
-        Assert.assertEquals(EntityId.get(10L), b.getBuilderId());
+        Assert.assertEquals(EntityId.valueOf(10L), b.getBuilderId());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class BuildingBuilderTest {
          * @param building Associated building.
          */
         public DummyBuildingBuilder(Building building) {
-            super(EntityId.get(10L), PlayerId.WORLD, Point3D.xyz(10, 15, 20), building, 5);
+            super(EntityId.valueOf(10L), PlayerId.WORLD, Point3D.valueOf(10, 15, 20), building, 5);
         }
 
         public DummyBuildingBuilder(EntityId builderId, PlayerId world, Point3D xyz, Building building) {
