@@ -36,8 +36,8 @@ import be.yildiz.shared.mission.task.TaskStatus;
 public class TaskStatusMapper implements ObjectMapper<TaskStatus>{
 
     @Override
-    public TaskStatus to(String s) throws InvalidNetworkMessage {
-        String[] values = s.split(MessageSeparation.OBJECT_SEPARATOR);
+    public TaskStatus from(String s) throws InvalidNetworkMessage {
+        String[] values = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
         return new TaskStatus(
                 new TaskId(Long.valueOf(values[0])),
@@ -49,7 +49,7 @@ public class TaskStatusMapper implements ObjectMapper<TaskStatus>{
     }
 
     @Override
-    public String from(TaskStatus taskStatus) {
-        return taskStatus.id.getValue() + MessageSeparation.OBJECT_SEPARATOR + taskStatus.missionId.value + MessageSeparation.OBJECT_SEPARATOR + taskStatus.status;
+    public String to(TaskStatus taskStatus) {
+        return taskStatus.id.getValue() + MessageSeparation.VAR_SEPARATOR + taskStatus.missionId.value + MessageSeparation.VAR_SEPARATOR + taskStatus.status;
     }
 }

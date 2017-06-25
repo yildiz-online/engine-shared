@@ -23,7 +23,6 @@
 
 package be.yildiz.shared.game.engine;
 
-import be.yildiz.common.Token;
 import be.yildiz.common.Version;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.framelistener.FrameListener;
@@ -32,9 +31,9 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.module.network.protocol.Authentication;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.*;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.mission.task.TaskStatusList;
 import be.yildiz.shared.player.PlayerManager;
 import be.yildiz.shared.protocol.mapper.ActionIdMapper;
@@ -99,15 +98,12 @@ public abstract class AbstractGameEngine implements FrameManager, AutoCloseable 
         this.gameVersion = version;
         IntegerMapper integerMapper = new IntegerMapper();
         PlayerIdMapper playerIdMapper = new PlayerIdMapper();
-        TokenStatusMapper tokenStatusMapper = new TokenStatusMapper(integerMapper);
         NetworkMessage.registerMapper(Integer.class, integerMapper);
         NetworkMessage.registerMapper(EntityId.class, new EntityIdMapper());
         NetworkMessage.registerMapper(ActionId.class, new ActionIdMapper());
         NetworkMessage.registerMapper(PlayerId.class, playerIdMapper);
         NetworkMessage.registerMapper(Point3D.class, new Point3DMapper());
         NetworkMessage.registerMapper(TaskStatusList.class, new TaskStatusListMapper());
-        NetworkMessage.registerMapper(Authentication.class, new AuthenticationMapper());
-        NetworkMessage.registerMapper(Token.class, new TokenMapper(playerIdMapper, integerMapper, tokenStatusMapper));
     }
 
     /**
