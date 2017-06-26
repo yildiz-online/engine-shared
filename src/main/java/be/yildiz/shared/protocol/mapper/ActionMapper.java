@@ -23,26 +23,50 @@
 
 package be.yildiz.shared.protocol.mapper;
 
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
+import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.protocol.ActionDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityIdMapper implements ObjectMapper<EntityId> {
+public class ActionMapper implements ObjectMapper <ActionDto>{
+
+    private final ObjectMapper<ActionId> actionIdMapper;
+
+    private final ObjectMapper<EntityId> entityIdMapper;
+
+    private final ObjectMapper<Point3D> point3DMapper;
+
+    public ActionMapper(ObjectMapper<ActionId> actionIdMapper, ObjectMapper<EntityId> entityIdMapper, ObjectMapper<Point3D> point3DMapper) {
+        super();
+        this.actionIdMapper = actionIdMapper;
+        this.entityIdMapper = entityIdMapper;
+        this.point3DMapper = point3DMapper;
+    }
 
     @Override
-    public EntityId from(String s) throws InvalidNetworkMessage {
+    public ActionDto from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
-            return EntityId.valueOf(Long.parseLong(s));
-        } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage("Error retrieving id", nfe);
+            return new ActionDto(actionIdMapper.from(v[0]), entityIdMapper.from(v[1]), point3DMapper.from(v[2]), entityIdMapper.from(v[3]));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
         }
     }
 
     @Override
-    public String to(EntityId entityId) {
-        return String.valueOf(entityId.value);
+    public String to(ActionDto action) {
+        return this.actionIdMapper.to(action.id)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + this.entityIdMapper.to(action.entity)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + this.point3DMapper.to(action.destination)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + this.entityIdMapper.to(action.target);
     }
 }

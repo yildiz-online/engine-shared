@@ -23,30 +23,30 @@
 
 package be.yildiz.shared.protocol.request;
 
-import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
+import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import be.yildiz.shared.entity.action.Action;
+import be.yildiz.shared.protocol.ActionDto;
 import be.yildiz.shared.protocol.BaseNetworkMessage;
+import be.yildiz.shared.protocol.mapper.ActionIdMapper;
+import be.yildiz.shared.protocol.mapper.ActionMapper;
+import be.yildiz.shared.protocol.mapper.EntityIdMapper;
+import be.yildiz.shared.protocol.mapper.Point3DMapper;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class ActionRequest extends BaseNetworkMessage implements ServerRequest {
 
-    public final EntityId entityId;
+    static {
+        NetworkMessage.registerMapper(ActionDto.class, new ActionMapper(
+                new ActionIdMapper(),
+                new EntityIdMapper(),
+                new Point3DMapper()));
+    }
 
-    /**
-     * Module executing the action.
-     */
-    public final ActionId moduleId;
-
-    public final Point3D destination;
-
-    public final EntityId targetId;
+    public final ActionDto dto;
 
     /**
      * Full constructor.
@@ -56,23 +56,16 @@ public final class ActionRequest extends BaseNetworkMessage implements ServerReq
      */
     public ActionRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.entityId = this.to(EntityId.class);
-        this.moduleId = this.to(ActionId.class);
-        this.destination = this.to(Point3D.class);
-        this.targetId = this.to(EntityId.class);
+        this.dto = this.from(ActionDto.class);
     }
 
     /**
      * Full constructor.
-     * @param e Entity id.
      * @param a Action to request.
      */
-    public ActionRequest(final EntityId e, final Action a) {
-        super(check(e, a));
-        this.entityId = e;
-        this.moduleId = a.id;
-        this.destination = a.getDestination();
-        this.targetId = a.getTargetId();
+    public ActionRequest(final ActionDto a) {
+        super(NetworkMessage.to(a, ActionDto.class));
+        this.dto = a;
     }
 
     @Override
@@ -80,13 +73,4 @@ public final class ActionRequest extends BaseNetworkMessage implements ServerReq
         return ClientCommand.ACTION.ordinal();
     }
 
-    private static String[] check(EntityId e, Action a) {
-        assert e != null;
-        assert a != null;
-        return new String[] {
-                BaseNetworkMessage.from(e),
-                BaseNetworkMessage.from(a.id),
-                BaseNetworkMessage.from(a.getDestination()),
-                BaseNetworkMessage.from(a.getTargetId())};
-    }
 }
