@@ -23,27 +23,29 @@
 
 package be.yildiz.shared.protocol.response;
 
-import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import be.yildiz.shared.entity.action.Action;
+import be.yildiz.shared.protocol.ActionDto;
+import be.yildiz.shared.protocol.mapper.ActionIdMapper;
+import be.yildiz.shared.protocol.mapper.ActionMapper;
+import be.yildiz.shared.protocol.mapper.EntityIdMapper;
+import be.yildiz.shared.protocol.mapper.Point3DMapper;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class ActionResponse extends NetworkMessage implements ServerResponse {
 
-    public final EntityId entityId;
+    static {
+        NetworkMessage.registerMapper(ActionDto.class, new ActionMapper(
+                new ActionIdMapper(),
+                new EntityIdMapper(),
+                new Point3DMapper()));
+    }
 
-    public final ActionId actionId;
-
-    public final Point3D destination;
-
-    public final EntityId targetId;
+    public final ActionDto dto;
 
     /**
      * Full constructor.
@@ -53,23 +55,16 @@ public final class ActionResponse extends NetworkMessage implements ServerRespon
      */
     public ActionResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.entityId = this.getEntityId();
-        this.actionId = this.getActionId();
-        this.destination = this.getPoint3D();
-        this.targetId = this.getEntityId();
+        this.dto = this.from(ActionDto.class);
     }
 
     /**
      * Full constructor.
-     * @param e Id of the entity doing the action.
      * @param a Action to do.
      */
-    public ActionResponse(final EntityId e, final Action a) {
-        super(NetworkMessage.convertParams(e, a.id, a.getDestination(), a.getTargetId()));
-        this.entityId = e;
-        this.actionId = a.id;
-        this.destination = a.getDestination();
-        this.targetId = a.getTargetId();
+    public ActionResponse(final ActionDto a) {
+        super(NetworkMessage.to(a, ActionDto.class));
+        this.dto = a;
     }
 
     @Override

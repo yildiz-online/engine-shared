@@ -45,7 +45,7 @@ public final class BuildCancelRequest extends NetworkMessage implements ServerRe
      * @param requestIndex Construction unique index.
      */
     public BuildCancelRequest(final int requestIndex) {
-        super(NetworkMessage.convertParams(requestIndex));
+        super(NetworkMessage.to(requestIndex, Integer.class));
         this.requestIndex = requestIndex;
     }
 
@@ -57,7 +57,7 @@ public final class BuildCancelRequest extends NetworkMessage implements ServerRe
      */
     public BuildCancelRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.requestIndex = this.getInt();
+        this.requestIndex = this.from(Integer.class);
     }
 
     /**
