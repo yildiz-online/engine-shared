@@ -25,19 +25,17 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 
 /**
  * @author Grégory Van den Borre
  */
-class ActionIdMapper implements ObjectMapper<ActionId> {
+class ActionIdMapper extends BaseMapper<ActionId> {
 
     private static final ActionIdMapper INSTANCE = new ActionIdMapper();
 
     private ActionIdMapper() {
-        super();
-        NetworkMessage.registerMapper(ActionId.class, this);
+        super(ActionId.class);
     }
 
     public static ActionIdMapper getInstance() {

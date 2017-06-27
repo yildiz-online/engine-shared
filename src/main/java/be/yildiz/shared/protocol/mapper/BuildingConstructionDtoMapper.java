@@ -25,20 +25,22 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.shared.protocol.BuildingConstructionDto;
 
 /**
  * @author Grégory Van den Borre
  */
-class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConstructionDto> {
+class BuildingConstructionDtoMapper extends BaseMapper<BuildingConstructionDto> {
 
     private static final BuildingConstructionDtoMapper INSTANCE = new BuildingConstructionDtoMapper();
 
     private BuildingConstructionDtoMapper() {
-        super();
-        NetworkMessage.registerMapper(BuildingConstructionDto.class, this);
+        super(BuildingConstructionDto.class);
+    }
+
+    public static BuildingConstructionDtoMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override

@@ -25,20 +25,18 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.shared.protocol.ActionDto;
 
 /**
  * @author Grégory Van den Borre
  */
-class ActionDtoMapper implements ObjectMapper <ActionDto> {
+class ActionDtoMapper extends BaseMapper<ActionDto> {
 
     private static final ActionDtoMapper INSTANCE = new ActionDtoMapper();
 
     private ActionDtoMapper() {
-        super();
-        NetworkMessage.registerMapper(ActionDto.class, this);
+        super(ActionDto.class);
     }
 
     public static ActionDtoMapper getInstance() {

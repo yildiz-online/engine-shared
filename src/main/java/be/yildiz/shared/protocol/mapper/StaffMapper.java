@@ -23,22 +23,20 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.common.id.ActionId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
 import be.yildiz.shared.building.staff.Staff;
 
 /**
  * @author Grégory Van den Borre
  */
-public class StaffMapper implements ObjectMapper<Staff> {
+public class StaffMapper extends BaseMapper<Staff> {
 
     private static final StaffMapper INSTANCE = new StaffMapper();
 
     private StaffMapper() {
-        super();
-        NetworkMessage.registerMapper(Staff.class, this);
+        super(Staff.class);
     }
 
     public static StaffMapper getInstance() {
@@ -47,15 +45,11 @@ public class StaffMapper implements ObjectMapper<Staff> {
 
     @Override
     public Staff from(String s) throws InvalidNetworkMessage {
-        try {
-            return Staff.valueOf(Integer.parseInt(s));
-        } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage(nfe);
-        }
+        return Staff.valueOf(IntegerMapper.getInstance().from(s));
     }
 
     @Override
     public String to(Staff s) {
-        return String.valueOf(s.value);
+        return IntegerMapper.getInstance().to(s.value);
     }
 }

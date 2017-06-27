@@ -24,20 +24,26 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.module.network.protocol.mapper.CollectionMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskStatus;
 import be.yildiz.shared.mission.task.TaskStatusList;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class TaskStatusListMapper implements ObjectMapper<TaskStatusList> {
+final class TaskStatusListMapper extends BaseMapper<TaskStatusList> {
 
-    protected final CollectionMapper<TaskStatus> mapper = new CollectionMapper<>(new TaskStatusMapper());
+    private static final TaskStatusListMapper INSTANCE = new TaskStatusListMapper();
+
+    private final CollectionMapper<TaskStatus> mapper = new CollectionMapper<>(TaskStatusMapper.getInstance());
 
     private TaskStatusListMapper() {
-        super();
+        super(TaskStatusList.class);
+    }
+
+    public static TaskStatusListMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override

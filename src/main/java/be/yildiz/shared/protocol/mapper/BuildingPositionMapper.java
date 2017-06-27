@@ -24,20 +24,18 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.shared.data.BuildingPosition;
 
 /**
  * @author Grégory Van den Borre
  */
-class BuildingPositionMapper implements ObjectMapper<BuildingPosition> {
+class BuildingPositionMapper extends BaseMapper<BuildingPosition> {
 
     private static final BuildingPositionMapper INSTANCE = new BuildingPositionMapper();
 
     private BuildingPositionMapper() {
-        super();
-        NetworkMessage.registerMapper(BuildingPosition.class, this);
+        super(BuildingPosition.class);
     }
 
     public static BuildingPositionMapper getInstance() {

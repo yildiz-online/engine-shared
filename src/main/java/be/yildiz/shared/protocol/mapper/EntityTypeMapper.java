@@ -24,20 +24,18 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.shared.data.EntityType;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTypeMapper implements ObjectMapper<EntityType> {
+class EntityTypeMapper extends BaseMapper<EntityType> {
 
     private static final EntityTypeMapper INSTANCE = new EntityTypeMapper();
 
     private EntityTypeMapper() {
-        super();
-        NetworkMessage.registerMapper(EntityType.class, this);
+        super(EntityType.class);
     }
 
     public static EntityTypeMapper getInstance() {

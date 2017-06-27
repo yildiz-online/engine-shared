@@ -24,20 +24,21 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.protocol.EntityDto;
 
 /**
  * @author Grégory Van den Borre
  */
-class EntityDtoMapper implements ObjectMapper <EntityDto> {
+class EntityDtoMapper extends BaseMapper<EntityDto> {
 
     private static final EntityDtoMapper INSTANCE = new EntityDtoMapper();
 
     private EntityDtoMapper() {
-        super();
-        NetworkMessage.registerMapper(EntityDto.class, this);
+        super(EntityDto.class);
     }
 
     public static EntityDtoMapper getInstance() {
@@ -50,7 +51,28 @@ class EntityDtoMapper implements ObjectMapper <EntityDto> {
     }
 
     @Override
-    public String to(EntityDto entityDto) {
-        return null;
+    public String to(EntityDto dto) {
+        return EntityIdMapper.getInstance().to(dto.entity)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + dto.name
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + EntityTypeMapper.getInstance().to(dto.type)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + PlayerIdMapper.getInstance().to(dto.owner)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + Point3DMapper.getInstance().to(dto.position)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + Point3DMapper.getInstance().to(dto.orientation)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + IntegerMapper.getInstance().to(dto.hitPoint)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + IntegerMapper.getInstance().to(dto.energy)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + ModuleGroupMapper.getInstance().to(dto.modules)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + EntityIdMapper.getInstance().to(dto.builderId)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + IntegerMapper.getInstance().to(dto.index);
+
     }
 }

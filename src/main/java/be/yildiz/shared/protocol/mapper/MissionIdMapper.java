@@ -24,20 +24,18 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.shared.mission.MissionId;
 
 /**
  * @author Grégory Van den Borre
  */
-public class MissionIdMapper implements ObjectMapper<MissionId> {
+public class MissionIdMapper extends BaseMapper<MissionId> {
 
     private static final MissionIdMapper INSTANCE = new MissionIdMapper();
 
     private MissionIdMapper() {
-        super();
-        NetworkMessage.registerMapper(MissionId.class, this);
+        super(MissionId.class);
     }
 
     public static MissionIdMapper getInstance() {
