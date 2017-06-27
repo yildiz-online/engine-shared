@@ -99,8 +99,8 @@ public final class Message {
     public Message(final String toParse) {
         super();
         String[] s = toParse.split(SEPARATOR);
-        this.sender = PlayerId.get(Integer.parseInt(s[0].trim()));
-        this.receiver = PlayerId.get(Integer.parseInt(s[1].trim()));
+        this.sender = PlayerId.valueOf(Integer.parseInt(s[0].trim()));
+        this.receiver = PlayerId.valueOf(Integer.parseInt(s[1].trim()));
         this.content = s[2].trim().replace(SEPARATOR, "").replace(",", COMMA);
         this.date = new Date(Long.parseLong(s[3].trim()));
         this.read = Boolean.parseBoolean(s[4].trim());

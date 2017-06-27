@@ -31,6 +31,7 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.fields.Target;
+import be.yildiz.shared.protocol.ActionDto;
 import be.yildiz.shared.protocol.mapper.ActionIdMapper;
 import be.yildiz.shared.protocol.mapper.EntityIdMapper;
 import be.yildiz.shared.protocol.mapper.Point3DMapper;
@@ -46,13 +47,6 @@ import org.junit.runner.RunWith;
 @RunWith(Enclosed.class)
 public class ActionRequestTest {
 
-    @BeforeClass
-    public static void before() {
-        NetworkMessage.registerMapper(EntityId.class, new EntityIdMapper());
-        NetworkMessage.registerMapper(ActionId.class, new ActionIdMapper());
-        NetworkMessage.registerMapper(Point3D.class, new Point3DMapper());
-    }
-
     public static class Constructor {
 
         @Test
@@ -62,6 +56,8 @@ public class ActionRequestTest {
             EntityId target = EntityId.valueOf(6L);
             ActionId actionId = ActionId.valueOf(8);
             Action a = givenAnAction(actionId, id, destination, target);
+
+            ActionDto dto = new ActionDto(actionId, id, destination, target);
 
             ActionRequest request = new ActionRequest(id, a);
 

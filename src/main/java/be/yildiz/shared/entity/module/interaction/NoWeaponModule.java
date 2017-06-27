@@ -36,7 +36,7 @@ import be.yildiz.shared.entity.module.Weapon;
  */
 public class NoWeaponModule extends Weapon {
 
-    public static final ActionId MODULE = ActionId.get(1);
+    public static final ActionId MODULE = ActionId.valueOf(1);
 
     /**
      * Create a new instance.

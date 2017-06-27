@@ -36,7 +36,7 @@ public class ActionIdMapper implements ObjectMapper<ActionId> {
     @Override
     public ActionId to(String s) throws InvalidNetworkMessage {
         try {
-            return ActionId.get(Integer.parseInt(s));
+            return ActionId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
             throw new InvalidNetworkMessage("Error retrieving id", nfe);
         }

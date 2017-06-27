@@ -33,7 +33,7 @@ import be.yildiz.shared.entity.module.EnergyGenerator;
  */
 public class NoEnergyGenerator extends EnergyGenerator {
 
-    public static final ActionId MODULE = ActionId.get(13);
+    public static final ActionId MODULE = ActionId.valueOf(13);
 
     public NoEnergyGenerator(final EntityId id) {
         super(new NoEnergy(id, MODULE), 0);

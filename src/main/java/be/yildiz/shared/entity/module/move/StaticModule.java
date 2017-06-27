@@ -33,7 +33,7 @@ import be.yildiz.shared.entity.module.MoveEngine;
  */
 public class StaticModule extends MoveEngine {
 
-    public static final ActionId MODULE = ActionId.get(0);
+    public static final ActionId MODULE = ActionId.valueOf(0);
 
     public StaticModule(EntityId id) {
         super(new NoMove(id, MODULE), 0, 0);

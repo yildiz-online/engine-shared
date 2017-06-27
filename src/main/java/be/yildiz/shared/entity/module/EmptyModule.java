@@ -36,7 +36,7 @@ public class EmptyModule extends Module<NoAction> {
     /**
      * Module unique id.
      */
-    public static final ActionId MODULE = ActionId.get(255);
+    public static final ActionId MODULE = ActionId.valueOf(255);
 
     /**
      * Create a new module.

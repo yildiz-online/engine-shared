@@ -49,7 +49,7 @@ public final class RemoveVisibilityResponse extends NetworkMessage implements Se
      */
     public RemoveVisibilityResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.entity = this.getEntityId();
+        this.entity = this.from(EntityId.class);
     }
 
     /**
@@ -58,7 +58,7 @@ public final class RemoveVisibilityResponse extends NetworkMessage implements Se
      * @param entity Id of the no longer visible Entity.
      */
     public RemoveVisibilityResponse(final EntityId entity) {
-        super(NetworkMessage.convertParams(entity));
+        super(NetworkMessage.to(entity, EntityId.class));
         this.entity = entity;
     }
 

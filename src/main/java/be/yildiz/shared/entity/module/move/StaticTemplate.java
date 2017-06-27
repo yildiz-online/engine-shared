@@ -33,7 +33,7 @@ import be.yildiz.shared.entity.module.MoveEngine.MoveEngineTemplate;
  */
 public class StaticTemplate extends MoveEngineTemplate<NoMove> {
 
-    public static final ActionId MODULE = ActionId.get(0);
+    public static final ActionId MODULE = ActionId.valueOf(0);
 
     @Override
     public MoveEngine materialize(NoMove action) {

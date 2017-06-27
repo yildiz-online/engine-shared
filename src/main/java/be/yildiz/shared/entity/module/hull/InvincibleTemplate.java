@@ -32,7 +32,7 @@ import be.yildiz.shared.entity.module.Hull;
  */
 public class InvincibleTemplate extends Hull.HullTemplate<ProtectInvincible> {
 
-    public static final ActionId MODULE = ActionId.get(9);
+    public static final ActionId MODULE = ActionId.valueOf(9);
 
     public InvincibleTemplate() {
         super(0);

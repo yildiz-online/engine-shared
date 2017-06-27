@@ -56,12 +56,12 @@ public final class Research extends BaseRegisterable {
     /**
      * Research needed to be done before making this one, optional. none.
      */
-    private final Optional<Research> prerequesite;
+    private final Optional<Research> prerequisite;
 
 
     private Research(final String name, final float researchPrice, final EntityBonus bonus, final Optional<Research> prerequisite) {
         super(name);
-        this.prerequesite = prerequisite;
+        this.prerequisite = prerequisite;
         this.price = GameResources.research(researchPrice);
         this.bonus = bonus;
         Research.REGISTERER.register(this);
@@ -108,7 +108,7 @@ public final class Research extends BaseRegisterable {
         return price;
     }
 
-    public Optional<Research> getPrerequesite() {
-        return prerequesite;
+    public Optional<Research> getPrerequisite() {
+        return prerequisite;
     }
 }

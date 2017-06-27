@@ -41,11 +41,11 @@ public class EntityInConstruction extends DefaultEntityInConstruction {
 
     public static final EntityInConstruction WORLD = new EntityInConstruction(EntityType.WORLD, EntityId.WORLD, PlayerId.WORLD, "World",
             new ModuleGroup.ModuleGroupBuilder()
-                    .withMove(ActionId.get(0))
-                    .withInteraction(ActionId.get(1))
-                    .withDetector(ActionId.get(42))
-                    .withHull(ActionId.get(9))
-                    .withEnergy(ActionId.get(13))
+                    .withMove(ActionId.valueOf(0))
+                    .withInteraction(ActionId.valueOf(1))
+                    .withDetector(ActionId.valueOf(42))
+                    .withHull(ActionId.valueOf(9))
+                    .withEnergy(ActionId.valueOf(13))
                     .withNoAdditional()
                     .build(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
 

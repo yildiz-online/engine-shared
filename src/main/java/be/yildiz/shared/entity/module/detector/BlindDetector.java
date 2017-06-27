@@ -34,7 +34,7 @@ import be.yildiz.shared.entity.module.Detector;
  */
 public class BlindDetector extends Detector {
 
-    public static final ActionId MODULE = ActionId.get(42);
+    public static final ActionId MODULE = ActionId.valueOf(42);
 
     public BlindDetector(EntityId id) {
         super(new NoDetect(id, MODULE), ViewDistance.ZERO);

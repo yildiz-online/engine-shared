@@ -21,11 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.test;
+package be.yildiz.shared.protocol;
+
+import be.yildiz.common.BaseTest;
+import be.yildiz.common.id.ActionId;
+import be.yildiz.common.id.EntityId;
+import be.yildiz.common.vector.Point3D;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BaseTest {
+@RunWith(Enclosed.class)
+public class ActionDtoTest {
 
+    public static class Equals {
+
+        @Test
+        public void test() {
+            ActionDto base = new ActionDto(ActionId.valueOf(5), EntityId.valueOf(12L), Point3D.valueOf(4), EntityId.valueOf(7));
+            ActionDto same = new ActionDto(ActionId.valueOf(5), EntityId.valueOf(12L), Point3D.valueOf(4), EntityId.valueOf(7));
+            ActionDto different = new ActionDto(ActionId.valueOf(5), EntityId.valueOf(12L), Point3D.valueOf(4), EntityId.valueOf(7));
+            BaseTest<ActionDto> baseTest = new BaseTest<>(base, same, different);
+            baseTest.equalsSame();
+            baseTest.equalsDifferent();
+            baseTest.equalsDifferentType();
+            baseTest.equalsSameInstance();
+            baseTest.equalsNull();
+        }
+    }
 }
