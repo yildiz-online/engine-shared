@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Response from the server when resources have been transfered, contains the id of the player who lost resources, the id of the player gaining resources and the amount.
+ * Response from the server when resources have been transferred, contains the id of the player who lost resources, the id of the player gaining resources and the amount.
  *
  * @author Grégory Van den Borre
  */

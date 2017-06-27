@@ -26,6 +26,7 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 
 import java.security.InvalidParameterException;
@@ -35,24 +36,33 @@ import java.security.InvalidParameterException;
  */
 public class Point3DMapper implements ObjectMapper<Point3D> {
 
+    private static final Point3DMapper INSTANCE = new Point3DMapper();
+
+    private Point3DMapper() {
+        super();
+        NetworkMessage.registerMapper(Point3D.class, this);
+    }
+
+    public static Point3DMapper getInstance() {
+        return INSTANCE;
+    }
+
     @Override
-    public Point3D to(String s) throws InvalidNetworkMessage {
+    public Point3D from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
-            return new Point3D(s);
-        } catch (final InvalidParameterException e) {
-            throw new InvalidNetworkMessage("Error retrieving Point3D", e);
+            return Point3D.valueOf(Float.valueOf(v[0]), Float.valueOf(v[1]), Float.valueOf(v[2]));
+        } catch (final InvalidParameterException | IndexOutOfBoundsException | NumberFormatException e) {
+            throw new InvalidNetworkMessage(e);
         }
     }
 
     @Override
-    public String from(Point3D p) {
-        final float eps = 0.001f;
-        if (p.y < eps && p.y > -eps) {
-            return String.valueOf(p.x) +
-                    MessageSeparation.COLLECTION_SEPARATOR +
-                    p.z;
-        } else {
-            return p.toString();
-        }
+    public String to(Point3D p) {
+        return String.valueOf(p.x) +
+                MessageSeparation.VAR_SEPARATOR +
+                String.valueOf(p.y) +
+                MessageSeparation.VAR_SEPARATOR +
+                String.valueOf(p.z);
     }
 }

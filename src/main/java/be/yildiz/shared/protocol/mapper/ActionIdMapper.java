@@ -25,25 +25,36 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ActionIdMapper implements ObjectMapper<ActionId> {
+class ActionIdMapper implements ObjectMapper<ActionId> {
 
+    private static final ActionIdMapper INSTANCE = new ActionIdMapper();
+
+    private ActionIdMapper() {
+        super();
+        NetworkMessage.registerMapper(ActionId.class, this);
+    }
+
+    public static ActionIdMapper getInstance() {
+        return INSTANCE;
+    }
 
     @Override
-    public ActionId to(String s) throws InvalidNetworkMessage {
+    public ActionId from(String s) throws InvalidNetworkMessage {
         try {
             return ActionId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage("Error retrieving id", nfe);
+            throw new InvalidNetworkMessage(nfe);
         }
     }
 
     @Override
-    public String from(ActionId actionId) {
+    public String to(ActionId actionId) {
         return String.valueOf(actionId.value);
     }
 }

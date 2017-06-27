@@ -21,67 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.request;
+package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerRequest;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.mission.task.TaskId;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class AdminCreateAccountRequest extends NetworkMessage implements ServerRequest {
+public class TaskIdMapper implements ObjectMapper<TaskId> {
 
-    /**
-     * Player login.
-     */
-    private final String login;
+    private static final TaskIdMapper INSTANCE = new TaskIdMapper();
 
-    /**
-     * Player hashed password.
-     */
-    private final String password;
-
-    /**
-     * Player email.
-     */
-    private final String email;
-
-    /**
-     * Full Constructor. Create the object from a message received.
-     *
-     * @param message Message to parse to build the object.
-     * @throws InvalidNetworkMessage If the message cannot be correctly parsed.
-     */
-    public AdminCreateAccountRequest(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.login = this.getString();
-        this.password = this.getString();
-        this.email = this.getString();
+    private TaskIdMapper() {
+        super();
+        NetworkMessage.registerMapper(TaskId.class, this);
     }
 
-    public AdminCreateAccountRequest(final String login, final String password, final String email) {
-        super(NetworkMessage.convertParams(login, password, email));
-        this.login = login;
-        this.password = password;
-        this.email = email;
+    public static TaskIdMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override
-    public int command() {
-        return ClientCommand.ADMIN_CREATE_ACCOUNT.ordinal();
+    public TaskId from(String s) throws InvalidNetworkMessage {
+        try {
+            return TaskId.valueOf(Long.parseLong(s));
+        } catch (final NumberFormatException nfe) {
+            throw new InvalidNetworkMessage(nfe);
+        }
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
+    @Override
+    public String to(TaskId taskId) {
+        return String.valueOf(taskId.value);
     }
 }

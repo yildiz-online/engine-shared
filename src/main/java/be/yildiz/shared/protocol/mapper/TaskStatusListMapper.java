@@ -36,17 +36,17 @@ public final class TaskStatusListMapper implements ObjectMapper<TaskStatusList> 
 
     protected final CollectionMapper<TaskStatus> mapper = new CollectionMapper<>(new TaskStatusMapper());
 
-    public TaskStatusListMapper() {
+    private TaskStatusListMapper() {
         super();
     }
 
     @Override
-    public String from(TaskStatusList listWrapper) {
-        return this.mapper.from(listWrapper.getList());
+    public String to(TaskStatusList listWrapper) {
+        return this.mapper.to(listWrapper.getList());
     }
 
     @Override
-    public TaskStatusList to(String s) throws InvalidNetworkMessage {
-        return new TaskStatusList(this.mapper.to(s));
+    public TaskStatusList from(String s) throws InvalidNetworkMessage {
+        return new TaskStatusList(this.mapper.from(s));
     }
 }

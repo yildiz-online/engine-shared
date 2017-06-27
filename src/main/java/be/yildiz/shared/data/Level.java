@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.data;
 
+import be.yildiz.common.ValueObject;
 import be.yildiz.common.util.Checker;
 
 /**
@@ -31,7 +32,7 @@ import be.yildiz.common.util.Checker;
  *
  * @author Grégory Van den Borre
  */
-public final class Level {
+public final class Level extends ValueObject {
 
     /**
      * Constant for 0.
@@ -44,19 +45,17 @@ public final class Level {
     public static final Level ONE = new Level(1);
 
     /**
-     * Level value.
-     */
-    public final int value;
-
-    /**
      * Full constructor.
      *
      * @param level Level value.
      */
-    public Level(final int level) {
-        super();
+    private Level(final int level) {
+        super(level);
         Checker.exceptionNotPositive(level);
-        this.value = level;
+    }
+
+    public static Level valueOf(int level) {
+        return new Level(level);
     }
 
     /**
@@ -69,31 +68,7 @@ public final class Level {
         return new Level(this.value + toAdd);
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.value);
-    }
-
     public boolean isNotZero() {
         return this.value > 0;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Level level = (Level) o;
-
-        return value == level.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return value;
     }
 }

@@ -21,57 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
-import be.yildiz.shared.protocol.EntityDto;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.data.BuildingPosition;
 
 /**
- * Message sent from the server to the client when an Entity is created.
- *
  * @author Grégory Van den Borre
  */
-public final class EntityInfoResponse extends NetworkMessage implements ServerResponse {
+class BuildingPositionMapper implements ObjectMapper<BuildingPosition> {
 
-    /**
-     * Entity associated.
-     */
-    private final EntityDto entity;
+    private static final BuildingPositionMapper INSTANCE = new BuildingPositionMapper();
 
-
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage In case of error while parsing the message.
-     */
-    public EntityInfoResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.entity = this.from(EntityDto.class);
+    private BuildingPositionMapper() {
+        super();
+        NetworkMessage.registerMapper(BuildingPosition.class, this);
     }
 
-    /**
-     * Full constructor, builder is assumed to be World.
-     *
-     * @param e Entity to send on the network.
-     */
-    public EntityInfoResponse(final EntityDto e) {
-        super(NetworkMessage.to(e, EntityDto.class));
-        this.entity = e;
+    public static BuildingPositionMapper getInstance() {
+        return INSTANCE;
     }
 
-    /**
-     * @return The ordinal value of ServerCommand BUILD.
-     */
     @Override
-    public int command() {
-        return ServerCommand.BUILD.value;
+    public BuildingPosition from(String s) throws InvalidNetworkMessage {
+        try {
+            return BuildingPosition.valueOf(Integer.parseInt(s));
+        } catch (final NumberFormatException nfe) {
+            throw new InvalidNetworkMessage(nfe);
+        }
     }
 
-    public EntityDto getEntity() {
-        return entity;
+    @Override
+    public String to(BuildingPosition p) {
+        return String.valueOf(p.value);
     }
 }

@@ -43,15 +43,15 @@ public abstract class BaseNetworkMessage extends NetworkMessage {
     }
 
     public static String from(EntityId id) {
-        return NetworkMessage.from(id, EntityId.class);
+        return NetworkMessage.to(id, EntityId.class);
     }
 
     public static String from(ActionId id) {
-        return NetworkMessage.from(id, ActionId.class);
+        return NetworkMessage.to(id, ActionId.class);
     }
 
     public static String from(Point3D p) {
-        return NetworkMessage.from(p, Point3D.class);
+        return NetworkMessage.to(p, Point3D.class);
     }
 
 }

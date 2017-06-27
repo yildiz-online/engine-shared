@@ -139,7 +139,7 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
 
     @Override
     public final Level getMaxLevel() {
-        return new Level(this.levels.length);
+        return Level.valueOf(this.levels.length);
     }
 
     @Override

@@ -21,57 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
+import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
-import be.yildiz.shared.protocol.EntityDto;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.protocol.BuildingConstructionDto;
 
 /**
- * Message sent from the server to the client when an Entity is created.
- *
  * @author Grégory Van den Borre
  */
-public final class EntityInfoResponse extends NetworkMessage implements ServerResponse {
+class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConstructionDto> {
 
-    /**
-     * Entity associated.
-     */
-    private final EntityDto entity;
+    private static final BuildingConstructionDtoMapper INSTANCE = new BuildingConstructionDtoMapper();
 
-
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage In case of error while parsing the message.
-     */
-    public EntityInfoResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.entity = this.from(EntityDto.class);
+    private BuildingConstructionDtoMapper() {
+        super();
+        NetworkMessage.registerMapper(BuildingConstructionDto.class, this);
     }
 
-    /**
-     * Full constructor, builder is assumed to be World.
-     *
-     * @param e Entity to send on the network.
-     */
-    public EntityInfoResponse(final EntityDto e) {
-        super(NetworkMessage.to(e, EntityDto.class));
-        this.entity = e;
-    }
-
-    /**
-     * @return The ordinal value of ServerCommand BUILD.
-     */
     @Override
-    public int command() {
-        return ServerCommand.BUILD.value;
+    public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
+        return null;
     }
 
-    public EntityDto getEntity() {
-        return entity;
+    @Override
+    public String to(BuildingConstructionDto dto) {
+        return EntityIdMapper.getInstance().to(dto.cityId)
+                + MessageSeparation.VAR_SEPARATOR
+                + EntityTypeMapper.getInstance().to(dto.type)
+                + MessageSeparation.VAR_SEPARATOR
+                + LevelMapper.getInstance().to(dto.level)
+                + MessageSeparation.VAR_SEPARATOR
+                + BuildingPositionMapper.getInstance().to(dto.position)
+                + MessageSeparation.VAR_SEPARATOR
+                + StaffMapper.getInstance().to(dto.staff);
     }
 }

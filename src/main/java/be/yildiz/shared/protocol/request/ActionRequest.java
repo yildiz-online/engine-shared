@@ -29,22 +29,11 @@ import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.protocol.ActionDto;
 import be.yildiz.shared.protocol.BaseNetworkMessage;
-import be.yildiz.shared.protocol.mapper.ActionIdMapper;
-import be.yildiz.shared.protocol.mapper.ActionMapper;
-import be.yildiz.shared.protocol.mapper.EntityIdMapper;
-import be.yildiz.shared.protocol.mapper.Point3DMapper;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class ActionRequest extends BaseNetworkMessage implements ServerRequest {
-
-    static {
-        NetworkMessage.registerMapper(ActionDto.class, new ActionMapper(
-                new ActionIdMapper(),
-                new EntityIdMapper(),
-                new Point3DMapper()));
-    }
 
     public final ActionDto dto;
 

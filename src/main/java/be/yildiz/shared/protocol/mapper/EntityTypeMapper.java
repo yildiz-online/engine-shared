@@ -21,31 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.data.EntityType;
 
 /**
- * @author Grégory Van Den Borre
+ * @author Grégory Van den Borre
  */
-public final class MapInfoResponse extends NetworkMessage implements ServerResponse {
+public class EntityTypeMapper implements ObjectMapper<EntityType> {
 
-    public MapInfoResponse() {
-        super(NetworkMessage.convertParams());
+    private static final EntityTypeMapper INSTANCE = new EntityTypeMapper();
+
+    private EntityTypeMapper() {
+        super();
+        NetworkMessage.registerMapper(EntityType.class, this);
     }
 
-    public MapInfoResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
+    public static EntityTypeMapper getInstance() {
+        return INSTANCE;
     }
 
-    /**
-     * @return {@link ServerCommand#MAP_INFO}
-     */
     @Override
-    public int command() {
-        return ServerCommand.MAP_INFO.value;
+    public EntityType from(String s) throws InvalidNetworkMessage {
+        try {
+            return EntityType.valueOf(Integer.parseInt(s));
+        } catch (final NumberFormatException nfe) {
+            throw new InvalidNetworkMessage(nfe);
+        }
+    }
+
+    @Override
+    public String to(EntityType type) {
+        return String.valueOf(type.type);
     }
 }

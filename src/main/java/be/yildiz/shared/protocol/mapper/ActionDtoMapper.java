@@ -23,37 +23,33 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.ActionDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ActionMapper implements ObjectMapper <ActionDto>{
+class ActionDtoMapper implements ObjectMapper <ActionDto> {
 
-    private final ObjectMapper<ActionId> actionIdMapper;
+    private static final ActionDtoMapper INSTANCE = new ActionDtoMapper();
 
-    private final ObjectMapper<EntityId> entityIdMapper;
-
-    private final ObjectMapper<Point3D> point3DMapper;
-
-    public ActionMapper(ObjectMapper<ActionId> actionIdMapper, ObjectMapper<EntityId> entityIdMapper, ObjectMapper<Point3D> point3DMapper) {
+    private ActionDtoMapper() {
         super();
-        this.actionIdMapper = actionIdMapper;
-        this.entityIdMapper = entityIdMapper;
-        this.point3DMapper = point3DMapper;
+        NetworkMessage.registerMapper(ActionDto.class, this);
+    }
+
+    public static ActionDtoMapper getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public ActionDto from(String s) throws InvalidNetworkMessage {
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
-            return new ActionDto(actionIdMapper.from(v[0]), entityIdMapper.from(v[1]), point3DMapper.from(v[2]), entityIdMapper.from(v[3]));
+            return new ActionDto(ActionIdMapper.getInstance().from(v[0]), EntityIdMapper.getInstance().from(v[1]), Point3DMapper.getInstance().from(v[2]), EntityIdMapper.getInstance().from(v[3]));
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e);
         }
@@ -61,12 +57,12 @@ public class ActionMapper implements ObjectMapper <ActionDto>{
 
     @Override
     public String to(ActionDto action) {
-        return this.actionIdMapper.to(action.id)
+        return ActionIdMapper.getInstance().to(action.id)
                 + MessageSeparation.OBJECTS_SEPARATOR
-                + this.entityIdMapper.to(action.entity)
+                + EntityIdMapper.getInstance().to(action.entity)
                 + MessageSeparation.OBJECTS_SEPARATOR
-                + this.point3DMapper.to(action.destination)
+                + Point3DMapper.getInstance().to(action.destination)
                 + MessageSeparation.OBJECTS_SEPARATOR
-                + this.entityIdMapper.to(action.target);
+                + EntityIdMapper.getInstance().to(action.target);
     }
 }

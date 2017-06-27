@@ -21,57 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
-import be.yildiz.shared.protocol.EntityDto;
+import be.yildiz.common.id.EntityId;
+import be.yildiz.shared.building.staff.Staff;
+import be.yildiz.shared.data.BuildingPosition;
+import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.data.Level;
 
 /**
- * Message sent from the server to the client when an Entity is created.
- *
  * @author Grégory Van den Borre
  */
-public final class EntityInfoResponse extends NetworkMessage implements ServerResponse {
+public class BuildingConstructionDto {
 
     /**
-     * Entity associated.
+     * Id of the base containing the building.
      */
-    private final EntityDto entity;
-
+    public final EntityId cityId;
 
     /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage In case of error while parsing the message.
+     * Type of the building.
      */
-    public EntityInfoResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.entity = this.from(EntityDto.class);
-    }
+    public final EntityType type;
 
     /**
-     * Full constructor, builder is assumed to be World.
-     *
-     * @param e Entity to send on the network.
+     * Level of the building.
      */
-    public EntityInfoResponse(final EntityDto e) {
-        super(NetworkMessage.to(e, EntityDto.class));
-        this.entity = e;
-    }
+    public final Level level;
 
     /**
-     * @return The ordinal value of ServerCommand BUILD.
+     * Position of the building in the base.
      */
-    @Override
-    public int command() {
-        return ServerCommand.BUILD.value;
-    }
+    public final BuildingPosition position;
 
-    public EntityDto getEntity() {
-        return entity;
+    /**
+     * Staff allocated to the building.
+     */
+    public final Staff staff;
+
+    public BuildingConstructionDto(EntityId cityId, EntityType type, Level level, BuildingPosition position, Staff staff) {
+        super();
+        this.cityId = cityId;
+        this.type = type;
+        this.level = level;
+        this.position = position;
+        this.staff = staff;
     }
 }

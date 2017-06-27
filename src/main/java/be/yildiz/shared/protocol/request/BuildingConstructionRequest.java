@@ -23,14 +23,12 @@
 
 package be.yildiz.shared.protocol.request;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import be.yildiz.shared.data.BuildingPosition;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.data.Level;
+import be.yildiz.shared.protocol.BuildingConstructionDto;
+import be.yildiz.shared.protocol.mapper.BuildingConstructionDtoMapper;
 
 /**
  * A request from the client to the server to build or upgrade a building.
@@ -40,29 +38,9 @@ import be.yildiz.shared.data.Level;
 public final class BuildingConstructionRequest extends NetworkMessage implements ServerRequest {
 
     /**
-     * Id of the base containing the building.
+     * Data for the building.
      */
-    private final EntityId cityId;
-
-    /**
-     * Type of the building.
-     */
-    private final EntityType type;
-
-    /**
-     * Level of the building.
-     */
-    private final Level level;
-
-    /**
-     * Position of the building in the base.
-     */
-    private final BuildingPosition position;
-
-    /**
-     * Staff allocated to the building.
-     */
-    private final int staff;
+    private final BuildingConstructionDto dto;
 
     /**
      * Full Constructor. Create the object from a message received.
@@ -72,29 +50,17 @@ public final class BuildingConstructionRequest extends NetworkMessage implements
      */
     public BuildingConstructionRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.cityId = this.getEntityId();
-        this.position = new BuildingPosition(this.getInt());
-        this.type = EntityType.get(this.getInt());
-        this.level = new Level(this.getInt());
-        this.staff = this.getInt();
+        this.dto = this.from(BuildingConstructionDto.class);
     }
 
     /**
      * Full constructor.
      *
-     * @param baseId         Id of the base containing the building.
-     * @param positionInCity Position of the building in the base.
-     * @param buildingType   Type of the building.
-     * @param buildingLevel  Level of the building.
-     * @param staff          Number of allocated staff.
+     * @param dto Data for the building.
      */
-    public BuildingConstructionRequest(final EntityId baseId, final BuildingPosition positionInCity, final EntityType buildingType, final Level buildingLevel, final int staff) {
-        super(NetworkMessage.convertParams(baseId, Integer.valueOf(positionInCity.value), Integer.valueOf(buildingType.type), Integer.valueOf(buildingLevel.value), Integer.valueOf(staff)));
-        this.cityId = baseId;
-        this.position = positionInCity;
-        this.type = buildingType;
-        this.level = buildingLevel;
-        this.staff = staff;
+    public BuildingConstructionRequest(final BuildingConstructionDto dto) {
+        super(NetworkMessage.to(dto, BuildingConstructionDto.class));
+        this.dto = dto;
     }
 
     /**
@@ -103,25 +69,5 @@ public final class BuildingConstructionRequest extends NetworkMessage implements
     @Override
     public int command() {
         return ClientCommand.CREATE_BUILDING.ordinal();
-    }
-
-    public EntityId getCityId() {
-        return cityId;
-    }
-
-    public EntityType getType() {
-        return type;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public BuildingPosition getPosition() {
-        return position;
-    }
-
-    public int getStaff() {
-        return staff;
     }
 }

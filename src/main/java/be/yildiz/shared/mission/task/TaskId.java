@@ -28,17 +28,16 @@ package be.yildiz.shared.mission.task;
  */
 public class TaskId {
 
-    private final long value;
+    public final long value;
 
-    public TaskId(long value) {
+    private TaskId(long value) {
         super();
         this.value = value;
     }
 
-    public long getValue() {
-        return value;
+    public static TaskId valueOf(long value) {
+        return new TaskId(value);
     }
-
 
     @Override
     public final int hashCode() {

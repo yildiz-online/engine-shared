@@ -49,7 +49,7 @@ public final class DestroyEntityResponse extends NetworkMessage implements Serve
      */
     public DestroyEntityResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.entity = this.getEntityId();
+        this.entity = this.from(EntityId.class);
     }
 
     /**
@@ -58,7 +58,7 @@ public final class DestroyEntityResponse extends NetworkMessage implements Serve
      * @param entity Entity destroyed uniqueId.
      */
     public DestroyEntityResponse(final EntityId entity) {
-        super(NetworkMessage.convertParams(entity));
+        super(NetworkMessage.to(entity, EntityId.class));
         this.entity = entity;
     }
 

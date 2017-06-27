@@ -34,9 +34,13 @@ public class MissionId {
      */
     public final int value;
 
-    public MissionId(final int value) {
+    private MissionId(final int value) {
         super();
         this.value = value;
+    }
+
+    public static MissionId valueOf(int value) {
+        return new MissionId(value);
     }
 
     @Override

@@ -21,37 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.mapper;
+package be.yildiz.shared.building.staff;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.shared.mission.task.TaskStatus;
+import be.yildiz.common.ValueObject;
+import be.yildiz.common.util.Checker;
 
 /**
  * @author Grégory Van den Borre
  */
-public class TaskStatusMapper implements ObjectMapper<TaskStatus>{
+public class Staff extends ValueObject {
 
-    @Override
-    public TaskStatus from(String s) throws InvalidNetworkMessage {
-        String[] values = s.split(MessageSeparation.VAR_SEPARATOR);
-        try {
-        return new TaskStatus(
-                TaskIdMapper.getInstance().from(values[0]),
-                MissionIdMapper.getInstance().from(values[1]),
-                values[2]);
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e.getMessage());
-        }
+    private Staff(int level) {
+        super(level);
+        Checker.exceptionNotPositive(level);
     }
 
-    @Override
-    public String to(TaskStatus taskStatus) {
-        return TaskIdMapper.getInstance().to(taskStatus.id)
-                + MessageSeparation.VAR_SEPARATOR
-                + MissionIdMapper.getInstance().to(taskStatus.missionId)
-                + MessageSeparation.VAR_SEPARATOR
-                + taskStatus.status;
+    public static Staff valueOf(int value) {
+        return new Staff(value);
     }
 }

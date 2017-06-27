@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.data;
 
+import be.yildiz.common.ValueObject;
 import be.yildiz.common.util.Checker;
 
 /**
@@ -31,45 +32,19 @@ import be.yildiz.common.util.Checker;
  *
  * @author Grégory Van den Borre
  */
-public final class BuildingPosition {
-
-    /**
-     * Building position value.
-     */
-    public final int value;
+public final class BuildingPosition extends ValueObject {
 
     /**
      * Full constructor.
      *
      * @param value Building position value.
      */
-    public BuildingPosition(final int value) {
-        super();
+    private BuildingPosition(final int value) {
+        super(value);
         Checker.exceptionNotPositive(value);
-        this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "Building position:" + value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        BuildingPosition that = (BuildingPosition) o;
-
-        return value == that.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return value;
+    public static BuildingPosition valueOf(int value) {
+        return new BuildingPosition(value);
     }
 }

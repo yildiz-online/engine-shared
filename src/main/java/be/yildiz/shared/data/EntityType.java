@@ -74,11 +74,10 @@ public final class EntityType {
     public EntityType(final int value, final String name) {
         super();
         assert !EntityType.MAP.containsKey(value) : "Type already exists";
-        assert !EntityType.MAP.containsValue(name) : "Name already exists";
 
         this.name = name;
         this.type = value;
-        EntityType.MAP.putIfAbsent(Integer.valueOf(value), this);
+        EntityType.MAP.putIfAbsent(value, this);
         assert this.invariant();
     }
 
@@ -89,9 +88,9 @@ public final class EntityType {
      * @return The Type matching the index value.
      * @throws NullPointerException if there is no value matching the index.
      */
-    public static EntityType get(final int index) {
-        assert EntityType.MAP.containsKey(Integer.valueOf(index)) : "Entity type " + index + " not registered";
-        return EntityType.MAP.get(Integer.valueOf(index));
+    public static EntityType valueOf(final int index) {
+        assert EntityType.MAP.containsKey(index) : "Entity type " + index + " not registered";
+        return EntityType.MAP.get(index);
     }
 
     @Override
@@ -101,7 +100,6 @@ public final class EntityType {
 
     private boolean invariant() {
         assert this.type >= 0 : "Type must be positive";
-        assert (Integer) this.type != null : "Type must not be null";
         assert this.name != null : "Name must not be null";
         assert EntityType.MAP.get(this.type) == this : "This object is not registered";
         return true;
@@ -118,10 +116,7 @@ public final class EntityType {
 
         EntityType that = (EntityType) o;
 
-        if (type != that.type) {
-            return false;
-        }
-        return name.equals(that.name);
+        return type == that.type && name.equals(that.name);
     }
 
     @Override
