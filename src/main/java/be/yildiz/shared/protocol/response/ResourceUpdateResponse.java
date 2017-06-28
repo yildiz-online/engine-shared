@@ -23,13 +23,11 @@
 
 package be.yildiz.shared.protocol.response;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import be.yildiz.shared.resources.GameResources;
-import be.yildiz.shared.resources.ResourceValue;
+import be.yildiz.shared.protocol.mapper.ResourceValueDtoMapper;
 
 /**
  * Message to update the resource values client side.
@@ -38,20 +36,15 @@ import be.yildiz.shared.resources.ResourceValue;
  */
 public final class ResourceUpdateResponse extends NetworkMessage implements ServerResponse {
 
-    /**
-     * Id of the city receiving the resources.
-     */
-    private final EntityId cityId;
+    static  {
+        ResourceValueDtoMapper.getInstance();
+    }
 
     /**
-     * Resources values.
+     * Data for receiving the resources.
      */
-    private final ResourceValue resources;
+    private final ResourceValueDto dto;
 
-    /**
-     * Time when the value has been set.
-     */
-    private final long time;
 
     /**
      * Full constructor.
@@ -61,32 +54,17 @@ public final class ResourceUpdateResponse extends NetworkMessage implements Serv
      */
     public ResourceUpdateResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.cityId = this.getEntityId();
-        float metal = this.getFloat();
-        float energy = this.getFloat();
-        float credits = this.getFloat();
-        float research = this.getFloat();
-        float inhabitants = this.getFloat();
-        this.time = this.getLong();
-        this.resources = GameResources.fullValue(metal, energy, credits, research, inhabitants);
+        this.dto = this.from(ResourceValueDto.class);
     }
 
     /**
      * Full constructor.
      *
-     * @param city        Id of the city.
-     * @param metal       Metal value.
-     * @param energy      Energy value.
-     * @param credits     Credits value.
-     * @param research    Research value.
-     * @param inhabitants Inhabitants value.
-     * @param time        Time of the computation.
+     * @param dto        Data.
      */
-    public ResourceUpdateResponse(final EntityId city, final float metal, final float energy, final float credits, final float research, final float inhabitants, final long time) {
-        super(NetworkMessage.convertParams(city.value, metal, energy, credits, research, inhabitants, time));
-        this.cityId = city;
-        this.time = time;
-        this.resources = GameResources.fullValue(metal, energy, credits, research, inhabitants);
+    public ResourceUpdateResponse(final ResourceValueDto dto) {
+        super(NetworkMessage.to(dto, ResourceValueDto.class));
+        this.dto = dto;
     }
 
     @Override
@@ -94,15 +72,8 @@ public final class ResourceUpdateResponse extends NetworkMessage implements Serv
         return ServerCommand.RESOURCE.value;
     }
 
-    public EntityId getCityId() {
-        return cityId;
+    public ResourceValueDto getDto() {
+        return dto;
     }
 
-    public ResourceValue getResources() {
-        return resources;
-    }
-
-    public long getTime() {
-        return time;
-    }
 }

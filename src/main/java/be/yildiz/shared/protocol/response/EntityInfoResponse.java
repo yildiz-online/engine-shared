@@ -28,6 +28,8 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.protocol.EntityDto;
+import be.yildiz.shared.protocol.mapper.EntityConstructionDtoMapper;
+import be.yildiz.shared.protocol.mapper.EntityDtoMapper;
 
 /**
  * Message sent from the server to the client when an Entity is created.
@@ -35,6 +37,10 @@ import be.yildiz.shared.protocol.EntityDto;
  * @author Grégory Van den Borre
  */
 public final class EntityInfoResponse extends NetworkMessage implements ServerResponse {
+
+    static {
+        EntityDtoMapper.getInstance();
+    }
 
     /**
      * Entity associated.

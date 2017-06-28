@@ -23,14 +23,14 @@
 
 package be.yildiz.shared.protocol.response;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
+import be.yildiz.shared.protocol.ResourceTransferDto;
+import be.yildiz.shared.protocol.mapper.ResourceTransferDtoMapper;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Response from the server when resources have been transferred, contains the id of the player who lost resources, the id of the player gaining resources and the amount.
@@ -39,22 +39,11 @@ import java.util.List;
  */
 public final class ResourceTransferResponse extends NetworkMessage implements ServerResponse {
 
-    /**
-     * Player receiving resources.
-     */
-    private final PlayerId receiver;
-    /**
-     * Player giving resources.
-     */
-    private final PlayerId giver;
-    /**
-     * Resources values.
-     */
-    private final List<Float> resources;
-    /**
-     * Cause of this transfer.
-     */
-    private final TransferCause cause;
+    static {
+        ResourceTransferDtoMapper.getInstance();
+    }
+
+    private final ResourceTransferDto dto;
 
     /**
      * Full constructor.
@@ -64,26 +53,17 @@ public final class ResourceTransferResponse extends NetworkMessage implements Se
      */
     public ResourceTransferResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.receiver = this.getPlayerId();
-        this.giver = this.getPlayerId();
-        this.resources = this.getFloatList();
-        this.cause = TransferCause.values()[this.getInt()];
+        this.dto = this.from(ResourceTransferDto.class);
     }
 
     /**
      * Full constructor.
      *
-     * @param receiver  Id of the player receiving resources.
-     * @param giver     Id of the player giving the resources.
-     * @param resources Amount of transferred resources.
-     * @param cause     Cause of the transfer.
+     * @param dto  Transfer data.
      */
-    public ResourceTransferResponse(final PlayerId receiver, final PlayerId giver, final List<Float> resources, final TransferCause cause) {
-        super(NetworkMessage.convertParams(receiver, giver, Arrays.asList(resources), cause.ordinal()));
-        this.receiver = receiver;
-        this.giver = giver;
-        this.resources = resources;
-        this.cause = cause;
+    public ResourceTransferResponse(final ResourceTransferDto dto) {
+        super(NetworkMessage.to(dto, ResourceTransferDto.class));
+        this.dto = dto;
     }
 
     /**
@@ -94,20 +74,8 @@ public final class ResourceTransferResponse extends NetworkMessage implements Se
         return ServerCommand.RESOURCE_TRANSFER.value;
     }
 
-    public PlayerId getReceiver() {
-        return receiver;
-    }
-
-    public PlayerId getGiver() {
-        return giver;
-    }
-
-    public List<Float> getResources() {
-        return resources;
-    }
-
-    public TransferCause getCause() {
-        return cause;
+    public ResourceTransferDto getDto() {
+        return dto;
     }
 
     /**
@@ -120,17 +88,29 @@ public final class ResourceTransferResponse extends NetworkMessage implements Se
         /**
          * Resources have been stolen from another player.
          */
-        THEFT,
+        THEFT(0),
 
         /**
          * Resources have been received from another player.
          */
-        GIFT,
+        GIFT(1),
 
         /**
          * Resources have been exchanged with another player.
          */
-        COMMERCIAL
+        COMMERCIAL(2);
 
+        public final int value;
+
+        TransferCause(int value) {
+            this.value = value;
+        }
+
+        public static TransferCause valueOf(int value) {
+            return Arrays.stream(TransferCause.values())
+                    .filter(t -> t.value == value)
+                    .findFirst()
+                    .orElseThrow(AssertionError::new);
+        }
     }
 }

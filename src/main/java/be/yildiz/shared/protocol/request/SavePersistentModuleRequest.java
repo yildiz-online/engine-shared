@@ -23,19 +23,21 @@
 
 package be.yildiz.shared.protocol.request;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
-import be.yildiz.shared.entity.module.ModuleGroup;
+import be.yildiz.shared.protocol.mapper.ModuleConfigurationMapper;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class SavePersistentModuleRequest extends NetworkMessage implements ServerRequest {
+
+    static {
+        ModuleConfigurationMapper.getInstance();
+    }
 
     private final ModuleConfiguration moduleConfiguration;
 
@@ -44,7 +46,7 @@ public final class SavePersistentModuleRequest extends NetworkMessage implements
      * @param config Configuration to persist.
      */
     public SavePersistentModuleRequest(final ModuleConfiguration config) {
-        super(NetworkMessage.convertParams(config.getPlayer(), Integer.valueOf(config.getType().type), config.getName(), config.getModules()));
+        super(NetworkMessage.to(config, ModuleConfiguration.class));
         this.moduleConfiguration = config;
     }
 
@@ -56,11 +58,7 @@ public final class SavePersistentModuleRequest extends NetworkMessage implements
      */
     public SavePersistentModuleRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        PlayerId player = this.getPlayerId();
-        EntityType type = EntityType.get(this.getInt());
-        String name = this.getString();
-        ModuleGroup modules = new ModuleGroup.ModuleGroupBuilder().fromList(this.getActionIdList()).build();
-        this.moduleConfiguration = new ModuleConfiguration(name, player, type, modules);
+        this.moduleConfiguration = this.from(ModuleConfiguration.class);
     }
 
     @Override

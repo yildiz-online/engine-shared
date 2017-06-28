@@ -21,7 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
+package be.yildiz.shared.protocol.mapper;
+
+import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.shared.player.PlayerStatus;
+
 /**
  * @author Grégory Van den Borre
  */
-package be.yildiz.test;
+public class PlayerStatusMapper extends BaseMapper <PlayerStatus>{
+
+    private static final PlayerStatusMapper INSTANCE = new PlayerStatusMapper();
+
+    private PlayerStatusMapper() {
+        super(PlayerStatus.class);
+    }
+
+    public static PlayerStatusMapper getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public PlayerStatus from(String s) throws InvalidNetworkMessage {
+        return PlayerStatus.valueOf(IntegerMapper.getInstance().from(s));
+    }
+
+    @Override
+    public String to(PlayerStatus playerStatus) {
+        return String.valueOf(playerStatus.value);
+    }
+}

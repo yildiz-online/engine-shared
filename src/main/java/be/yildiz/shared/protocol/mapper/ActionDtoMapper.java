@@ -31,7 +31,7 @@ import be.yildiz.shared.protocol.ActionDto;
 /**
  * @author Grégory Van den Borre
  */
-class ActionDtoMapper extends BaseMapper<ActionDto> {
+public class ActionDtoMapper extends BaseMapper<ActionDto> {
 
     private static final ActionDtoMapper INSTANCE = new ActionDtoMapper();
 

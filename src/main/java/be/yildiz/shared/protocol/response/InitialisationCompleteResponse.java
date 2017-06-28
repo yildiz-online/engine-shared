@@ -38,7 +38,7 @@ public final class InitialisationCompleteResponse extends NetworkMessage impleme
      * Simple constructor.
      */
     public InitialisationCompleteResponse() {
-        super(NetworkMessage.convertParams());
+        super();
     }
 
     /**

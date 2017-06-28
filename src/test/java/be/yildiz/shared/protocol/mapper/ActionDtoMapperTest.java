@@ -23,41 +23,18 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.BaseMapper;
-import be.yildiz.shared.protocol.BuildingConstructionDto;
+import be.yildiz.common.id.ActionId;
+import be.yildiz.common.id.EntityId;
+import be.yildiz.common.vector.Point3D;
+import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
+import be.yildiz.shared.protocol.ActionDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BuildingConstructionDtoMapper extends BaseMapper<BuildingConstructionDto> {
+public class ActionDtoMapperTest extends BaseMapperTest<ActionDto>{
 
-    private static final BuildingConstructionDtoMapper INSTANCE = new BuildingConstructionDtoMapper();
-
-    private BuildingConstructionDtoMapper() {
-        super(BuildingConstructionDto.class);
-    }
-
-    public static BuildingConstructionDtoMapper getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
-        return null;
-    }
-
-    @Override
-    public String to(BuildingConstructionDto dto) {
-        return EntityIdMapper.getInstance().to(dto.cityId)
-                + MessageSeparation.VAR_SEPARATOR
-                + EntityTypeMapper.getInstance().to(dto.type)
-                + MessageSeparation.VAR_SEPARATOR
-                + LevelMapper.getInstance().to(dto.level)
-                + MessageSeparation.VAR_SEPARATOR
-                + BuildingPositionMapper.getInstance().to(dto.position)
-                + MessageSeparation.VAR_SEPARATOR
-                + StaffMapper.getInstance().to(dto.staff);
+    protected ActionDtoMapperTest() {
+        super(ActionDtoMapper.getInstance(), new ActionDto(ActionId.valueOf(2), EntityId.valueOf(7), Point3D.valueOf(5), EntityId.valueOf(9)));
     }
 }

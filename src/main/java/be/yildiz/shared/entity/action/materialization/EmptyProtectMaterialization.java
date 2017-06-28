@@ -59,7 +59,7 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
 
             @Override
             public Point3D getScaleSize() {
-                return new Point3D(1);
+                return Point3D.valueOf(1);
             }
 
             @Override

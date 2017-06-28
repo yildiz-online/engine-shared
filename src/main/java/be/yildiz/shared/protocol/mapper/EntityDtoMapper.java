@@ -33,7 +33,7 @@ import be.yildiz.shared.protocol.EntityDto;
 /**
  * @author Grégory Van den Borre
  */
-class EntityDtoMapper extends BaseMapper<EntityDto> {
+public class EntityDtoMapper extends BaseMapper<EntityDto> {
 
     private static final EntityDtoMapper INSTANCE = new EntityDtoMapper();
 

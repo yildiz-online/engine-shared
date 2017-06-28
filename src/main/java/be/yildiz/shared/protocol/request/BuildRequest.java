@@ -23,13 +23,12 @@
 
 package be.yildiz.shared.protocol.request;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerRequest;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.ModuleGroup;
+import be.yildiz.shared.protocol.EntityConstructionDto;
+import be.yildiz.shared.protocol.mapper.EntityConstructionDtoMapper;
 
 /**
  * A request from the client to the server for an entity building another entity.
@@ -39,40 +38,24 @@ import be.yildiz.shared.entity.module.ModuleGroup;
 
 public final class BuildRequest extends NetworkMessage implements ServerRequest {
 
-    /**
-     * Builder entity id.
-     */
-    private final EntityId builderId;
+    static {
+        EntityConstructionDtoMapper.getInstance();
+    }
 
     /**
-     * Type of the entity to build.
+     * Entity construction data.
      */
-    private final EntityType type;
+    private final EntityConstructionDto dto;
 
-    /**
-     * Ids of the modules associated to the entity to build.
-     */
-    private final ModuleGroup moduleIds;
-
-    /**
-     * A request index to match with the message response.
-     */
-    private final int requestIndex;
 
     /**
      * Full Constructor. Create the object and prepare it to be sent.
      *
-     * @param id           Builder entity id.
-     * @param entityType   Type of the entity to build.
-     * @param moduleIds      List of modules to add.
-     * @param requestIndex Index of the request.
+     * @param dto Construction dto.
      */
-    public BuildRequest(final EntityId id, final EntityType entityType, final ModuleGroup moduleIds, final int requestIndex) {
-        super(NetworkMessage.convertParams(id, Integer.valueOf(entityType.type), moduleIds.getAll(), requestIndex));
-        this.type = entityType;
-        this.builderId = id;
-        this.moduleIds = moduleIds;
-        this.requestIndex = requestIndex;
+    public BuildRequest(final EntityConstructionDto dto) {
+        super(NetworkMessage.to(dto, EntityConstructionDto.class));
+        this.dto = dto;
     }
 
     /**
@@ -83,10 +66,7 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
      */
     public BuildRequest(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.builderId = this.getEntityId();
-        this.type = EntityType.get(this.getInt());
-        this.moduleIds = new ModuleGroup.ModuleGroupBuilder().fromList(this.getActionIdList()).build();
-        this.requestIndex = this.getInt();
+        this.dto = this.from(EntityConstructionDto.class);
     }
 
     /**
@@ -97,19 +77,7 @@ public final class BuildRequest extends NetworkMessage implements ServerRequest 
         return ClientCommand.BUILD_ENTITY.ordinal();
     }
 
-    public EntityId getBuilderId() {
-        return builderId;
-    }
-
-    public EntityType getType() {
-        return type;
-    }
-
-    public ModuleGroup getModuleIds() {
-        return moduleIds;
-    }
-
-    public int getRequestIndex() {
-        return requestIndex;
+    public EntityConstructionDto getDto() {
+        return dto;
     }
 }

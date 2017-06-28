@@ -23,8 +23,6 @@
 
 package be.yildiz.shared.protocol.response;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
@@ -38,19 +36,9 @@ import be.yildiz.module.network.protocol.ServerResponse;
 public final class UpdatePositionResponse extends NetworkMessage implements ServerResponse {
 
     /**
-     * Id of the unit with the position updated.
+     * Data of the position updated.
      */
-    private final EntityId entity;
-
-    /**
-     * Unit position.
-     */
-    private final Point3D position;
-
-    /**
-     * Unit direction.
-     */
-    private final Point3D orientation;
+    private final EntityPositionDto dto;
 
     /**
      * Full constructor.
@@ -60,23 +48,17 @@ public final class UpdatePositionResponse extends NetworkMessage implements Serv
      */
     public UpdatePositionResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.entity = this.getEntityId();
-        this.position = this.getPoint3D();
-        this.orientation = this.getPoint3D();
+        this.dto = this.from(EntityPositionDto.class);
     }
 
     /**
      * Full constructor.
      *
-     * @param unitId           Id of the unit with the position updated.
-     * @param updatedPosition  Updated unit position.
-     * @param updatedDirection Updated unit direction.
+     * @param dto Data of the position updated.
      */
-    public UpdatePositionResponse(final EntityId unitId, final Point3D updatedPosition, final Point3D updatedDirection) {
-        super(NetworkMessage.convertParams(unitId, updatedPosition, updatedDirection));
-        this.entity = unitId;
-        this.position = updatedPosition;
-        this.orientation = updatedDirection;
+    public UpdatePositionResponse(final EntityPositionDto dto) {
+        super(NetworkMessage.to(dto, EntityPositionDto.class));
+        this.dto = dto;
     }
 
     /**
@@ -87,15 +69,7 @@ public final class UpdatePositionResponse extends NetworkMessage implements Serv
         return ServerCommand.POSITION.value;
     }
 
-    public EntityId getEntity() {
-        return entity;
-    }
-
-    public Point3D getPosition() {
-        return position;
-    }
-
-    public Point3D getOrientation() {
-        return orientation;
+    public EntityPositionDto getDto() {
+        return dto;
     }
 }

@@ -21,56 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
+import be.yildiz.module.network.protocol.mapper.LongMapper;
+import be.yildiz.shared.protocol.response.ResourceValueDto;
 
 /**
- * Message sent from the server to the client when an Entity moves.
- *
  * @author Grégory Van den Borre
  */
-public final class StopAttackResponse extends NetworkMessage implements ServerResponse {
+public class ResourceValueDtoMapper extends BaseMapper<ResourceValueDto> {
 
-    /**
-     * Attacking Entity Id.
-     */
-    private final EntityId attacker;
+    private static final ResourceValueDtoMapper INSTANCE = new ResourceValueDtoMapper();
 
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
-     */
-    public StopAttackResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.attacker = this.from(EntityId.class);
+    private ResourceValueDtoMapper() {
+        super(ResourceValueDto.class);
     }
 
-    /**
-     * Full constructor.
-     *
-     * @param attackerId Id of the Entity to stop attacking.
-     */
-    public StopAttackResponse(final EntityId attackerId) {
-        super(NetworkMessage.to(attackerId, EntityId.class));
-        this.attacker = attackerId;
+    public static ResourceValueDtoMapper getInstance() {
+        return INSTANCE;
     }
 
-    /**
-     * @return The ordinal value of ServerCommand STOP_ATTACK.
-     */
     @Override
-    public int command() {
-        return ServerCommand.STOP_ATTACK.value;
+    public ResourceValueDto from(String s) throws InvalidNetworkMessage {
+        try {
+            String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+            return new ResourceValueDto(EntityIdMapper.getInstance().from(v[0]), ResourceValueMapper.getInstance().from(v[1]), LongMapper.getInstance().from(v[2]));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
-    public EntityId getAttacker() {
-        return attacker;
+    @Override
+    public String to(ResourceValueDto dto) {
+        return EntityIdMapper.getInstance().to(dto.cityId)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + ResourceValueMapper.getInstance().to(dto.resources)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + LongMapper.getInstance().to(dto.time);
     }
 }

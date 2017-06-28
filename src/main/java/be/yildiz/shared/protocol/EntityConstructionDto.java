@@ -21,56 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
+import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.entity.module.ModuleGroup;
 
 /**
- * Message sent from the server to the client when an Entity moves.
- *
  * @author Grégory Van den Borre
  */
-public final class StopAttackResponse extends NetworkMessage implements ServerResponse {
+public class EntityConstructionDto {
 
     /**
-     * Attacking Entity Id.
+     * Builder entity id.
      */
-    private final EntityId attacker;
+    public final EntityId builderId;
 
     /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
+     * Type of the entity to build.
      */
-    public StopAttackResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.attacker = this.from(EntityId.class);
-    }
+    public final EntityType type;
 
     /**
-     * Full constructor.
-     *
-     * @param attackerId Id of the Entity to stop attacking.
+     * Ids of the modules associated to the entity to build.
      */
-    public StopAttackResponse(final EntityId attackerId) {
-        super(NetworkMessage.to(attackerId, EntityId.class));
-        this.attacker = attackerId;
-    }
+    public final ModuleGroup moduleIds;
 
     /**
-     * @return The ordinal value of ServerCommand STOP_ATTACK.
+     * A request index to match with the message response.
      */
-    @Override
-    public int command() {
-        return ServerCommand.STOP_ATTACK.value;
-    }
+    public final int requestIndex;
 
-    public EntityId getAttacker() {
-        return attacker;
+    public EntityConstructionDto(EntityId builderId, EntityType type, ModuleGroup moduleIds, int requestIndex) {
+        this.builderId = builderId;
+        this.type = type;
+        this.moduleIds = moduleIds;
+        this.requestIndex = requestIndex;
     }
 }

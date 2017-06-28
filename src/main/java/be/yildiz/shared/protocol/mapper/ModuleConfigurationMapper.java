@@ -26,38 +26,49 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.BaseMapper;
-import be.yildiz.shared.protocol.BuildingConstructionDto;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
+import be.yildiz.shared.entity.module.ModuleConfiguration;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BuildingConstructionDtoMapper extends BaseMapper<BuildingConstructionDto> {
+public class ModuleConfigurationMapper extends BaseMapper<ModuleConfiguration>{
 
-    private static final BuildingConstructionDtoMapper INSTANCE = new BuildingConstructionDtoMapper();
+    private static final ModuleConfigurationMapper INSTANCE = new ModuleConfigurationMapper();
 
-    private BuildingConstructionDtoMapper() {
-        super(BuildingConstructionDto.class);
+    private ModuleConfigurationMapper() {
+        super(ModuleConfiguration.class);
     }
 
-    public static BuildingConstructionDtoMapper getInstance() {
+    public static ModuleConfigurationMapper getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
-        return null;
+    public ModuleConfiguration from(String s) throws InvalidNetworkMessage {
+        assert s != null;
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        try {
+            return new ModuleConfiguration(
+                    v[0],
+                    PlayerIdMapper.getInstance().from(v[1]),
+                    EntityTypeMapper.getInstance().from(v[2]),
+                    ModuleGroupMapper.getInstance().from(v[3])
+            );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override
-    public String to(BuildingConstructionDto dto) {
-        return EntityIdMapper.getInstance().to(dto.cityId)
-                + MessageSeparation.VAR_SEPARATOR
-                + EntityTypeMapper.getInstance().to(dto.type)
-                + MessageSeparation.VAR_SEPARATOR
-                + LevelMapper.getInstance().to(dto.level)
-                + MessageSeparation.VAR_SEPARATOR
-                + BuildingPositionMapper.getInstance().to(dto.position)
-                + MessageSeparation.VAR_SEPARATOR
-                + StaffMapper.getInstance().to(dto.staff);
+    public String to(ModuleConfiguration m) {
+        assert m != null;
+        return m.getName()
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + PlayerIdMapper.getInstance().to(m.getPlayer())
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + EntityTypeMapper.getInstance().to(m.getType())
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + ModuleGroupMapper.getInstance().to(m.getModules());
     }
 }

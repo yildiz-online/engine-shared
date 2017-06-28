@@ -32,7 +32,7 @@ import be.yildiz.shared.mission.task.TaskStatusList;
 /**
  * @author Grégory Van den Borre
  */
-final class TaskStatusListMapper extends BaseMapper<TaskStatusList> {
+public final class TaskStatusListMapper extends BaseMapper<TaskStatusList> {
 
     private static final TaskStatusListMapper INSTANCE = new TaskStatusListMapper();
 

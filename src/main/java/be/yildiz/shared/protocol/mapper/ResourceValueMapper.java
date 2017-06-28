@@ -21,56 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.BaseMapper;
+import be.yildiz.shared.resources.ResourceValue;
 
 /**
- * Message sent from the server to the client when an Entity moves.
- *
  * @author Grégory Van den Borre
  */
-public final class StopAttackResponse extends NetworkMessage implements ServerResponse {
+public class ResourceValueMapper extends BaseMapper<ResourceValue> {
 
-    /**
-     * Attacking Entity Id.
-     */
-    private final EntityId attacker;
+    private static final ResourceValueMapper INSTANCE = new ResourceValueMapper();
 
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
-     */
-    public StopAttackResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.attacker = this.from(EntityId.class);
+    private ResourceValueMapper() {
+        super(ResourceValue.class);
     }
 
-    /**
-     * Full constructor.
-     *
-     * @param attackerId Id of the Entity to stop attacking.
-     */
-    public StopAttackResponse(final EntityId attackerId) {
-        super(NetworkMessage.to(attackerId, EntityId.class));
-        this.attacker = attackerId;
+    public static ResourceValueMapper getInstance() {
+        return INSTANCE;
     }
 
-    /**
-     * @return The ordinal value of ServerCommand STOP_ATTACK.
-     */
     @Override
-    public int command() {
-        return ServerCommand.STOP_ATTACK.value;
+    public ResourceValue from(String s) throws InvalidNetworkMessage {
+        try {
+            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            float[] f = new float[v.length];
+            for (int i = 0; i < v.length; i++) {
+                f[i] = Float.valueOf(v[i]);
+            }
+            return new ResourceValue(f);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
-    public EntityId getAttacker() {
-        return attacker;
+    @Override
+    public String to(ResourceValue value) {
+        StringBuilder sb = new StringBuilder();
+        for(float f : value.getArray()) {
+            sb.append(f);
+            sb.append(MessageSeparation.VAR_SEPARATOR);
+        }
+        String result = sb.toString();
+
+        return result.substring(0, result.length() - 1);
     }
 }

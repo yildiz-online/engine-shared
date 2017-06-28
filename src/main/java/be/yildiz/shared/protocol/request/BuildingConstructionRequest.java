@@ -37,6 +37,10 @@ import be.yildiz.shared.protocol.mapper.BuildingConstructionDtoMapper;
  */
 public final class BuildingConstructionRequest extends NetworkMessage implements ServerRequest {
 
+    static {
+        BuildingConstructionDtoMapper.getInstance();
+    }
+
     /**
      * Data for the building.
      */

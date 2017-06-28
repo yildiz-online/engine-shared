@@ -21,50 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.request;
+package be.yildiz.shared.protocol;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerRequest;
-import be.yildiz.shared.protocol.ActionDto;
-import be.yildiz.shared.protocol.BaseNetworkMessage;
-import be.yildiz.shared.protocol.mapper.ActionDtoMapper;
+import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.protocol.response.ResourceTransferResponse;
+import be.yildiz.shared.resources.ResourceValue;
+
+import java.util.List;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class ActionRequest extends BaseNetworkMessage implements ServerRequest {
-
-    static {
-        ActionDtoMapper.getInstance();
-    }
-
-    public final ActionDto dto;
+public class ResourceTransferDto {
 
     /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
+     * Player receiving resources.
      */
-    public ActionRequest(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.dto = this.from(ActionDto.class);
-    }
-
+    public final PlayerId receiver;
     /**
-     * Full constructor.
-     * @param a Action to request.
+     * Player giving resources.
      */
-    public ActionRequest(final ActionDto a) {
-        super(NetworkMessage.to(a, ActionDto.class));
-        this.dto = a;
-    }
+    public final PlayerId giver;
+    /**
+     * Resources values.
+     */
+    public final ResourceValue resources;
+    /**
+     * Cause of this transfer.
+     */
+    public final ResourceTransferResponse.TransferCause cause;
 
-    @Override
-    public int command() {
-        return ClientCommand.ACTION.ordinal();
+    public ResourceTransferDto(PlayerId receiver, PlayerId giver, ResourceValue resources, ResourceTransferResponse.TransferCause cause) {
+        super();
+        this.receiver = receiver;
+        this.giver = giver;
+        this.resources = resources;
+        this.cause = cause;
     }
-
 }

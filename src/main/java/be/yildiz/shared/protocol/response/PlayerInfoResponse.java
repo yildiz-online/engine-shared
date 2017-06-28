@@ -23,12 +23,11 @@
 
 package be.yildiz.shared.protocol.response;
 
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.ServerResponse;
-import be.yildiz.shared.player.PlayerStatus;
+import be.yildiz.shared.protocol.mapper.PlayerDtoMapper;
 
 /**
  * Response from the server with a player data.
@@ -37,33 +36,23 @@ import be.yildiz.shared.player.PlayerStatus;
  */
 public final class PlayerInfoResponse extends NetworkMessage implements ServerResponse {
 
-    /**
-     * Player unique Id.
-     */
-    private final PlayerId player;
+    static {
+        PlayerDtoMapper.getInstance();
+    }
 
     /**
-     * Player name.
+     * Player data.
      */
-    private final String login;
-
-    /**
-     * Player status for the current player.
-     */
-    private final PlayerStatus status;
+    private final PlayerDto dto;
 
     /**
      * Full constructor.
      *
-     * @param playerId     Player Id.
-     * @param playerName   Player's name.
-     * @param playerStatus Player's status.
+     * @param dto     Player data.
      */
-    public PlayerInfoResponse(final PlayerId playerId, final String playerName, final PlayerStatus playerStatus) {
-        super(NetworkMessage.convertParams(playerId, playerName, playerStatus.value));
-        this.player = playerId;
-        this.login = playerName;
-        this.status = playerStatus;
+    public PlayerInfoResponse(final PlayerDto dto) {
+        super(NetworkMessage.to(dto, PlayerDto.class));
+        this.dto = dto;
     }
 
     /**
@@ -74,9 +63,7 @@ public final class PlayerInfoResponse extends NetworkMessage implements ServerRe
      */
     public PlayerInfoResponse(final MessageWrapper message) throws InvalidNetworkMessage {
         super(message);
-        this.player = this.getPlayerId();
-        this.login = this.getString();
-        this.status = PlayerStatus.valueOf(this.getInt());
+        this.dto = this.from(PlayerDto.class);
     }
 
     @Override
@@ -84,15 +71,7 @@ public final class PlayerInfoResponse extends NetworkMessage implements ServerRe
         return ServerCommand.PLAYER_INFO.value;
     }
 
-    public PlayerId getPlayer() {
-        return player;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public PlayerStatus getStatus() {
-        return status;
+    public PlayerDto getPlayerDto() {
+        return dto;
     }
 }

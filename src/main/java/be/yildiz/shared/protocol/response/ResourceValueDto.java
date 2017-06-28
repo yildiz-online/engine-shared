@@ -24,53 +24,31 @@
 package be.yildiz.shared.protocol.response;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
+import be.yildiz.shared.resources.ResourceValue;
 
 /**
- * Message sent from the server to the client when an Entity moves.
- *
  * @author Grégory Van den Borre
  */
-public final class StopAttackResponse extends NetworkMessage implements ServerResponse {
+public class ResourceValueDto {
 
     /**
-     * Attacking Entity Id.
+     * Id of the city receiving the resources.
      */
-    private final EntityId attacker;
+    public final EntityId cityId;
 
     /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
+     * Resources values.
      */
-    public StopAttackResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.attacker = this.from(EntityId.class);
-    }
+    public final ResourceValue resources;
 
     /**
-     * Full constructor.
-     *
-     * @param attackerId Id of the Entity to stop attacking.
+     * Time when the value has been set.
      */
-    public StopAttackResponse(final EntityId attackerId) {
-        super(NetworkMessage.to(attackerId, EntityId.class));
-        this.attacker = attackerId;
-    }
+    public final long time;
 
-    /**
-     * @return The ordinal value of ServerCommand STOP_ATTACK.
-     */
-    @Override
-    public int command() {
-        return ServerCommand.STOP_ATTACK.value;
-    }
-
-    public EntityId getAttacker() {
-        return attacker;
+    public ResourceValueDto(EntityId cityId, ResourceValue resources, long time) {
+        this.cityId = cityId;
+        this.resources = resources;
+        this.time = time;
     }
 }

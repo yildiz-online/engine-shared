@@ -26,38 +26,47 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.BaseMapper;
-import be.yildiz.shared.protocol.BuildingConstructionDto;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
+import be.yildiz.shared.protocol.ResourceTransferDto;
+import be.yildiz.shared.protocol.response.ResourceTransferResponse;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BuildingConstructionDtoMapper extends BaseMapper<BuildingConstructionDto> {
+public class ResourceTransferDtoMapper extends BaseMapper<ResourceTransferDto> {
 
-    private static final BuildingConstructionDtoMapper INSTANCE = new BuildingConstructionDtoMapper();
+    private static final ResourceTransferDtoMapper INSTANCE = new ResourceTransferDtoMapper();
 
-    private BuildingConstructionDtoMapper() {
-        super(BuildingConstructionDto.class);
+    private ResourceTransferDtoMapper() {
+        super(ResourceTransferDto.class);
     }
 
-    public static BuildingConstructionDtoMapper getInstance() {
+    public static ResourceTransferDtoMapper getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
-        return null;
+    public ResourceTransferDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        return new ResourceTransferDto(
+                PlayerIdMapper.getInstance().from(v[0]),
+                PlayerIdMapper.getInstance().from(v[1]),
+                ResourceValueMapper.getInstance().from(v[2]),
+                ResourceTransferResponse.TransferCause.valueOf(IntegerMapper.getInstance().from(v[3]))
+        );
     }
 
     @Override
-    public String to(BuildingConstructionDto dto) {
-        return EntityIdMapper.getInstance().to(dto.cityId)
-                + MessageSeparation.VAR_SEPARATOR
-                + EntityTypeMapper.getInstance().to(dto.type)
-                + MessageSeparation.VAR_SEPARATOR
-                + LevelMapper.getInstance().to(dto.level)
-                + MessageSeparation.VAR_SEPARATOR
-                + BuildingPositionMapper.getInstance().to(dto.position)
-                + MessageSeparation.VAR_SEPARATOR
-                + StaffMapper.getInstance().to(dto.staff);
+    public String to(ResourceTransferDto dto) {
+        assert dto != null;
+        return PlayerIdMapper.getInstance().to(dto.receiver)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + PlayerIdMapper.getInstance().to(dto.giver)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + ResourceValueMapper.getInstance().to(dto.resources)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + IntegerMapper.getInstance().to(dto.cause.value);
     }
 }
