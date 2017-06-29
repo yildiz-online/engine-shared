@@ -59,12 +59,22 @@ public class BuildingConstructionDto {
      */
     public final Staff staff;
 
-    public BuildingConstructionDto(EntityId cityId, EntityType type, Level level, BuildingPosition position, Staff staff) {
+    /**
+     * Time when the building will be completed.
+     */
+    public final long time;
+
+    public BuildingConstructionDto(EntityId cityId, EntityType type, Level level, BuildingPosition position, Staff staff, long time) {
         super();
         this.cityId = cityId;
         this.type = type;
         this.level = level;
         this.position = position;
         this.staff = staff;
+        this.time = time
+    }
+
+    public BuildingConstructionDto(EntityId cityId, EntityType type, Level level, BuildingPosition position, Staff staff) {
+        this(cityId, type, level, position, staff, 0);
     }
 }

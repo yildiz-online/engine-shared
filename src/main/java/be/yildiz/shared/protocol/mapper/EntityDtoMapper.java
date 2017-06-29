@@ -27,23 +27,14 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.BaseMapper;
 import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.protocol.EntityDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityDtoMapper extends BaseMapper<EntityDto> {
-
-    private static final EntityDtoMapper INSTANCE = new EntityDtoMapper();
-
-    private EntityDtoMapper() {
-        super(EntityDto.class);
-    }
-
-    public static EntityDtoMapper getInstance() {
-        return INSTANCE;
-    }
+public class EntityDtoMapper implements ObjectMapper<EntityDto> {
 
     @Override
     public EntityDto from(String s) throws InvalidNetworkMessage {

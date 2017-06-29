@@ -25,32 +25,56 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.BooleanMapper;
 import be.yildiz.module.network.protocol.mapper.LongMapper;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.shared.protocol.BuildingConstructionDto;
+import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
+import be.yildiz.shared.player.Message;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConstructionDto> {
+public class MessageMapper implements ObjectMapper<Message> {
+
+    private static final String REP_AMP = "A5A7";
+
+    private static final String REP_HSH = "H5H6";
+
+    private static final String REP_UND = "U5K9";
+
+    private static final String REP_AT = "T5G7";
 
     @Override
-    public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
-        return null;
+    public Message from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+        try {
+            return new Message(PlayerIdMapper.getInstance().from(v[0]),
+                    PlayerIdMapper.getInstance().from(v[1]),
+                    v[2].replaceAll(REP_AMP, "&")
+                        .replaceAll(REP_AT, "@")
+                        .replaceAll(REP_HSH, "#")
+                        .replaceAll(REP_UND, "_"),
+                    LongMapper.getInstance().from(v[3]),
+                    BooleanMapper.getInstance().from(v[4]));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override
-    public String to(BuildingConstructionDto dto) {
-        return EntityIdMapper.getInstance().to(dto.cityId)
+    public String to(Message message) {
+        return PlayerIdMapper.getInstance().to(message.getSender())
                 + MessageSeparation.VAR_SEPARATOR
-                + EntityTypeMapper.getInstance().to(dto.type)
+                + PlayerIdMapper.getInstance().to(message.getReceiver())
                 + MessageSeparation.VAR_SEPARATOR
-                + LevelMapper.getInstance().to(dto.level)
+                + message.getMessage()
+                        .replaceAll("&", REP_AMP)
+                        .replaceAll("#", REP_HSH)
+                        .replaceAll("_", REP_UND)
+                        .replaceAll("@", REP_AT)
                 + MessageSeparation.VAR_SEPARATOR
-                + BuildingPositionMapper.getInstance().to(dto.position)
+                + LongMapper.getInstance().to(message.getDate())
                 + MessageSeparation.VAR_SEPARATOR
-                + StaffMapper.getInstance().to(dto.staff)
-                + MessageSeparation.VAR_SEPARATOR
-                + LongMapper.getInstance().to(dto.time);
+                + BooleanMapper.getInstance().to(message.isRead());
     }
 }

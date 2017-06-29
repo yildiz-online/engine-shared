@@ -25,24 +25,12 @@ package be.yildiz.shared.player;
 
 import be.yildiz.common.id.PlayerId;
 
-import java.util.Date;
-
 /**
  * Message sent from a player to another.
  *
  * @author Grégory Van den Borre
  */
 public final class Message {
-
-    /**
-     * To replace comma in the message.
-     */
-    private static final String COMMA = "%C%";
-
-    /**
-     * Separator for the message components.
-     */
-    private static final String SEPARATOR = "%§%";
 
     /**
      * Id of the player sending the message.
@@ -62,7 +50,7 @@ public final class Message {
     /**
      * Message date.
      */
-    private final Date date;
+    private final long date;
 
     /**
      * <code>true</code> if the message has been read, <code>false</code> otherwise.
@@ -78,39 +66,23 @@ public final class Message {
      * @param date     Message send date.
      * @param read     Message read status.
      */
-    public Message(final PlayerId sender, final PlayerId receiver, final String message, final Date date, final boolean read) {
+    public Message(final PlayerId sender, final PlayerId receiver, final String message, final long date, final boolean read) {
         super();
         assert sender != null;
         assert receiver != null;
         assert message != null;
-        assert date != null;
         this.sender = sender;
         this.receiver = receiver;
-        this.content = message.replaceAll(SEPARATOR, "").replaceAll(",", COMMA);
+        this.content = message;
         this.date = date;
         this.read = read;
-    }
-
-    /**
-     * Create a message from a String to parse.
-     *
-     * @param toParse String to parse to create the message.
-     */
-    public Message(final String toParse) {
-        super();
-        String[] s = toParse.split(SEPARATOR);
-        this.sender = PlayerId.valueOf(Integer.parseInt(s[0].trim()));
-        this.receiver = PlayerId.valueOf(Integer.parseInt(s[1].trim()));
-        this.content = s[2].trim().replace(SEPARATOR, "").replace(",", COMMA);
-        this.date = new Date(Long.parseLong(s[3].trim()));
-        this.read = Boolean.parseBoolean(s[4].trim());
     }
 
     /**
      * @return The message content.
      */
     public String getMessage() {
-        return this.content.replaceAll(COMMA, ",");
+        return this.content;
     }
 
     public PlayerId getSender() {
@@ -121,7 +93,7 @@ public final class Message {
         return receiver;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
@@ -137,7 +109,7 @@ public final class Message {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
+        result = prime * result + Long.valueOf(this.date).intValue();
         result = prime * result + ((this.content == null) ? 0 : this.content.hashCode());
         result = prime * result + (this.read ? 1231 : 1237);
         result = prime * result + ((this.receiver == null) ? 0 : this.receiver.hashCode());
@@ -154,7 +126,7 @@ public final class Message {
             return false;
         }
         Message other = (Message) obj;
-        if (!this.date.equals(other.date)) {
+        if (this.date != other.date) {
             return false;
         }
         if (!this.content.equals(other.content)) {
@@ -167,23 +139,5 @@ public final class Message {
             return false;
         }
         return this.sender.equals(other.sender);
-    }
-
-    /**
-     * @return A formated message to be parsed.
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.sender);
-        sb.append(SEPARATOR);
-        sb.append(this.receiver);
-        sb.append(SEPARATOR);
-        sb.append(this.content);
-        sb.append(SEPARATOR);
-        sb.append(this.date.getTime());
-        sb.append(SEPARATOR);
-        sb.append(this.read);
-        return sb.toString();
     }
 }

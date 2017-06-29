@@ -30,7 +30,7 @@ import be.yildiz.module.network.protocol.mapper.BaseMapper;
 /**
  * @author Grégory Van den Borre
  */
-class EntityIdMapper extends BaseMapper<EntityId> {
+public class EntityIdMapper extends BaseMapper<EntityId> {
 
     private static final EntityIdMapper INSTANCE = new EntityIdMapper();
 
