@@ -26,7 +26,6 @@ package be.yildiz.shared.protocol.request;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerRequest;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildiz.shared.protocol.mapper.ModuleConfigurationMapper;
 

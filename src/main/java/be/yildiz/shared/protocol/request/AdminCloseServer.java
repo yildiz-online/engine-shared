@@ -24,7 +24,6 @@
 package be.yildiz.shared.protocol.request;
 
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerRequest;
 
 /**
  * @author Grégory Van den Borre

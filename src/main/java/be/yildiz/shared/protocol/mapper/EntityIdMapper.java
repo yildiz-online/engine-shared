@@ -25,7 +25,6 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.BaseMapper;
 
 /**
  * @author Grégory Van den Borre

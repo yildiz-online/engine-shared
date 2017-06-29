@@ -28,7 +28,6 @@ import be.yildiz.common.util.StringUtil;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.research.Research;
 
 import java.util.Set;

@@ -24,7 +24,6 @@
 package be.yildiz.shared.protocol.response;
 
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
 
 /**
  * Message to notify the server to close the player session.

@@ -26,7 +26,6 @@ package be.yildiz.shared.protocol.response;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
 import be.yildiz.shared.protocol.mapper.PlayerDtoMapper;
 
 /**

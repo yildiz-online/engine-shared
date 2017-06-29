@@ -25,7 +25,6 @@ package be.yildiz.shared.protocol.response;
 
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.ServerResponse;
 
 /**
  * Simple message to notify that the initialization messages have all been sent.
