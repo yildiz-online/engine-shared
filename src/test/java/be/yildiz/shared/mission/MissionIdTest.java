@@ -33,13 +33,13 @@ public class MissionIdTest {
 
     @Test
     public void testConstructor() {
-        MissionId id = new MissionId(12);
+        MissionId id = MissionId.valueOf(12);
         Assert.assertEquals(12, id.value);
     }
 
     @Test
     public void testHashCode() {
-        MissionId id = new MissionId(9);
+        MissionId id = MissionId.valueOf(9);
         Assert.assertEquals(9, id.hashCode());
     }
 }

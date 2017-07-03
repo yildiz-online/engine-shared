@@ -40,37 +40,35 @@ public final class LevelTest {
     @SuppressWarnings("null")
     @Test
     public void testEnergy() {
-        Level d = new Level(10);
+        Level d = Level.valueOf(10);
         Assert.assertEquals(10, d.value, 0.000001f);
         d = Level.ZERO;
         Assert.assertEquals(0, d.value, 0.000001f);
         Integer i = null;
         this.rule.expect(NullPointerException.class);
-        d = new Level(i);
+        d = Level.valueOf(i);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testEnergy2() {
-        this.rule.expect(IllegalArgumentException.class);
-        new Level(-10);
-
+        Level.valueOf(-10);
     }
 
     @Test
     public void testHashCode() {
-        Level d1 = new Level(5);
-        Level d2 = new Level(new Integer(5));
+        Level d1 = Level.valueOf(5);
+        Level d2 = Level.valueOf(new Integer(5));
         Assert.assertEquals(d2.hashCode(), d1.hashCode());
     }
 
     @Test
     public void testEquals() {
-        Level d1 = new Level(5);
-        Level d2 = new Level(5);
-        Level d3 = new Level(6);
+        Level d1 = Level.valueOf(5);
+        Level d2 = Level.valueOf(5);
+        Level d3 = Level.valueOf(6);
         Assert.assertEquals(d1, d1);
         Assert.assertEquals(d1, d2);
-        Assert.assertEquals(d1, new Level(new Integer(5)));
+        Assert.assertEquals(d1, Level.valueOf(new Integer(5)));
         Assert.assertNotEquals(d1, new Object());
         Assert.assertNotEquals(d1, d3);
     }

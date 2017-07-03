@@ -40,13 +40,13 @@ public final class PlayerTest {
 
     public void testPlayer() {
         // FIXME exception when creating 2 identical players?
-        Player p = new Player(PlayerId.get(3), "aPlayer");
-        Assert.assertEquals(p.id, PlayerId.get(3));
+        Player p = new Player(PlayerId.valueOf(3), "aPlayer");
+        Assert.assertEquals(p.id, PlayerId.valueOf(3));
         Assert.assertEquals("aPlayer", p.name);
         rule.expect(NullPointerException.class);
         p = new Player(null, "aa");
         rule.expect(NullPointerException.class);
-        p = new Player(PlayerId.get(5), null);
+        p = new Player(PlayerId.valueOf(5), null);
     }
 
     /**
@@ -54,9 +54,9 @@ public final class PlayerTest {
      */
     @Test
     public void testGetId() {
-        Player p = new Player(PlayerId.get(1257552), "aName");
-        Assert.assertEquals(PlayerId.get(1257552), p.id);
-        Assert.assertNotSame(PlayerId.get(487415774), p.id);
+        Player p = new Player(PlayerId.valueOf(1257552), "aName");
+        Assert.assertEquals(PlayerId.valueOf(1257552), p.id);
+        Assert.assertNotSame(PlayerId.valueOf(487415774), p.id);
     }
 
     /**
@@ -64,7 +64,7 @@ public final class PlayerTest {
      */
     @Test
     public void testGetName() {
-        Player p = new Player(PlayerId.get(1257552), "aName");
+        Player p = new Player(PlayerId.valueOf(1257552), "aName");
         Assert.assertEquals("aName", p.name);
     }
 
@@ -73,9 +73,9 @@ public final class PlayerTest {
      */
     @Test
     public void testEqualsObject() {
-        Player p2 = new Player(PlayerId.get(4751), "odfhytuijh");
-        Player p3 = new Player(PlayerId.get(4751), "odfhytuijh");
-        Player p = new Player(PlayerId.get(1257552), "aName");
+        Player p2 = new Player(PlayerId.valueOf(4751), "odfhytuijh");
+        Player p3 = new Player(PlayerId.valueOf(4751), "odfhytuijh");
+        Player p = new Player(PlayerId.valueOf(1257552), "aName");
         Assert.assertNotSame(p, p2);
         Assert.assertNotSame(p2, p3);
         Assert.assertNotSame(p2, null);
@@ -85,7 +85,7 @@ public final class PlayerTest {
     /***/
     @Test
     public void testToString() {
-        Player p = new Player(PlayerId.get(1257552), "aName");
+        Player p = new Player(PlayerId.valueOf(1257552), "aName");
         Assert.assertEquals("aName", p.toString());
     }
 }

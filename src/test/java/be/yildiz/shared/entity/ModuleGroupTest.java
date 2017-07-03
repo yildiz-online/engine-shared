@@ -39,21 +39,21 @@ import java.util.List;
 @RunWith(Enclosed.class)
 public class ModuleGroupTest {
 
-    private static final ActionId MOVE = ActionId.get(12);
+    private static final ActionId MOVE = ActionId.valueOf(12);
 
-    private static final ActionId INTERACTION = ActionId.get(48);
+    private static final ActionId INTERACTION = ActionId.valueOf(48);
 
-    private static final ActionId DETECTOR = ActionId.get(75);
+    private static final ActionId DETECTOR = ActionId.valueOf(75);
 
-    private static final ActionId HULL = ActionId.get(34);
+    private static final ActionId HULL = ActionId.valueOf(34);
 
-    private static final ActionId ENERGY = ActionId.get(111);
+    private static final ActionId ENERGY = ActionId.valueOf(111);
 
-    private static final ActionId OTHER_1 = ActionId.get(41);
+    private static final ActionId OTHER_1 = ActionId.valueOf(41);
 
-    private static final ActionId OTHER_2 = ActionId.get(52);
+    private static final ActionId OTHER_2 = ActionId.valueOf(52);
 
-    private static final ActionId OTHER_3 = ActionId.get(255);
+    private static final ActionId OTHER_3 = ActionId.valueOf(255);
 
     public static class ConstructorWithAllParameters {
 

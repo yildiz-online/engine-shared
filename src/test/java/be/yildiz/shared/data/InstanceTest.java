@@ -50,15 +50,13 @@ public final class InstanceTest {
         d = new Instance(i);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testInstance2() {
-        this.rule.expect(IllegalArgumentException.class);
         new Instance(-10);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testInstance3() {
-        this.rule.expect(IllegalArgumentException.class);
         new Instance(0);
     }
 

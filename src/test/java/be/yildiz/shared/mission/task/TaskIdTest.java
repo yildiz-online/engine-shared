@@ -38,12 +38,12 @@ public class TaskIdTest {
 
         @Test
         public void happyFlow() {
-            new TaskId(1);
+            TaskId.valueOf(1);
         }
 
         @Test
         public void withNegativeValue() {
-            new TaskId(-1);
+            TaskId.valueOf(-1);
         }
 
     }
@@ -55,8 +55,8 @@ public class TaskIdTest {
 
         @Test
         public void sameValues() {
-            int i1 = new TaskId(1).hashCode();
-            int i2 = new TaskId(1).hashCode();
+            int i1 = TaskId.valueOf(1).hashCode();
+            int i2 = TaskId.valueOf(1).hashCode();
             Assert.assertEquals(i1, i2);
         }
     }
@@ -65,26 +65,26 @@ public class TaskIdTest {
 
         @Test
         public void sameValues() {
-            TaskId i1 = new TaskId(1);
-            TaskId i2 = new TaskId(1);
+            TaskId i1 = TaskId.valueOf(1);
+            TaskId i2 = TaskId.valueOf(1);
             Assert.assertEquals(i1, i2);
         }
 
         @Test
         public void differentId() {
-            TaskId i1 = new TaskId(1);
-            TaskId i2 = new TaskId(2);
+            TaskId i1 = TaskId.valueOf(1);
+            TaskId i2 = TaskId.valueOf(2);
             Assert.assertNotEquals(i1, i2);
         }
 
         @Test
         public void nullValue() {
-            Assert.assertNotEquals(new TaskId(1), null);
+            Assert.assertNotEquals(TaskId.valueOf(1), null);
         }
 
         @Test
         public void differentClass() {
-            Assert.assertNotEquals(new TaskId(1), "ok");
+            Assert.assertNotEquals(TaskId.valueOf(1), "ok");
         }
     }
 }

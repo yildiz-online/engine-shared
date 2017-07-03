@@ -74,18 +74,4 @@ public enum PlayerStatus {
         }
         return PlayerStatus.values()[ord];
     }
-
-    /**
-     * Get a status from an ordinal value.
-     *
-     * @param ord Place of the enumeration value to retrieve.
-     * @return The matching enumeration value.
-     */
-    @Deprecated
-    public static PlayerStatus getFromOrdinal(final int ord) {
-        if (!Checker.inArrayRange(ord, PlayerStatus.values())) {
-            throw new IllegalArgumentException(ord + " is invalid value.");
-        }
-        return PlayerStatus.values()[ord];
-    }
 }

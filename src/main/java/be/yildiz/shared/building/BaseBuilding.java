@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.building;
 
+import be.yildiz.common.Assert;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.Checker;
 import be.yildiz.shared.data.BuildingPosition;
@@ -96,8 +97,9 @@ public final class BaseBuilding implements Building {
 
     @Override
     public void setLevel(final Level buildingLevel) {
+        assert buildingLevel != null;
         if (buildingLevel.value < 0 || buildingLevel.value > this.data.getMaxLevel().value) {
-            throw new IllegalArgumentException("Wrong level for " + this + " trying to set level " + buildingLevel);
+            throw new AssertionError("Wrong level for " + this + " trying to set level " + buildingLevel);
         }
         this.level = buildingLevel;
     }
@@ -106,7 +108,7 @@ public final class BaseBuilding implements Building {
     public void setStaff(final int staff) {
         Checker.exceptionNotPositive(staff);
         if (staff > this.getMaxPopulation(this.level)) {
-            throw new IllegalArgumentException("Staff too high for this level.");
+            throw new AssertionError("Staff too high for this level.");
         }
         this.staff = staff;
     }
@@ -234,7 +236,7 @@ public final class BaseBuilding implements Building {
     @Override
     public TimeToBuild getNextLevelTimeToBuild() {
         if (this.isMaxLevel()) {
-            throw new IllegalArgumentException("Already at max level.");
+            throw new AssertionError("Already at max level.");
         }
         return this.data.getTimeToBuild(this.level.add(1));
     }
@@ -242,7 +244,7 @@ public final class BaseBuilding implements Building {
     @Override
     public ResourceValue getNextLevelPrice() {
         if (this.isMaxLevel()) {
-            throw new IllegalArgumentException("Already at max level.");
+            throw new AssertionError("Already at max level.");
         }
         return this.data.getPrice(this.level.add(1));
     }

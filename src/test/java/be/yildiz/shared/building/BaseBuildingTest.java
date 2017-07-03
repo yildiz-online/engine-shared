@@ -39,14 +39,14 @@ import org.junit.Test;
  */
 public class BaseBuildingTest {
 
-    public static final EntityId OK_CITY = EntityId.get(6L);
+    public static final EntityId OK_CITY = EntityId.valueOf(6L);
 
     public static final int OK_STAFF = 2;
 
-    public static final Level OK_LEVEL = new Level(5);
+    public static final Level OK_LEVEL = Level.valueOf(5);
 
-    public static final BuildingPosition OK_POSITION = new BuildingPosition(2);
-    public static final Level MAX_LEVEL = new Level(32);
+    public static final BuildingPosition OK_POSITION = BuildingPosition.valueOf(2);
+    public static final Level MAX_LEVEL = Level.valueOf(32);
     public static final EntityType TYPE = new EntityType(10, "test");
     public static final ResourceValue NEXT_LEVEL_PRICE = new ResourceValue(new float[]{10, 10, 10});
     public static final TimeToBuild NEXT_LEVEL_TIME = new TimeToBuild(Time.seconds(10));
@@ -152,36 +152,36 @@ public class BaseBuildingTest {
         new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, null, OK_STAFF);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorNegativeStaff() {
         new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, -1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorLevelTooHigh() {
         new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, MAX_LEVEL.add(1), OK_STAFF);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorAssignedStaffTooHigh() {
         new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, 35);
     }
 
     @Test
     public void testSetStaff() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         b.setStaff(10);
         Assert.assertEquals(OK_STAFF, b.getOldStaff());
         Assert.assertEquals(10, b.getStaff());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testTooHighStaff() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         b.setStaff(35);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testNegativeStaff() {
         Building b = new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, OK_STAFF);
         b.setStaff(-1);
@@ -189,50 +189,50 @@ public class BaseBuildingTest {
 
     @Test
     public void testSetLevel() {
-        Building b = givenABuillding();
-        b.setLevel(new Level(14));
-        Assert.assertEquals(new Level(14), b.getLevel());
+        Building b = givenABuilding();
+        b.setLevel(Level.valueOf(14));
+        Assert.assertEquals(Level.valueOf(14), b.getLevel());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testSetLevelNull() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         b.setLevel(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testSetLevelTooHigh() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         b.setLevel(MAX_LEVEL.add(1));
     }
 
     @Test
     public void testGetNextLevelPrice() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         Assert.assertEquals(NEXT_LEVEL_PRICE, b.getNextLevelPrice());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testGetNextLevelPriceLevelMax() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         b.setLevel(MAX_LEVEL);
         Assert.assertEquals(NEXT_LEVEL_PRICE, b.getNextLevelPrice());
     }
 
     @Test
     public void testGetNextLevelTime() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         Assert.assertEquals(NEXT_LEVEL_TIME, b.getNextLevelTimeToBuild());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testGetNextLevelTimeLevelMax() {
-        Building b = givenABuillding();
+        Building b = givenABuilding();
         b.setLevel(MAX_LEVEL);
         Assert.assertEquals(NEXT_LEVEL_TIME, b.getNextLevelTimeToBuild());
     }
 
-    private Building givenABuillding() {
+    private Building givenABuilding() {
         return new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, OK_STAFF);
     }
 

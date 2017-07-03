@@ -40,12 +40,12 @@ public class TaskTest {
 
         @Test
         public void happyFlow() {
-            new BaseTask(new TaskId(1), new MissionId(1), PlayerId.valueOf(5));
+            new BaseTask(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(5));
         }
 
         @Test(expected = AssertionError.class)
         public void withNull() {
-            new BaseTask(null, new MissionId(1),PlayerId.WORLD);
+            new BaseTask(null, MissionId.valueOf(1),PlayerId.WORLD);
         }
     }
 
@@ -53,13 +53,13 @@ public class TaskTest {
 
         @Test
         public void initialStatus() {
-            Task t = new BaseTask(new TaskId(1),new MissionId(1), PlayerId.valueOf(5));
+            Task t = new BaseTask(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(5));
             Assert.assertFalse(t.isCompleted());
         }
 
         @Test
         public void setCompleted() {
-            BaseTask t = new BaseTask(new TaskId(1),new MissionId(1),PlayerId.valueOf(5));
+            BaseTask t = new BaseTask(TaskId.valueOf(1), MissionId.valueOf(1),PlayerId.valueOf(5));
             t.setCompleted();
             Assert.assertTrue(t.isCompleted());
         }

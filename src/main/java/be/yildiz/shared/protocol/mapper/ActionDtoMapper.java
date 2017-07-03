@@ -33,8 +33,19 @@ import be.yildiz.shared.protocol.ActionDto;
  */
 public class ActionDtoMapper implements ObjectMapper<ActionDto> {
 
+    private static final ActionDtoMapper INSTANCE = new ActionDtoMapper();
+
+    private ActionDtoMapper() {
+        super();
+    }
+
+    public static ActionDtoMapper getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public ActionDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new ActionDto(ActionIdMapper.getInstance().from(v[0]), EntityIdMapper.getInstance().from(v[1]), Point3DMapper.getInstance().from(v[2]), EntityIdMapper.getInstance().from(v[3]));
@@ -45,6 +56,7 @@ public class ActionDtoMapper implements ObjectMapper<ActionDto> {
 
     @Override
     public String to(ActionDto action) {
+        assert action != null;
         return ActionIdMapper.getInstance().to(action.id)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + EntityIdMapper.getInstance().to(action.entity)

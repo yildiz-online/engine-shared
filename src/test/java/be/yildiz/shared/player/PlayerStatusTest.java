@@ -31,33 +31,24 @@ import org.junit.Test;
  */
 public final class PlayerStatusTest {
 
-    /**
-     * Test method for
-     * {@link be.yildiz.shared.player.PlayerStatus#getFromOrdinal(int)}.
-     */
+
     @Test(expected = IllegalArgumentException.class)
     public void testGetFromOrdinal1() {
-        PlayerStatus.getFromOrdinal(-1);
+        PlayerStatus.valueOf(-1);
     }
 
-    /**
-     * Test method for
-     * {@link be.yildiz.shared.player.PlayerStatus#getFromOrdinal(int)}.
-     */
+
     @Test(expected = IllegalArgumentException.class)
     public void testGetFromOrdinal2() {
-        PlayerStatus.getFromOrdinal(PlayerStatus.values().length + 2);
+        PlayerStatus.valueOf(PlayerStatus.values().length + 2);
     }
 
-    /**
-     * Test method for
-     * {@link be.yildiz.shared.player.PlayerStatus#getFromOrdinal(int)}.
-     */
+
     @Test
     public void testGetFromOrdinal3() {
         for (int i = 0; i < PlayerStatus.values().length; i++) {
-            Assert.assertEquals(PlayerStatus.values()[i], PlayerStatus.getFromOrdinal(i));
+            Assert.assertEquals(PlayerStatus.values()[i], PlayerStatus.valueOf(i));
         }
-        Assert.assertNotSame(PlayerStatus.values()[0], PlayerStatus.getFromOrdinal(1));
+        Assert.assertNotSame(PlayerStatus.values()[0], PlayerStatus.valueOf(1));
     }
 }

@@ -50,9 +50,9 @@ public class EntityManagerTest {
         EntityManager<Entity> em = new EntityManager<>(BaseEntity.WORLD);
         Entity e = Helper.anEntity(2, 5);
         em.addEntity(e);
-        Assert.assertEquals(e, em.findById(EntityId.get(2L)));
+        Assert.assertEquals(e, em.findById(EntityId.valueOf(2L)));
         em.removeEntity(e);
-        Assert.assertEquals(BaseEntity.WORLD, em.findById(EntityId.get(2L)));
+        Assert.assertEquals(BaseEntity.WORLD, em.findById(EntityId.valueOf(2L)));
     }
 
     /**

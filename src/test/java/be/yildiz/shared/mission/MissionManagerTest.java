@@ -44,10 +44,10 @@ public class MissionManagerTest {
         @Test
         public void noExistingStatus() {
             MissionManager<BaseMission> m = givenAMissionManager();
-            m.prepareMission(new MissionId(1), PlayerId.valueOf(1));
-            m.startMission(new MissionId(1), PlayerId.valueOf(1));
-            m.taskCompleted(new TaskId(1), new MissionId(1), PlayerId.valueOf(1));
-            Set<TaskStatus> status = m.getTaskStatusByMission(PlayerId.valueOf(1), new MissionId(1));
+            m.prepareMission(MissionId.valueOf(1), PlayerId.valueOf(1));
+            m.startMission(MissionId.valueOf(1), PlayerId.valueOf(1));
+            m.taskCompleted(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(1));
+            Set<TaskStatus> status = m.getTaskStatusByMission(PlayerId.valueOf(1), MissionId.valueOf(1));
             Assert.assertEquals(1, status.size());
             Assert.assertEquals("SUCCESS", status.iterator().next().status);
         }
@@ -55,14 +55,14 @@ public class MissionManagerTest {
         @Test
         public void replaceExistingStatus() {
             MissionManager<BaseMission> m = givenAMissionManager();
-            m.prepareMission(new MissionId(1), PlayerId.valueOf(1));
-            m.startMission(new MissionId(1), PlayerId.valueOf(1));
-            m.updateTaskStatus(new TaskId(1), new MissionId(1), PlayerId.valueOf(1), "1/2");
-            Set<TaskStatus> status = m.getTaskStatusByMission(PlayerId.valueOf(1), new MissionId(1));
+            m.prepareMission(MissionId.valueOf(1), PlayerId.valueOf(1));
+            m.startMission(MissionId.valueOf(1), PlayerId.valueOf(1));
+            m.updateTaskStatus(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(1), "1/2");
+            Set<TaskStatus> status = m.getTaskStatusByMission(PlayerId.valueOf(1), MissionId.valueOf(1));
             Assert.assertEquals(1, status.size());
             Assert.assertEquals("1/2", status.iterator().next().status);
-            m.taskCompleted(new TaskId(1), new MissionId(1), PlayerId.valueOf(1));
-            status = m.getTaskStatusByMission(PlayerId.valueOf(1), new MissionId(1));
+            m.taskCompleted(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(1));
+            status = m.getTaskStatusByMission(PlayerId.valueOf(1), MissionId.valueOf(1));
             Assert.assertEquals(1, status.size());
             Assert.assertEquals("SUCCESS", status.iterator().next().status);
         }
@@ -96,7 +96,7 @@ public class MissionManagerTest {
                 };
             }
         });
-        mm.registerMission(new BaseMission(new MissionId(1), Lists.newList(new TaskId(1)), p -> true));
+        mm.registerMission(new BaseMission(MissionId.valueOf(1), Lists.newList(TaskId.valueOf(1)), p -> true));
         return mm;
     }
 

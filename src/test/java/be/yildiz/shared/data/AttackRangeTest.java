@@ -55,9 +55,8 @@ public final class AttackRangeTest {
         d = new AttackRange(i);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testAttackRange2() {
-        this.rule.expect(IllegalArgumentException.class);
         new AttackRange(-10);
 
     }

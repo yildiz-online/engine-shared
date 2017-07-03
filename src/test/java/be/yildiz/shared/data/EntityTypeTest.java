@@ -73,13 +73,13 @@ public final class EntityTypeTest {
     @Test
     public void testGet() {
         EntityType t1 = new EntityType(12, "test");
-        Assert.assertEquals(t1, EntityType.get(12));
+        Assert.assertEquals(t1, EntityType.valueOf(12));
     }
 
     @Test
     public void testGetUnexistingType() {
         this.rule.expect(AssertionError.class);
-        EntityType.get(1);
+        EntityType.valueOf(1);
     }
 
     @Test

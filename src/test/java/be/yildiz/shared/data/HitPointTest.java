@@ -49,9 +49,8 @@ public final class HitPointTest {
         d = new HitPoint(i);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testHitPoint2() {
-        this.rule.expect(IllegalArgumentException.class);
         new HitPoint(-10);
 
     }

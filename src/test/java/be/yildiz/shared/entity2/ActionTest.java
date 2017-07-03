@@ -110,7 +110,7 @@ public class ActionTest {
         Action a = new ActionMock();
         Action b = new ActionMock();
         Assert.assertTrue(a.isSameType(b));
-        Action c = new Action(ActionId.get(1), Helper.anEntity(4, 5).getId(), false) {
+        Action c = new Action(ActionId.valueOf(1), Helper.anEntity(4, 5).getId(), false) {
 
             @Override
             public void setTarget(Target target) {

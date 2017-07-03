@@ -66,7 +66,7 @@ public enum MissionStatus {
      */
     REFUSED(6);
 
-    private final int value;
+    public final int value;
 
     MissionStatus(int value) {
         this.value = value;

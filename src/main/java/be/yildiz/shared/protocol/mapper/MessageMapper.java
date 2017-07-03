@@ -44,6 +44,16 @@ public class MessageMapper implements ObjectMapper<Message> {
 
     private static final String REP_AT = "T5G7";
 
+    private static final MessageMapper INSTANCE = new MessageMapper();
+
+    private MessageMapper() {
+        super();
+    }
+
+    public static MessageMapper getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public Message from(String s) throws InvalidNetworkMessage {
         String[] v = s.split(MessageSeparation.VAR_SEPARATOR);

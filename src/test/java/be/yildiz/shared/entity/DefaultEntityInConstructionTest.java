@@ -40,11 +40,11 @@ public class DefaultEntityInConstructionTest {
 
     public static final ModuleGroup MODULES_OK = new ModuleGroup
             .ModuleGroupBuilder()
-            .withMove(ActionId.get(1))
-            .withHull(ActionId.get(2))
-            .withInteraction(ActionId.get(3))
-            .withEnergy(ActionId.get(4))
-            .withDetector(ActionId.get(5))
+            .withMove(ActionId.valueOf(1))
+            .withHull(ActionId.valueOf(2))
+            .withInteraction(ActionId.valueOf(3))
+            .withEnergy(ActionId.valueOf(4))
+            .withDetector(ActionId.valueOf(5))
             .withNoAdditional()
             .build();
 

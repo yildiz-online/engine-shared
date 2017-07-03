@@ -57,12 +57,12 @@ public class GameEntityDataTest {
     private static final DefaultModuleProvider DEFAULT_MODULE_PROVIDER = new TestDefaultModuleProvider();
 
     private static final ModulesAllowed ALLOWED_OK = new ModulesAllowed()
-            .move(ActionId.get(1))
-            .detector(ActionId.get(2))
-            .energy(ActionId.get(3))
-            .hull(ActionId.get(4))
-            .weapon(ActionId.get(5))
-            .other(ActionId.get(6), ActionId.get(7), ActionId.get(8));
+            .move(ActionId.valueOf(1))
+            .detector(ActionId.valueOf(2))
+            .energy(ActionId.valueOf(3))
+            .hull(ActionId.valueOf(4))
+            .weapon(ActionId.valueOf(5))
+            .other(ActionId.valueOf(6), ActionId.valueOf(7), ActionId.valueOf(8));
 
     private static final ResourceValue PRICE_OK = new ResourceValue(new float[]{100,100,100});
 
@@ -86,7 +86,7 @@ public class GameEntityDataTest {
             Assert.assertFalse(d.isBuildable());
         }
 
-        @Test(expected = IllegalArgumentException.class)
+        @Test(expected = AssertionError.class)
         public void withNegativeSize() {
             new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
         }
@@ -129,14 +129,14 @@ public class GameEntityDataTest {
         public ModuleGroup getModules() {
             return new ModuleGroup
                     .ModuleGroupBuilder()
-                    .withMove(ActionId.get(1))
-                    .withDetector(ActionId.get(2))
-                    .withEnergy(ActionId.get(3))
-                    .withHull(ActionId.get(4))
-                    .withInteraction(ActionId.get(5))
-                    .withAdditional1(ActionId.get(6))
-                    .withAdditional2(ActionId.get(7))
-                    .withAdditional3(ActionId.get(8))
+                    .withMove(ActionId.valueOf(1))
+                    .withDetector(ActionId.valueOf(2))
+                    .withEnergy(ActionId.valueOf(3))
+                    .withHull(ActionId.valueOf(4))
+                    .withInteraction(ActionId.valueOf(5))
+                    .withAdditional1(ActionId.valueOf(6))
+                    .withAdditional2(ActionId.valueOf(7))
+                    .withAdditional3(ActionId.valueOf(8))
                     .build();
         }
     }

@@ -36,13 +36,14 @@ import be.yildiz.shared.player.Message;
 import be.yildiz.shared.protocol.mapper.*;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
+import be.yildiz.shared.research.ResearchId;
+
+import java.util.Collection;
 
 /**
  * @author Grégory Van den Borre
  */
 public class EngineMessageFactory extends NetworkMessageFactory{
-
-    private final ActionDtoMapper actionDtoMapper = new ActionDtoMapper();
 
     private final EntityConstructionDtoMapper entityConstructionDtoMapper = new EntityConstructionDtoMapper();
 
@@ -50,14 +51,12 @@ public class EngineMessageFactory extends NetworkMessageFactory{
 
     private final EntityDtoMapper entityDtoMapper = new EntityDtoMapper();
 
-    private final MessageMapper messageMapper = new MessageMapper();
-
     public NetworkMessage<ActionDto> ActionRequest(ActionDto a) {
-        return new NetworkMessage<>(a, actionDtoMapper, ClientCommand.ACTION.ordinal());
+        return new NetworkMessage<>(a, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
     }
 
     public NetworkMessage<ActionDto> ActionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
-        return new NetworkMessage<>(msg, actionDtoMapper, ClientCommand.ACTION.ordinal());
+        return new NetworkMessage<>(msg, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
     }
 
     public NetworkMessage<Integer> buildCancel(Integer i) {
@@ -89,7 +88,7 @@ public class EngineMessageFactory extends NetworkMessageFactory{
     }
 
     public NetworkMessage<Message> message(Message m) {
-        return new NetworkMessage<>(m, messageMapper, 18);
+        return new NetworkMessage<>(m, MessageMapper.getInstance(), 18);
     }
 
     public NetworkMessage<ResourceTransferDto> resourceTransferResponse(ResourceTransferDto dto) {
@@ -178,5 +177,61 @@ public class EngineMessageFactory extends NetworkMessageFactory{
 
     public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
+    }
+
+    public NetworkMessage<MissionStatusDto> missionStatusResponse(MissionStatusDto dto) {
+        return new NetworkMessage<>(dto, MissionStatusDtoMapper.getInstance(), ServerCommand.MISSION_STATUS.value);
+    }
+
+    public NetworkMessage<MissionStatusDto> missionStatusResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, MissionStatusDtoMapper.getInstance(), ServerCommand.MISSION_STATUS.value);
+    }
+
+    public NetworkMessage<Collection<Message>> messageListResponse(Collection<Message> dto) {
+        return new NetworkMessage<>(dto, MessageListMapper.getInstance(), ServerCommand.MESSAGE_LIST.value);
+    }
+
+    public NetworkMessage<Collection<Message>> messageListResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, MessageListMapper.getInstance(), ServerCommand.MESSAGE_LIST.value);
+    }
+
+    public NetworkMessage<ChangeOwnerDto> changeOwnerResponse(ChangeOwnerDto dto) {
+        return new NetworkMessage<>(dto, ChangeOwnerDtoMapper.getInstance(), ServerCommand.CHANGE_OWNER.value);
+    }
+
+    public NetworkMessage<ChangeOwnerDto> changeOwnerResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, ChangeOwnerDtoMapper.getInstance(), ServerCommand.CHANGE_OWNER.value);
+    }
+
+    public NetworkMessage<Collection<ResearchId>> researchInfoResponse(Collection<ResearchId> dto) {
+        return new NetworkMessage<>(dto, ResearchListMapper.getInstance(), ServerCommand.RESEARCH_INFO.value);
+    }
+
+    public NetworkMessage<Collection<ResearchId>> researchInfoResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, ResearchListMapper.getInstance(), ServerCommand.RESEARCH_INFO.value);
+    }
+
+    public NetworkMessage<Integer> adminCloseServer() {
+        return new NetworkMessage<>(0, IntegerMapper.getInstance(), ClientCommand.ADMIN_CLOSE_SERVER.ordinal());
+    }
+
+    public NetworkMessage<Integer> adminCloseServer(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ClientCommand.ADMIN_CLOSE_SERVER.ordinal());
+    }
+
+    public NetworkMessage<Integer> closeSession() {
+        return new NetworkMessage<>(0, IntegerMapper.getInstance(), ClientCommand.CLOSE_SESSION.ordinal());
+    }
+
+    public NetworkMessage<Integer> closeSession(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ClientCommand.CLOSE_SESSION.ordinal());
+    }
+
+    public NetworkMessage<Integer> initialisationCompleteResponse() {
+        return new NetworkMessage<>(0, IntegerMapper.getInstance(), ServerCommand.INITIALISED.value);
+    }
+
+    public NetworkMessage<Integer> initialisationCompleteResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ServerCommand.INITIALISED.value);
     }
 }

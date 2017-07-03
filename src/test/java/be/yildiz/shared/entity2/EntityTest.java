@@ -62,8 +62,8 @@ public class EntityTest {
     public void testLookAt() {
         Entity e1 = Helper.givenAnEntity();
         e1.setPosition(Point3D.ZERO);
-        e1.lookAt(Point3D.xz(100));
-        Assert.assertEquals(Point3D.xz(100), e1.getDirection());
+        e1.lookAt(Point3D.valueOfXZ(100));
+        Assert.assertEquals(Point3D.valueOfXZ(100), e1.getDirection());
         this.rule.expect(NullPointerException.class);
         e1.lookAt(null);
     }
@@ -125,20 +125,20 @@ public class EntityTest {
     @Test
     public void testGetId() {
         Entity e1 = Helper.givenAnEntity();
-        Assert.assertEquals(EntityId.get(5L), e1.getId());
+        Assert.assertEquals(EntityId.valueOf(5L), e1.getId());
     }
 
     @Test
     public void testGetType() {
         Entity e1 = Helper.givenAnEntity();
-        Assert.assertEquals(EntityType.get(0), e1.getType());
+        Assert.assertEquals(EntityType.valueOf(0), e1.getType());
     }
 
     @Test
     public void testGetSetPosition() {
         Entity e1 = Helper.givenAnEntity();
-        e1.setPosition(new Point3D(10));
-        Assert.assertEquals(new Point3D(10), e1.getPosition());
+        e1.setPosition(Point3D.valueOf(10));
+        Assert.assertEquals(Point3D.valueOf(10), e1.getPosition());
         this.rule.expect(AssertionError.class);
         e1.setPosition(null);
     }
@@ -146,8 +146,8 @@ public class EntityTest {
     @Test
     public void testGetSetDirection() {
         Entity e1 = Helper.givenAnEntity();
-        e1.setDirection(new Point3D(10));
-        Assert.assertEquals(new Point3D(10), e1.getDirection());
+        e1.setDirection(Point3D.valueOf(10));
+        Assert.assertEquals(Point3D.valueOf(10), e1.getDirection());
     }
 
     @Test
@@ -165,10 +165,10 @@ public class EntityTest {
     @Test
     public void testGetSetOwner() {
         PlayerManager pm = new PlayerManager();
-        Player p = pm.createPlayer(PlayerId.get(5), "test");
+        Player p = pm.createPlayer(PlayerId.valueOf(5), "test");
         Entity e1 = Helper.anEntity(2, 5);
         Assert.assertEquals(p.id, e1.getOwner());
-        Player p2 = pm.createPlayer(PlayerId.get(6), "test2");
+        Player p2 = pm.createPlayer(PlayerId.valueOf(6), "test2");
         e1.setOwner(p2.id);
         Assert.assertEquals(p2.id, e1.getOwner());
         this.rule.expect(AssertionError.class);

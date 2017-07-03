@@ -48,9 +48,8 @@ public class EnergyTest {
         d = new Energy(i);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testEnergy2() {
-        this.rule.expect(IllegalArgumentException.class);
         new Energy(-10);
 
     }

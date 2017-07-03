@@ -34,7 +34,7 @@ import be.yildiz.shared.protocol.ActionDto;
  */
 public class ActionDtoMapperTest extends BaseMapperTest<ActionDto>{
 
-    protected ActionDtoMapperTest() {
+    public ActionDtoMapperTest() {
         super(ActionDtoMapper.getInstance(), new ActionDto(ActionId.valueOf(2), EntityId.valueOf(7), Point3D.valueOf(5), EntityId.valueOf(9)));
     }
 }

@@ -56,7 +56,7 @@ public class BaseCityManagerTest {
         Assert.assertEquals(0, cm.getCities(e.getOwner()).size());
         cm.createCity(e);
         Assert.assertEquals(1, cm.getCities().size());
-        Assert.assertEquals(PlayerId.get(6), cm.getCityById(EntityId.get(5L)).getOwner());
+        Assert.assertEquals(PlayerId.valueOf(6), cm.getCityById(EntityId.valueOf(5L)).getOwner());
         Assert.assertEquals(1, cm.getCities(e.getOwner()).size());
         Assert.assertNotNull(cm.getCityById(e.getId()));
     }

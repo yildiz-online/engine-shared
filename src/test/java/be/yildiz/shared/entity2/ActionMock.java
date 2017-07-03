@@ -76,7 +76,7 @@ public final class ActionMock extends Action {
 
     @Override
     public EntityId getTargetId() {
-        return EntityId.get(5L);
+        return EntityId.valueOf(5L);
     }
 
     @Override

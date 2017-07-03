@@ -44,16 +44,16 @@ public class BuilderManagerTest {
         public void happyFlow() {
             BuilderManager bm = new BuilderManager();
             Builder b = Mockito.mock(Builder.class);
-            Mockito.when(b.getOwner()).thenReturn(PlayerId.get(2));
+            Mockito.when(b.getOwner()).thenReturn(PlayerId.valueOf(2));
             bm.addBuilder(b);
-            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.get(2));
+            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.valueOf(2));
             Assert.assertEquals(1, builders.size());
         }
 
         @Test
         public void withEmptyResult() {
             BuilderManager bm = new BuilderManager();
-            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.get(2));
+            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.valueOf(2));
             Assert.assertTrue(builders.isEmpty());
         }
 

@@ -46,15 +46,13 @@ public class ViewDistanceTest {
         d = new ViewDistance(i);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testEnergy2() {
-        this.rule.expect(IllegalArgumentException.class);
         new ViewDistance(-10);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testEnergy3() {
-        this.rule.expect(IllegalArgumentException.class);
         new ViewDistance(0);
     }
 
