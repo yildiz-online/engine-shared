@@ -31,6 +31,7 @@ import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
 import be.yildiz.module.network.protocol.mapper.IntegerMapper;
 import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
+import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildiz.shared.player.Message;
 import be.yildiz.shared.protocol.mapper.*;
 import be.yildiz.shared.protocol.request.ClientCommand;
@@ -169,5 +170,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
 
     public NetworkMessage<ResearchDto> researchRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ResearchDtoMapper.getInstance(), ClientCommand.RESEARCH.ordinal());
+    }
+
+    public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(ModuleConfiguration dto) {
+        return new NetworkMessage<>(dto, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
+    }
+
+    public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
     }
 }
