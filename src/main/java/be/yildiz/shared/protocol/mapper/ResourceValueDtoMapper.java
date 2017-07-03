@@ -26,17 +26,18 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.LongMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.response.ResourceValueDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ResourceValueDtoMapper extends BaseMapper<ResourceValueDto> {
+public class ResourceValueDtoMapper implements ObjectMapper<ResourceValueDto> {
 
     private static final ResourceValueDtoMapper INSTANCE = new ResourceValueDtoMapper();
 
     private ResourceValueDtoMapper() {
-        super(ResourceValueDto.class);
+        super();
     }
 
     public static ResourceValueDtoMapper getInstance() {

@@ -24,17 +24,18 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskId;
 
 /**
  * @author Grégory Van den Borre
  */
-class TaskIdMapper extends BaseMapper<TaskId> {
+public class TaskIdMapper implements ObjectMapper<TaskId> {
 
     private static final TaskIdMapper INSTANCE = new TaskIdMapper();
 
     private TaskIdMapper() {
-        super(TaskId.class);
+        super();
     }
 
     public static TaskIdMapper getInstance() {

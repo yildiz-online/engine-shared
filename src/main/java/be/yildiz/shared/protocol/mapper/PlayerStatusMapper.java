@@ -25,17 +25,18 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.player.PlayerStatus;
 
 /**
  * @author Grégory Van den Borre
  */
-public class PlayerStatusMapper extends BaseMapper <PlayerStatus>{
+public class PlayerStatusMapper implements ObjectMapper<PlayerStatus> {
 
     private static final PlayerStatusMapper INSTANCE = new PlayerStatusMapper();
 
     private PlayerStatusMapper() {
-        super(PlayerStatus.class);
+        super();
     }
 
     public static PlayerStatusMapper getInstance() {

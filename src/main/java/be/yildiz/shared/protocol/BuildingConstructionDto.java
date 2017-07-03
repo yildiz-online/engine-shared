@@ -71,7 +71,7 @@ public class BuildingConstructionDto {
         this.level = level;
         this.position = position;
         this.staff = staff;
-        this.time = time
+        this.time = time;
     }
 
     public BuildingConstructionDto(EntityId cityId, EntityType type, Level level, BuildingPosition position, Staff staff) {

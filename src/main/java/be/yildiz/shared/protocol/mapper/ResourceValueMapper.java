@@ -25,17 +25,18 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.resources.ResourceValue;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ResourceValueMapper extends BaseMapper<ResourceValue> {
+public class ResourceValueMapper implements ObjectMapper<ResourceValue> {
 
     private static final ResourceValueMapper INSTANCE = new ResourceValueMapper();
 
     private ResourceValueMapper() {
-        super(ResourceValue.class);
+        super();
     }
 
     public static ResourceValueMapper getInstance() {
