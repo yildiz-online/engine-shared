@@ -26,19 +26,20 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.protocol.ResourceTransferDto;
-import be.yildiz.shared.protocol.response.ResourceTransferResponse;
+import be.yildiz.shared.protocol.TransferCause;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ResourceTransferDtoMapper extends BaseMapper<ResourceTransferDto> {
+public class ResourceTransferDtoMapper implements ObjectMapper<ResourceTransferDto> {
 
     private static final ResourceTransferDtoMapper INSTANCE = new ResourceTransferDtoMapper();
 
     private ResourceTransferDtoMapper() {
-        super(ResourceTransferDto.class);
+        super();
     }
 
     public static ResourceTransferDtoMapper getInstance() {
@@ -53,7 +54,7 @@ public class ResourceTransferDtoMapper extends BaseMapper<ResourceTransferDto> {
                 PlayerIdMapper.getInstance().from(v[0]),
                 PlayerIdMapper.getInstance().from(v[1]),
                 ResourceValueMapper.getInstance().from(v[2]),
-                ResourceTransferResponse.TransferCause.valueOf(IntegerMapper.getInstance().from(v[3]))
+                TransferCause.valueOf(IntegerMapper.getInstance().from(v[3]))
         );
     }
 

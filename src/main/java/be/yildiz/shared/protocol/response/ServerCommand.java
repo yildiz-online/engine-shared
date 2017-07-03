@@ -43,7 +43,7 @@ public enum ServerCommand {
     /**
      * Send information to build an Entity.
      */
-    BUILD(3),
+    ENTITY_INFO(3),
 
     /**
      * Send information for an Entity to change its Player owner.

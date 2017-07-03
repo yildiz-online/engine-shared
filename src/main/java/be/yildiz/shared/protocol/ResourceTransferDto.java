@@ -24,10 +24,7 @@
 package be.yildiz.shared.protocol;
 
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.protocol.response.ResourceTransferResponse;
 import be.yildiz.shared.resources.ResourceValue;
-
-import java.util.List;
 
 /**
  * @author Grégory Van den Borre
@@ -49,9 +46,9 @@ public class ResourceTransferDto {
     /**
      * Cause of this transfer.
      */
-    public final ResourceTransferResponse.TransferCause cause;
+    public final TransferCause cause;
 
-    public ResourceTransferDto(PlayerId receiver, PlayerId giver, ResourceValue resources, ResourceTransferResponse.TransferCause cause) {
+    public ResourceTransferDto(PlayerId receiver, PlayerId giver, ResourceValue resources, TransferCause cause) {
         super();
         this.receiver = receiver;
         this.giver = giver;

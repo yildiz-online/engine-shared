@@ -21,34 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.shared.resources.ResourceValue;
+import java.util.Arrays;
 
 /**
- * @author Grégory Van den Borre
+ * Possible causes for a resource transfer.
+ *
+ * @author Van den Borre
  */
-public class ResourceValueDto {
+public enum TransferCause {
 
     /**
-     * Id of the city receiving the resources.
+     * Resources have been stolen from another player.
      */
-    public final EntityId cityId;
+    THEFT(0),
 
     /**
-     * Resources values.
+     * Resources have been received from another player.
      */
-    public final ResourceValue resources;
+    GIFT(1),
 
     /**
-     * Time when the value has been set.
+     * Resources have been exchanged with another player.
      */
-    public final long time;
+    COMMERCIAL(2);
 
-    public ResourceValueDto(EntityId cityId, ResourceValue resources, long time) {
-        this.cityId = cityId;
-        this.resources = resources;
-        this.time = time;
+    public final int value;
+
+    TransferCause(int value) {
+        this.value = value;
+    }
+
+    public static TransferCause valueOf(int value) {
+        return Arrays.stream(TransferCause.values())
+                .filter(t -> t.value == value)
+                .findFirst()
+                .orElseThrow(AssertionError::new);
     }
 }

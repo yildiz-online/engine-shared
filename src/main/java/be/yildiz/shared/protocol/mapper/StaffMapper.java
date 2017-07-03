@@ -25,17 +25,18 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.building.staff.Staff;
 
 /**
  * @author Grégory Van den Borre
  */
-public class StaffMapper extends BaseMapper<Staff> {
+public class StaffMapper implements ObjectMapper<Staff> {
 
     private static final StaffMapper INSTANCE = new StaffMapper();
 
     private StaffMapper() {
-        super(Staff.class);
+        super();
     }
 
     public static StaffMapper getInstance() {

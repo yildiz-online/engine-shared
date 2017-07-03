@@ -25,16 +25,17 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityIdMapper extends BaseMapper<EntityId> {
+public class EntityIdMapper implements ObjectMapper<EntityId> {
 
     private static final EntityIdMapper INSTANCE = new EntityIdMapper();
 
     private EntityIdMapper() {
-        super(EntityId.class);
+        super();
     }
 
     public static EntityIdMapper getInstance() {

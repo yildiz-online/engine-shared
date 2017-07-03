@@ -30,9 +30,13 @@ public class ResearchId {
 
     public final int value;
 
-    public ResearchId(int value) {
+    private ResearchId(int value) {
         super();
         this.value = value;
+    }
+
+    public static ResearchId valueOf(int value) {
+        return new ResearchId(value);
     }
 
     @Override

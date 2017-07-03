@@ -21,35 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.player.PlayerStatus;
+import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.protocol.EntityHitDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class PlayerDto {
+public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto>{
 
-    /**
-     * Player unique Id.
-     */
-    public final PlayerId player;
+    private static final EntityHitDtoMapper INSTANCE = new EntityHitDtoMapper();
 
-    /**
-     * Player name.
-     */
-    public final String login;
-
-    /**
-     * Player status for the current player.
-     */
-    public final PlayerStatus status;
-
-    public PlayerDto(PlayerId player, String login, PlayerStatus status) {
+    private EntityHitDtoMapper() {
         super();
-        this.player = player;
-        this.login = login;
-        this.status = status;
+    }
+
+    public static EntityHitDtoMapper getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public EntityHitDto from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        try {
+            return new EntityHitDto(EntityIdMapper.getInstance().from(v[0]),
+                    IntegerMapper.getInstance().from(v[1]));
+        } catch(IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
+    }
+
+    @Override
+    public String to(EntityHitDto dto) {
+        return EntityIdMapper.getInstance().to(dto.entity)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + IntegerMapper.getInstance().to(dto.hitPoint);
     }
 }

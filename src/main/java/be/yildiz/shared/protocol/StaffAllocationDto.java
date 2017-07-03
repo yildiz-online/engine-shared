@@ -21,48 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.request;
+package be.yildiz.shared.protocol;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.shared.research.Research;
+import be.yildiz.shared.building.staff.Staff;
+import be.yildiz.shared.data.BuildingPosition;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class ResearchRequest extends NetworkMessage implements ServerRequest {
-
-    private final Research research;
-
-    private final EntityId cityId;
-
-    public ResearchRequest(final EntityId city, final Research research) {
-        super(NetworkMessage.convertParams(city, research.getName()));
-        this.cityId = city;
-        this.research = research;
-    }
-
-    public ResearchRequest(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.cityId = this.getEntityId();
-        this.research = Research.get(this.getString());
-    }
+public class StaffAllocationDto {
 
     /**
-     * @return The value of ClientCommand BUILD.
+     * Id of the city containing the building where staff will be allocated.
      */
-    @Override
-    public int command() {
-        return ClientCommand.RESEARCH.ordinal();
-    }
+    public final EntityId cityId;
 
-    public Research getResearch() {
-        return research;
-    }
+    /**
+     * Building position in the city.
+     */
+    public final BuildingPosition position;
 
-    public EntityId getCityId() {
-        return cityId;
+    /**
+     * Number of staff to allocate.
+     */
+    public final Staff staff;
+
+    public StaffAllocationDto(EntityId cityId, BuildingPosition position, Staff staff) {
+        this.cityId = cityId;
+        this.position = position;
+        this.staff = staff;
     }
 }

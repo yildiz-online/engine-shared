@@ -25,17 +25,18 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.entity.module.ModuleGroup;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ModuleGroupMapper extends BaseMapper<ModuleGroup> {
+public class ModuleGroupMapper implements ObjectMapper<ModuleGroup> {
 
     private static final ModuleGroupMapper INSTANCE = new ModuleGroupMapper();
 
     private ModuleGroupMapper() {
-        super(ModuleGroup.class);
+        super();
     }
 
     public static ModuleGroupMapper getInstance() {

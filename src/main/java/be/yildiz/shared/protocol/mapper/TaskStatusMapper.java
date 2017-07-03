@@ -25,17 +25,18 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskStatus;
 
 /**
  * @author Grégory Van den Borre
  */
-class TaskStatusMapper extends BaseMapper<TaskStatus> {
+class TaskStatusMapper implements ObjectMapper<TaskStatus> {
 
     private static final TaskStatusMapper INSTANCE = new TaskStatusMapper();
 
     private TaskStatusMapper() {
-        super(TaskStatus.class);
+        super();
     }
 
     public static TaskStatusMapper getInstance() {

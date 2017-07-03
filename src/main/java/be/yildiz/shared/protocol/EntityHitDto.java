@@ -21,55 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
 
 /**
- * Message sent from the server to the client when an Entity is no longer visible.
- *
  * @author Grégory Van den Borre
  */
-public final class RemoveVisibilityResponse extends NetworkMessage implements ServerResponse {
+public class EntityHitDto {
 
     /**
-     * No longer visible Entity Id.
+     * Id of the damaged entity.
      */
-    private final EntityId entity;
+    public final EntityId entity;
 
     /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
+     * Current entity hp.
      */
-    public RemoveVisibilityResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.entity = this.from(EntityId.class);
-    }
+    public final int hitPoint;
 
-    /**
-     * Full constructor.
-     *
-     * @param entity Id of the no longer visible Entity.
-     */
-    public RemoveVisibilityResponse(final EntityId entity) {
-        super(NetworkMessage.to(entity, EntityId.class));
+    public EntityHitDto(EntityId entity, int hitPoint) {
         this.entity = entity;
-    }
-
-    /**
-     * @return The ordinal value of ServerCommand UNIT_NO_LONGER_VISIBLE.
-     */
-    @Override
-    public int command() {
-        return ServerCommand.UNIT_NO_LONGER_VISIBLE.value;
-    }
-
-    public EntityId getEntity() {
-        return entity;
+        this.hitPoint = hitPoint;
     }
 }

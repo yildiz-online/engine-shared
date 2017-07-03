@@ -27,7 +27,7 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
 import be.yildiz.module.network.protocol.mapper.LongMapper;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.shared.protocol.response.ResourceValueDto;
+import be.yildiz.shared.protocol.ResourceValueDto;
 
 /**
  * @author Grégory Van den Borre

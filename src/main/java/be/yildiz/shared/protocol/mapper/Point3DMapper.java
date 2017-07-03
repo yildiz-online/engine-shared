@@ -26,20 +26,21 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 
 import java.security.InvalidParameterException;
 
 /**
  * @author Grégory Van den Borre
  */
-public class Point3DMapper extends BaseMapper<Point3D> {
+public class Point3DMapper implements ObjectMapper<Point3D> {
 
     //FIXME use float mapper
 
     private static final Point3DMapper INSTANCE = new Point3DMapper();
 
     private Point3DMapper() {
-        super(Point3D.class);
+        super();
     }
 
     public static Point3DMapper getInstance() {

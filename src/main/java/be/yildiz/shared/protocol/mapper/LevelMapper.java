@@ -24,17 +24,18 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.data.Level;
 
 /**
  * @author Grégory Van den Borre
  */
-class LevelMapper extends BaseMapper<Level> {
+class LevelMapper implements ObjectMapper<Level> {
 
     private static final LevelMapper INSTANCE = new LevelMapper();
 
     private LevelMapper() {
-        super(Level.class);
+        super();
     }
 
     public static LevelMapper getInstance() {

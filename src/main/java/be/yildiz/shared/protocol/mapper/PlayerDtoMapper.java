@@ -25,18 +25,19 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
-import be.yildiz.shared.protocol.response.PlayerDto;
+import be.yildiz.shared.protocol.PlayerDto;
 
 /**
  * @author Grégory Van den Borre
  */
-public class PlayerDtoMapper extends BaseMapper<PlayerDto>{
+public class PlayerDtoMapper implements ObjectMapper<PlayerDto> {
 
     private static final PlayerDtoMapper INSTANCE = new PlayerDtoMapper();
 
     private PlayerDtoMapper() {
-        super(PlayerDto.class);
+        super();
     }
 
     public static PlayerDtoMapper getInstance() {

@@ -21,54 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+
+package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.protocol.StaffAllocationDto;
 
 /**
- * Response from the server to update an Entity position.
- *
  * @author Grégory Van den Borre
  */
-public final class UpdatePositionResponse extends NetworkMessage implements ServerResponse {
+public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto>{
 
-    /**
-     * Data of the position updated.
-     */
-    private final EntityPositionDto dto;
+    private static final StaffAllocationDtoMapper INSTANCE = new StaffAllocationDtoMapper();
 
-    /**
-     * Full constructor.
-     *
-     * @param message Message from the server to parse.
-     * @throws InvalidNetworkMessage If an error occurs while parsing the message.
-     */
-    public UpdatePositionResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.dto = this.from(EntityPositionDto.class);
+    private StaffAllocationDtoMapper() {
+        super();
     }
 
-    /**
-     * Full constructor.
-     *
-     * @param dto Data of the position updated.
-     */
-    public UpdatePositionResponse(final EntityPositionDto dto) {
-        super(NetworkMessage.to(dto, EntityPositionDto.class));
-        this.dto = dto;
+    public static StaffAllocationDtoMapper getInstance() {
+        return INSTANCE;
     }
 
-    /**
-     * @return Value of ServerCommand POSITION.
-     */
     @Override
-    public int command() {
-        return ServerCommand.POSITION.value;
+    public StaffAllocationDto from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        try {
+            return new StaffAllocationDto(EntityIdMapper.getInstance().from(v[0]),
+                    BuildingPositionMapper.getInstance().from(v[1]),
+                    StaffMapper.getInstance().from(v[2])
+                    );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
-    public EntityPositionDto getDto() {
-        return dto;
+    @Override
+    public String to(StaffAllocationDto dto) {
+        return EntityIdMapper.getInstance().to(dto.cityId)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + BuildingPositionMapper.getInstance().to(dto.position)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + StaffMapper.getInstance().to(dto.staff);
     }
 }

@@ -21,55 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.response;
+package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageWrapper;
-import be.yildiz.module.network.protocol.NetworkMessage;
+import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildiz.shared.protocol.EntityPositionDto;
 
 /**
- * Message sent from the server to the client when an Entity moves.
- *
  * @author Grégory Van den Borre
  */
-public final class StopAttackResponse extends NetworkMessage implements ServerResponse {
+public class EntityPositionDtoMapper implements ObjectMapper<EntityPositionDto> {
 
-    /**
-     * Attacking Entity Id.
-     */
-    private final EntityId attacker;
+    private static final EntityPositionDtoMapper INSTANCE = new EntityPositionDtoMapper();
 
-    /**
-     * Full constructor, parse the message to build the object.
-     *
-     * @param message Message received from the server.
-     * @throws InvalidNetworkMessage in case of error while parsing the message.
-     */
-    public StopAttackResponse(final MessageWrapper message) throws InvalidNetworkMessage {
-        super(message);
-        this.attacker = this.from(EntityId.class);
+    private EntityPositionDtoMapper() {
+        super();
     }
 
-    /**
-     * Full constructor.
-     *
-     * @param attackerId Id of the Entity to stop attacking.
-     */
-    public StopAttackResponse(final EntityId attackerId) {
-        super(NetworkMessage.to(attackerId, EntityId.class));
-        this.attacker = attackerId;
+    public static EntityPositionDtoMapper getInstance() {
+        return INSTANCE;
     }
 
-    /**
-     * @return The ordinal value of ServerCommand STOP_ATTACK.
-     */
     @Override
-    public int command() {
-        return ServerCommand.STOP_ATTACK.value;
+    public EntityPositionDto from(String s) throws InvalidNetworkMessage {
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR );
+        try {
+            return new EntityPositionDto(EntityIdMapper.getInstance().from(v[0]),
+                    Point3DMapper.getInstance().from(v[1]),
+                    Point3DMapper.getInstance().from(v[2]));
+        } catch (final IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
-    public EntityId getAttacker() {
-        return attacker;
+    @Override
+    public String to(EntityPositionDto dto) {
+        return EntityIdMapper.getInstance().to(dto.id)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + Point3DMapper.getInstance().to(dto.position)
+                + MessageSeparation.OBJECTS_SEPARATOR
+                + Point3DMapper.getInstance().to(dto.orientation);
     }
 }
