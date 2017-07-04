@@ -24,6 +24,7 @@
 package be.yildiz.shared.protocol;
 
 import be.yildiz.common.id.EntityId;
+import be.yildiz.shared.building.Building;
 import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
@@ -76,5 +77,9 @@ public class BuildingConstructionDto {
 
     public BuildingConstructionDto(EntityId cityId, EntityType type, Level level, BuildingPosition position, Staff staff) {
         this(cityId, type, level, position, staff, 0);
+    }
+
+    public BuildingConstructionDto(Building b, long time) {
+        this(b.getCity(), b.getType(), b.getLevel(), b.getBuildingPosition(), Staff.valueOf(b.getStaff()), time);
     }
 }
