@@ -55,6 +55,6 @@ public interface StaffAllocationListener<B extends Building, D extends BuildingD
      * @param building Building in the city.
      * @param number   number of worker allocated.
      */
-    void staffAllocated(C city, B building, int number);
+    void staffAllocated(C city, B building, Staff number);
 
 }

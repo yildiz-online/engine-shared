@@ -24,6 +24,7 @@
 package be.yildiz.shared.building;
 
 import be.yildiz.common.id.EntityId;
+import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
@@ -64,14 +65,14 @@ public interface Building {
      *
      * @return The current staff.
      */
-    int getStaff();
+    Staff getStaff();
 
     /**
      * Set the number of affected staff.
      *
      * @param staff Staff to set
      */
-    void setStaff(int staff);
+    void setStaff(Staff staff);
 
     /**
      * @return The position of the building in the holding city.
@@ -89,7 +90,7 @@ public interface Building {
      *
      * @return The value of the staff before being assigned.
      */
-    int getOldStaff();
+    Staff getOldStaff();
 
     /**
      * @return The building level.
@@ -128,7 +129,7 @@ public interface Building {
      * @param level Level to check.
      * @return The max population for the given level.
      */
-    int getMaxPopulation(Level level);
+    Staff getMaxPopulation(Level level);
 
     /**
      * @return The number of resources required to reach the next level.

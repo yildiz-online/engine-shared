@@ -25,6 +25,7 @@ package be.yildiz.shared.building;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.Time;
+import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
@@ -41,7 +42,7 @@ public class BaseBuildingTest {
 
     public static final EntityId OK_CITY = EntityId.valueOf(6L);
 
-    public static final int OK_STAFF = 2;
+    public static final Staff OK_STAFF = Staff.valueOf(2);
 
     public static final Level OK_LEVEL = Level.valueOf(5);
 
@@ -70,7 +71,7 @@ public class BaseBuildingTest {
             }
 
             @Override
-            public BonusResources getStaffBonus(int staffAllocated) {
+            public BonusResources getStaffBonus(Staff staffAllocated) {
                 return null;
             }
 
@@ -105,8 +106,8 @@ public class BaseBuildingTest {
             }
 
             @Override
-            public int getMaxPopulation(Level level) {
-                return 20;
+            public Staff getMaxPopulation(Level level) {
+                return Staff.valueOf(20);
             }
 
             @Override
@@ -154,7 +155,7 @@ public class BaseBuildingTest {
 
     @Test(expected = AssertionError.class)
     public void testConstructorNegativeStaff() {
-        new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, -1);
+        new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, Staff.valueOf(-1));
     }
 
     @Test(expected = AssertionError.class)
@@ -164,27 +165,27 @@ public class BaseBuildingTest {
 
     @Test(expected = AssertionError.class)
     public void testConstructorAssignedStaffTooHigh() {
-        new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, 35);
+        new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, Staff.valueOf(35));
     }
 
     @Test
     public void testSetStaff() {
         Building b = givenABuilding();
-        b.setStaff(10);
+        b.setStaff(Staff.valueOf(10));
         Assert.assertEquals(OK_STAFF, b.getOldStaff());
-        Assert.assertEquals(10, b.getStaff());
+        Assert.assertEquals(Staff.valueOf(10), b.getStaff());
     }
 
     @Test(expected = AssertionError.class)
     public void testTooHighStaff() {
         Building b = givenABuilding();
-        b.setStaff(35);
+        b.setStaff(Staff.valueOf(35));
     }
 
     @Test(expected = AssertionError.class)
     public void testNegativeStaff() {
         Building b = new BaseBuilding(OK_CITY, OK_DATA, OK_POSITION, OK_LEVEL, OK_STAFF);
-        b.setStaff(-1);
+        b.setStaff(Staff.valueOf(-1));
     }
 
     @Test

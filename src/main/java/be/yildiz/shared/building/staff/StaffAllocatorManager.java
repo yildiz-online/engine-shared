@@ -76,7 +76,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
      * @param number   Number of worker to allocate.
      * @param time     Time left to complete the allocation.
      */
-    public void add(final B building, final int number, final long time) {
+    public void add(final B building, final Staff number, final long time) {
         BuildingToAllocate<B> toAllocate = new BuildingToAllocate<>(building, number, time);
         // FIXME clean!!!
         this.toAllocateList.add(toAllocate);
@@ -135,7 +135,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
         /**
          * Number of workers to allocate to that building.
          */
-        private final int workerNumber;
+        private final Staff workerNumber;
 
         /**
          * Time to complete the building allocation.
@@ -152,7 +152,7 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
          *
          * @param workerNumber Number of workers to allocate.
          */
-        private BuildingToAllocate(final B building, final int workerNumber, final long timeToAllocate) {
+        private BuildingToAllocate(final B building, final Staff workerNumber, final long timeToAllocate) {
             super();
             this.building = building;
             this.workerNumber = workerNumber;

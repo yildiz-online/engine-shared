@@ -24,6 +24,7 @@
 package be.yildiz.shared.building;
 
 import be.yildiz.common.util.Checker;
+import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.*;
 import be.yildiz.shared.resources.ResourceValue;
 import be.yildiz.shared.resources.bonus.BonusResources;
@@ -90,11 +91,11 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
 
     @Override
     public BonusResources getLevelBonus(final Level level) {
-        return this.bonusFactory.getLevelBonus(level.value);
+        return this.bonusFactory.getLevelBonus(level);
     }
 
     @Override
-    public BonusResources getStaffBonus(final int staff) {
+    public BonusResources getStaffBonus(final Staff staff) {
         return this.bonusFactory.getStaffBonus(staff);
     }
 
@@ -133,7 +134,7 @@ public abstract class GameBuildingData extends GameData implements ConstructionD
     }
 
     @Override
-    public final int getMaxPopulation(final Level level) {
+    public final Staff getMaxPopulation(final Level level) {
         return this.getForLevel(level).getMaxPopulation();
     }
 

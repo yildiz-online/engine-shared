@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.building;
 
+import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
 import be.yildiz.shared.data.TimeToBuild;
@@ -60,7 +61,7 @@ public interface BuildingData {
      * @return The matching bonus.
      */
     //@requires staff >= 0.
-    BonusResources getStaffBonus(int staff);
+    BonusResources getStaffBonus(Staff staff);
 
     /**
      * Provide the appropriated bonus for the building level.
@@ -106,7 +107,7 @@ public interface BuildingData {
      * @return The time max population in this building.
      */
     //@requires level <= this.maxLevel
-    int getMaxPopulation(final Level level);
+    Staff getMaxPopulation(final Level level);
 
     /**
      * @return The building maximum level.
@@ -140,9 +141,9 @@ public interface BuildingData {
         /**
          * Maximum possible worker in this building.
          */
-        private final int maxPopulation;
+        private final Staff maxPopulation;
 
-        public LevelData(int level, TimeToBuild timeToBuild, ResourceValue price, int maxPopulation) {
+        public LevelData(int level, TimeToBuild timeToBuild, ResourceValue price, Staff maxPopulation) {
             super();
             this.level = level;
             this.timeToBuild = timeToBuild;
@@ -162,7 +163,7 @@ public interface BuildingData {
             return price;
         }
 
-        public int getMaxPopulation() {
+        public Staff getMaxPopulation() {
             return maxPopulation;
         }
     }

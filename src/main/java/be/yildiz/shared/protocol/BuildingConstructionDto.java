@@ -80,6 +80,6 @@ public class BuildingConstructionDto {
     }
 
     public BuildingConstructionDto(Building b, long time) {
-        this(b.getCity(), b.getType(), b.getLevel(), b.getBuildingPosition(), Staff.valueOf(b.getStaff()), time);
+        this(b.getCity(), b.getType(), b.getLevel(), b.getBuildingPosition(), b.getStaff(), time);
     }
 }

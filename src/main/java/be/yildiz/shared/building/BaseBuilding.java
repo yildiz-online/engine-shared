@@ -23,9 +23,9 @@
 
 package be.yildiz.shared.building;
 
-import be.yildiz.common.Assert;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.util.Checker;
+import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
@@ -63,12 +63,12 @@ public final class BaseBuilding implements Building {
     /**
      * Staff currently affected to this building.
      */
-    private int staff;
+    private Staff staff;
 
     /**
      * Staff currently affected to this building while it is upgraded.
      */
-    private int oldStaff;
+    private Staff oldStaff;
 
     /**
      * Create a new building.
@@ -81,7 +81,7 @@ public final class BaseBuilding implements Building {
      * @throws NullPointerException     If any parameter is null.
      * @throws IllegalArgumentException If level is above max level, if staff is negative or if staff if above max for the current level.
      */
-    public BaseBuilding(final EntityId city, final BuildingData data, final BuildingPosition buildingPosition, final Level level, final int staff) {
+    public BaseBuilding(final EntityId city, final BuildingData data, final BuildingPosition buildingPosition, final Level level, final Staff staff) {
         super();
         assert city != null;
         assert data != null;
@@ -105,9 +105,9 @@ public final class BaseBuilding implements Building {
     }
 
     @Override
-    public void setStaff(final int staff) {
-        Checker.exceptionNotPositive(staff);
-        if (staff > this.getMaxPopulation(this.level)) {
+    public void setStaff(final Staff staff) {
+        Checker.exceptionNotPositive(staff.value);
+        if (staff.value > this.getMaxPopulation(this.level).value) {
             throw new AssertionError("Staff too high for this level.");
         }
         this.staff = staff;
@@ -140,7 +140,7 @@ public final class BaseBuilding implements Building {
     }
 
     @Override
-    public int getMaxPopulation(final Level level) {
+    public Staff getMaxPopulation(final Level level) {
         return this.data.getMaxPopulation(level);
     }
 
@@ -170,12 +170,12 @@ public final class BaseBuilding implements Building {
     }
 
     @Override
-    public int getStaff() {
+    public Staff getStaff() {
         return staff;
     }
 
     @Override
-    public int getOldStaff() {
+    public Staff getOldStaff() {
         return oldStaff;
     }
 

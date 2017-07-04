@@ -23,6 +23,8 @@
 
 package be.yildiz.shared.building;
 
+import be.yildiz.shared.building.staff.Staff;
+import be.yildiz.shared.data.Level;
 import be.yildiz.shared.resources.bonus.BonusResources;
 
 /**
@@ -38,7 +40,7 @@ public interface BonusFactory {
      * @param level Building level.
      * @return The matching bonus.
      */
-    BonusResources getLevelBonus(int level);
+    BonusResources getLevelBonus(Level level);
 
     /**
      * Provide the bonus for the allocated staff.
@@ -47,7 +49,7 @@ public interface BonusFactory {
      * @return The matching bonus.
      */
     //@requires staff >= 0.
-    BonusResources getStaffBonus(int staff);
+    BonusResources getStaffBonus(Staff staff);
 
     boolean hasRatioBonus();
 

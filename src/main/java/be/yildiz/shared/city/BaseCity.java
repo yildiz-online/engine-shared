@@ -123,7 +123,7 @@ public class BaseCity<T extends Building, D extends BuildingData> implements Cit
     public int getAllocatedStaff() {
         int total = 0;
         for (T b : this.buildings) {
-            total += b.getOldStaff();
+            total += b.getOldStaff().value;
         }
         return total;
     }
