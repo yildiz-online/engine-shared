@@ -126,7 +126,7 @@ public interface BuildingData {
         /**
          * Level of the data.
          */
-        private final int level;
+        private final Level level;
 
         /**
          * Time needed to create the type.
@@ -143,7 +143,7 @@ public interface BuildingData {
          */
         private final Staff maxPopulation;
 
-        public LevelData(int level, TimeToBuild timeToBuild, ResourceValue price, Staff maxPopulation) {
+        public LevelData(Level level, TimeToBuild timeToBuild, ResourceValue price, Staff maxPopulation) {
             super();
             this.level = level;
             this.timeToBuild = timeToBuild;
@@ -151,7 +151,7 @@ public interface BuildingData {
             this.maxPopulation = maxPopulation;
         }
 
-        public int getLevel() {
+        public Level getLevel() {
             return level;
         }
 
