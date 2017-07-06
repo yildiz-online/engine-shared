@@ -59,6 +59,14 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
     }
 
+    public NetworkMessage<ActionDto> actionResponse(ActionDto a) {
+        return new NetworkMessage<>(a, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
+    }
+
+    public NetworkMessage<ActionDto> actionResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
+    }
+
     public NetworkMessage<Integer> buildCancel(Integer i) {
         return new NetworkMessage<>(i, IntegerMapper.getInstance(), ClientCommand.BUILD_CANCEL.ordinal());
     }
