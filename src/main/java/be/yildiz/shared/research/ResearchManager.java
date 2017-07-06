@@ -26,7 +26,7 @@ package be.yildiz.shared.research;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
-import be.yildiz.shared.player.Player;
+import be.yildiz.common.id.PlayerId;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +45,7 @@ public final class ResearchManager {
      */
     private final List<ResearchListener> listenerList = Lists.newList();
 
-    private final Map<Player, Set<Research>> researches = Maps.newMap();
+    private final Map<PlayerId, Set<ResearchId>> researches = Maps.newMap();
 
     public ResearchManager() {
         super();
@@ -57,8 +57,8 @@ public final class ResearchManager {
      * @param res    Research to add.
      * @param player Player doing the research.
      */
-    public void addResearch(final Research res, final Player player) {
-        Set<Research> list = this.researches.putIfAbsent(player, Sets.newSet());
+    public void addResearch(final ResearchId res, final PlayerId player) {
+        Set<ResearchId> list = this.researches.putIfAbsent(player, Sets.newSet());
         if (list.contains(res)) {
             this.listenerList.forEach(l -> l.researchAlreadyDone(res, player));
         } else {
@@ -80,14 +80,15 @@ public final class ResearchManager {
      * Retrieve the research state for a given research.
      *
      * @param player Player to check.
-     * @param research Research to check.
+     * @param id Research to check.
      * @return The state of the given research.
      */
-    public ResearchState getResearchState(final Player player, final Research research) {
-        Set<Research> list = this.researches.putIfAbsent(player, Sets.newSet());
-        if (list.contains(research)) {
+    public ResearchState getResearchState(final PlayerId player, final ResearchId id) {
+        Set<ResearchId> list = this.researches.putIfAbsent(player, Sets.newSet());
+        if (list.contains(id)) {
             return ResearchState.DONE;
         }
+        Research research = Research.get(id);
         if (!research.getPrerequisite().isPresent() || list.contains(research.getPrerequisite().get())) {
             return ResearchState.AVAILABLE;
         }
@@ -100,7 +101,7 @@ public final class ResearchManager {
      * @param res Research to check.
      * @return <code>true</code> If the given player has completed to given research.
      */
-    public boolean hasResearch(final Player player, final Research res) {
+    public boolean hasResearch(final PlayerId player, final ResearchId res) {
         return this.researches.putIfAbsent(player, Sets.newSet()).contains(res);
     }
 
@@ -109,7 +110,7 @@ public final class ResearchManager {
      * @param player Player to get the researches.
      * @return All the researches completed for the given player.
      */
-    public Set<Research> getResearchList(final Player player) {
+    public Set<ResearchId> getResearchList(final PlayerId player) {
         return this.researches.getOrDefault(player, Collections.emptySet());
     }
 

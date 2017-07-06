@@ -23,12 +23,12 @@
 
 package be.yildiz.shared.research;
 
-import be.yildiz.common.util.BaseRegisterable;
-import be.yildiz.common.util.Registerer;
+import be.yildiz.common.collections.Maps;
 import be.yildiz.shared.entity.bonus.EntityBonus;
 import be.yildiz.shared.resources.GameResources;
 import be.yildiz.shared.resources.ResourceValue;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -36,12 +36,12 @@ import java.util.Optional;
  *
  * @author Grégory Van den Borre
  */
-public final class Research extends BaseRegisterable {
+public final class Research {
 
     /**
      * Contains all created Research, to check name is unique and to retrieve a Research from its name.
      */
-    private static final Registerer<Research> REGISTERER = Registerer.newRegisterer();
+    private static final Map<ResearchId, Research> REGISTERER = Maps.newMap();
 
     /**
      * Bonus obtained the this research is done.
@@ -56,48 +56,48 @@ public final class Research extends BaseRegisterable {
     /**
      * Research needed to be done before making this one, optional. none.
      */
-    private final Optional<Research> prerequisite;
+    private final ResearchId prerequisite;
 
 
-    private Research(final String name, final float researchPrice, final EntityBonus bonus, final Optional<Research> prerequisite) {
-        super(name);
+    private Research(final ResearchId id, final float researchPrice, final EntityBonus bonus, final ResearchId prerequisite) {
+        super();
         this.prerequisite = prerequisite;
         this.price = GameResources.research(researchPrice);
         this.bonus = bonus;
-        Research.REGISTERER.register(this);
+        REGISTERER.put(id, this);
     }
 
     /**
-     * @param name  Research unique name.
+     * @param id  Research unique id.
      * @param price Research price.
      * @param bonus Bonus received when this research is bought.
      * @return The created research.
      */
     //@effects Create a new Research with no prerequisite.
-    public static Research createAndRegister(final String name, final float price, final EntityBonus bonus) {
-        return new Research(name, price, bonus, Optional.empty());
+    public static Research createAndRegister(final ResearchId id, final float price, final EntityBonus bonus) {
+        return new Research(id, price, bonus, null);
     }
 
     /**
-     * @param name          Research unique name.
+     * @param id          Research unique id.
      * @param price         Research price.
      * @param bonus         Bonus received when this research is bought.
      * @param prerequisite  Research needed before buying this one.
      * @return The created research.
      */
     //@effects Create a new Research with a prerequisite.
-    public static Research createAndRegister(final String name, final float price, final EntityBonus bonus, final Research prerequisite) {
-        return new Research(name, price, bonus, Optional.of(prerequisite));
+    public static Research createAndRegister(final ResearchId id, final float price, final EntityBonus bonus, final ResearchId prerequisite) {
+        return new Research(id, price, bonus, prerequisite);
     }
 
     /**
      * Retrieve a research with its unique name.
      *
-     * @param name Research unique name.
+     * @param id Research unique id.
      * @return The research matching to the given name.
      */
-    public static Research get(final String name) {
-        return Research.REGISTERER.get(name);
+    public static Research get(final ResearchId id) {
+        return Research.REGISTERER.get(id);
     }
 
     public EntityBonus getBonus() {
@@ -108,7 +108,7 @@ public final class Research extends BaseRegisterable {
         return price;
     }
 
-    public Optional<Research> getPrerequisite() {
-        return prerequisite;
+    public Optional<ResearchId> getPrerequisite() {
+        return Optional.ofNullable(prerequisite);
     }
 }

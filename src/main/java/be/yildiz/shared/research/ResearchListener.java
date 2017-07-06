@@ -23,7 +23,7 @@
 
 package be.yildiz.shared.research;
 
-import be.yildiz.shared.player.Player;
+import be.yildiz.common.id.PlayerId;
 
 /**
  * Listener notified when a research even occurs.
@@ -39,7 +39,7 @@ public interface ResearchListener {
      * @param research Research done.
      * @param player   Player that completed the research.
      */
-    void researchCompleted(Research research, Player player);
+    void researchCompleted(ResearchId research, PlayerId player);
 
     /**
      * Notify when a research has already been done.
@@ -47,6 +47,6 @@ public interface ResearchListener {
      * @param research Research already done.
      * @param player   Player trying to make the research.
      */
-    default void researchAlreadyDone(Research research, Player player) {
+    default void researchAlreadyDone(ResearchId research, PlayerId player) {
     }
 }
