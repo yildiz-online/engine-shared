@@ -67,12 +67,20 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ClientCommand.BUILD_CANCEL.ordinal());
     }
 
-    public NetworkMessage<EntityConstructionDto> entityConstruction(EntityConstructionDto e) {
+    public NetworkMessage<EntityConstructionDto> entityConstructionRequest(EntityConstructionDto e) {
         return new NetworkMessage<>(e, entityConstructionDtoMapper, 0);
     }
 
-    public NetworkMessage<BuildingConstructionDto> entityConstruction(BuildingConstructionDto dto) {
+    public NetworkMessage<EntityConstructionDto> entityConstructionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, entityConstructionDtoMapper, 0);
+    }
+
+    public NetworkMessage<BuildingConstructionDto> buildingConstructionRequest(BuildingConstructionDto dto) {
         return new NetworkMessage<>(dto, buildingConstructionDtoMapper, 2);
+    }
+
+    public NetworkMessage<BuildingConstructionDto> buildingConstructionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, buildingConstructionDtoMapper, 2);
     }
 
     public NetworkMessage<EntityDto> entityInfo(EntityDto dto) {
