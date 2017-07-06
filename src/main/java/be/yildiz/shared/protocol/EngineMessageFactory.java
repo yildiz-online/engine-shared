@@ -51,11 +51,11 @@ public class EngineMessageFactory extends NetworkMessageFactory{
 
     private final EntityDtoMapper entityDtoMapper = new EntityDtoMapper();
 
-    public NetworkMessage<ActionDto> ActionRequest(ActionDto a) {
+    public NetworkMessage<ActionDto> actionRequest(ActionDto a) {
         return new NetworkMessage<>(a, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
     }
 
-    public NetworkMessage<ActionDto> ActionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
+    public NetworkMessage<ActionDto> actionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
     }
 
@@ -67,11 +67,11 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ClientCommand.BUILD_CANCEL.ordinal());
     }
 
-    public NetworkMessage<EntityConstructionDto> message(EntityConstructionDto e) {
+    public NetworkMessage<EntityConstructionDto> entityConstruction(EntityConstructionDto e) {
         return new NetworkMessage<>(e, entityConstructionDtoMapper, 0);
     }
 
-    public NetworkMessage<BuildingConstructionDto> message(BuildingConstructionDto dto) {
+    public NetworkMessage<BuildingConstructionDto> entityConstruction(BuildingConstructionDto dto) {
         return new NetworkMessage<>(dto, buildingConstructionDtoMapper, 2);
     }
 
@@ -87,8 +87,12 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(id, EntityIdMapper.getInstance(), 4);
     }
 
-    public NetworkMessage<Message> message(Message m) {
+    public NetworkMessage<Message> messageRequest(Message m) {
         return new NetworkMessage<>(m, MessageMapper.getInstance(), 18);
+    }
+
+    public NetworkMessage<Message> messageRequest(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, MessageMapper.getInstance(), 18);
     }
 
     public NetworkMessage<ResourceTransferDto> resourceTransferResponse(ResourceTransferDto dto) {
