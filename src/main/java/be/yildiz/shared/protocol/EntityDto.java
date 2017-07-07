@@ -27,6 +27,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.data.EntityType;
+import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.module.ModuleGroup;
 
 /**
@@ -97,5 +98,9 @@ public class EntityDto {
         this.modules = modules;
         this.builderId = builderId;
         this.index = index;
+    }
+
+    public EntityDto(Entity e) {
+        this(e.getId(), e.getName(), e.getType(), e.getOwner(), e.getPosition(), e.getDirection(), e.getHitPoints(), e.getEnergyPoints(), e.getModules());
     }
 }

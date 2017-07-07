@@ -91,6 +91,14 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, buildingConstructionDtoMapper, 2);
     }
 
+    public NetworkMessage<BuildingConstructionDto> buildingConstructionResponse(BuildingConstructionDto dto) {
+        return new NetworkMessage<>(dto, buildingConstructionDtoMapper, ServerCommand.BUILDING_INFO.value);
+    }
+
+    public NetworkMessage<BuildingConstructionDto> buildingConstructionResponse(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, buildingConstructionDtoMapper, ServerCommand.BUILDING_INFO.value);
+    }
+
     public NetworkMessage<EntityDto> entityInfo(EntityDto dto) {
         return new NetworkMessage<>(dto, entityDtoMapper, ServerCommand.ENTITY_INFO.value);
     }
