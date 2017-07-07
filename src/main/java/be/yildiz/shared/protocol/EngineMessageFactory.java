@@ -108,7 +108,11 @@ public class EngineMessageFactory extends NetworkMessageFactory{
     }
 
     public NetworkMessage<EntityId> destroy(EntityId id) {
-        return new NetworkMessage<>(id, EntityIdMapper.getInstance(), 4);
+        return new NetworkMessage<>(id, EntityIdMapper.getInstance(), ServerCommand.DESTROY.value);
+    }
+
+    public NetworkMessage<EntityId> destroy(MessageWrapper msg) throws InvalidNetworkMessage {
+        return new NetworkMessage<>(msg, EntityIdMapper.getInstance(), ServerCommand.DESTROY.value);
     }
 
     public NetworkMessage<Message> messageRequest(Message m) {

@@ -58,12 +58,15 @@ public final class Research {
      */
     private final ResearchId prerequisite;
 
+    private final ResearchId id;
+
 
     private Research(final ResearchId id, final float researchPrice, final EntityBonus bonus, final ResearchId prerequisite) {
         super();
         this.prerequisite = prerequisite;
         this.price = GameResources.research(researchPrice);
         this.bonus = bonus;
+        this.id = id;
         REGISTERER.put(id, this);
     }
 
@@ -106,6 +109,10 @@ public final class Research {
 
     public ResourceValue getPrice() {
         return price;
+    }
+
+    public ResearchId getId() {
+        return id;
     }
 
     public Optional<ResearchId> getPrerequisite() {
