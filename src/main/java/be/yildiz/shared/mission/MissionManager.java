@@ -77,7 +77,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
     public final void prepareMission(final MissionId missionId, final PlayerId playerId) {
         CollectionUtil.getOrCreateSetFromMap(this.missionsReady, playerId).add(missionId);
         T mission = this.availableMissions.get(missionId);
-        mission.getTasks().forEach(t -> this.taskFactory.createTask(t, playerId));
+        mission.getTasks().forEach(t -> this.taskFactory.createTask(t, playerId, mission.getId()));
         this.listeners.forEach(l->l.missionReady(mission, playerId));
     }
 
@@ -130,7 +130,10 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
         availableMissions.values()
                 .stream()
                 .filter(m -> m.canStartFor(player.id))
-                .forEach(m -> this.startMission(m.getId(), player.id));
+                .forEach(m -> {
+                    this.prepareMission(m.getId(), player.id);
+                    this.startMission(m.getId(), player.id);
+                });
     }
 
     public final Set<T> getMissionReady(PlayerId p) {

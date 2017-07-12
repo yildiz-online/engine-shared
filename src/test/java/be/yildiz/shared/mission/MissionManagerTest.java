@@ -72,7 +72,7 @@ public class MissionManagerTest {
     public static MissionManager<BaseMission> givenAMissionManager() {
         MissionManager mm = new MissionManager<>(new TaskFactory() {
             @Override
-            public Task createTask(TaskId id, PlayerId p) {
+            public Task createTask(TaskId id, PlayerId p, MissionId missionId) {
                 return new Task() {
                     @Override
                     public void addListener(TaskStatusListener taskStatusListener) {

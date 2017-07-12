@@ -25,6 +25,7 @@ package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.MissionId;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public abstract class TaskFactory <T extends Task> {
 
     protected final List<TaskStatusListener> taskStatusListeners = Lists.newList();
 
-    public abstract  T createTask(TaskId id, PlayerId p);
+    public abstract  T createTask(TaskId id, PlayerId p, MissionId missionId);
 
     public final void addTaskListener(TaskStatusListener l) {
         assert l != null;
