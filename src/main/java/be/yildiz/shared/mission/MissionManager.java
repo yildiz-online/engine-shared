@@ -27,6 +27,7 @@ import be.yildiz.common.collections.CollectionUtil;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
+import be.yildiz.common.exeption.UnhandledSwitchCaseException;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.task.TaskFactory;
 import be.yildiz.shared.mission.task.TaskId;
@@ -86,6 +87,21 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
         CollectionUtil.getOrCreateSetFromMap(this.activeMissions, playerId).add(missionId);
         T mission = this.availableMissions.get(missionId);
         this.listeners.forEach(l->l.missionStarted(mission, playerId));
+    }
+
+    public final void initialize(final PlayerMissionStatus pms) {
+        switch (pms.status) {
+            case STARTED:
+                CollectionUtil.getOrCreateSetFromMap(this.activeMissions, pms.player).add(pms.id);
+                break;
+            case WAITING_FOR_ACCEPTANCE:
+                CollectionUtil.getOrCreateSetFromMap(this.missionsReady, pms.player).add(pms.id);
+                T mission = this.availableMissions.get(pms.id);
+                mission.getTasks().forEach(t -> this.taskFactory.createTask(t, pms.player, pms.id));
+                break;
+            default:
+                throw new UnhandledSwitchCaseException(pms.status);
+        }
     }
 
     @Override
