@@ -152,12 +152,12 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
                 });
     }
 
-    public final Set<T> getMissionReady(PlayerId p) {
-        return this.missionsReady
-                .getOrDefault(p, Sets.newSet())
-                .stream()
-                .map(this.availableMissions::get)
-                .collect(Collectors.toSet());
+    public final Set<MissionId> getMissionReady(PlayerId p) {
+        return this.missionsReady.getOrDefault(p, Sets.newSet());
+    }
+
+    public final Set<MissionId> getMissionActive(PlayerId p) {
+        return this.activeMissions.getOrDefault(p, Sets.newSet());
     }
 
     public final Set<TaskStatus> getTaskStatus(PlayerId p) {
