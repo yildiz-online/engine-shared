@@ -109,7 +109,7 @@ public final class Message {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Long.valueOf(this.date).intValue();
+        result = (int) (prime * result + this.date);
         result = prime * result + ((this.content == null) ? 0 : this.content.hashCode());
         result = prime * result + (this.read ? 1231 : 1237);
         result = prime * result + ((this.receiver == null) ? 0 : this.receiver.hashCode());

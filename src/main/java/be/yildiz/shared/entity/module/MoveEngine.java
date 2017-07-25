@@ -50,7 +50,7 @@ public class MoveEngine extends Module<Move> {
         return maxSpeed;
     }
 
-    public static abstract class MoveEngineTemplate<T extends Move> {
+    public abstract static class MoveEngineTemplate<T extends Move> {
 
         protected MoveEngineTemplate() {
             super();

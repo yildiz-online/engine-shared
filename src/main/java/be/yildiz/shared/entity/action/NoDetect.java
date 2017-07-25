@@ -37,7 +37,7 @@ public class NoDetect extends Detect{
 
     @Override
     protected void runImpl(long time) {
-
+        //does nothing
     }
 
     @Override
@@ -47,16 +47,16 @@ public class NoDetect extends Detect{
 
     @Override
     protected void initImpl() {
-
+        //does nothing
     }
 
     @Override
     protected void stopImpl() {
-
+        //does nothing
     }
 
     @Override
     public void delete() {
-
+        //does nothing
     }
 }

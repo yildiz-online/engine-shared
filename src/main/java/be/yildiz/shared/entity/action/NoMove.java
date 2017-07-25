@@ -66,6 +66,7 @@ public final class NoMove extends Move {
      */
     @Override
     public void stopImpl() {
+        //does nothing
     }
 
     /**
@@ -73,6 +74,7 @@ public final class NoMove extends Move {
      */
     @Override
     public void delete() {
+        //does nothing
     }
 
 }

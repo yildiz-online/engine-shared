@@ -50,6 +50,7 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     protected void fire() {
+        //does nothing
     }
 
     /**
@@ -57,6 +58,7 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     protected void stopFire() {
+        //does nothing
     }
 
     /**
@@ -74,6 +76,7 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     public void setTarget(final Target target) {
+        //does nothing
     }
 
     /**
@@ -91,6 +94,7 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     public void setDestination(final Point3D destination) {
+        //does nothing
     }
 
     /**
@@ -106,6 +110,7 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     public void stopImpl() {
+        //does nothing
     }
 
     /**
@@ -113,6 +118,7 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     public void initImpl() {
+        //does nothing
     }
 
     /**
@@ -122,10 +128,12 @@ public class NoAttack extends AbstractAttack {
      */
     @Override
     protected void runImpl(final long time) {
+        //does nothing
     }
 
     @Override
     public void delete() {
+        //does nothing
     }
 
 }

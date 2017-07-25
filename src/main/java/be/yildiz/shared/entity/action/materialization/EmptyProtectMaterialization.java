@@ -39,9 +39,10 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
         super();
         this.id = id;
     }
+
     @Override
     public void destroy() {
-
+        //does nothing
     }
 
     @Override
@@ -54,7 +55,7 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
 
             @Override
             public void rotate(float x, float y, float z, float w) {
-
+                //does nothing
             }
 
             @Override
@@ -64,37 +65,37 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
 
             @Override
             public void scale(float x, float y, float z) {
-
+                //does nothing
             }
 
             @Override
             public void delete() {
-
+                //does nothing
             }
 
             @Override
             public void sleep(boolean b) {
-
+                //does nothing
             }
 
             @Override
             public void attachTo(Movable other) {
-
+                //does nothing
             }
 
             @Override
             public void detach(Movable other) {
-
+                //does nothing
             }
 
             @Override
             public void addChild(Movable other) {
-
+                //does nothing
             }
 
             @Override
             public void attachToOptional(Movable other) {
-
+                //does nothing
             }
 
             @Override
@@ -104,7 +105,7 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
 
             @Override
             public void setPosition(Point3D newPosition) {
-
+                //does nothing
             }
 
             @Override
@@ -114,7 +115,7 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
 
             @Override
             public void setAbsolutePosition(Point3D pos) {
-
+                //does nothing
             }
 
             @Override
@@ -124,7 +125,7 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
 
             @Override
             public void setDirection(Point3D newDirection) {
-
+                //does nothing
             }
 
             @Override

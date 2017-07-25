@@ -42,7 +42,7 @@ public class Detector extends Module<Detect> {
         return lineOfSight;
     }
 
-    public static abstract class DetectorTemplate<T extends Detect> {
+    public abstract static class DetectorTemplate<T extends Detect> {
 
         public final ViewDistance lineOfSight;
 

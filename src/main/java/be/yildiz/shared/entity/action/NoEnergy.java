@@ -37,6 +37,7 @@ public class NoEnergy extends ProduceEnergy {
 
     @Override
     protected final void energyReplenishStrategy(final long time) {
+        //does nothing
     }
 
 }

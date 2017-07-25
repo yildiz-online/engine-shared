@@ -40,7 +40,7 @@ public class Weapon extends Module<AbstractAttack> {
         action.setAttackTime(time);
     }
 
-    public static abstract class WeaponTemplate<T extends AbstractAttack> {
+    public abstract static class WeaponTemplate<T extends AbstractAttack> {
 
         protected WeaponTemplate() {
             super();

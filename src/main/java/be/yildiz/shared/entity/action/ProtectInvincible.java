@@ -49,14 +49,17 @@ public final class ProtectInvincible extends Protect {
 
     @Override
     protected void updateHp(long timeToAdd) {
+        //does nothing
     }
 
     @Override
     protected void updateIfDestroyed(long timeToAdd) {
+        //does nothing
     }
 
     @Override
     protected void hpReplenishStrategy(long timeToAdd) {
+        //does nothing
     }
 
     @Override
@@ -66,10 +69,12 @@ public final class ProtectInvincible extends Protect {
 
     @Override
     public void delete() {
+        //does nothing
     }
 
     @Override
     public void addHitResult(AttackHitResult r) {
+        //does nothing
     }
 
 }

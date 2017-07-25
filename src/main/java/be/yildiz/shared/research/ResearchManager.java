@@ -27,6 +27,7 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.common.log.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +59,8 @@ public final class ResearchManager {
      * @param player Player doing the research.
      */
     public void addResearch(final ResearchId res, final PlayerId player) {
-        Set<ResearchId> list = this.researches.putIfAbsent(player, Sets.newSet());
+        this.researches.putIfAbsent(player, Sets.newSet());
+        Set<ResearchId> list = this.researches.get(player);
         if (list.contains(res)) {
             this.listenerList.forEach(l -> l.researchAlreadyDone(res, player));
         } else {
@@ -84,15 +86,23 @@ public final class ResearchManager {
      * @return The state of the given research.
      */
     public ResearchState getResearchState(final PlayerId player, final ResearchId id) {
-        Set<ResearchId> list = this.researches.putIfAbsent(player, Sets.newSet());
+        this.researches.putIfAbsent(player, Sets.newSet());
+        Set<ResearchId> list = this.researches.get(player);
         if (list.contains(id)) {
             return ResearchState.DONE;
         }
         Research research = Research.get(id);
-        if (!research.getPrerequisite().isPresent() || list.contains(research.getPrerequisite().get())) {
+        if(research == null) {
+            Logger.warning("Research " + id + " not registered.");
+            return ResearchState.UNAVAILABLE;
+        }
+        if (!research.getPrerequisite().isPresent()) {
             return ResearchState.AVAILABLE;
         }
-        return ResearchState.UNAVAILABLE;
+
+        return research.getPrerequisite()
+                .filter(list::contains)
+                .isPresent() ? ResearchState.AVAILABLE : ResearchState.UNAVAILABLE;
     }
 
     /**

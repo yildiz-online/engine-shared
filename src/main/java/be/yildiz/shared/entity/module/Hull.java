@@ -41,7 +41,7 @@ public class Hull extends Module<Protect> {
         return this.maxHp;
     }
 
-    public static abstract class HullTemplate<T extends Protect> {
+    public abstract static class HullTemplate<T extends Protect> {
 
         public final int maxHp;
 
