@@ -37,6 +37,8 @@ import java.util.Map;
  */
 public final class PlayerManager implements PlayerProvider {
 
+    private static final PlayerManager INSTANCE = new PlayerManager();
+
     /**
      * List of all created player, the key is their id.
      */
@@ -47,6 +49,14 @@ public final class PlayerManager implements PlayerProvider {
     private final Map<String, Player> playerNameList = Maps.newMap();
 
     private final List <PlayerCreationListener> playerCreationListeners = Lists.newList();
+
+    private PlayerManager() {
+        super();
+    }
+
+    public static PlayerManager getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * Retrieve a player from its id.

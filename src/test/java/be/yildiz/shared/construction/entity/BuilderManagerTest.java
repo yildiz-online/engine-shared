@@ -42,25 +42,22 @@ public class BuilderManagerTest {
 
         @Test
         public void happyFlow() {
-            BuilderManager bm = new BuilderManager();
             Builder b = Mockito.mock(Builder.class);
             Mockito.when(b.getOwner()).thenReturn(PlayerId.valueOf(2));
-            bm.addBuilder(b);
-            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.valueOf(2));
+            BuilderManager.getInstance().addBuilder(b);
+            List<Builder> builders = BuilderManager.getInstance().getBuilderByPlayer(PlayerId.valueOf(2));
             Assert.assertEquals(1, builders.size());
         }
 
         @Test
         public void withEmptyResult() {
-            BuilderManager bm = new BuilderManager();
-            List<Builder> builders = bm.getBuilderByPlayer(PlayerId.valueOf(2));
+            List<Builder> builders = BuilderManager.getInstance().getBuilderByPlayer(PlayerId.valueOf(5));
             Assert.assertTrue(builders.isEmpty());
         }
 
         @Test(expected = AssertionError.class)
         public void withNull() {
-            BuilderManager bm = new BuilderManager();
-            bm.getBuilderByPlayer(null);
+            BuilderManager.getInstance().getBuilderByPlayer(null);
         }
 
     }

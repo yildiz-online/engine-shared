@@ -164,11 +164,10 @@ public class EntityTest {
 
     @Test
     public void testGetSetOwner() {
-        PlayerManager pm = new PlayerManager();
-        Player p = pm.createPlayer(PlayerId.valueOf(5), "test");
+        Player p = PlayerManager.getInstance().createPlayer(PlayerId.valueOf(5), "test");
         Entity e1 = Helper.anEntity(2, 5);
         Assert.assertEquals(p.id, e1.getOwner());
-        Player p2 = pm.createPlayer(PlayerId.valueOf(6), "test2");
+        Player p2 = PlayerManager.getInstance().createPlayer(PlayerId.valueOf(6), "test2");
         e1.setOwner(p2.id);
         Assert.assertEquals(p2.id, e1.getOwner());
         this.rule.expect(AssertionError.class);

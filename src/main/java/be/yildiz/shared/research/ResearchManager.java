@@ -41,6 +41,8 @@ import java.util.Set;
  */
 public final class ResearchManager {
 
+    private static final ResearchManager INSTANCE = new ResearchManager();
+
     /**
      * List of all listeners.
      */
@@ -48,8 +50,12 @@ public final class ResearchManager {
 
     private final Map<PlayerId, Set<ResearchId>> researches = Maps.newMap();
 
-    public ResearchManager() {
+    private ResearchManager() {
         super();
+    }
+
+    public static ResearchManager getInstance() {
+        return INSTANCE;
     }
 
     /**

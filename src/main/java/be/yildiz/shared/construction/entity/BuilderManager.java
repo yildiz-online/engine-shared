@@ -39,6 +39,8 @@ import java.util.Optional;
  */
 public class BuilderManager {
 
+    private static final BuilderManager INSTANCE = new BuilderManager();
+
     /**
      * List of builder by their id.
      */
@@ -49,6 +51,13 @@ public class BuilderManager {
      */
     private final Map<PlayerId, List<Builder>> buildersByPlayer = Maps.newMap();
 
+    private BuilderManager() {
+        super();
+    }
+
+    public static BuilderManager getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * Retrieve a builder by its id.

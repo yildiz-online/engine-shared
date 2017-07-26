@@ -25,7 +25,6 @@ package be.yildiz.shared.entity;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.framelistener.EndFrameListener;
-import be.yildiz.common.framelistener.FrameManager;
 import be.yildiz.shared.construction.entity.EntityConstructionListener;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.action.ActionListener;
@@ -62,10 +61,9 @@ public class ActionManager<T extends Entity> extends EndFrameListener {
 
     private final List<ActionListener> listenerToRemove = Lists.newList();
 
-    public ActionManager(final FrameManager frame, final EntityManager<T> em) {
+    public ActionManager(final EntityManager<T> em) {
         super();
         this.entityManager = em;
-        frame.addFrameListener(this);
     }
 
     /**

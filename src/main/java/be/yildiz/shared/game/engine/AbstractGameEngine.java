@@ -27,8 +27,6 @@ import be.yildiz.common.Version;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.framelistener.FrameListener;
 import be.yildiz.common.framelistener.FrameManager;
-import be.yildiz.shared.player.PlayerManager;
-import be.yildiz.shared.research.ResearchManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -42,19 +40,9 @@ import java.util.concurrent.locks.LockSupport;
 public abstract class AbstractGameEngine implements FrameManager, AutoCloseable {
 
     /**
-     * Manage researches.
-     */
-    private final ResearchManager researchManager = new ResearchManager();
-
-    /**
      * List all frame listener to execute during the main loop execution.
      */
     private final List<FrameListener> frameListenerList = Lists.newList();
-
-    /**
-     * Manage the players.
-     */
-    private final PlayerManager playerManager = new PlayerManager();
 
     /**
      * Current version.
@@ -147,14 +135,6 @@ public abstract class AbstractGameEngine implements FrameManager, AutoCloseable 
     public final void setFrameLimiter(final int fps) {
         final float time = 1000.0f;
         this.limit = (long) (time / fps);
-    }
-
-    public final ResearchManager getResearchManager() {
-        return researchManager;
-    }
-
-    public final PlayerManager getPlayerManager() {
-        return playerManager;
     }
 
     public final Version getGameVersion() {
