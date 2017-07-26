@@ -103,4 +103,8 @@ public class EntityDto {
     public EntityDto(Entity e) {
         this(e.getId(), e.getName(), e.getType(), e.getOwner(), e.getPosition(), e.getDirection(), e.getHitPoints(), e.getEnergyPoints(), e.getModules());
     }
+
+    public EntityDto(Entity e, EntityId builderId, int index) {
+        this(e.getId(), e.getName(), e.getType(), e.getOwner(), e.getPosition(), e.getDirection(), e.getHitPoints(), e.getEnergyPoints(), e.getModules(), builderId, index);
+    }
 }

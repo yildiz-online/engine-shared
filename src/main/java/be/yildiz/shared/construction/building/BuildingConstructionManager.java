@@ -134,16 +134,12 @@ public class BuildingConstructionManager<B extends Building, D extends BuildingD
     }
 
     /**
-     * Add one or several listener to notify when a construction is completed.
+     * Add a listener to notify when a construction is completed.
      *
-     * @param listeners Listener to notify.
+     * @param listener Listener to notify.
      */
-    public void willNotify(final BuildingConstructionListener<B, D, C>... listeners) {
-        if (listeners != null) {
-            for (BuildingConstructionListener<B, D, C> listener : listeners) {
-                this.listenerList.add(listener);
-            }
-        }
+    public void willNotify(final BuildingConstructionListener<B, D, C> listener) {
+        this.listenerList.add(listener);
     }
 
     /**

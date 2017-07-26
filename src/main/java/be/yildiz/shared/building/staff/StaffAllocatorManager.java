@@ -107,17 +107,12 @@ public class StaffAllocatorManager<B extends Building, D extends BuildingData, C
     }
 
     /**
-     * Add one or several new listener to notify if staff allocation events occur.
+     * Add a new listener to notify if staff allocation events occur.
      *
-     * @param listeners Listener to add.
+     * @param listener Listener to add.
      */
-    public void willNotify(final StaffAllocationListener<B, D, C>... listeners) {
-        if (listeners != null) {
-            for (StaffAllocationListener<B, D, C> listener : listeners) {
-                this.listenerList.add(listener);
-            }
-        }
-
+    public void willNotify(final StaffAllocationListener<B, D, C> listener) {
+        this.listenerList.add(listener);
     }
 
     /**
