@@ -71,7 +71,7 @@ public class EntityManager<T extends Entity> {
      * @param type Entity type.
      * @return The number of entities.
      */
-    public int getNumberOfEntities(final PlayerId player, final EntityType type) {
+    public final int getNumberOfEntities(final PlayerId player, final EntityType type) {
         int number = 0;
         Set<T> l = this.entityList.get(player);
         for (T e : l) {
@@ -86,7 +86,7 @@ public class EntityManager<T extends Entity> {
      * @param player Player to retrieve the entities for.
      * @return All entities owned by a player.
      */
-    public Set<T> getEntities(final PlayerId player) {
+    public final Set<T> getEntities(final PlayerId player) {
         return this.entityList.get(player);
     }
 
@@ -95,7 +95,7 @@ public class EntityManager<T extends Entity> {
      *
      * @param entity Entity to add.
      */
-    public void addEntity(final T entity) {
+    public final void addEntity(final T entity) {
         this.entities.put(entity.getId(), entity);
         PlayerId p = entity.getOwner();
         Set<T> list = CollectionUtil.getOrCreateSetFromMap(this.entityList, p);
@@ -121,14 +121,14 @@ public class EntityManager<T extends Entity> {
     //@modify: this
     //@affect: entityList, entities.
     //@postcondition: entity is removed from this system.
-    public void removeEntity(final T entity) {
+    public final void removeEntity(final T entity) {
         // FIXME also remove all bonus && visible.
         assert this.entityList.containsKey(entity.getOwner());
         this.entityList.get(entity.getOwner()).remove(entity);
         this.entities.remove(entity.getId());
     }
 
-    public void removeEntity(EntityId entityId) {
+    public final void removeEntity(EntityId entityId) {
         assert this.entities.get(entityId) != null;
         Optional.ofNullable(this.entities.get(entityId)).ifPresent(this::removeEntity);
     }
@@ -139,7 +139,7 @@ public class EntityManager<T extends Entity> {
      * @param p Player that will receive the bonus.
      * @param bonus Bonus to add.
      */
-    public void addBonus(final PlayerId p, final EntityBonus bonus) {
+    public final void addBonus(final PlayerId p, final EntityBonus bonus) {
         CollectionUtil.getOrCreateSetFromMap(this.bonusList, p).add(bonus);
         //Set<Entity> list = CollectionUtil.getOrCreateSetFromMap(this.entityList, p);
         // for (EntityType data : bonus.getTypes()) {
@@ -158,7 +158,7 @@ public class EntityManager<T extends Entity> {
      * @param id Id to get.
      * @return The Entity found, or world if nothing is found.
      */
-    public T findById(final EntityId id) {
+    public final T findById(final EntityId id) {
         return this.entities.getOrDefault(id, this.world);
     }
 
@@ -168,7 +168,7 @@ public class EntityManager<T extends Entity> {
      * @param entity Entity to change the owner.
      * @param player New owner.
      */
-    public void setOwner(final T entity, final PlayerId player) {
+    public final void setOwner(final T entity, final PlayerId player) {
         // FIXME bonus not recomputed, needed in gameplay?
         // FIXME recompute bonus in player and remove it from network message
         // parser (and somewhere else?)
@@ -180,7 +180,7 @@ public class EntityManager<T extends Entity> {
         this.addEntity(entity);
     }
 
-    public List<T> getEntities() {
+    public final List<T> getEntities() {
         return Lists.newList(this.entities.values());
     }
 
@@ -188,7 +188,7 @@ public class EntityManager<T extends Entity> {
      * @param ids List of ids.
      * @return The entities matching the provided list of id.
      */
-    public List<T> getById(final List<EntityId> ids) {
+    public final List<T> getById(final List<EntityId> ids) {
         List<T> result = Lists.newList(ids.size());
         ids.stream()
                 .map(this::findById)
