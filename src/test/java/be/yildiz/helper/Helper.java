@@ -34,6 +34,7 @@ import be.yildiz.shared.entity.action.ProtectInvincible;
 import be.yildiz.shared.entity.action.materialization.EmptyProtectMaterialization;
 import be.yildiz.shared.entity.module.EmptyModule;
 import be.yildiz.shared.entity.module.EntityModules;
+import be.yildiz.shared.entity.module.Hull;
 import be.yildiz.shared.entity.module.detector.BlindDetector;
 import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
 import be.yildiz.shared.entity.module.hull.InvincibleTemplate;
@@ -51,6 +52,10 @@ public class Helper {
     public static final Point3D DIRECTION_OK = Point3D.valueOf(5, 8, 3);
     public static final EntityType TYPE_OK = new EntityType(4, "test");
 
+    public static Hull anInvincibleModule(EntityInConstruction eic) {
+        return new InvincibleTemplate(eic.getHp()).materialize(new ProtectInvincible(eic.getId(), eic.getModules().getHull(), new EmptyProtectMaterialization(eic.getId())));
+    }
+
     public static Entity anEntity(long id) {
         return anEntity(id, 5);
     }
@@ -58,7 +63,7 @@ public class Helper {
     public static Entity anEntity(long id, int player) {
         EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.valueOf(id), PlayerId.valueOf(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
         EntityModules em = new EntityModules(
-                new InvincibleTemplate(eic.getHp()).materialize(new ProtectInvincible(eic.getId(), eic.getModules().getHull(), new EmptyProtectMaterialization(eic.getId()))),
+                anInvincibleModule(eic),
                 new NoEnergyGenerator(eic.getId()),
                 new BlindDetector(eic.getId()),
                 new NoWeaponModule(eic.getId()),
