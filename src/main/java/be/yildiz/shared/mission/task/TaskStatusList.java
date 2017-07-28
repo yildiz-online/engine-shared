@@ -47,4 +47,19 @@ public class TaskStatusList implements ListWrapper <TaskStatus>{
     public List<TaskStatus> getList() {
         return Lists.newList(this.list);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TaskStatusList that = (TaskStatusList) o;
+
+        return list.size() == that.list.size() && this.list.containsAll(that.list);
+    }
+
+    @Override
+    public int hashCode() {
+        return list.hashCode();
+    }
 }

@@ -131,4 +131,31 @@ public class ResourceValue {
     final void setValues(final ResourceValue other) {
         CollectionUtil.cloneArray(this.values, other.values);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ResourceValue that = (ResourceValue) o;
+
+        float[] thisArray = this.values;
+        float[] thatArray = that.values;
+        if(thisArray.length != thatArray.length) {
+            return false;
+        }
+
+        for(int i = 0; i < thisArray.length; i++) {
+            float r = thisArray[i] - thatArray[i];
+            if(r > 0.0001f || r < -0.0001f) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(values);
+    }
 }

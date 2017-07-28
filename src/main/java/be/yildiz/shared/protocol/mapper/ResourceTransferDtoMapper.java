@@ -50,12 +50,16 @@ public class ResourceTransferDtoMapper implements ObjectMapper<ResourceTransferD
     public ResourceTransferDto from(String s) throws InvalidNetworkMessage {
         assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
-        return new ResourceTransferDto(
-                PlayerIdMapper.getInstance().from(v[0]),
-                PlayerIdMapper.getInstance().from(v[1]),
-                ResourceValueMapper.getInstance().from(v[2]),
-                TransferCause.valueOf(IntegerMapper.getInstance().from(v[3]))
-        );
+        try {
+            return new ResourceTransferDto(
+                    PlayerIdMapper.getInstance().from(v[0]),
+                    PlayerIdMapper.getInstance().from(v[1]),
+                    ResourceValueMapper.getInstance().from(v[2]),
+                    TransferCause.valueOf(IntegerMapper.getInstance().from(v[3]))
+            );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override

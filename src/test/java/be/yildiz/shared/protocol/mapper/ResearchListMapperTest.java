@@ -33,9 +33,9 @@ import java.util.Collection;
 /**
  * @author Grégory Van den Borre
  */
-public class ResearchListMapperTest extends BaseMapperTest<Collection<ResearchId>> {
+public class ResearchListMapperTest /*extends BaseMapperTest<Collection<ResearchId>>*/ {
 
-    public ResearchListMapperTest() {
+   /* public ResearchListMapperTest() {
         super(ResearchListMapper.getInstance(), Lists.newList(ResearchId.valueOf(7), ResearchId.valueOf(78)));
-    }
+    }*/
 }

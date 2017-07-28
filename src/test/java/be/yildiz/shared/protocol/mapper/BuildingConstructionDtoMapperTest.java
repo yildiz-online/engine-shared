@@ -40,14 +40,14 @@ public class BuildingConstructionDtoMapperTest extends BaseMapperTest<BuildingCo
 
     @BeforeClass
     public static void init() {
-        new EntityType(2, "test");
+        new EntityType(143, "test");
     }
 
     public BuildingConstructionDtoMapperTest() {
         super(new BuildingConstructionDtoMapper(),
                 new BuildingConstructionDto(
                         EntityId.valueOf(3),
-                        EntityType.valueOf(2),
+                        EntityType.valueOf(143),
                         Level.valueOf(1),
                         BuildingPosition.valueOf(5),
                         Staff.valueOf(2)

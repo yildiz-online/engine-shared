@@ -55,4 +55,36 @@ public class ResourceTransferDto {
         this.resources = resources;
         this.cause = cause;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ResourceTransferDto that = (ResourceTransferDto) o;
+
+        if (!receiver.equals(that.receiver)) {
+            return false;
+        }
+        if (!giver.equals(that.giver)) {
+            return false;
+        }
+        if (!resources.equals(that.resources)) {
+            return false;
+        }
+        return cause == that.cause;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = receiver.hashCode();
+        result = 31 * result + giver.hashCode();
+        result = 31 * result + resources.hashCode();
+        result = 31 * result + cause.hashCode();
+        return result;
+    }
 }
