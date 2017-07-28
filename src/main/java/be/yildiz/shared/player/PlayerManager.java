@@ -204,6 +204,14 @@ public final class PlayerManager implements PlayerProvider {
     }
 
     /**
+     * Clear all registered players, this is only useful for tests.
+     */
+    public void clear() {
+        this.playerIdList.clear();
+        this.playerNameList.clear();
+    }
+
+    /**
      * Relation between 2 players.
      *
      * @author Van den Borre Grégory
