@@ -48,6 +48,7 @@ public class ChangeOwnerDtoMapper implements ObjectMapper<ChangeOwnerDto>{
 
     @Override
     public ChangeOwnerDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new ChangeOwnerDto(EntityIdMapper.getInstance().from(v[0]), PlayerIdMapper.getInstance().from(v[1]));
@@ -58,6 +59,7 @@ public class ChangeOwnerDtoMapper implements ObjectMapper<ChangeOwnerDto>{
 
     @Override
     public String to(ChangeOwnerDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.entity)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + PlayerIdMapper.getInstance().to(dto.newOwnerId);

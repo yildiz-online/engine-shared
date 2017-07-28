@@ -44,6 +44,7 @@ class LevelMapper implements ObjectMapper<Level> {
 
     @Override
     public Level from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return Level.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
@@ -53,6 +54,7 @@ class LevelMapper implements ObjectMapper<Level> {
 
     @Override
     public String to(Level level) {
+        assert level != null;
         return String.valueOf(level.value);
     }
 }

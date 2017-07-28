@@ -45,6 +45,7 @@ public class MissionStatusMapper implements ObjectMapper<MissionStatus> {
 
     @Override
     public MissionStatus from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return MissionStatus.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
@@ -54,6 +55,7 @@ public class MissionStatusMapper implements ObjectMapper<MissionStatus> {
 
     @Override
     public String to(MissionStatus status) {
+        assert status != null;
         return String.valueOf(status.value);
     }
 }

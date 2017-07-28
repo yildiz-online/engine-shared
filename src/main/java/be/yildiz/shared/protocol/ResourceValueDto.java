@@ -52,4 +52,26 @@ public class ResourceValueDto {
         this.resources = resources;
         this.time = time;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ResourceValueDto that = (ResourceValueDto) o;
+
+        return time == that.time && cityId.equals(that.cityId) && resources.equals(that.resources);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cityId.hashCode();
+        result = 31 * result + resources.hashCode();
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
+    }
 }

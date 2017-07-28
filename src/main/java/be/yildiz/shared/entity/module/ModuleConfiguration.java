@@ -75,4 +75,27 @@ public final class ModuleConfiguration {
     public ModuleGroup getModules() {
         return modules;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ModuleConfiguration that = (ModuleConfiguration) o;
+
+        return name.equals(that.name) && player.equals(that.player) && type.equals(that.type) && modules.equals(that.modules);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + player.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + modules.hashCode();
+        return result;
+    }
 }

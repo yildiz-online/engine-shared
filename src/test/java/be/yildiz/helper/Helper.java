@@ -23,6 +23,8 @@
 
 package be.yildiz.helper;
 
+import be.yildiz.common.collections.Lists;
+import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
@@ -36,6 +38,7 @@ import be.yildiz.shared.entity.action.materialization.EmptyProtectMaterializatio
 import be.yildiz.shared.entity.module.EmptyModule;
 import be.yildiz.shared.entity.module.EntityModules;
 import be.yildiz.shared.entity.module.Hull;
+import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.detector.BlindDetector;
 import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
 import be.yildiz.shared.entity.module.hull.InvincibleTemplate;
@@ -98,5 +101,19 @@ public class Helper {
      */
     public static Entity givenAnEntity() {
         return anEntity(5, 6);
+    }
+
+    public static ModuleGroup givenAModuleGroup() {
+        return new ModuleGroup.ModuleGroupBuilder().fromList(
+                Lists.newList(
+                        ActionId.valueOf(1),
+                        ActionId.valueOf(2),
+                        ActionId.valueOf(3),
+                        ActionId.valueOf(4),
+                        ActionId.valueOf(5),
+                        ActionId.valueOf(6),
+                        ActionId.valueOf(7),
+                        ActionId.valueOf(8))
+        ).build();
     }
 }

@@ -45,6 +45,7 @@ public class EntityPositionDtoMapper implements ObjectMapper<EntityPositionDto> 
 
     @Override
     public EntityPositionDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR );
         try {
             return new EntityPositionDto(EntityIdMapper.getInstance().from(v[0]),
@@ -57,6 +58,7 @@ public class EntityPositionDtoMapper implements ObjectMapper<EntityPositionDto> 
 
     @Override
     public String to(EntityPositionDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.id)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + Point3DMapper.getInstance().to(dto.position)

@@ -46,6 +46,7 @@ public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto
 
     @Override
     public StaffAllocationDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new StaffAllocationDto(EntityIdMapper.getInstance().from(v[0]),
@@ -59,6 +60,7 @@ public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto
 
     @Override
     public String to(StaffAllocationDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.cityId)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + BuildingPositionMapper.getInstance().to(dto.position)

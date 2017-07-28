@@ -44,6 +44,7 @@ public class EntityIdMapper implements ObjectMapper<EntityId> {
 
     @Override
     public EntityId from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return EntityId.valueOf(Long.parseLong(s));
         } catch (final NumberFormatException nfe) {
@@ -53,6 +54,7 @@ public class EntityIdMapper implements ObjectMapper<EntityId> {
 
     @Override
     public String to(EntityId entityId) {
+        assert entityId != null;
         return String.valueOf(entityId.value);
     }
 }

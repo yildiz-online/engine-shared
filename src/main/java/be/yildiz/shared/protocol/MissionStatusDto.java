@@ -46,4 +46,32 @@ public class MissionStatusDto {
         this.status = status;
         this.tasks = tasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MissionStatusDto that = (MissionStatusDto) o;
+
+        if (!missionId.equals(that.missionId)) {
+            return false;
+        }
+        if (status != that.status) {
+            return false;
+        }
+        return tasks.equals(that.tasks);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = missionId.hashCode();
+        result = 31 * result + status.hashCode();
+        result = 31 * result + tasks.hashCode();
+        return result;
+    }
 }

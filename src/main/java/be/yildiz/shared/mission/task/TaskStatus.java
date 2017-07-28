@@ -45,13 +45,16 @@ public class TaskStatus {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         TaskStatus that = (TaskStatus) o;
 
-        if (!id.equals(that.id)) return false;
-        return missionId.equals(that.missionId);
+        return id.equals(that.id) && missionId.equals(that.missionId);
     }
 
     @Override

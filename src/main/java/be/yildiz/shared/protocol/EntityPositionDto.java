@@ -49,4 +49,26 @@ public class EntityPositionDto {
         this.position = position;
         this.orientation = orientation;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityPositionDto that = (EntityPositionDto) o;
+
+        return id.equals(that.id) && position.equals(that.position) && orientation.equals(that.orientation);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + position.hashCode();
+        result = 31 * result + orientation.hashCode();
+        return result;
+    }
 }

@@ -50,6 +50,7 @@ public class PlayerStatusMapper implements ObjectMapper<PlayerStatus> {
 
     @Override
     public String to(PlayerStatus playerStatus) {
+        assert playerStatus != null;
         return String.valueOf(playerStatus.value);
     }
 }

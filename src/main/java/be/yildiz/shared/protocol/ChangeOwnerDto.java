@@ -46,4 +46,28 @@ public class ChangeOwnerDto {
         this.entity = entity;
         this.newOwnerId = newOwnerId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ChangeOwnerDto that = (ChangeOwnerDto) o;
+
+        if (!entity.equals(that.entity)) {
+            return false;
+        }
+        return newOwnerId.equals(that.newOwnerId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + newOwnerId.hashCode();
+        return result;
+    }
 }

@@ -107,4 +107,55 @@ public class EntityDto {
     public EntityDto(Entity e, EntityId builderId, int index) {
         this(e.getId(), e.getName(), e.getType(), e.getOwner(), e.getPosition(), e.getDirection(), e.getHitPoints(), e.getEnergyPoints(), e.getModules(), builderId, index);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityDto entityDto = (EntityDto) o;
+
+        if (hitPoint != entityDto.hitPoint) {
+            return false;
+        }
+        if (energy != entityDto.energy) {
+            return false;
+        }
+        if (index != entityDto.index) {
+            return false;
+        }
+        if (!entity.equals(entityDto.entity)) {
+            return false;
+        }
+        if (!name.equals(entityDto.name)) {
+            return false;
+        }
+        if (!type.equals(entityDto.type)) {
+            return false;
+        }
+        if (!owner.equals(entityDto.owner)) {
+            return false;
+        }
+        return position.equals(entityDto.position) && orientation.equals(entityDto.orientation) && modules.equals(entityDto.modules) && builderId.equals(entityDto.builderId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + owner.hashCode();
+        result = 31 * result + position.hashCode();
+        result = 31 * result + orientation.hashCode();
+        result = 31 * result + hitPoint;
+        result = 31 * result + energy;
+        result = 31 * result + modules.hashCode();
+        result = 31 * result + builderId.hashCode();
+        result = 31 * result + index;
+        return result;
+    }
 }

@@ -45,6 +45,7 @@ class ResearchIdMapper implements ObjectMapper<ResearchId> {
 
     @Override
     public ResearchId from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return ResearchId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
@@ -54,6 +55,7 @@ class ResearchIdMapper implements ObjectMapper<ResearchId> {
 
     @Override
     public String to(ResearchId id) {
+        assert id != null;
         return String.valueOf(id.value);
     }
 }

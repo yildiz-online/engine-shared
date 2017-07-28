@@ -48,11 +48,13 @@ public final class TaskStatusListMapper implements ObjectMapper<TaskStatusList> 
 
     @Override
     public String to(TaskStatusList listWrapper) {
+        assert listWrapper != null;
         return this.mapper.to(listWrapper.getList());
     }
 
     @Override
     public TaskStatusList from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         return new TaskStatusList(this.mapper.from(s));
     }
 }

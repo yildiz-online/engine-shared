@@ -45,6 +45,7 @@ public class ResourceValueMapper implements ObjectMapper<ResourceValue> {
 
     @Override
     public ResourceValue from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
             float[] f = new float[v.length];
@@ -59,6 +60,7 @@ public class ResourceValueMapper implements ObjectMapper<ResourceValue> {
 
     @Override
     public String to(ResourceValue value) {
+        assert value != null;
         StringBuilder sb = new StringBuilder();
         for(float f : value.getArray()) {
             sb.append(f);

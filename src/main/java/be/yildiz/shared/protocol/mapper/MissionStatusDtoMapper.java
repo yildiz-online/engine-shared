@@ -50,6 +50,7 @@ public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto>{
 
     @Override
     public MissionStatusDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new MissionStatusDto(
@@ -64,6 +65,7 @@ public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto>{
 
     @Override
     public String to(MissionStatusDto dto) {
+        assert dto != null;
         return MissionIdMapper.getInstance().to(dto.missionId)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + MissionStatusMapper.getInstance().to(dto.status)

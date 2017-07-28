@@ -53,4 +53,26 @@ public class PlayerDto {
         this.login = login;
         this.status = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        PlayerDto playerDto = (PlayerDto) o;
+
+        return player.equals(playerDto.player) && login.equals(playerDto.login) && status == playerDto.status;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = player.hashCode();
+        result = 31 * result + login.hashCode();
+        result = 31 * result + status.hashCode();
+        return result;
+    }
 }

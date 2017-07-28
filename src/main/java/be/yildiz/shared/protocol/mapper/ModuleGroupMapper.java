@@ -45,6 +45,7 @@ public class ModuleGroupMapper implements ObjectMapper<ModuleGroup> {
 
     @Override
     public ModuleGroup from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
             return new ModuleGroup.ModuleGroupBuilder()
@@ -64,6 +65,7 @@ public class ModuleGroupMapper implements ObjectMapper<ModuleGroup> {
 
     @Override
     public String to(ModuleGroup moduleGroup) {
+        assert moduleGroup != null;
         return ActionIdMapper.getInstance().to(moduleGroup.getHull())
                 + MessageSeparation.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getEnergy())

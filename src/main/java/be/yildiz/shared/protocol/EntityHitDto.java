@@ -44,4 +44,28 @@ public class EntityHitDto {
         this.entity = entity;
         this.hitPoint = hitPoint;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityHitDto that = (EntityHitDto) o;
+
+        if (hitPoint != that.hitPoint) {
+            return false;
+        }
+        return entity.equals(that.entity);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entity.hashCode();
+        result = 31 * result + hitPoint;
+        return result;
+    }
 }

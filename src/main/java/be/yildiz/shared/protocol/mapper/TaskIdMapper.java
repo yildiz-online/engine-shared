@@ -44,6 +44,7 @@ public class TaskIdMapper implements ObjectMapper<TaskId> {
 
     @Override
     public TaskId from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return TaskId.valueOf(Long.parseLong(s));
         } catch (final NumberFormatException nfe) {
@@ -53,6 +54,7 @@ public class TaskIdMapper implements ObjectMapper<TaskId> {
 
     @Override
     public String to(TaskId taskId) {
+        assert taskId != null;
         return String.valueOf(taskId.value);
     }
 }

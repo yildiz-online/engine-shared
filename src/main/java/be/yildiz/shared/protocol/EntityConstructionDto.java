@@ -58,4 +58,26 @@ public class EntityConstructionDto {
         this.moduleIds = moduleIds;
         this.requestIndex = requestIndex;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityConstructionDto that = (EntityConstructionDto) o;
+        return requestIndex == that.requestIndex && builderId.equals(that.builderId) && type.equals(that.type) && moduleIds.equals(that.moduleIds);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = builderId.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + moduleIds.hashCode();
+        result = 31 * result + requestIndex;
+        return result;
+    }
 }

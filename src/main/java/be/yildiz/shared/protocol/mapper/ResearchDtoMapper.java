@@ -46,6 +46,7 @@ public class ResearchDtoMapper implements ObjectMapper<ResearchDto> {
 
     @Override
     public ResearchDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new ResearchDto(ResearchIdMapper.getInstance().from(v[0]), EntityIdMapper.getInstance().from(v[1]));
@@ -56,6 +57,7 @@ public class ResearchDtoMapper implements ObjectMapper<ResearchDto> {
 
     @Override
     public String to(ResearchDto dto) {
+        assert dto != null;
         return ResearchIdMapper.getInstance().to(dto.research)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + EntityIdMapper.getInstance().to(dto.cityId);

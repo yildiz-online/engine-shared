@@ -24,6 +24,7 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.data.EntityType;
 
@@ -44,15 +45,12 @@ public class EntityTypeMapper implements ObjectMapper<EntityType> {
 
     @Override
     public EntityType from(String s) throws InvalidNetworkMessage {
-        try {
-            return EntityType.valueOf(Integer.parseInt(s));
-        } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage(nfe);
-        }
+        return EntityType.valueOf(IntegerMapper.getInstance().from(s));
     }
 
     @Override
     public String to(EntityType type) {
+        assert type != null;
         return String.valueOf(type.type);
     }
 }

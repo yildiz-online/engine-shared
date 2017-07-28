@@ -44,6 +44,7 @@ class ActionIdMapper implements ObjectMapper<ActionId> {
 
     @Override
     public ActionId from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return ActionId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
@@ -53,6 +54,7 @@ class ActionIdMapper implements ObjectMapper<ActionId> {
 
     @Override
     public String to(ActionId actionId) {
+        assert actionId != null;
         return String.valueOf(actionId.value);
     }
 }

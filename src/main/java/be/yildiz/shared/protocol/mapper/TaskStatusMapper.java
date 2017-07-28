@@ -45,6 +45,7 @@ class TaskStatusMapper implements ObjectMapper<TaskStatus> {
 
     @Override
     public TaskStatus from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] values = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
         return new TaskStatus(
@@ -58,6 +59,7 @@ class TaskStatusMapper implements ObjectMapper<TaskStatus> {
 
     @Override
     public String to(TaskStatus taskStatus) {
+        assert taskStatus != null;
         return TaskIdMapper.getInstance().to(taskStatus.id)
                 + MessageSeparation.VAR_SEPARATOR
                 + MissionIdMapper.getInstance().to(taskStatus.missionId)

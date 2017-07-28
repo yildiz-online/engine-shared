@@ -50,6 +50,7 @@ public class StaffMapper implements ObjectMapper<Staff> {
 
     @Override
     public String to(Staff s) {
+        assert s != null;
         return IntegerMapper.getInstance().to(s.value);
     }
 }

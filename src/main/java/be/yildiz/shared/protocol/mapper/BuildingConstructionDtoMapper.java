@@ -36,11 +36,25 @@ public class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConst
 
     @Override
     public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
-        return null;
+        assert s != null;
+        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+        try {
+            return new BuildingConstructionDto(
+                    EntityIdMapper.getInstance().from(v[0]),
+                    EntityTypeMapper.getInstance().from(v[1]),
+                    LevelMapper.getInstance().from(v[2]),
+                    BuildingPositionMapper.getInstance().from(v[3]),
+                    StaffMapper.getInstance().from(v[4]),
+                    LongMapper.getInstance().from(v[5])
+            );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override
     public String to(BuildingConstructionDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.cityId)
                 + MessageSeparation.VAR_SEPARATOR
                 + EntityTypeMapper.getInstance().to(dto.type)

@@ -52,4 +52,26 @@ public class StaffAllocationDto {
         this.position = position;
         this.staff = staff;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        StaffAllocationDto that = (StaffAllocationDto) o;
+
+        return cityId.equals(that.cityId) && position.equals(that.position) && staff.equals(that.staff);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cityId.hashCode();
+        result = 31 * result + position.hashCode();
+        result = 31 * result + staff.hashCode();
+        return result;
+    }
 }

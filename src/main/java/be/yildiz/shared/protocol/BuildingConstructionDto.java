@@ -82,4 +82,44 @@ public class BuildingConstructionDto {
     public BuildingConstructionDto(Building b, long time) {
         this(b.getCity(), b.getType(), b.getLevel(), b.getBuildingPosition(), b.getStaff(), time);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        BuildingConstructionDto that = (BuildingConstructionDto) o;
+
+        if (time != that.time) {
+            return false;
+        }
+        if (!cityId.equals(that.cityId)) {
+            return false;
+        }
+        if (!type.equals(that.type)) {
+            return false;
+        }
+        if (!level.equals(that.level)) {
+            return false;
+        }
+        if (!position.equals(that.position)) {
+            return false;
+        }
+        return staff.equals(that.staff);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cityId.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + level.hashCode();
+        result = 31 * result + position.hashCode();
+        result = 31 * result + staff.hashCode();
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
+    }
 }

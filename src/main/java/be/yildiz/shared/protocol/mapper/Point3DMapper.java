@@ -49,6 +49,7 @@ public class Point3DMapper implements ObjectMapper<Point3D> {
 
     @Override
     public Point3D from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
             return Point3D.valueOf(Float.valueOf(v[0]), Float.valueOf(v[1]), Float.valueOf(v[2]));
@@ -59,6 +60,7 @@ public class Point3DMapper implements ObjectMapper<Point3D> {
 
     @Override
     public String to(Point3D p) {
+        assert p != null;
         return String.valueOf(p.x) +
                 MessageSeparation.VAR_SEPARATOR +
                 String.valueOf(p.y) +

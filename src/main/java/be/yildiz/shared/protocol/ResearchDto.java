@@ -40,4 +40,25 @@ public class ResearchDto {
         this.research = research;
         this.cityId = cityId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ResearchDto that = (ResearchDto) o;
+
+        return research.equals(that.research) && cityId.equals(that.cityId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = research.hashCode();
+        result = 31 * result + cityId.hashCode();
+        return result;
+    }
 }

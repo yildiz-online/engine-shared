@@ -49,7 +49,7 @@ public class PlayerDtoMapper implements ObjectMapper<PlayerDto> {
         assert s != null;
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            return new PlayerDto(PlayerIdMapper.getInstance().from(v[0]), v[1], PlayerStatusMapper.getInstance().from(v[3]));
+            return new PlayerDto(PlayerIdMapper.getInstance().from(v[0]), v[1], PlayerStatusMapper.getInstance().from(v[2]));
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e);
         }

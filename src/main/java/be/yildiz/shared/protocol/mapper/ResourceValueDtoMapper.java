@@ -46,6 +46,7 @@ public class ResourceValueDtoMapper implements ObjectMapper<ResourceValueDto> {
 
     @Override
     public ResourceValueDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
             return new ResourceValueDto(EntityIdMapper.getInstance().from(v[0]), ResourceValueMapper.getInstance().from(v[1]), LongMapper.getInstance().from(v[2]));
@@ -56,6 +57,7 @@ public class ResourceValueDtoMapper implements ObjectMapper<ResourceValueDto> {
 
     @Override
     public String to(ResourceValueDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.cityId)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + ResourceValueMapper.getInstance().to(dto.resources)

@@ -56,6 +56,7 @@ public class MessageMapper implements ObjectMapper<Message> {
 
     @Override
     public Message from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
         try {
             return new Message(PlayerIdMapper.getInstance().from(v[0]),
@@ -73,6 +74,7 @@ public class MessageMapper implements ObjectMapper<Message> {
 
     @Override
     public String to(Message message) {
+        assert message != null;
         return PlayerIdMapper.getInstance().to(message.getSender())
                 + MessageSeparation.VAR_SEPARATOR
                 + PlayerIdMapper.getInstance().to(message.getReceiver())

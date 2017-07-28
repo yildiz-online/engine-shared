@@ -46,6 +46,7 @@ public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto>{
 
     @Override
     public EntityHitDto from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new EntityHitDto(EntityIdMapper.getInstance().from(v[0]),
@@ -57,6 +58,7 @@ public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto>{
 
     @Override
     public String to(EntityHitDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.entity)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.hitPoint);

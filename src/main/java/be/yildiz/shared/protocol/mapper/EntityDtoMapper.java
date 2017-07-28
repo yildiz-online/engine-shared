@@ -37,11 +37,30 @@ public class EntityDtoMapper implements ObjectMapper<EntityDto> {
 
     @Override
     public EntityDto from(String s) throws InvalidNetworkMessage {
-        return null;
+        assert s != null;
+        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        try {
+            return new EntityDto(
+                    EntityIdMapper.getInstance().from(v[0]),
+                    v[1],
+                    EntityTypeMapper.getInstance().from(v[2]),
+                    PlayerIdMapper.getInstance().from(v[3]),
+                    Point3DMapper.getInstance().from(v[4]),
+                    Point3DMapper.getInstance().from(v[5]),
+                    IntegerMapper.getInstance().from(v[6]),
+                    IntegerMapper.getInstance().from(v[7]),
+                    ModuleGroupMapper.getInstance().from(v[8]),
+                    EntityIdMapper.getInstance().from(v[9]),
+                    IntegerMapper.getInstance().from(v[10])
+            );
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidNetworkMessage(e);
+        }
     }
 
     @Override
     public String to(EntityDto dto) {
+        assert dto != null;
         return EntityIdMapper.getInstance().to(dto.entity)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + dto.name

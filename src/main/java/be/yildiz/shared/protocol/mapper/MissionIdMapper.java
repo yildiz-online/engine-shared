@@ -44,6 +44,7 @@ public class MissionIdMapper implements ObjectMapper<MissionId> {
 
     @Override
     public MissionId from(String s) throws InvalidNetworkMessage {
+        assert s != null;
         try {
             return MissionId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
@@ -53,6 +54,7 @@ public class MissionIdMapper implements ObjectMapper<MissionId> {
 
     @Override
     public String to(MissionId id) {
+        assert id != null;
         return String.valueOf(id.value);
     }
 }
