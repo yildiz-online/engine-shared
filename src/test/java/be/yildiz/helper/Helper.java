@@ -30,6 +30,7 @@ import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.BaseEntity;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstruction;
+import be.yildiz.shared.entity.EntityManager;
 import be.yildiz.shared.entity.action.ProtectInvincible;
 import be.yildiz.shared.entity.action.materialization.EmptyProtectMaterialization;
 import be.yildiz.shared.entity.module.EmptyModule;
@@ -56,11 +57,11 @@ public class Helper {
         return new InvincibleTemplate(eic.getHp()).materialize(new ProtectInvincible(eic.getId(), eic.getModules().getHull(), new EmptyProtectMaterialization(eic.getId())));
     }
 
-    public static Entity anEntity(long id) {
+    public static BaseEntity anEntity(long id) {
         return anEntity(id, 5);
     }
 
-    public static Entity anEntity(long id, int player) {
+    public static BaseEntity anEntity(long id, int player) {
         EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.valueOf(id), PlayerId.valueOf(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
         EntityModules em = new EntityModules(
                 anInvincibleModule(eic),
@@ -73,6 +74,23 @@ public class Helper {
                 new EmptyModule(eic.getId())
         );
         return new BaseEntity(eic, em);
+    }
+
+    public static BaseEntity anEntity(long id, int player, EntityManager<BaseEntity> manager) {
+        EntityInConstruction eic = new EntityInConstruction(EntityType.WORLD, EntityId.valueOf(id), PlayerId.valueOf(player), "Test", EntityInConstruction.WORLD.getModules(), Point3D.ZERO, Point3D.INVERT_Z, 0, 0);
+        EntityModules em = new EntityModules(
+                anInvincibleModule(eic),
+                new NoEnergyGenerator(eic.getId()),
+                new BlindDetector(eic.getId()),
+                new NoWeaponModule(eic.getId()),
+                new StaticModule(eic.getId()),
+                new EmptyModule(eic.getId()),
+                new EmptyModule(eic.getId()),
+                new EmptyModule(eic.getId())
+        );
+        BaseEntity b = new BaseEntity(eic, em);
+        manager.addEntity(b);
+        return b;
     }
 
     /**

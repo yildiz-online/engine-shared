@@ -50,15 +50,9 @@ public class LosManager<T extends Entity> implements CollisionListener {
      */
     private final EntityManager<T> entityManager;
 
-    /**
-     * Associated player manager.
-     */
-    private final PlayerManager playerManager;
-
-    public LosManager(EntityManager<T> entityManager, PlayerManager playerManager) {
+    public LosManager(EntityManager<T> entityManager) {
         super();
         this.entityManager = entityManager;
-        this.playerManager = playerManager;
     }
 
     /**
@@ -77,7 +71,7 @@ public class LosManager<T extends Entity> implements CollisionListener {
             return;
         }
         PlayerId playerViewer = viewer.getOwner();
-        Player p = this.playerManager.findFromId(playerViewer);
+        Player p = PlayerManager.getInstance().findFromId(playerViewer);
         if (p.see(seen.getId())) {
             this.listenerList.forEach(l -> l.playerSee(playerViewer, seen));
         }
@@ -92,7 +86,7 @@ public class LosManager<T extends Entity> implements CollisionListener {
         T viewer = this.entityManager.findById(r.object1);
         T unseen = this.entityManager.findById(r.object2);
         if (!viewer.getOwner().equals(unseen.getOwner()) && viewer.isSeeing(unseen)) {
-            if (this.playerManager.findFromId(viewer.getOwner()).noLongerSee(unseen.getId())) {
+            if (PlayerManager.getInstance().findFromId(viewer.getOwner()).noLongerSee(unseen.getId())) {
                 this.listenerList.forEach(l -> l.noLongerSee(viewer, unseen));
             }
         }

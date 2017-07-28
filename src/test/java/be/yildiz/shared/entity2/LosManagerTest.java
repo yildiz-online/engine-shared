@@ -23,55 +23,77 @@
 
 package be.yildiz.shared.entity2;
 
-import be.yildiz.shared.entity.Entity;
+import be.yildiz.common.id.PlayerId;
+import be.yildiz.helper.Helper;
+import be.yildiz.module.physics.CollisionResult;
+import be.yildiz.shared.entity.*;
 import be.yildiz.shared.player.Player;
+import be.yildiz.shared.player.PlayerManager;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class LosManagerTest {
 
-    @Ignore
     @Test
     public void newCollisionTest() {
-
-        // LosManager<Entity, GameEntityData> lm = new LosManager<BaseEntity, GameEntityData>(new EntityManager<Entity, GameEntityData>(), new PlayerManager());
-        final Player p1 = Mockito.mock(Player.class);
-        final Player p2 = Mockito.mock(Player.class);
-        final Entity vr = Mockito.mock(Entity.class);
-        final Entity vw = Mockito.mock(Entity.class);
+        EntityManager<BaseEntity> em = new EntityManager<>(BaseEntity.WORLD);
+        LosManager<BaseEntity> lm = new LosManager<>(em);
+        final Player p1 = PlayerManager.getInstance().createPlayer(PlayerId.valueOf(1), "p1");
+        PlayerManager.getInstance().createPlayer(PlayerId.valueOf(2), "p2");
+        final Entity vr = Helper.anEntity(5, 1, em);
+        final Entity vw = Helper.anEntity(6, 2, em);
         Assert.assertFalse(vr.equals(vw));
-//        lm.willNotify(new LosListener<Entity>() {
-//            @Override
-//            public void see(Entity viewer, Entity viewed) {
-//                Assert.assertEquals(vr, viewer);
-//                Assert.assertEquals(vw, viewed);
-//            }
-//
-//            @Override
-//            public void playerSee(PlayerId player, Entity viewed) {
-//                Assert.assertEquals(p1, player);
-//                Assert.assertEquals(vw, viewed);
-//            }
-//
-//            @Override
-//            public void playerNoLongerSee(Player player, Entity viewed) {
-//                Assert.assertEquals(p1, player);
-//                Assert.assertEquals(vw, viewed);
-//            }
-//
-//            @Override
-//            public void noLongerSee(Entity viewer, Entity viewed) {
-//                Assert.assertEquals(vr, viewer);
-//                Assert.assertEquals(vw, viewed);
-//            }
-//        });
-//        lm.newCollision(new CollisionResult(EntityId.get(1), EntityId.get(2)));
-//        lm.lostCollision(new CollisionResult(EntityId.get(1), EntityId.get(2)));
+        TestLostListener tll = new TestLostListener(p1, vr, vw);
+        lm.willNotify(tll);
+        lm.newCollision(new CollisionResult(vr.getId(), vw.getId()));
+        Assert.assertTrue(tll.see);
+        lm.lostCollision(new CollisionResult(vr.getId(), vw.getId()));
+        Assert.assertFalse(tll.see);
+    }
 
+    private static class TestLostListener implements LosListener<BaseEntity> {
+
+        private final Player p1;
+
+        private final Entity vr;
+
+        private final Entity vw;
+
+        private boolean see = false;
+
+        private TestLostListener(Player p1, Entity vr, Entity vw) {
+            this.p1 = p1;
+            this.vr = vr;
+            this.vw = vw;
+        }
+
+        @Override
+        public void see(BaseEntity viewer, BaseEntity viewed) {
+            Assert.assertEquals(vr, viewer);
+            Assert.assertEquals(vw, viewed);
+            see = true;
+        }
+
+        @Override
+        public void playerSee(PlayerId player, BaseEntity viewed) {
+            Assert.assertEquals(p1.id, player);
+            Assert.assertEquals(vw, viewed);
+        }
+
+        @Override
+        public void playerNoLongerSee(PlayerId player, BaseEntity viewed) {
+            Assert.assertEquals(p1.id, player);
+            Assert.assertEquals(vw, viewed);
+        }
+
+        @Override
+        public void noLongerSee(BaseEntity viewer, BaseEntity viewed) {
+            Assert.assertEquals(vr, viewer);
+            Assert.assertEquals(vw, viewed);
+            see = false;
+        }
     }
 }
