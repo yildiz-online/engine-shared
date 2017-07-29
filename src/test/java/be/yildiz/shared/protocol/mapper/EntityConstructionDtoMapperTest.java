@@ -40,13 +40,13 @@ public class EntityConstructionDtoMapperTest extends BaseMapperTest<EntityConstr
 
     @BeforeClass
     public static void init() {
-        new EntityType(3, "test");
+        new EntityType(78, "test");
     }
 
     public EntityConstructionDtoMapperTest() {
         super(new EntityConstructionDtoMapper(), new EntityConstructionDto(
                 EntityId.valueOf(4),
-                EntityType.valueOf(2),
+                EntityType.valueOf(78),
                 new ModuleGroup.ModuleGroupBuilder()
                 .fromList(Lists.newList(
                         ActionId.valueOf(1),
