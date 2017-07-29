@@ -13,7 +13,7 @@ public class EntityConstructionDtoMapper implements ObjectMapper<EntityConstruct
 
     @Override
     public EntityConstructionDto from(String s) throws InvalidNetworkMessage {
-        assert s != null;
+        assert isNotNull(s);
         String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
         try {
             return new EntityConstructionDto(
@@ -29,7 +29,7 @@ public class EntityConstructionDtoMapper implements ObjectMapper<EntityConstruct
 
     @Override
     public String to(EntityConstructionDto dto) {
-        assert dto != null;
+        assert isNotNull(dto);
         return EntityIdMapper.getInstance().to(dto.builderId)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + EntityTypeMapper.getInstance().to(dto.type)
@@ -37,5 +37,9 @@ public class EntityConstructionDtoMapper implements ObjectMapper<EntityConstruct
                 + ModuleGroupMapper.getInstance().to(dto.moduleIds)
                 + MessageSeparation.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.requestIndex);
+    }
+
+    private boolean isNotNull(Object o) {
+        return o != null;
     }
 }
