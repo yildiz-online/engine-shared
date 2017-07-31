@@ -56,4 +56,9 @@ public class TaskId {
         TaskId taskId = (TaskId) o;
         return value == taskId.value;
     }
+
+    @Override
+    public String toString() {
+        return "TaskId:" + this.value;
+    }
 }

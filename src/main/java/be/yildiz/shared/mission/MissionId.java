@@ -50,17 +50,11 @@ public class MissionId {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) {
-            return true;
-        }
-        if(!(o instanceof MissionId)) {
-            return false;
-        }
-        return ((MissionId) o).value == this.value;
+        return this == o || o instanceof MissionId && ((MissionId) o).value == this.value;
     }
 
     @Override
     public String toString() {
-        return "Id value = " + value;
+        return "MissionId:" + value;
     }
 }
