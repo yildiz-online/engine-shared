@@ -40,8 +40,10 @@ public class TaskStatusListMapperTest extends BaseMapperTest<TaskStatusList> {
         super(TaskStatusListMapper.getInstance(), new TaskStatusList(
                 Lists.newList(
                         new TaskStatus(TaskId.valueOf(1), MissionId.valueOf(2), "ok"),
+                        new TaskStatus(TaskId.valueOf(2), MissionId.valueOf(3), ""),
                         new TaskStatus(TaskId.valueOf(2), MissionId.valueOf(3), "ok2")
                 )
         ));
     }
+
 }

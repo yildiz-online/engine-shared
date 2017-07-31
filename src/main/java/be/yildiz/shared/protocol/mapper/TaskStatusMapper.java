@@ -47,11 +47,12 @@ class TaskStatusMapper implements ObjectMapper<TaskStatus> {
     public TaskStatus from(String s) throws InvalidNetworkMessage {
         assert s != null;
         String[] values = s.split(MessageSeparation.VAR_SEPARATOR);
+        String status = values.length == 3 ? values[2] : "";
         try {
         return new TaskStatus(
                 TaskIdMapper.getInstance().from(values[0]),
                 MissionIdMapper.getInstance().from(values[1]),
-                values[2]);
+                status);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidNetworkMessage(e.getMessage());
         }
