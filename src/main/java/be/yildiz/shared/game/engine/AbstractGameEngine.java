@@ -37,7 +37,7 @@ import java.util.concurrent.locks.LockSupport;
  *
  * @author Grégory Van den Borre
  */
-public abstract class AbstractGameEngine implements FrameManager, AutoCloseable {
+public abstract class AbstractGameEngine implements FrameManager {
 
     /**
      * List all frame listener to execute during the main loop execution.
