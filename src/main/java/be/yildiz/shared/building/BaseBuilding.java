@@ -186,11 +186,11 @@ public final class BaseBuilding implements Building {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
+        final int PRIME = 31;
         int result = 1;
-        result = prime * result + this.city.hashCode();
-        result = prime * result + this.buildingPosition.hashCode();
-        result = prime * result + this.data.hashCode();
+        result = PRIME * result + this.city.hashCode();
+        result = PRIME * result + this.buildingPosition.hashCode();
+        result = PRIME * result + this.data.hashCode();
         return result;
     }
 
@@ -209,13 +209,7 @@ public final class BaseBuilding implements Building {
             return false;
         }
         BaseBuilding other = (BaseBuilding) obj;
-        if (!this.city.equals(other.city)) {
-            return false;
-        }
-        if (this.buildingPosition != other.buildingPosition) {
-            return false;
-        }
-        return this.data.equals(other.data);
+        return this.city.equals(other.city) && this.buildingPosition == other.buildingPosition && this.data.equals(other.data);
     }
 
     @Override
