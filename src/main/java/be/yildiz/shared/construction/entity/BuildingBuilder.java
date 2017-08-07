@@ -92,7 +92,7 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
     }
 
     @Override
-    public void setQueue(List<EntityRepresentationConstruction> l) throws EntityConstructionQueueFullException {
+    public void setQueue(List<EntityRepresentationConstruction> l) {
         this.queue.set(l);
     }
 
@@ -102,7 +102,7 @@ public abstract class BuildingBuilder<B extends Building> implements Builder {
     }
 
     @Override
-    public void addInQueue(EntityRepresentationConstruction r) throws EntityConstructionQueueFullException {
+    public void addInQueue(EntityRepresentationConstruction r) {
         this.queue.add(r);
     }
 
