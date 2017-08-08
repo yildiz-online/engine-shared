@@ -30,7 +30,7 @@ package be.yildiz.shared.resources;
  */
 public interface GameResources {
 
-    ResourceValue EMPTY = fullValue(0, 0, 0, 0, 0);
+    ResourceValue EMPTY_VALUE = fullValue(0, 0, 0, 0, 0);
 
     static ResourceValue basicValue(final float metal, final float energy, final float credits) {
         return new ResourceValue(new float[]{metal, energy, credits, 0.0f, 0.0f});
@@ -65,7 +65,7 @@ public interface GameResources {
     }
 
     static ResourceValue empty() {
-        return EMPTY;
+        return EMPTY_VALUE;
     }
 
     static ResourceValue metal(final float metal) {

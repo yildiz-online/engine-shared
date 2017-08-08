@@ -25,6 +25,7 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
+import be.yildiz.module.network.protocol.mapper.IntegerMapper;
 import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.resources.ResourceValue;
 
@@ -48,9 +49,13 @@ public class ResourceValueMapper implements ObjectMapper<ResourceValue> {
         assert s != null;
         try {
             String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
-            float[] f = new float[v.length];
-            for (int i = 0; i < v.length; i++) {
-                f[i] = Float.valueOf(v[i]);
+            int size = IntegerMapper.getInstance().from(v[0]);
+            float[] f = new float[v.length-1];
+            if(f.length != size) {
+                throw new IndexOutOfBoundsException("Size=" + size);
+            }
+            for (int i = 0; i < f.length; i++) {
+                f[i] = Float.valueOf(v[i+1]);
             }
             return new ResourceValue(f);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
@@ -62,6 +67,8 @@ public class ResourceValueMapper implements ObjectMapper<ResourceValue> {
     public String to(ResourceValue value) {
         assert value != null;
         StringBuilder sb = new StringBuilder();
+        sb.append(value.getArray().length);
+        sb.append(MessageSeparation.VAR_SEPARATOR);
         for(float f : value.getArray()) {
             sb.append(f);
             sb.append(MessageSeparation.VAR_SEPARATOR);
