@@ -79,9 +79,9 @@ public class EntityBonus {
         if (this.oneInstance) {
             return this.getClass().getName().hashCode();
         }
-        final int prime = 31;
+        final int PRIME = 31;
         int result = 1;
-        result = prime * result;
+        result = PRIME * result;
         result += moduleIds.hashCode();
         return result;
     }

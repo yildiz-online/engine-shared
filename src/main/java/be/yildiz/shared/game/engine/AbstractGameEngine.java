@@ -133,8 +133,8 @@ public abstract class AbstractGameEngine implements FrameManager {
      * @param fps Maximum computation number in one second.
      */
     public final void setFrameLimiter(final int fps) {
-        final float time = 1000.0f;
-        this.limit = (long) (time / fps);
+        final float TIME = 1000.0f;
+        this.limit = (long) (TIME / fps);
     }
 
     public final Version getGameVersion() {

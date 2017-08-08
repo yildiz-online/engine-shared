@@ -70,9 +70,9 @@ public abstract class GameData {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
+        final int PRIME = 31;
         int result = 1;
-        result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        result = PRIME * result + ((this.type == null) ? 0 : this.type.hashCode());
         return result;
     }
 

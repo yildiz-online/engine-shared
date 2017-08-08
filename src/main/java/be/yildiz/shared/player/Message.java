@@ -107,13 +107,13 @@ public final class Message {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        final int PRIME = 31;
         int result = 1;
-        result = (int) (prime * result + this.date);
-        result = prime * result + ((this.content == null) ? 0 : this.content.hashCode());
-        result = prime * result + (this.read ? 1231 : 1237);
-        result = prime * result + ((this.receiver == null) ? 0 : this.receiver.hashCode());
-        result = prime * result + ((this.sender == null) ? 0 : this.sender.hashCode());
+        result = (int) (PRIME * result + this.date);
+        result = PRIME * result + ((this.content == null) ? 0 : this.content.hashCode());
+        result = PRIME * result + (this.read ? 1231 : 1237);
+        result = PRIME * result + ((this.receiver == null) ? 0 : this.receiver.hashCode());
+        result = PRIME * result + ((this.sender == null) ? 0 : this.sender.hashCode());
         return result;
     }
 
