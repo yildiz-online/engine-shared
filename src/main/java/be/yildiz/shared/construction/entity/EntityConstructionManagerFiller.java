@@ -43,19 +43,12 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
     private final EntityConstructionManager<T> manager;
 
     /**
-     * Manager responsible to handle the builders.
-     */
-    private final BuilderManager builderManager;
-
-    /**
      * Create a new instance filler.
      * @param manager Manager responsible to build entities.
-     * @param builderManager Manager responsible to handle the builders.
      */
-    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager, BuilderManager builderManager) {
+    public EntityConstructionManagerFiller(EntityConstructionManager<T> manager) {
         super();
         this.manager = manager;
-        this.builderManager = builderManager;
     }
 
     @Override
@@ -65,7 +58,7 @@ public class EntityConstructionManagerFiller<T extends Entity> implements Entity
 
     @Override
     public void add(EntityConstructionQueue.EntityRepresentationConstruction toBuild, PlayerId p, EntityId builderId) {
-        Optional<Builder> builder = this.builderManager.getBuilderById(builderId);
+        Optional<Builder> builder = BuilderManager.getInstance().getBuilderById(builderId);
         builder.ifPresent(b -> {
             EntityToCreate etc = new EntityToCreate(
                     toBuild.type,
