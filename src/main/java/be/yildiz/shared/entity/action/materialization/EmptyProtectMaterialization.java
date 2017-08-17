@@ -84,18 +84,23 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
             }
 
             @Override
-            public void detach(Movable other) {
-                //does nothing
-            }
-
-            @Override
             public void addChild(Movable other) {
                 //does nothing
             }
 
             @Override
+            public void removeChild(Movable child) {
+
+            }
+
+            @Override
             public void attachToOptional(Movable other) {
                 //does nothing
+            }
+
+            @Override
+            public void detachFromParent() {
+
             }
 
             @Override
@@ -114,11 +119,6 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
             }
 
             @Override
-            public void setAbsolutePosition(Point3D pos) {
-                //does nothing
-            }
-
-            @Override
             public Point3D getDirection() {
                 return Point3D.BASE_DIRECTION;
             }
@@ -131,6 +131,21 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
             @Override
             public Point3D getAbsoluteDirection() {
                 return Point3D.BASE_DIRECTION;
+            }
+
+            @Override
+            public void setPosition(float posX, float posY, float posZ) {
+
+            }
+
+            @Override
+            public void setDirection(float dirX, float dirY, float dirZ) {
+
+            }
+
+            @Override
+            public void addOptionalChild(Movable child) {
+
             }
         };
     }
