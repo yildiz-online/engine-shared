@@ -94,6 +94,11 @@ public class EmptyProtectMaterialization implements ProtectMaterialization{
             }
 
             @Override
+            public Movable getInternal() {
+                return this;
+            }
+
+            @Override
             public void attachToOptional(Movable other) {
                 //does nothing
             }
