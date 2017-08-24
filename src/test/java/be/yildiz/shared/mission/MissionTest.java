@@ -24,6 +24,7 @@
 package be.yildiz.shared.mission;
 
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.reward.RewardId;
 import be.yildiz.shared.mission.task.TaskId;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class MissionTest {
 
     public static Mission givenANewMission() {
         List<TaskId> l = Collections.singletonList(TaskId.valueOf(5L));
-        return new BaseMission(MissionId.valueOf(1), l, p -> true);
+        return new BaseMission(MissionId.valueOf(1), l, p -> true, RewardId.valueOf(1));
     }
 
     public static class Constructor {
@@ -56,7 +57,7 @@ public class MissionTest {
 
         @Test(expected = AssertionError.class)
         public void withNullList() {
-            new BaseMission(id, null, p -> true);
+            new BaseMission(id, null, p -> true, RewardId.valueOf(1));
         }
 
         @Test(expected = IllegalArgumentException.class)
@@ -64,19 +65,19 @@ public class MissionTest {
             List<TaskId> l = new ArrayList<>();
             l.add(TaskId.valueOf(5L));
             l.add(null);
-            new BaseMission(id, l, p -> true);
+            new BaseMission(id, l, p -> true, RewardId.valueOf(1));
         }
 
         @Test(expected = AssertionError.class)
         public void withNullPrerequisite() {
             List<TaskId> l = Collections.singletonList(TaskId.valueOf(5L));
-            new BaseMission(id, l, null);
+            new BaseMission(id, l, null, RewardId.valueOf(1));
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void withEmptyTaskList() {
             List<TaskId> l = new ArrayList<>();
-            new BaseMission(id, l, p -> true);
+            new BaseMission(id, l, p -> true, RewardId.valueOf(1));
         }
 
     }
@@ -89,7 +90,7 @@ public class MissionTest {
         public void withTruePrerequisite() {
             List<TaskId> l = new ArrayList<>();
             l.add(TaskId.valueOf(5L));
-            Mission m = new BaseMission(id, l, p -> true);
+            Mission m = new BaseMission(id, l, p -> true, RewardId.valueOf(1));
             Assert.assertTrue(m.canStartFor(PlayerId.WORLD));
         }
 
@@ -97,7 +98,7 @@ public class MissionTest {
         public void withFalsePrerequisite() {
             List<TaskId> l = new ArrayList<>();
             l.add(TaskId.valueOf(5L));
-            Mission m = new BaseMission(id, l, p -> false);
+            Mission m = new BaseMission(id, l, p -> false, RewardId.valueOf(1));
             Assert.assertFalse(m.canStartFor(PlayerId.WORLD));
         }
     }

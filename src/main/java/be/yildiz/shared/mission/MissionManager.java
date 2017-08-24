@@ -30,6 +30,7 @@ import be.yildiz.common.collections.Sets;
 import be.yildiz.common.exeption.UnhandledSwitchCaseException;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.log.Logger;
+import be.yildiz.shared.mission.reward.RewardManager;
 import be.yildiz.shared.mission.task.TaskFactory;
 import be.yildiz.shared.mission.task.TaskId;
 import be.yildiz.shared.mission.task.TaskStatus;
@@ -66,10 +67,13 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
      */
     private final TaskFactory taskFactory;
 
-    public MissionManager(final TaskFactory taskFactory) {
+    private final RewardManager rewardManager;
+
+    public MissionManager(final TaskFactory taskFactory, RewardManager rewardManager) {
         super();
         this.taskFactory = taskFactory;
         this.taskFactory.addTaskListener(this);
+        this.rewardManager = rewardManager;
     }
 
     public final void registerMission(final T mission) {
@@ -116,6 +120,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
             T mission = this.availableMissions.get(missionId);
             this.activeMissions.get(playerId).remove(mission.getId());
             this.listeners.forEach(l -> l.missionSuccess(mission, playerId));
+            this.rewardManager.rewardPlayer(playerId, mission.getReward());
         }
     }
 

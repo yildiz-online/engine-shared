@@ -25,6 +25,10 @@ package be.yildiz.shared.mission;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.reward.Reward;
+import be.yildiz.shared.mission.reward.RewardFactory;
+import be.yildiz.shared.mission.reward.RewardId;
+import be.yildiz.shared.mission.reward.RewardManager;
 import be.yildiz.shared.mission.task.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -95,8 +99,19 @@ public class MissionManagerTest {
                     }
                 };
             }
-        });
-        mm.registerMission(new BaseMission(MissionId.valueOf(1), Lists.newList(TaskId.valueOf(1)), p -> true));
+        },
+        new RewardManager(new RewardFactory() {
+            @Override
+            public void createReward(RewardId id) {
+
+            }
+
+            @Override
+            public Reward getReward(RewardId id) {
+                return player -> {};
+            }
+        }));
+        mm.registerMission(new BaseMission(MissionId.valueOf(1), Lists.newList(TaskId.valueOf(1)), p -> true, RewardId.valueOf(1)));
         return mm;
     }
 

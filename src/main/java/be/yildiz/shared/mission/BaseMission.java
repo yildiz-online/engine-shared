@@ -25,6 +25,7 @@ package be.yildiz.shared.mission;
 
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.reward.RewardId;
 import be.yildiz.shared.mission.task.TaskId;
 
 import java.util.Collections;
@@ -59,7 +60,9 @@ public class BaseMission implements Mission {
 
     private final MissionId id;
 
-    public BaseMission(MissionId id, List<TaskId> tasks, MissionPrerequisite p) {
+    private final RewardId reward;
+
+    public BaseMission(MissionId id, List<TaskId> tasks, MissionPrerequisite p, RewardId reward) {
         assert id != null;
         assert tasks != null;
         assert p != null;
@@ -72,6 +75,7 @@ public class BaseMission implements Mission {
         }
         this.tasks = Collections.unmodifiableSet(Sets.newSet(tasks));
         this.prerequisite = p;
+        this.reward = reward;
     }
 
     //@Ensures p != null
@@ -91,7 +95,12 @@ public class BaseMission implements Mission {
     }
 
     @Override
-    public MissionId getId() {
+    public final MissionId getId() {
         return this.id;
+    }
+
+    @Override
+    public final RewardId getReward() {
+        return this.reward;
     }
 }

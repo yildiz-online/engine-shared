@@ -24,6 +24,7 @@
 package be.yildiz.shared.mission;
 
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.shared.mission.reward.RewardId;
 import be.yildiz.shared.mission.task.TaskId;
 
 import java.util.Set;
@@ -44,4 +45,6 @@ public interface Mission {
     boolean hasTask(TaskId task);
 
     MissionId getId();
+
+    RewardId getReward();
 }
