@@ -29,6 +29,7 @@ import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.exeption.UnhandledSwitchCaseException;
 import be.yildiz.common.id.PlayerId;
+import be.yildiz.common.log.Logger;
 import be.yildiz.shared.mission.task.TaskFactory;
 import be.yildiz.shared.mission.task.TaskId;
 import be.yildiz.shared.mission.task.TaskStatus;
@@ -120,10 +121,17 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
 
     @Override
     public final void taskFailed(TaskId taskId, MissionId missionId, PlayerId playerId) {
-        CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId).add(new TaskStatus(taskId, missionId, "FAILED"));
+        TaskStatus status = new TaskStatus(taskId, missionId, "FAILED");
+        Set<TaskStatus> statusSet = CollectionUtil.getOrCreateSetFromMap(this.taskStatus, playerId);
+        statusSet.remove(status);
+        statusSet.add(status);
         T mission = this.availableMissions.get(missionId);
-        this.activeMissions.get(playerId).remove(mission.getId());
-        this.listeners.forEach(l -> l.missionFailed(mission, playerId));
+        if(mission.hasTask(taskId)) {
+            this.activeMissions.get(playerId).remove(mission.getId());
+            this.listeners.forEach(l -> l.missionFailed(mission, playerId));
+        } else {
+            Logger.error(taskId + " does not exists for mission " + missionId + "task failed for player:" + playerId);
+        }
     }
 
     public void updateTaskStatus(TaskId taskId, MissionId missionId, PlayerId playerId, String status) {
