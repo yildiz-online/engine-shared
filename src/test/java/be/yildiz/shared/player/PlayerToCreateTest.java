@@ -24,9 +24,7 @@
 package be.yildiz.shared.player;
 
 
-import be.yildiz.common.log.Logger;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -38,11 +36,6 @@ import org.junit.runner.RunWith;
 public class PlayerToCreateTest {
 
     public static class Constructor {
-
-        @Before
-        public void init() {
-            Logger.disable();
-        }
 
         @Test
         public void happyFlow() {

@@ -29,9 +29,10 @@ import be.yildiz.common.framelistener.EndFrameListener;
 import be.yildiz.common.framelistener.FrameManager;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
 import be.yildiz.shared.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,8 @@ import java.util.stream.Collectors;
  * @author Grégory Van den Borre
  */
 public class EntityConstructionManager<T extends Entity> extends EndFrameListener implements CompleteEntityConstructionManager<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityConstructionManager.class);
 
     /**
      * List of entities waiting to be build.
@@ -78,7 +81,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
     @Override
     public void createEntity(final EntityInConstruction entity, final EntityId builderId, final int index) {
         T buildEntity = this.associatedFactory.createEntity(entity);
-        Logger.debug("Entity built " + entity.getId());
+        LOGGER.debug("Entity built " + entity.getId());
         this.listenerList.forEach(l -> l.entityComplete(buildEntity, builderId, index));
     }
 
@@ -113,7 +116,7 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
                 T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
-                Logger.debug("Entity built " + waitingEntity.entity.getId());
+                LOGGER.debug("Entity built " + waitingEntity.entity.getId());
                 this.listenerList.forEach(l -> l.entityComplete(buildEntity, waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);
                 i--;

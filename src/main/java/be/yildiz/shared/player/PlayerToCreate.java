@@ -23,12 +23,15 @@
 
 package be.yildiz.shared.player;
 
-import be.yildiz.common.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Grégory Van den Borre
  */
 public class PlayerToCreate {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerToCreate.class);
 
     private final String login;
 
@@ -57,15 +60,15 @@ public class PlayerToCreate {
 
     private boolean invariant() {
         if(login == null || login.isEmpty()) {
-            Logger.error("Login cannot be null or empty.");
+            LOGGER.error("Login cannot be null or empty.");
             return false;
         }
         if(password == null || password.isEmpty()) {
-            Logger.error("Password cannot be null or empty.");
+            LOGGER.error("Password cannot be null or empty.");
             return false;
         }
         if(email == null || email.isEmpty()) {
-            Logger.error("Email cannot be null or empty.");
+            LOGGER.error("Email cannot be null or empty.");
             return false;
         }
         return true;

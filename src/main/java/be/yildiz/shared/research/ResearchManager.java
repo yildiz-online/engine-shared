@@ -27,7 +27,8 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +41,8 @@ import java.util.Set;
  * @author Grégory Van den Borre
  */
 public final class ResearchManager {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResearchManager.class);
 
     private static final ResearchManager INSTANCE = new ResearchManager();
 
@@ -99,7 +102,7 @@ public final class ResearchManager {
         }
         Research research = Research.get(id);
         if(research == null) {
-            Logger.warning("Research " + id + " not registered.");
+            LOGGER.warn("Research " + id + " not registered.");
             return ResearchState.UNAVAILABLE;
         }
         if (!research.getPrerequisite().isPresent()) {

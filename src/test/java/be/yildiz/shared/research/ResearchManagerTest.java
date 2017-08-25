@@ -26,10 +26,8 @@ package be.yildiz.shared.research;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.shared.entity.bonus.BonusSpeed;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -41,11 +39,6 @@ import org.junit.runner.RunWith;
 public class ResearchManagerTest {
 
     public static class GetResearchState {
-
-        @Before
-        public void init() {
-            Logger.disable();
-        }
 
         @Test
         public void done() {

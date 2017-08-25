@@ -24,8 +24,9 @@
 package be.yildiz.shared.entity;
 
 import be.yildiz.common.id.ActionId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.shared.entity.module.ModuleGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * To check the validity of a list of modules against a given data type, it does not check if the user has the right to use those modules.
@@ -33,6 +34,8 @@ import be.yildiz.shared.entity.module.ModuleGroup;
  * @author Grégory Van den Borre
  */
 public final class ModuleChecker {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleChecker.class);
 
     public ModuleChecker() {
         super();
@@ -56,37 +59,37 @@ public final class ModuleChecker {
 
 
         if (!data.isMoveAllowed(move)) {
-            Logger.warning(move + " not allowed for move for type " + data.getType());
+            LOGGER.warn(move + " not allowed for move for type " + data.getType());
             return false;
         }
         if (!data.isWeaponAllowed(interaction)) {
-            Logger.warning(interaction + " not allowed for interactions for type " + data.getType());
+            LOGGER.warn(interaction + " not allowed for interactions for type " + data.getType());
             return false;
         }
         if (!data.isHullAllowed(hull)) {
-            Logger.warning(hull + " not allowed for hull for type " + data.getType());
+            LOGGER.warn(hull + " not allowed for hull for type " + data.getType());
             return false;
         }
         if (!data.isEnergyAllowed(energy)) {
-            Logger.warning(energy + " not allowed for energy for type " + data.getType());
+            LOGGER.warn(energy + " not allowed for energy for type " + data.getType());
             return false;
         }
         if(!data.isDetectorAllowed(detector)) {
-            Logger.warning(interaction + " not allowed for energy for type " + data.getType());
+            LOGGER.warn(interaction + " not allowed for energy for type " + data.getType());
             return false;
         }
         if (!data.isOtherAllowed(modules.getAdditional1())) {
-            Logger.warning(modules.getAdditional1() + " not allowed for modules for type " + data.getType());
+            LOGGER.warn(modules.getAdditional1() + " not allowed for modules for type " + data.getType());
             return false;
         }
 
         if (!data.isOtherAllowed(modules.getAdditional2())) {
-            Logger.warning(modules.getAdditional2() + " not allowed for modules for type " + data.getType());
+            LOGGER.warn(modules.getAdditional2() + " not allowed for modules for type " + data.getType());
             return false;
         }
 
         if (!data.isOtherAllowed(modules.getAdditional3())) {
-            Logger.warning(modules.getAdditional3() + " not allowed for modules for type " + data.getType());
+            LOGGER.warn(modules.getAdditional3() + " not allowed for modules for type " + data.getType());
             return false;
         }
         return true;

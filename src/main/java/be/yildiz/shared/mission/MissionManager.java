@@ -29,7 +29,6 @@ import be.yildiz.common.collections.Maps;
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.exeption.UnhandledSwitchCaseException;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.shared.mission.reward.RewardManager;
 import be.yildiz.shared.mission.task.TaskFactory;
 import be.yildiz.shared.mission.task.TaskId;
@@ -37,6 +36,8 @@ import be.yildiz.shared.mission.task.TaskStatus;
 import be.yildiz.shared.mission.task.TaskStatusListener;
 import be.yildiz.shared.player.Player;
 import be.yildiz.shared.player.PlayerCreationListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,8 @@ import java.util.stream.Collectors;
  * @author Grégory Van den Borre
  */
 public class MissionManager <T extends Mission> implements TaskStatusListener, PlayerCreationListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MissionManager.class);
 
     /**
      * The list of all possible missions.
@@ -135,7 +138,7 @@ public class MissionManager <T extends Mission> implements TaskStatusListener, P
             this.activeMissions.get(playerId).remove(mission.getId());
             this.listeners.forEach(l -> l.missionFailed(mission, playerId));
         } else {
-            Logger.error(taskId + " does not exists for mission " + missionId + "task failed for player:" + playerId);
+            LOGGER.warn(taskId + " does not exists for mission " + missionId + "task failed for player:" + playerId);
         }
     }
 

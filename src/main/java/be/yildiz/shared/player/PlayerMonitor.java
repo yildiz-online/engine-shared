@@ -25,7 +25,6 @@ package be.yildiz.shared.player;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.common.util.ElapsedTimeComputer;
 import be.yildiz.shared.building.Building;
 import be.yildiz.shared.building.BuildingData;
@@ -35,6 +34,8 @@ import be.yildiz.shared.construction.entity.EntityConstructionListener;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.action.ActionListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Service to monitor a player and log its actions.
@@ -42,6 +43,8 @@ import be.yildiz.shared.entity.action.ActionListener;
  * @author Grégory Van den Borre
  */
 public final class PlayerMonitor<T extends Entity, B extends Building, D extends BuildingData, C extends City<B, D>> implements ActionListener, EntityConstructionListener<T>, BuildingConstructionListener<B, D, C> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerMonitor.class);
 
     /**
      * Provide a pause between successive calls.
@@ -73,21 +76,21 @@ public final class PlayerMonitor<T extends Entity, B extends Building, D extends
     @Override
     public void entityComplete(final T entity, EntityId builder, int index) {
         if (entity.getOwner().equals(this.player.id)) {
-            Logger.info(this.playerName + " entity complete " + entity);
+            LOGGER.info(this.playerName + " entity complete " + entity);
         }
     }
 
     @Override
     public void buildingComplete(C c, final B b) {
         if (c.getOwner().equals(this.player.id)) {
-            Logger.info(this.playerName + " building complete " + b.getType());
+            LOGGER.info(this.playerName + " building complete " + b.getType());
         }
     }
 
     @Override
     public void buildingInConstruction(final C city, final B def, final long timeLeft) {
         if (city.getOwner().equals(this.player.id) && etc.isTimeElapsed()) {
-            Logger.info(this.playerName + " building in construction " + def.getType() + ":" + timeLeft);
+            LOGGER.info(this.playerName + " building in construction " + def.getType() + ":" + timeLeft);
         }
     }
 

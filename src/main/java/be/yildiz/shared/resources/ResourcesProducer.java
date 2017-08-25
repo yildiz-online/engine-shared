@@ -25,9 +25,10 @@ package be.yildiz.shared.resources;
 
 import be.yildiz.common.collections.Sets;
 import be.yildiz.common.id.EntityId;
-import be.yildiz.common.log.Logger;
 import be.yildiz.shared.resources.bonus.BonusListener;
 import be.yildiz.shared.resources.bonus.BonusResources;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.Set;
@@ -38,6 +39,8 @@ import java.util.Set;
  * @author Grégory Van den Borre
  */
 public final class ResourcesProducer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesProducer.class);
 
     /**
      * Contains the ratio values, the array must math the resource array.
@@ -275,19 +278,19 @@ public final class ResourcesProducer {
      */
     private boolean invariant() {
         if (this.lastUpdate <= 0) {
-            Logger.warning("INVARIANT FAIL: lastUpdate value: " + this.lastUpdate);
+            LOGGER.warn("INVARIANT FAIL: lastUpdate value: " + this.lastUpdate);
             return false;
         }
         if (this.limit == null) {
-            Logger.warning("INVARIANT FAIL: limit is null");
+            LOGGER.warn("INVARIANT FAIL: limit is null");
             return false;
         }
         if (this.ratio == null) {
-            Logger.warning("INVARIANT FAIL: ratio is null");
+            LOGGER.warn("INVARIANT FAIL: ratio is null");
             return false;
         }
         if (this.resources == null) {
-            Logger.warning("INVARIANT FAIL: resouces is null");
+            LOGGER.warn("INVARIANT FAIL: resources is null");
             return false;
         }
         return true;
