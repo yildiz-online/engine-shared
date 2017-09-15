@@ -23,120 +23,114 @@
 
 package be.yildiz.shared.resources.bonus;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BonusResourcesTest {
-
-    @Rule
-    public ExpectedException rule = ExpectedException.none();
+class BonusResourcesTest {
 
     @Test
-    public void testBonusResourcesFloatArrayFloatArrayInt() {
+    void testBonusResourcesFloatArrayFloatArrayInt() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l, 12);
-        Assert.assertEquals(1, br.getLimit(0), 0001f);
-        Assert.assertEquals(2, br.getLimit(1), 0001f);
+        assertEquals(1, br.getLimit(0), 0001f);
+        assertEquals(2, br.getLimit(1), 0001f);
         r[0] = 5;
-        Assert.assertEquals(1, br.getLimit(0), 0001f);
+        assertEquals(1, br.getLimit(0), 0001f);
     }
 
     @Test
-    public void testBonusResourcesFloatArrayFloatArray() {
+    void testBonusResourcesFloatArrayFloatArray() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l);
-        Assert.assertEquals(1, br.getLimit(0), 0001f);
-        Assert.assertEquals(2, br.getLimit(1), 0001f);
+        assertEquals(1, br.getLimit(0), 0001f);
+        assertEquals(2, br.getLimit(1), 0001f);
         r[0] = 5;
-        Assert.assertEquals(1, br.getLimit(0), 0001f);
+        assertEquals(1, br.getLimit(0), 0001f);
     }
 
-    public void testBonusResourcesFloatArrayFloatArrayNotSameSize() {
+    void testBonusResourcesFloatArrayFloatArrayNotSameSize() {
         float[] r = new float[2];
         float[] l = new float[3];
-        this.rule.expect(IllegalArgumentException.class);
-        new BonusResources(r, l);
+        assertThrows(IllegalArgumentException.class, () -> new BonusResources(r, l));
     }
 
     @Test
-    public void testBonusResourcesFloatArrayNullFloatArray() {
+    void testBonusResourcesFloatArrayNullFloatArray() {
         float[] r = null;
         float[] l = new float[2];
-        this.rule.expect(NullPointerException.class);
-        new BonusResources(r, l);
+        assertThrows(NullPointerException.class, () -> new BonusResources(r, l));
     }
 
     @Test
-    public void testBonusResourcesFloatArrayFloatArrayNull() {
+    void testBonusResourcesFloatArrayFloatArrayNull() {
         float[] r = new float[2];
         float[] l = null;
-        this.rule.expect(NullPointerException.class);
-        new BonusResources(r, l);
+        assertThrows(NullPointerException.class, () -> new BonusResources(r, l));
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l);
-        Assert.assertEquals(-1, br.hashCode());
+        assertEquals(-1, br.hashCode());
         br = new BonusResources(r, l, 17);
-        Assert.assertEquals(17, br.hashCode());
+        assertEquals(17, br.hashCode());
     }
 
     @Test
-    public void testEqualsObject() {
+    void testEqualsObject() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l);
         BonusResources br2 = br;
-        Assert.assertNotEquals(null, br);
-        Assert.assertNotEquals("test", br);
-        Assert.assertNotEquals(new BonusResources(r, l), br);
-        Assert.assertEquals(br, br2);
+        assertNotEquals(null, br);
+        assertNotEquals("test", br);
+        assertNotEquals(new BonusResources(r, l), br);
+        assertEquals(br, br2);
 
         br = new BonusResources(r, l, 7);
         br2 = new BonusResources(new float[]{11, 12, 15}, new float[]{12, 13, 4}, 7);
-        Assert.assertEquals(br, br2);
+        assertEquals(br, br2);
     }
 
     @Test
-    public void testHasMalus() {
+    void testHasMalus() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l);
-        Assert.assertFalse(br.hasMalus());
+        assertFalse(br.hasMalus());
         r = new float[]{2, -5};
         br = new BonusResources(r, l);
-        Assert.assertTrue(br.hasMalus());
+        assertTrue(br.hasMalus());
         r = new float[]{2, 0};
         br = new BonusResources(r, l);
-        Assert.assertFalse(br.hasMalus());
+        assertFalse(br.hasMalus());
     }
 
     @Test
-    public void testGetRatio() {
+    void testGetRatio() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l);
-        Assert.assertEquals(1, br.getRatio(0), 0.01);
-        Assert.assertEquals(2, br.getRatio(1), 0.01);
+        assertEquals(1, br.getRatio(0), 0.01);
+        assertEquals(2, br.getRatio(1), 0.01);
     }
 
     @Test
-    public void testGetLimit() {
+    void testGetLimit() {
         float[] r = new float[]{1, 2};
         float[] l = new float[]{2, 3};
         BonusResources br = new BonusResources(r, l);
-        Assert.assertEquals(2, br.getLimit(0), 0.01);
-        Assert.assertEquals(3, br.getLimit(1), 0.01);
+        assertEquals(2, br.getLimit(0), 0.01);
+        assertEquals(3, br.getLimit(1), 0.01);
     }
 
 }

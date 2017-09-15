@@ -23,23 +23,25 @@
 
 package be.yildiz.shared.mission;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-public class MissionIdTest {
+class MissionIdTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         MissionId id = MissionId.valueOf(12);
-        Assert.assertEquals(12, id.value);
+        assertEquals(12, id.value);
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         MissionId id = MissionId.valueOf(9);
-        Assert.assertEquals(9, id.hashCode());
+        assertEquals(9, id.hashCode());
     }
 }

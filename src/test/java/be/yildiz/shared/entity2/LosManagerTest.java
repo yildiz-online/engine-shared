@@ -29,29 +29,30 @@ import be.yildiz.module.physics.CollisionResult;
 import be.yildiz.shared.entity.*;
 import be.yildiz.shared.player.Player;
 import be.yildiz.shared.player.PlayerManager;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class LosManagerTest {
+final class LosManagerTest {
 
     @Test
-    public void newCollisionTest() {
+    void newCollisionTest() {
         EntityManager<BaseEntity> em = new EntityManager<>(BaseEntity.WORLD);
         LosManager<BaseEntity> lm = new LosManager<>(em);
         final Player p1 = PlayerManager.getInstance().createPlayer(PlayerId.valueOf(1), "p1");
         PlayerManager.getInstance().createPlayer(PlayerId.valueOf(2), "p2");
         final Entity vr = Helper.anEntity(5, 1, em);
         final Entity vw = Helper.anEntity(6, 2, em);
-        Assert.assertFalse(vr.equals(vw));
+        assertFalse(vr.equals(vw));
         TestLostListener tll = new TestLostListener(p1, vr, vw);
         lm.willNotify(tll);
         lm.newCollision(new CollisionResult(vr.getId(), vw.getId()));
-        Assert.assertTrue(tll.see);
+        assertTrue(tll.see);
         lm.lostCollision(new CollisionResult(vr.getId(), vw.getId()));
-        Assert.assertFalse(tll.see);
+        assertFalse(tll.see);
     }
 
     private static class TestLostListener implements LosListener<BaseEntity> {
@@ -72,27 +73,27 @@ public final class LosManagerTest {
 
         @Override
         public void see(BaseEntity viewer, BaseEntity viewed) {
-            Assert.assertEquals(vr, viewer);
-            Assert.assertEquals(vw, viewed);
+            assertEquals(vr, viewer);
+            assertEquals(vw, viewed);
             see = true;
         }
 
         @Override
         public void playerSee(PlayerId player, BaseEntity viewed) {
-            Assert.assertEquals(p1.id, player);
-            Assert.assertEquals(vw, viewed);
+            assertEquals(p1.id, player);
+            assertEquals(vw, viewed);
         }
 
         @Override
         public void playerNoLongerSee(PlayerId player, BaseEntity viewed) {
-            Assert.assertEquals(p1.id, player);
-            Assert.assertEquals(vw, viewed);
+            assertEquals(p1.id, player);
+            assertEquals(vw, viewed);
         }
 
         @Override
         public void noLongerSee(BaseEntity viewer, BaseEntity viewed) {
-            Assert.assertEquals(vr, viewer);
-            Assert.assertEquals(vw, viewed);
+            assertEquals(vr, viewer);
+            assertEquals(vw, viewed);
             see = false;
         }
     }

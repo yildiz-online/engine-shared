@@ -23,20 +23,19 @@
 
 package be.yildiz.shared.entity.bonus;
 
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class EntityBonusTest {
+class EntityBonusTest {
 
-    public static class Equals {
+    @Nested
+    class Equals {
 
         @Test
-        public void isEqual() {
+        void isEqual() {
 
         }
     }

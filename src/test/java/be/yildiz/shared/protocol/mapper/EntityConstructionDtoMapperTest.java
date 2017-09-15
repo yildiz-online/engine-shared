@@ -31,19 +31,19 @@ import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.protocol.EntityConstructionDto;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityConstructionDtoMapperTest extends BaseMapperTest<EntityConstructionDto> {
+class EntityConstructionDtoMapperTest extends BaseMapperTest<EntityConstructionDto> {
 
-    @BeforeClass
-    public static void init() {
+    @BeforeAll
+    static void init() {
         new EntityType(78, "test");
     }
 
-    public EntityConstructionDtoMapperTest() {
+    EntityConstructionDtoMapperTest() {
         super(new EntityConstructionDtoMapper(), new EntityConstructionDto(
                 EntityId.valueOf(4),
                 EntityType.valueOf(78),

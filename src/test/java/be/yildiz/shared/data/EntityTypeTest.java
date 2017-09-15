@@ -24,67 +24,60 @@
 package be.yildiz.shared.data;
 
 import be.yildiz.helper.Helper;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
 @SuppressWarnings({"null", "boxing"})
-public final class EntityTypeTest {
+final class EntityTypeTest {
 
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
-
-    @Before
-    public void enableAssert() {
+    @BeforeEach
+    void enableAssert() {
         EntityType.class.getClassLoader().setClassAssertionStatus(EntityType.class.getCanonicalName(), true);
     }
 
     @Test
-    public void testEntityType() {
+    void testEntityType() {
         EntityType t1 = new EntityType(6, "test");
-        Assert.assertEquals(6, t1.type);
-        Assert.assertEquals("test", t1.name);
+        assertEquals(6, t1.type);
+        assertEquals("test", t1.name);
     }
 
     @Test
-    public void testEntityTypeNameNull() {
-        this.rule.expect(AssertionError.class);
-        new EntityType(2, null);
+    void testEntityTypeNameNull() {
+        assertThrows(AssertionError.class, () -> new EntityType(2, null));
     }
 
     @Test
-    public void testEntityTypeNegative() {
-        this.rule.expect(AssertionError.class);
-        new EntityType(-1, "test");
+    void testEntityTypeNegative() {
+        assertThrows(AssertionError.class, () -> new EntityType(-1, "test"));
     }
 
     @Test
-    public void testEntityTypeDuplicate() {
+    void testEntityTypeDuplicate() {
         EntityType e = Helper.TYPE_OK;
-        this.rule.expect(AssertionError.class);
-        new EntityType(4, "test2");
+        assertThrows(AssertionError.class, () -> new EntityType(4, "test2"));
     }
 
     @Test
-    public void testGet() {
+    void testGet() {
         EntityType t1 = new EntityType(12, "test");
-        Assert.assertEquals(t1, EntityType.valueOf(12));
+        assertEquals(t1, EntityType.valueOf(12));
     }
 
     @Test
-    public void testGetUnexistingType() {
-        this.rule.expect(AssertionError.class);
-        EntityType.valueOf(1);
+    void testGetUnexistingType() {
+        assertThrows(AssertionError.class, () -> EntityType.valueOf(1));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         EntityType t1 = new EntityType(7, "test--");
-        Assert.assertEquals("test--", t1.toString());
+        assertEquals("test--", t1.toString());
     }
 }

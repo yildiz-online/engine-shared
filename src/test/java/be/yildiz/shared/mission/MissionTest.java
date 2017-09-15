@@ -26,80 +26,81 @@ package be.yildiz.shared.mission;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.reward.RewardId;
 import be.yildiz.shared.mission.task.TaskId;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class MissionTest {
+class MissionTest {
 
-    public static Mission givenANewMission() {
+    static Mission givenANewMission() {
         List<TaskId> l = Collections.singletonList(TaskId.valueOf(5L));
         return new BaseMission(MissionId.valueOf(1), l, p -> true, RewardId.valueOf(1));
     }
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         private final MissionId id = MissionId.valueOf(2);
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             givenANewMission();
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullList() {
-            new BaseMission(id, null, p -> true, RewardId.valueOf(1));
+        @Test
+        void withNullList() {
+            assertThrows(AssertionError.class, () -> new BaseMission(id, null, p -> true, RewardId.valueOf(1)));
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void willListContainsNull() {
+        @Test
+        void willListContainsNull() {
             List<TaskId> l = new ArrayList<>();
             l.add(TaskId.valueOf(5L));
             l.add(null);
-            new BaseMission(id, l, p -> true, RewardId.valueOf(1));
+            assertThrows(IllegalArgumentException.class, () -> new BaseMission(id, l, p -> true, RewardId.valueOf(1)));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullPrerequisite() {
+        @Test
+        void withNullPrerequisite() {
             List<TaskId> l = Collections.singletonList(TaskId.valueOf(5L));
-            new BaseMission(id, l, null, RewardId.valueOf(1));
+            assertThrows(AssertionError.class, () -> new BaseMission(id, l, null, RewardId.valueOf(1)));
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void withEmptyTaskList() {
+        @Test
+        void withEmptyTaskList() {
             List<TaskId> l = new ArrayList<>();
-            new BaseMission(id, l, p -> true, RewardId.valueOf(1));
+            assertThrows(IllegalArgumentException.class, () -> new BaseMission(id, l, p -> true, RewardId.valueOf(1)));
         }
 
     }
 
-    public static class CanStart {
+    @Nested
+    class CanStart {
 
         private final MissionId id = MissionId.valueOf(2);
 
         @Test
-        public void withTruePrerequisite() {
+        void withTruePrerequisite() {
             List<TaskId> l = new ArrayList<>();
             l.add(TaskId.valueOf(5L));
             Mission m = new BaseMission(id, l, p -> true, RewardId.valueOf(1));
-            Assert.assertTrue(m.canStartFor(PlayerId.WORLD));
+            assertTrue(m.canStartFor(PlayerId.WORLD));
         }
 
         @Test
-        public void withFalsePrerequisite() {
+        void withFalsePrerequisite() {
             List<TaskId> l = new ArrayList<>();
             l.add(TaskId.valueOf(5L));
             Mission m = new BaseMission(id, l, p -> false, RewardId.valueOf(1));
-            Assert.assertFalse(m.canStartFor(PlayerId.WORLD));
+            assertFalse(m.canStartFor(PlayerId.WORLD));
         }
     }
 }

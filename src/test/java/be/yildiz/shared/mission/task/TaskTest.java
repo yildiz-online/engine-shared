@@ -25,43 +25,44 @@ package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.mission.MissionId;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class TaskTest {
+class TaskTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             new BaseTask(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(5));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
-            new BaseTask(null, MissionId.valueOf(1),PlayerId.WORLD);
+        @Test
+        void withNull() {
+            assertThrows(AssertionError.class, () -> new BaseTask(null, MissionId.valueOf(1),PlayerId.WORLD));
         }
     }
 
-    public static class IsCompleted {
+    @Nested
+    class IsCompleted {
 
         @Test
-        public void initialStatus() {
+        void initialStatus() {
             Task t = new BaseTask(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(5));
-            Assert.assertFalse(t.isCompleted());
+            assertFalse(t.isCompleted());
         }
 
         @Test
-        public void setCompleted() {
+        void setCompleted() {
             BaseTask t = new BaseTask(TaskId.valueOf(1), MissionId.valueOf(1),PlayerId.valueOf(5));
             t.setCompleted();
-            Assert.assertTrue(t.isCompleted());
+            assertTrue(t.isCompleted());
         }
     }
 

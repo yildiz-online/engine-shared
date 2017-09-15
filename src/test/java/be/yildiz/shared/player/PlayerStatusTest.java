@@ -23,32 +23,33 @@
 
 package be.yildiz.shared.player;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class PlayerStatusTest {
+final class PlayerStatusTest {
 
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetFromOrdinal1() {
-        PlayerStatus.valueOf(-1);
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetFromOrdinal2() {
-        PlayerStatus.valueOf(PlayerStatus.values().length + 2);
+    @Test
+    void testGetFromOrdinal1() {
+        assertThrows(IllegalArgumentException.class, () -> PlayerStatus.valueOf(-1));
     }
 
 
     @Test
-    public void testGetFromOrdinal3() {
+    void testGetFromOrdinal2() {
+        assertThrows(IllegalArgumentException.class, () -> PlayerStatus.valueOf(PlayerStatus.values().length + 2));
+    }
+
+
+    @Test
+    void testGetFromOrdinal3() {
         for (int i = 0; i < PlayerStatus.values().length; i++) {
-            Assert.assertEquals(PlayerStatus.values()[i], PlayerStatus.valueOf(i));
+            assertEquals(PlayerStatus.values()[i], PlayerStatus.valueOf(i));
         }
-        Assert.assertNotSame(PlayerStatus.values()[0], PlayerStatus.valueOf(1));
+        assertNotSame(PlayerStatus.values()[0], PlayerStatus.valueOf(1));
     }
 }

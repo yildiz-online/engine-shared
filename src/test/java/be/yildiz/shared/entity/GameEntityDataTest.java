@@ -33,16 +33,15 @@ import be.yildiz.shared.entity.module.DefaultModuleProvider;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.resources.ResourceValue;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class GameEntityDataTest {
+class GameEntityDataTest {
 
     private static final EntityType TYPE_OK = new EntityType(5, "test");
 
@@ -68,57 +67,58 @@ public class GameEntityDataTest {
 
     private static final TimeToBuild TIME_OK = new TimeToBuild(Time.seconds(5));
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             GameEntityData d = new GameEntityData(TYPE_OK, SIZE_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
-            Assert.assertEquals(TYPE_OK, d.getType());
-            Assert.assertEquals(SIZE_OK, d.getSize());
-            Assert.assertEquals(INSTANCE_OK, d.getMaxInstances());
-            Assert.assertEquals(LEVEL_OK, d.getRequiredLevel());
-            Assert.assertEquals(ALLOWED_OK, d.getModulesAllowed());
-            Assert.assertEquals(PRICE_OK, d.getPrice());
-            Assert.assertEquals(TIME_OK, d.getTimeToBuild());
-            Assert.assertTrue(d.isBuildable());
+            assertEquals(TYPE_OK, d.getType());
+            assertEquals(SIZE_OK, d.getSize());
+            assertEquals(INSTANCE_OK, d.getMaxInstances());
+            assertEquals(LEVEL_OK, d.getRequiredLevel());
+            assertEquals(ALLOWED_OK, d.getModulesAllowed());
+            assertEquals(PRICE_OK, d.getPrice());
+            assertEquals(TIME_OK, d.getTimeToBuild());
+            assertTrue(d.isBuildable());
 
             d = new GameEntityData(TYPE_OK, SIZE_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, false);
-            Assert.assertFalse(d.isBuildable());
+            assertFalse(d.isBuildable());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNegativeSize() {
-            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        @Test
+        void withNegativeSize() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullType() {
-            new GameEntityData(null, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        @Test
+        void withNullType() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(null, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullInstance() {
-            new GameEntityData(TYPE_OK, SIZE_NOT_OK, null, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        @Test
+        void withNullInstance() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(TYPE_OK, SIZE_NOT_OK, null, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullLevel() {
-            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, null, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true);
+        @Test
+        void withNullLevel() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, null, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, TIME_OK, true));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullAllowed() {
-            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, null, PRICE_OK, TIME_OK, true);
+        @Test
+        void withNullAllowed() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, null, PRICE_OK, TIME_OK, true));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullPrice() {
-            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, null, TIME_OK, true);
+        @Test
+        void withNullPrice() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, null, TIME_OK, true));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullTime() {
-            new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, null, true);
+        @Test
+        void withNullTime() {
+            assertThrows(AssertionError.class, () -> new GameEntityData(TYPE_OK, SIZE_NOT_OK, INSTANCE_OK, LEVEL_OK, DEFAULT_MODULE_PROVIDER, ALLOWED_OK, PRICE_OK, null, true));
         }
 
     }

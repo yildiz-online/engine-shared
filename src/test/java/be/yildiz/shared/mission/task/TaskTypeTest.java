@@ -23,50 +23,52 @@
 
 package be.yildiz.shared.mission.task;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class TaskTypeTest {
+class TaskTypeTest {
 
     /**
      * Different values can have same hc, so not tested.
      */
-    public static class Hashcode {
+    @Nested
+    class Hashcode {
 
         @Test
-        public void sameValues() {
+        void sameValues() {
             int i1 = new TaskType("ok").hashCode();
             int i2 = new TaskType("ok").hashCode();
-            Assert.assertEquals(i1, i2);
+            assertEquals(i1, i2);
         }
     }
 
-    public static class Equals {
+    @Nested
+    class Equals {
 
         @Test
-        public void sameValues() {
-            Assert.assertEquals(new TaskType("ok"), new TaskType("ok"));
+        void sameValues() {
+            assertEquals(new TaskType("ok"), new TaskType("ok"));
         }
 
         @Test
-        public void differentValue() {
-            Assert.assertNotEquals(new TaskType("ok"), new TaskType("nok"));
+        void differentValue() {
+            assertNotEquals(new TaskType("ok"), new TaskType("nok"));
         }
 
         @Test
-        public void nullValue() {
-            Assert.assertNotEquals(new TaskType("ok"), null);
+        void nullValue() {
+            assertNotEquals(new TaskType("ok"), null);
         }
 
         @Test
-        public void differentClass() {
-            Assert.assertNotEquals(new TaskType("ok"), "ok");
+        void differentClass() {
+            assertNotEquals(new TaskType("ok"), "ok");
         }
 
     }

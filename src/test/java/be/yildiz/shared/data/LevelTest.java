@@ -23,54 +23,48 @@
 
 package be.yildiz.shared.data;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
 @SuppressWarnings("boxing")
-public final class LevelTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+final class LevelTest {
 
     @SuppressWarnings("null")
     @Test
-    public void testEnergy() {
+    void testEnergy() {
         Level d = Level.valueOf(10);
-        Assert.assertEquals(10, d.value, 0.000001f);
+        assertEquals(10, d.value, 0.000001f);
         d = Level.ZERO;
-        Assert.assertEquals(0, d.value, 0.000001f);
-        Integer i = null;
-        this.rule.expect(NullPointerException.class);
-        d = Level.valueOf(i);
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testEnergy2() {
-        Level.valueOf(-10);
+        assertEquals(0, d.value, 0.000001f);
+        assertThrows(AssertionError.class, () -> Level.valueOf((Integer)null));
     }
 
     @Test
-    public void testHashCode() {
+    void testEnergy2() {
+        assertThrows(AssertionError.class, () -> Level.valueOf(-10));
+    }
+
+    @Test
+    void testHashCode() {
         Level d1 = Level.valueOf(5);
         Level d2 = Level.valueOf(new Integer(5));
-        Assert.assertEquals(d2.hashCode(), d1.hashCode());
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Level d1 = Level.valueOf(5);
         Level d2 = Level.valueOf(5);
         Level d3 = Level.valueOf(6);
-        Assert.assertEquals(d1, d1);
-        Assert.assertEquals(d1, d2);
-        Assert.assertEquals(d1, Level.valueOf(new Integer(5)));
-        Assert.assertNotEquals(d1, new Object());
-        Assert.assertNotEquals(d1, d3);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertEquals(d1, Level.valueOf(new Integer(5)));
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
 
 }

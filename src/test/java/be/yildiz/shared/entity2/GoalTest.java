@@ -27,72 +27,69 @@ import be.yildiz.helper.Helper;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.ia.goal.Goal;
 import be.yildiz.shared.ia.goal.Goal.Desirability;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class GoalTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+final class GoalTest {
 
 //    @Test
-//    public void testConstructorNullParam() {
+//    void testConstructorNullParam() {
 //        this.rule.expect(NullPointerException.class);
 //        new Goal(null);
 //    }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         Action action = new ActionMock(Helper.anEntity(1, 1));
         Goal goal = new Goal(action);
-        Assert.assertEquals(action.hashCode(), goal.hashCode());
+        assertEquals(action.hashCode(), goal.hashCode());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Action action = new ActionMock(Helper.anEntity(1, 1));
         Goal goal = new Goal(action);
         Goal goal2 = new Goal(action);
-        Assert.assertEquals(goal, goal2);
+        assertEquals(goal, goal2);
         goal2 = new Goal(new ActionMock(Helper.anEntity(2, 1)));
-        Assert.assertNotEquals(goal, goal2);
+        assertNotEquals(goal, goal2);
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         Goal a = new Goal(new ActionMock(Helper.anEntity(1, 1)));
         Goal b = new Goal(new ActionMock(Helper.anEntity(1, 1)));
         a.setDesirability(Desirability.NONE);
         b.setDesirability(Desirability.NONE);
-        Assert.assertEquals(0, a.compareTo(b));
+        assertEquals(0, a.compareTo(b));
         b.setDesirability(Desirability.LOW);
-        Assert.assertEquals(1, a.compareTo(b));
+        assertEquals(1, a.compareTo(b));
         a.setDesirability(Desirability.MEDIUM);
-        Assert.assertEquals(-1, a.compareTo(b));
+        assertEquals(-1, a.compareTo(b));
         b.setDesirability(Desirability.HIGH);
-        Assert.assertEquals(1, a.compareTo(b));
+        assertEquals(1, a.compareTo(b));
     }
 
     @Test
-    public void testCreate() {
+    void testCreate() {
     }
 
     @Test
-    public void testGetSetDesirability() {
+    void testGetSetDesirability() {
         Goal a = new Goal(new ActionMock(Helper.anEntity(1, 1)));
-        Assert.assertEquals(Desirability.NONE, a.getDesirability());
+        assertEquals(Desirability.NONE, a.getDesirability());
         a.setDesirability(Desirability.LOW);
-        Assert.assertEquals(Desirability.LOW, a.getDesirability());
+        assertEquals(Desirability.LOW, a.getDesirability());
         a.setDesirability(Desirability.HIGH);
-        Assert.assertEquals(Desirability.HIGH, a.getDesirability());
+        assertEquals(Desirability.HIGH, a.getDesirability());
     }
 
     @Test
-    public void testGetAction() {
+    void testGetAction() {
     }
 }

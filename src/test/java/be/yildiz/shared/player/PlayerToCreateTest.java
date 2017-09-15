@@ -23,57 +23,57 @@
 
 package be.yildiz.shared.player;
 
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class PlayerToCreateTest {
+class PlayerToCreateTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             PlayerToCreate ptc = new PlayerToCreate("l", "p", "e");
-            Assert.assertEquals("l", ptc.getLogin());
-            Assert.assertEquals("p", ptc.getPassword());
-            Assert.assertEquals("e", ptc.getEmail());
+            assertEquals("l", ptc.getLogin());
+            assertEquals("p", ptc.getPassword());
+            assertEquals("e", ptc.getEmail());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullLogin() {
-            new PlayerToCreate(null, "p", "e");
+        @Test
+        void withNullLogin() {
+            assertThrows(AssertionError.class, () -> new PlayerToCreate(null, "p", "e"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullPassword() {
-            new PlayerToCreate("l", null, "e");
+        @Test
+        void withNullPassword() {
+            assertThrows(AssertionError.class, () -> new PlayerToCreate("l", null, "e"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullEmail() {
-            new PlayerToCreate("l", "p", null);
+        @Test
+        void withNullEmail() {
+            assertThrows(AssertionError.class, () -> new PlayerToCreate("l", "p", null));
         }
 
 
-        @Test(expected = AssertionError.class)
-        public void withEmptyLogin() {
-            new PlayerToCreate(null, "p", "e");
+        @Test
+        void withEmptyLogin() {
+            assertThrows(AssertionError.class, () -> new PlayerToCreate(null, "p", "e"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withEmptyPassword() {
-            new PlayerToCreate("l", null, "e");
+        @Test
+        void withEmptyPassword() {
+            assertThrows(AssertionError.class, () -> new PlayerToCreate("l", null, "e"));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withEmptyEmail() {
-            new PlayerToCreate("l", "p", null);
+        @Test
+        void withEmptyEmail() {
+            assertThrows(AssertionError.class, () -> new PlayerToCreate("l", "p", null));
         }
     }
 }

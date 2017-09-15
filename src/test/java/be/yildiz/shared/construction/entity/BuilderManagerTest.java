@@ -24,40 +24,40 @@
 package be.yildiz.shared.construction.entity;
 
 import be.yildiz.common.id.PlayerId;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class BuilderManagerTest {
+class BuilderManagerTest {
 
-    public static class GetBuilderByPlayer {
+    @Nested
+    class GetBuilderByPlayer {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Builder b = Mockito.mock(Builder.class);
             Mockito.when(b.getOwner()).thenReturn(PlayerId.valueOf(2));
             BuilderManager.getInstance().addBuilder(b);
             List<Builder> builders = BuilderManager.getInstance().getBuilderByPlayer(PlayerId.valueOf(2));
-            Assert.assertEquals(1, builders.size());
+            assertEquals(1, builders.size());
         }
 
         @Test
-        public void withEmptyResult() {
+        void withEmptyResult() {
             List<Builder> builders = BuilderManager.getInstance().getBuilderByPlayer(PlayerId.valueOf(5));
-            Assert.assertTrue(builders.isEmpty());
+            assertTrue(builders.isEmpty());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNull() {
-            BuilderManager.getInstance().getBuilderByPlayer(null);
+        @Test
+        void withNull() {
+            assertThrows(AssertionError.class, () -> BuilderManager.getInstance().getBuilderByPlayer(null));
         }
 
     }

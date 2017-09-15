@@ -32,145 +32,136 @@ import be.yildiz.shared.data.State;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.player.Player;
 import be.yildiz.shared.player.PlayerManager;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+class EntityTest {
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         Entity e1 = Helper.anEntity(6);
-        Assert.assertEquals(e1.hashCode(), 6);
+        assertEquals(e1.hashCode(), 6);
         Entity e2 = Helper.anEntity(6, 8);
-        Assert.assertEquals(e1.hashCode(), e2.hashCode());
+        assertEquals(e1.hashCode(), e2.hashCode());
     }
 
     @Test
-    public void testEntity() {
+    void testEntity() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testLookAt() {
+    void testLookAt() {
         Entity e1 = Helper.givenAnEntity();
         e1.setPosition(Point3D.ZERO);
         e1.lookAt(Point3D.valueOfXZ(100));
-        Assert.assertEquals(Point3D.valueOfXZ(100), e1.getDirection());
-        this.rule.expect(NullPointerException.class);
-        e1.lookAt(null);
+        assertEquals(Point3D.valueOfXZ(100), e1.getDirection());
+        assertThrows(NullPointerException.class, () -> e1.lookAt(null));
     }
 
     @Test
-    public void testReduceEnergy() {
+    void testReduceEnergy() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testAddHitResult() {
+    void testAddHitResult() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testEqualsObject() {
+    void testEqualsObject() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testAddHasRemoveState() {
+    void testAddHasRemoveState() {
         State s1 = new State("s1");
         State s2 = new State("s2");
         Entity e1 = Helper.givenAnEntity();
         e1.addState(s1);
-        Assert.assertTrue(e1.hasState(s1));
-        Assert.assertFalse(e1.hasState(s2));
+        assertTrue(e1.hasState(s1));
+        assertFalse(e1.hasState(s2));
         e1.addState(s2);
-        Assert.assertTrue(e1.hasState(s1));
-        Assert.assertTrue(e1.hasState(s2));
+        assertTrue(e1.hasState(s1));
+        assertTrue(e1.hasState(s2));
         e1.removeState(s1);
-        Assert.assertFalse(e1.hasState(s1));
-        this.rule.expect(AssertionError.class);
-        e1.addState(null);
-        this.rule.expect(AssertionError.class);
-        e1.removeState(null);
+        assertFalse(e1.hasState(s1));
+        assertThrows(AssertionError.class, () -> e1.addState(null));
+        assertThrows(AssertionError.class, () -> e1.removeState(null));
     }
 
     @Test
-    public void testGetSetModuleHolder() {
+    void testGetSetModuleHolder() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testGetVisibleEntities() {
+    void testGetVisibleEntities() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testGetRemoveViewers() {
+    void testGetRemoveViewers() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testGetHitResults() {
+    void testGetHitResults() {
         // fail("Not yet implemented"); // TODO
     }
 
     @Test
-    public void testGetId() {
+    void testGetId() {
         Entity e1 = Helper.givenAnEntity();
-        Assert.assertEquals(EntityId.valueOf(5L), e1.getId());
+        assertEquals(EntityId.valueOf(5L), e1.getId());
     }
 
     @Test
-    public void testGetType() {
+    void testGetType() {
         Entity e1 = Helper.givenAnEntity();
-        Assert.assertEquals(EntityType.valueOf(0), e1.getType());
+        assertEquals(EntityType.valueOf(0), e1.getType());
     }
 
     @Test
-    public void testGetSetPosition() {
+    void testGetSetPosition() {
         Entity e1 = Helper.givenAnEntity();
         e1.setPosition(Point3D.valueOf(10));
-        Assert.assertEquals(Point3D.valueOf(10), e1.getPosition());
-        this.rule.expect(AssertionError.class);
-        e1.setPosition(null);
+        assertEquals(Point3D.valueOf(10), e1.getPosition());
+        assertThrows(AssertionError.class, () -> e1.setPosition(null));
     }
 
     @Test
-    public void testGetSetDirection() {
+    void testGetSetDirection() {
         Entity e1 = Helper.givenAnEntity();
         e1.setDirection(Point3D.valueOf(10));
-        Assert.assertEquals(Point3D.valueOf(10), e1.getDirection());
+        assertEquals(Point3D.valueOf(10), e1.getDirection());
     }
 
     @Test
-    public void testGetSetHitPoint() {
+    void testGetSetHitPoint() {
         Entity e1 = Helper.givenAnEntity();
-        Assert.assertNotNull(e1.getHitPoints());
+        assertNotNull(e1.getHitPoints());
     }
 
     @Test
-    public void testGetSetEnergy() {
+    void testGetSetEnergy() {
         Entity e1 = Helper.givenAnEntity();
-        Assert.assertNotNull(e1.getEnergyPoints());
+        assertNotNull(e1.getEnergyPoints());
     }
 
     @Test
-    public void testGetSetOwner() {
+    void testGetSetOwner() {
         Player p = PlayerManager.getInstance().createPlayer(PlayerId.valueOf(5), "test");
         Entity e1 = Helper.anEntity(2, 5);
-        Assert.assertEquals(p.id, e1.getOwner());
+        assertEquals(p.id, e1.getOwner());
         Player p2 = PlayerManager.getInstance().createPlayer(PlayerId.valueOf(6), "test2");
         e1.setOwner(p2.id);
-        Assert.assertEquals(p2.id, e1.getOwner());
-        this.rule.expect(AssertionError.class);
-        e1.setOwner(null);
+        assertEquals(p2.id, e1.getOwner());
+        assertThrows(AssertionError.class, () -> e1.setOwner(null));
     }
 }

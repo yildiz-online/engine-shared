@@ -23,55 +23,49 @@
 
 package be.yildiz.shared.data;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
 @SuppressWarnings("boxing")
-public final class HitPointTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+final class HitPointTest {
 
     @SuppressWarnings("null")
     @Test
-    public void testHitPoint() {
+    void testHitPoint() {
         HitPoint d = new HitPoint(10);
-        Assert.assertEquals(10, d.points, 0.000001f);
+        assertEquals(10, d.points, 0.000001f);
         d = HitPoint.ZERO;
-        Assert.assertEquals(0, d.points, 0.000001f);
-        Integer i = null;
-        this.rule.expect(NullPointerException.class);
-        d = new HitPoint(i);
+        assertEquals(0, d.points, 0.000001f);
+        assertThrows(AssertionError.class, () -> new HitPoint((Integer)null));
     }
 
-    @Test(expected = AssertionError.class)
-    public void testHitPoint2() {
-        new HitPoint(-10);
+    @Test
+    void testHitPoint2() {
+        assertThrows(AssertionError.class, () -> new HitPoint(-10));
 
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         HitPoint d1 = new HitPoint(5);
         HitPoint d2 = new HitPoint(new Integer(5));
-        Assert.assertEquals(d2.hashCode(), d1.hashCode());
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         HitPoint d1 = new HitPoint(5);
         HitPoint d2 = new HitPoint(5);
         HitPoint d3 = new HitPoint(6);
-        Assert.assertEquals(d1, d1);
-        Assert.assertEquals(d1, d2);
-        Assert.assertEquals(d1, new HitPoint(new Integer(5)));
-        Assert.assertNotEquals(d1, new Object());
-        Assert.assertNotEquals(d1, d3);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertEquals(d1, new HitPoint(new Integer(5)));
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
 
 }

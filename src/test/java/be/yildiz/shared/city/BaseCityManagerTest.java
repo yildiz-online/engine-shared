@@ -29,36 +29,33 @@ import be.yildiz.helper.Helper;
 import be.yildiz.shared.building.Building;
 import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.entity.Entity;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BaseCityManagerTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+class BaseCityManagerTest {
 
     @Test
-    public void testSetOwnerCityPlayer() {
+    void testSetOwnerCityPlayer() {
         Entity e = Helper.givenAnEntity();
     }
 
     @Test
-    public void createCity() {
+    void createCity() {
         Entity e = Helper.givenAnEntity();
         CityManager cm = givenACityManager();
-        Assert.assertEquals(0, cm.getCities().size());
-        Assert.assertEquals(0, cm.getCities().size());
-        Assert.assertEquals(0, cm.getCities(e.getOwner()).size());
+        assertEquals(0, cm.getCities().size());
+        assertEquals(0, cm.getCities().size());
+        assertEquals(0, cm.getCities(e.getOwner()).size());
         cm.createCity(e);
-        Assert.assertEquals(1, cm.getCities().size());
-        Assert.assertEquals(PlayerId.valueOf(6), cm.getCityById(EntityId.valueOf(5L)).getOwner());
-        Assert.assertEquals(1, cm.getCities(e.getOwner()).size());
-        Assert.assertNotNull(cm.getCityById(e.getId()));
+        assertEquals(1, cm.getCities().size());
+        assertEquals(PlayerId.valueOf(6), cm.getCityById(EntityId.valueOf(5L)).getOwner());
+        assertEquals(1, cm.getCities(e.getOwner()).size());
+        assertNotNull(cm.getCityById(e.getId()));
     }
 
     private CityManager<Building,BuildingData,BaseCity<Building,BuildingData>> givenACityManager() {

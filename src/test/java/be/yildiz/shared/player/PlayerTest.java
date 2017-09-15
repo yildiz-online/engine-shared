@@ -24,68 +24,62 @@
 package be.yildiz.shared.player;
 
 import be.yildiz.common.id.PlayerId;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class PlayerTest {
+final class PlayerTest {
 
-    public static int value = 5;
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
-
-    public void testPlayer() {
+    @Test
+    void testPlayer() {
         // FIXME exception when creating 2 identical players?
         Player p = new Player(PlayerId.valueOf(3), "aPlayer");
-        Assert.assertEquals(p.id, PlayerId.valueOf(3));
-        Assert.assertEquals("aPlayer", p.name);
-        rule.expect(NullPointerException.class);
-        p = new Player(null, "aa");
-        rule.expect(NullPointerException.class);
-        p = new Player(PlayerId.valueOf(5), null);
+        assertEquals(p.id, PlayerId.valueOf(3));
+        assertEquals("aPlayer", p.name);
+        assertThrows(NullPointerException.class, () -> new Player(null, "aa"));
+        assertThrows(NullPointerException.class, () -> new Player(PlayerId.valueOf(5), null));
     }
 
     /**
      * Test method for {@link be.yildiz.shared.player.Player#id}.
      */
     @Test
-    public void testGetId() {
+    void testGetId() {
         Player p = new Player(PlayerId.valueOf(1257552), "aName");
-        Assert.assertEquals(PlayerId.valueOf(1257552), p.id);
-        Assert.assertNotSame(PlayerId.valueOf(487415774), p.id);
+        assertEquals(PlayerId.valueOf(1257552), p.id);
+        assertNotSame(PlayerId.valueOf(487415774), p.id);
     }
 
     /**
      * Test method for {@link be.yildiz.shared.player.Player#name}.
      */
     @Test
-    public void testGetName() {
+    void testGetName() {
         Player p = new Player(PlayerId.valueOf(1257552), "aName");
-        Assert.assertEquals("aName", p.name);
+        assertEquals("aName", p.name);
     }
 
     /**
      * Only one instance of a player can be created by player manager, equality is only ==.
      */
     @Test
-    public void testEqualsObject() {
+    void testEqualsObject() {
         Player p2 = new Player(PlayerId.valueOf(4751), "odfhytuijh");
         Player p3 = new Player(PlayerId.valueOf(4751), "odfhytuijh");
         Player p = new Player(PlayerId.valueOf(1257552), "aName");
-        Assert.assertNotSame(p, p2);
-        Assert.assertNotSame(p2, p3);
-        Assert.assertNotSame(p2, null);
-        Assert.assertNotSame(p2, new Integer(5));
+        assertNotSame(p, p2);
+        assertNotSame(p2, p3);
+        assertNotSame(p2, null);
+        assertNotSame(p2, new Integer(5));
     }
 
     /***/
     @Test
-    public void testToString() {
+    void testToString() {
         Player p = new Player(PlayerId.valueOf(1257552), "aName");
-        Assert.assertEquals("aName", p.toString());
+        assertEquals("aName", p.toString());
     }
 }

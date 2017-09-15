@@ -23,56 +23,52 @@
 
 package be.yildiz.shared.data;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EnergyTest {
+class EnergyTest {
 
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
 
     @SuppressWarnings({"null", "boxing"})
     @Test
-    public void testEnergy() {
+    void testEnergy() {
         Energy d = new Energy(10);
-        Assert.assertEquals(10, d.points, 0.000001f);
+        assertEquals(10, d.points, 0.000001f);
         d = Energy.ZERO;
-        Assert.assertEquals(0, d.points, 0.000001f);
-        Integer i = null;
-        this.rule.expect(NullPointerException.class);
-        d = new Energy(i);
+        assertEquals(0, d.points, 0.000001f);
+        assertThrows(AssertionError.class, () -> new Energy((Integer)null));
     }
 
-    @Test(expected = AssertionError.class)
-    public void testEnergy2() {
-        new Energy(-10);
+    @Test
+    void testEnergy2() {
+        assertThrows(AssertionError.class, () -> new Energy(-10));
 
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         Energy d1 = new Energy(5);
         @SuppressWarnings("boxing")
         Energy d2 = new Energy(new Integer(5));
-        Assert.assertEquals(d2.hashCode(), d1.hashCode());
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
     @SuppressWarnings("boxing")
     @Test
-    public void testEquals() {
+    void testEquals() {
         Energy d1 = new Energy(5);
         Energy d2 = new Energy(5);
         Energy d3 = new Energy(6);
-        Assert.assertEquals(d1, d1);
-        Assert.assertEquals(d1, d2);
-        Assert.assertEquals(d1, new Energy(new Integer(5)));
-        Assert.assertNotEquals(d1, new Object());
-        Assert.assertNotEquals(d1, d3);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertEquals(d1, new Energy(new Integer(5)));
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
 
 }

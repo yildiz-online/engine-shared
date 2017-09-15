@@ -24,36 +24,37 @@
 package be.yildiz.shared.shape;
 
 import be.yildiz.common.shape.Box;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class BoxTest {
+final class BoxTest {
 //FIXME MEDIUM move test in common prj
 
 
     /***/
     @Test
-    public void testConstructorIntIntInt() {
+    void testConstructorIntIntInt() {
         final int w = 10;
         final int h = 12;
         final int d = 25;
         Box box = new Box(w, h, d);
-        Assert.assertEquals(w, box.width);
-        Assert.assertEquals(h, box.height);
-        Assert.assertEquals(d, box.depth);
+        assertEquals(w, box.width);
+        assertEquals(h, box.height);
+        assertEquals(d, box.depth);
     }
 
     /***/
     @Test
-    public void testConstructorInt() {
+    void testConstructorInt() {
         final int size = 13;
         Box box = new Box(size);
-        Assert.assertEquals(size, box.width);
-        Assert.assertEquals(size, box.height);
-        Assert.assertEquals(size, box.depth);
+        assertEquals(size, box.width);
+        assertEquals(size, box.height);
+        assertEquals(size, box.depth);
     }
 
 }

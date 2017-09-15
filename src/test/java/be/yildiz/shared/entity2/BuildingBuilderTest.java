@@ -32,63 +32,57 @@ import be.yildiz.shared.building.Building;
 import be.yildiz.shared.construction.entity.Builder;
 import be.yildiz.shared.construction.entity.BuildingBuilder;
 import be.yildiz.shared.data.ConstructionData;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BuildingBuilderTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+class BuildingBuilderTest {
 
     @Test
-    public void testBuildingBuilder() {
+    void testBuildingBuilder() {
         Building building = new BaseBuilding(BaseBuildingTest.OK_CITY, BaseBuildingTest.OK_DATA, BaseBuildingTest.OK_POSITION, BaseBuildingTest.OK_LEVEL, BaseBuildingTest.OK_STAFF);
         new DummyBuildingBuilder(building);
-
-        this.rule.expect(AssertionError.class);
-        new DummyBuildingBuilder(null, PlayerId.WORLD, Point3D.valueOf(10, 15, 20), building);
-
-        this.rule.expect(AssertionError.class);
-        new DummyBuildingBuilder(EntityId.valueOf(10L), PlayerId.WORLD, null, building);
-
-        this.rule.expect(AssertionError.class);
-        new DummyBuildingBuilder(EntityId.valueOf(10L), PlayerId.WORLD, Point3D.valueOf(10, 15, 20), null);
+        
+        assertThrows(AssertionError.class, () -> new DummyBuildingBuilder(null, PlayerId.WORLD, Point3D.valueOf(10, 15, 20), building));
+        
+        assertThrows(AssertionError.class, () -> new DummyBuildingBuilder(EntityId.valueOf(10L), PlayerId.WORLD, null, building));
+        
+        assertThrows(AssertionError.class, () -> new DummyBuildingBuilder(EntityId.valueOf(10L), PlayerId.WORLD, Point3D.valueOf(10, 15, 20), null));
     }
 
     @Test
-    public void testRemoveFromQueue() {
+    void testRemoveFromQueue() {
     }
 
     @Test
-    public void testAddInQueue() {
+    void testAddInQueue() {
     }
 
     @Test
-    public void testGetBuilderId() {
+    void testGetBuilderId() {
         Building building = new BaseBuilding(BaseBuildingTest.OK_CITY, BaseBuildingTest.OK_DATA, BaseBuildingTest.OK_POSITION, BaseBuildingTest.OK_LEVEL, BaseBuildingTest.OK_STAFF);
         Builder b = new DummyBuildingBuilder(building);
-        Assert.assertEquals(EntityId.valueOf(10L), b.getBuilderId());
+        assertEquals(EntityId.valueOf(10L), b.getBuilderId());
     }
 
     @Test
-    public void testGetOwner() {
+    void testGetOwner() {
     }
 
     @Test
-    public void testGetBuildPosition() {
+    void testGetBuildPosition() {
     }
 
     @Test
-    public void testGetQueue() {
+    void testGetQueue() {
     }
 
     @Test
-    public void testSetQueue() {
+    void testSetQueue() {
     }
 
     private static final class DummyBuildingBuilder extends BuildingBuilder<Building> {
@@ -98,11 +92,11 @@ public class BuildingBuilderTest {
          *
          * @param building Associated building.
          */
-        public DummyBuildingBuilder(Building building) {
+        DummyBuildingBuilder(Building building) {
             super(EntityId.valueOf(10L), PlayerId.WORLD, Point3D.valueOf(10, 15, 20), building, 5);
         }
 
-        public DummyBuildingBuilder(EntityId builderId, PlayerId world, Point3D xyz, Building building) {
+        DummyBuildingBuilder(EntityId builderId, PlayerId world, Point3D xyz, Building building) {
             super(builderId, world, xyz, building, 5);
         }
 

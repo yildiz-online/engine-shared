@@ -29,28 +29,24 @@ import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
 import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.entity.fields.Target;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ActionTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+class ActionTest {
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#equals(java.lang.Object)}.
      */
     @Test
-    public void testEqualsObject() {
+    void testEqualsObject() {
         Action a = new ActionMock();
         Action b = new Action(ActionId.WORLD, Helper.anEntity(5, 5).getId(), false) {
 
@@ -95,21 +91,21 @@ public class ActionTest {
 
             }
         };
-        Assert.assertEquals(a, b);
+        assertEquals(a, b);
         Action c = new ActionMock();
-        Assert.assertEquals(a, c);
-        Assert.assertNotEquals(a, null);
-        Assert.assertNotEquals(a, new ActionMock(Helper.anEntity(3, 5)));
+        assertEquals(a, c);
+        assertNotEquals(a, null);
+        assertNotEquals(a, new ActionMock(Helper.anEntity(3, 5)));
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#isSameType(be.yildiz.shared.entity.action.Action)} .
      */
     @Test
-    public void testIsSameType() {
+    void testIsSameType() {
         Action a = new ActionMock();
         Action b = new ActionMock();
-        Assert.assertTrue(a.isSameType(b));
+        assertTrue(a.isSameType(b));
         Action c = new Action(ActionId.valueOf(1), Helper.anEntity(4, 5).getId(), false) {
 
             @Override
@@ -131,7 +127,7 @@ public class ActionTest {
 
             @Override
             public Point3D getDestination() {
-                return null;
+                return Point3D.ZERO;
             }
 
             @Override
@@ -153,99 +149,98 @@ public class ActionTest {
 
             }
         };
-        Assert.assertFalse(a.isSameType(c));
+        assertFalse(a.isSameType(c));
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#checkPrerequisite()}.
      */
     @Test
-    public void testCheckPrerequisite() {
+    void testCheckPrerequisite() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#run(long)}.
      */
     @Test
-    public void testRun() {
+    void testRun() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#isPassive()}.
      */
     @Test
-    public void testIsPassive() {
+    void testIsPassive() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#init()}.
      */
     @Test
-    public void testInit() {
+    void testInit() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#setDestination(be.yildiz.common.vector.Point3D)} .
      */
     @Test
-    public void testSetDestination() {
+    void testSetDestination() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#getDestination()}.
      */
     @Test
-    public void testGetDestination() {
+    void testGetDestination() {
     }
 
     @Test
-    public void testSetTarget() {
+    void testSetTarget() {
 
     }
 
     @Test
-    public void testGetTarget() {
+    void testGetTarget() {
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#stop()}.
      */
     @Test
-    public void testStop() {
+    void testStop() {
         Action a = new ActionMock();
         a.init();
         a.run(0);
-        Assert.assertTrue("action 'a' is not running", a.isRunning());
+        assertTrue(a.isRunning());
         a.stop();
         a.run(0);
-        Assert.assertFalse("action 'a' is still running", a.isRunning());
+        assertFalse(a.isRunning());
         a.init();
         a.run(0);
-        Assert.assertTrue("action 'a' is not running", a.isRunning());
+        assertTrue(a.isRunning());
     }
 
     /**
      * Test method for {@link be.yildiz.shared.entity.action.Action#isRunning()}.
      */
     @Test
-    public void testIsRunning() {
+    void testIsRunning() {
         Action a = new ActionMock();
         a.init();
         a.run(0);
-        Assert.assertTrue("action 'a' is not running", a.isRunning());
+        assertTrue(a.isRunning());
         Action b = new ActionMock();
         b.run(0);
-        Assert.assertFalse("action 'b' is running, shouldnt be if not initialized", b.isRunning());
+        assertFalse(b.isRunning());
     }
 
     @Test
-    public void testActionNullEntity() {
-        this.rule.expect(NullPointerException.class);
-        new ActionMock(null);
+    void testActionNullEntity() {
+        assertThrows(NullPointerException.class, () -> new ActionMock(null));
     }
 
     @Test
-    public void testAction() {
+    void testAction() {
         new ActionMock();
     }
 

@@ -30,50 +30,50 @@ import be.yildiz.shared.mission.reward.RewardFactory;
 import be.yildiz.shared.mission.reward.RewardId;
 import be.yildiz.shared.mission.reward.RewardManager;
 import be.yildiz.shared.mission.task.*;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class MissionManagerTest {
+class MissionManagerTest {
 
-    public static class TaskCompleted {
+    @Nested
+    class TaskCompleted {
 
         @Test
-        public void noExistingStatus() {
+        void noExistingStatus() {
             MissionManager<BaseMission> m = givenAMissionManager();
             m.prepareMission(MissionId.valueOf(1), PlayerId.valueOf(1));
             m.startMission(MissionId.valueOf(1), PlayerId.valueOf(1));
             m.taskCompleted(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(1));
             Set<TaskStatus> status = m.getTaskStatusByMission(PlayerId.valueOf(1), MissionId.valueOf(1));
-            Assert.assertEquals(1, status.size());
-            Assert.assertEquals("SUCCESS", status.iterator().next().status);
+            assertEquals(1, status.size());
+            assertEquals("SUCCESS", status.iterator().next().status);
         }
 
         @Test
-        public void replaceExistingStatus() {
+        void replaceExistingStatus() {
             MissionManager<BaseMission> m = givenAMissionManager();
             m.prepareMission(MissionId.valueOf(1), PlayerId.valueOf(1));
             m.startMission(MissionId.valueOf(1), PlayerId.valueOf(1));
             m.updateTaskStatus(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(1), "1/2");
             Set<TaskStatus> status = m.getTaskStatusByMission(PlayerId.valueOf(1), MissionId.valueOf(1));
-            Assert.assertEquals(1, status.size());
-            Assert.assertEquals("1/2", status.iterator().next().status);
+            assertEquals(1, status.size());
+            assertEquals("1/2", status.iterator().next().status);
             m.taskCompleted(TaskId.valueOf(1), MissionId.valueOf(1), PlayerId.valueOf(1));
             status = m.getTaskStatusByMission(PlayerId.valueOf(1), MissionId.valueOf(1));
-            Assert.assertEquals(1, status.size());
-            Assert.assertEquals("SUCCESS", status.iterator().next().status);
+            assertEquals(1, status.size());
+            assertEquals("SUCCESS", status.iterator().next().status);
         }
 
     }
 
-    public static MissionManager<BaseMission> givenAMissionManager() {
+    private static MissionManager<BaseMission> givenAMissionManager() {
         MissionManager mm = new MissionManager<>(new TaskFactory() {
             @Override
             public Task createTask(TaskId id, PlayerId p, MissionId missionId) {

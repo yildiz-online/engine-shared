@@ -23,51 +23,44 @@
 
 package be.yildiz.shared.data;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class AttackDamageTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+final class AttackDamageTest {
 
     @SuppressWarnings({"null", "boxing"})
     @Test
-    public void testAttackDamage() {
+    void testAttackDamage() {
         AttackDamage d = new AttackDamage(10);
-        Assert.assertEquals(10, d.points, 0.000001f);
+        assertEquals(10, d.points, 0.000001f);
         d = new AttackDamage(-10);
-        Assert.assertEquals(-10, d.points, 0.000001f);
+        assertEquals(-10, d.points, 0.000001f);
         d = AttackDamage.ZERO;
-        Assert.assertEquals(0, d.points, 0.000001f);
-        Integer i = null;
-        this.rule.expect(NullPointerException.class);
-        d = new AttackDamage(i);
+        assertEquals(0, d.points, 0.000001f);
+        assertThrows(NullPointerException.class, () -> new AttackDamage((Integer)null));
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         AttackDamage d1 = new AttackDamage(5);
         AttackDamage d2 = new AttackDamage(5);
-        Assert.assertEquals(d2.hashCode(), d1.hashCode());
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
     @SuppressWarnings("boxing")
     @Test
-    public void testEquals() {
+    void testEquals() {
         AttackDamage d1 = new AttackDamage(5);
         AttackDamage d2 = new AttackDamage(5);
         AttackDamage d3 = new AttackDamage(6);
-        Assert.assertEquals(d1, d1);
-        Assert.assertEquals(d1, d2);
-        Assert.assertEquals(d1, new AttackDamage(new Integer(5)));
-        Assert.assertNotEquals(d1, new Object());
-        Assert.assertNotEquals(d1, d3);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertEquals(d1, new AttackDamage(new Integer(5)));
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
-
 }

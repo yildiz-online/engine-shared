@@ -31,14 +31,14 @@ import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * @author Grégory Van den Borre
  */
 public class ModuleConfigurationMapperTest extends BaseMapperTest<ModuleConfiguration> {
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         new EntityType(22, "test");
     }

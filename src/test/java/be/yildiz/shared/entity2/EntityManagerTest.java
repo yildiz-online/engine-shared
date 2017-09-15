@@ -28,31 +28,28 @@ import be.yildiz.helper.Helper;
 import be.yildiz.shared.entity.BaseEntity;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityManager;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityManagerTest {
-
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
+class EntityManagerTest {
 
     @Test
-    public void testEntityManager() {
+    void testEntityManager() {
     }
 
     @Test
-    public void testRemoveEntity() {
+    void testRemoveEntity() {
         EntityManager<Entity> em = new EntityManager<>(BaseEntity.WORLD);
         Entity e = Helper.anEntity(2, 5);
         em.addEntity(e);
-        Assert.assertEquals(e, em.findById(EntityId.valueOf(2L)));
+        assertEquals(e, em.findById(EntityId.valueOf(2L)));
         em.removeEntity(e);
-        Assert.assertEquals(BaseEntity.WORLD, em.findById(EntityId.valueOf(2L)));
+        assertEquals(BaseEntity.WORLD, em.findById(EntityId.valueOf(2L)));
     }
 
     /**
@@ -60,47 +57,45 @@ public class EntityManagerTest {
      */
 
     @Test
-    public void testNullEntity() {
+    void testNullEntity() {
         EntityManager<Entity> em = new EntityManager<>(BaseEntity.WORLD);
-        this.rule.expect(NullPointerException.class);
-        Entity e = null;
-        em.removeEntity(e);
+        assertThrows(NullPointerException.class, () -> em.removeEntity((Entity)null));
     }
 
     @Test
-    public void testAddVisibleUnit() {
+    void testAddVisibleUnit() {
     }
 
     @Test
-    public void testRemoveVisibleUnit() {
+    void testRemoveVisibleUnit() {
     }
 
     @Test
-    public void testSee() {
+    void testSee() {
     }
 
     @Test
-    public void testGetNumberOfEntities() {
+    void testGetNumberOfEntities() {
     }
 
     @Test
-    public void testGetEntities() {
+    void testGetEntities() {
     }
 
     @Test
-    public void testAddEntity() {
+    void testAddEntity() {
     }
 
     @Test
-    public void testAddCity() {
+    void testAddCity() {
     }
 
     @Test
-    public void testAddBonus() {
+    void testAddBonus() {
     }
 
     @Test
-    public void testSetOwnerEntityPlayer() {
+    void testSetOwnerEntityPlayer() {
     }
 
 

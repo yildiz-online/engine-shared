@@ -27,49 +27,49 @@ package be.yildiz.shared.research;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.shared.entity.bonus.BonusSpeed;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class ResearchManagerTest {
+class ResearchManagerTest {
 
-    public static class GetResearchState {
+    @Nested
+    class GetResearchState {
 
         @Test
-        public void done() {
+        void done() {
             ResearchManager.getInstance().addResearch(ResearchId.valueOf(1), PlayerId.valueOf(1));
-            Assert.assertEquals(ResearchManager.ResearchState.DONE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(1), ResearchId.valueOf(1)));
+            assertEquals(ResearchManager.ResearchState.DONE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(1), ResearchId.valueOf(1)));
         }
 
         @Test
-        public void noPrerequisite() {
+        void noPrerequisite() {
             Research.createAndRegister(ResearchId.valueOf(2),10, new BonusSpeed(1, ActionId.valueOf(1)));
-            Assert.assertEquals(ResearchManager.ResearchState.AVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(2), ResearchId.valueOf(2)));
+            assertEquals(ResearchManager.ResearchState.AVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(2), ResearchId.valueOf(2)));
         }
 
         @Test
-        public void noPrerequisiteUnregistered() {
-            Assert.assertEquals(ResearchManager.ResearchState.UNAVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(3), ResearchId.valueOf(3)));
+        void noPrerequisiteUnregistered() {
+            assertEquals(ResearchManager.ResearchState.UNAVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(3), ResearchId.valueOf(3)));
         }
 
         @Test
-        public void prerequisiteDone() {
+        void prerequisiteDone() {
             Research.createAndRegister(ResearchId.valueOf(4),10, new BonusSpeed(1, ActionId.valueOf(1)));
             Research.createAndRegister(ResearchId.valueOf(5),10, new BonusSpeed(1, ActionId.valueOf(1)), ResearchId.valueOf(4));
             ResearchManager.getInstance().addResearch(ResearchId.valueOf(4), PlayerId.valueOf(5));
-            Assert.assertEquals(ResearchManager.ResearchState.AVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(5), ResearchId.valueOf(5)));
+            assertEquals(ResearchManager.ResearchState.AVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(5), ResearchId.valueOf(5)));
         }
 
         @Test
-        public void prerequisiteNotDone() {
+        void prerequisiteNotDone() {
             Research.createAndRegister(ResearchId.valueOf(6),10, new BonusSpeed(1, ActionId.valueOf(1)));
             Research.createAndRegister(ResearchId.valueOf(7),10, new BonusSpeed(1, ActionId.valueOf(1)), ResearchId.valueOf(6));
-            Assert.assertEquals(ResearchManager.ResearchState.UNAVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(6), ResearchId.valueOf(7)));
+            assertEquals(ResearchManager.ResearchState.UNAVAILABLE, ResearchManager.getInstance().getResearchState(PlayerId.valueOf(6), ResearchId.valueOf(7)));
         }
 
     }

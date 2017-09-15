@@ -26,19 +26,19 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.data.EntityType;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTypeMapperTest extends BaseMapperTest<EntityType> {
+class EntityTypeMapperTest extends BaseMapperTest<EntityType> {
 
-    @BeforeClass
-    public static void init() {
+    @BeforeAll
+    static void init() {
         new EntityType(17, "test");
     }
 
-    public EntityTypeMapperTest() {
+    EntityTypeMapperTest() {
         super(EntityTypeMapper.getInstance(), EntityType.valueOf(17));
     }
 }

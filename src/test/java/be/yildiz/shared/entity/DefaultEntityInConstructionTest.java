@@ -25,18 +25,17 @@ package be.yildiz.shared.entity;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.entity.module.ModuleGroup;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import static be.yildiz.helper.Helper.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class DefaultEntityInConstructionTest {
+class DefaultEntityInConstructionTest {
 
     public static final ModuleGroup MODULES_OK = new ModuleGroup
             .ModuleGroupBuilder()
@@ -48,32 +47,33 @@ public class DefaultEntityInConstructionTest {
             .withNoAdditional()
             .build();
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             DefaultEntityInConstruction d = new DefaultEntityInConstruction(TYPE_OK, ID_OK, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK);
-            Assert.assertEquals(TYPE_OK, d.getType());
-            Assert.assertEquals(ID_OK, d.getId());
-            Assert.assertEquals(OWNER_OK, d.getOwner());
-            Assert.assertEquals(MODULES_OK, d.getModules());
-            Assert.assertEquals(POSITION_OK, d.getPosition());
-            Assert.assertEquals(DIRECTION_OK, d.getDirection());
+            assertEquals(TYPE_OK, d.getType());
+            assertEquals(ID_OK, d.getId());
+            assertEquals(OWNER_OK, d.getOwner());
+            assertEquals(MODULES_OK, d.getModules());
+            assertEquals(POSITION_OK, d.getPosition());
+            assertEquals(DIRECTION_OK, d.getDirection());
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullType() {
-            new DefaultEntityInConstruction(null, ID_OK, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK);
+        @Test
+        void withNullType() {
+            assertThrows(AssertionError.class, () -> new DefaultEntityInConstruction(null, ID_OK, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullId() {
-            new DefaultEntityInConstruction(TYPE_OK, null, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK);
+        @Test
+        void withNullId() {
+            assertThrows(AssertionError.class, () -> new DefaultEntityInConstruction(TYPE_OK, null, OWNER_OK, MODULES_OK, POSITION_OK, DIRECTION_OK));
         }
 
-        @Test(expected = AssertionError.class)
-        public void withNullOwner() {
-            new DefaultEntityInConstruction(TYPE_OK, ID_OK, null, MODULES_OK, POSITION_OK, DIRECTION_OK);
+        @Test
+        void withNullOwner() {
+            assertThrows(AssertionError.class, () -> new DefaultEntityInConstruction(TYPE_OK, ID_OK, null, MODULES_OK, POSITION_OK, DIRECTION_OK));
         }
     }
 }

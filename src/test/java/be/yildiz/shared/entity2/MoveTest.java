@@ -27,34 +27,35 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.entity.action.Move;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class MoveTest {
+class MoveTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         Move m = new DummyMove();
-        Assert.assertFalse(m.isPassive());
-        Assert.assertFalse(m.isSelf());
-        Assert.assertEquals(EntityId.WORLD, m.getTargetId());
-        Assert.assertEquals(Point3D.ZERO, m.getDestination());
+        assertFalse(m.isPassive());
+        assertFalse(m.isSelf());
+        assertEquals(EntityId.WORLD, m.getTargetId());
+        assertEquals(Point3D.ZERO, m.getDestination());
     }
 
     @Test
-    public void testSetDestination() {
+    void testSetDestination() {
         Move m = new DummyMove();
         m.setDestination(Point3D.valueOf(1, 2, 3));
-        Assert.assertEquals(Point3D.valueOf(1, 2, 3), m.getDestination());
+        assertEquals(Point3D.valueOf(1, 2, 3), m.getDestination());
     }
 
-    @Test(expected = AssertionError.class)
-    public void testSetDestinationNull() {
+    @Test
+    void testSetDestinationNull() {
         Move m = new DummyMove();
-        m.setDestination(null);
+        assertThrows(AssertionError.class, () -> m.setDestination(null));
     }
 
     /**
@@ -65,7 +66,7 @@ public class MoveTest {
         /**
          * Create a new Move action.
          */
-        protected DummyMove() {
+        DummyMove() {
             super(ActionId.valueOf(3), EntityId.valueOf(5L));
         }
 

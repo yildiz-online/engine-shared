@@ -23,26 +23,27 @@
 
 package be.yildiz.shared.mission.task;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class TaskIdTest {
+class TaskIdTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             TaskId.valueOf(1);
         }
 
         @Test
-        public void withNegativeValue() {
+        void withNegativeValue() {
             TaskId.valueOf(-1);
         }
 
@@ -51,40 +52,42 @@ public class TaskIdTest {
     /**
      * Different values can have same hc, so not tested.
      */
-    public static class Hashcode {
+    @Nested
+    class Hashcode {
 
         @Test
-        public void sameValues() {
+        void sameValues() {
             int i1 = TaskId.valueOf(1).hashCode();
             int i2 = TaskId.valueOf(1).hashCode();
-            Assert.assertEquals(i1, i2);
+            assertEquals(i1, i2);
         }
     }
 
-    public static class Equals {
+    @Nested
+    class Equals {
 
         @Test
-        public void sameValues() {
+        void sameValues() {
             TaskId i1 = TaskId.valueOf(1);
             TaskId i2 = TaskId.valueOf(1);
-            Assert.assertEquals(i1, i2);
+            assertEquals(i1, i2);
         }
 
         @Test
-        public void differentId() {
+        void differentId() {
             TaskId i1 = TaskId.valueOf(1);
             TaskId i2 = TaskId.valueOf(2);
-            Assert.assertNotEquals(i1, i2);
+            assertNotEquals(i1, i2);
         }
 
         @Test
-        public void nullValue() {
-            Assert.assertNotEquals(TaskId.valueOf(1), null);
+        void nullValue() {
+            assertNotEquals(TaskId.valueOf(1), null);
         }
 
         @Test
-        public void differentClass() {
-            Assert.assertNotEquals(TaskId.valueOf(1), "ok");
+        void differentClass() {
+            assertNotEquals(TaskId.valueOf(1), "ok");
         }
     }
 }
