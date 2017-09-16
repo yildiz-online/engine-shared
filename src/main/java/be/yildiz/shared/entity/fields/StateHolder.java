@@ -39,14 +39,17 @@ public class StateHolder {
     private final Set<State> states = Sets.newSet();
 
     public void removeState(final State state) {
+        assert state != null;
         this.states.remove(state);
     }
 
     public void addState(final State state) {
+        assert state != null;
         this.states.add(state);
     }
 
     public boolean hasState(State state) {
+        assert state != null;
         return this.states.contains(state);
     }
 

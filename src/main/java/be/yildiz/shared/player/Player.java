@@ -64,6 +64,9 @@ public final class Player {
      */
     Player(final PlayerId id, final String name, final PlayerRight role) {
         super();
+        assert id != null;
+        assert name != null;
+        assert role != null;
         this.id = id;
         this.name = name;
         this.role = role;

@@ -31,19 +31,19 @@ import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
 import be.yildiz.shared.protocol.BuildingConstructionDto;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * @author Grégory Van den Borre
  */
-public class BuildingConstructionDtoMapperTest extends BaseMapperTest<BuildingConstructionDto> {
+class BuildingConstructionDtoMapperTest extends BaseMapperTest<BuildingConstructionDto> {
 
-    @BeforeEach
-    public static void init() {
+    @BeforeAll
+    static void init() {
         new EntityType(143, "test");
     }
 
-    public BuildingConstructionDtoMapperTest() {
+    BuildingConstructionDtoMapperTest() {
         super(new BuildingConstructionDtoMapper(),
                 new BuildingConstructionDto(
                         EntityId.valueOf(3),

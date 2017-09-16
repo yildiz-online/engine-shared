@@ -39,8 +39,8 @@ final class PlayerTest {
         Player p = new Player(PlayerId.valueOf(3), "aPlayer");
         assertEquals(p.id, PlayerId.valueOf(3));
         assertEquals("aPlayer", p.name);
-        assertThrows(NullPointerException.class, () -> new Player(null, "aa"));
-        assertThrows(NullPointerException.class, () -> new Player(PlayerId.valueOf(5), null));
+        assertThrows(AssertionError.class, () -> new Player(null, "aa"));
+        assertThrows(AssertionError.class, () -> new Player(PlayerId.valueOf(5), null));
     }
 
     /**
@@ -73,7 +73,7 @@ final class PlayerTest {
         assertNotSame(p, p2);
         assertNotSame(p2, p3);
         assertNotSame(p2, null);
-        assertNotSame(p2, new Integer(5));
+        assertNotSame(p2, 5);
     }
 
     /***/

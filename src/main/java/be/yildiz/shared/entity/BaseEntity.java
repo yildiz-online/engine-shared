@@ -237,7 +237,6 @@ public final class BaseEntity implements Entity, Target {
 
     @Override
     public void removeState(final State state) {
-        assert state != null;
         this.states.removeState(state);
     }
 

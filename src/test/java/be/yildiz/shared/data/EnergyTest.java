@@ -41,7 +41,6 @@ class EnergyTest {
         assertEquals(10, d.points, 0.000001f);
         d = Energy.ZERO;
         assertEquals(0, d.points, 0.000001f);
-        assertThrows(AssertionError.class, () -> new Energy((Integer)null));
     }
 
     @Test
@@ -54,7 +53,7 @@ class EnergyTest {
     void testHashCode() {
         Energy d1 = new Energy(5);
         @SuppressWarnings("boxing")
-        Energy d2 = new Energy(new Integer(5));
+        Energy d2 = new Energy(5);
         assertEquals(d2.hashCode(), d1.hashCode());
     }
 
@@ -66,7 +65,6 @@ class EnergyTest {
         Energy d3 = new Energy(6);
         assertEquals(d1, d1);
         assertEquals(d1, d2);
-        assertEquals(d1, new Energy(new Integer(5)));
         assertNotEquals(d1, new Object());
         assertNotEquals(d1, d3);
     }

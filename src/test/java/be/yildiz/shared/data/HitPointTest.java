@@ -40,7 +40,6 @@ final class HitPointTest {
         assertEquals(10, d.points, 0.000001f);
         d = HitPoint.ZERO;
         assertEquals(0, d.points, 0.000001f);
-        assertThrows(AssertionError.class, () -> new HitPoint((Integer)null));
     }
 
     @Test
@@ -52,7 +51,7 @@ final class HitPointTest {
     @Test
     void testHashCode() {
         HitPoint d1 = new HitPoint(5);
-        HitPoint d2 = new HitPoint(new Integer(5));
+        HitPoint d2 = new HitPoint(5);
         assertEquals(d2.hashCode(), d1.hashCode());
     }
 
@@ -63,7 +62,6 @@ final class HitPointTest {
         HitPoint d3 = new HitPoint(6);
         assertEquals(d1, d1);
         assertEquals(d1, d2);
-        assertEquals(d1, new HitPoint(new Integer(5)));
         assertNotEquals(d1, new Object());
         assertNotEquals(d1, d3);
     }

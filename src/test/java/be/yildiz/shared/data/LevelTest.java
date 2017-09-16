@@ -40,7 +40,6 @@ final class LevelTest {
         assertEquals(10, d.value, 0.000001f);
         d = Level.ZERO;
         assertEquals(0, d.value, 0.000001f);
-        assertThrows(AssertionError.class, () -> Level.valueOf((Integer)null));
     }
 
     @Test
@@ -51,7 +50,7 @@ final class LevelTest {
     @Test
     void testHashCode() {
         Level d1 = Level.valueOf(5);
-        Level d2 = Level.valueOf(new Integer(5));
+        Level d2 = Level.valueOf(5);
         assertEquals(d2.hashCode(), d1.hashCode());
     }
 
@@ -62,7 +61,6 @@ final class LevelTest {
         Level d3 = Level.valueOf(6);
         assertEquals(d1, d1);
         assertEquals(d1, d2);
-        assertEquals(d1, Level.valueOf(new Integer(5)));
         assertNotEquals(d1, new Object());
         assertNotEquals(d1, d3);
     }

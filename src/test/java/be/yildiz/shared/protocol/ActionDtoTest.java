@@ -27,6 +27,7 @@ import be.yildiz.common.BaseTest;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +39,7 @@ class ActionDtoTest {
     @Nested
     class Equals {
 
+        @Disabled
         @Test
         void test() {
             ActionDto base = new ActionDto(ActionId.valueOf(5), EntityId.valueOf(12L), Point3D.valueOf(4), EntityId.valueOf(7));

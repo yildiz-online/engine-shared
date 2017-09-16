@@ -38,7 +38,6 @@ class ViewDistanceTest {
     void testEnergy() {
         ViewDistance d = new ViewDistance(10);
         assertEquals(10, d.distance, 0.000001f);
-        assertThrows(AssertionError.class, () -> new ViewDistance((Integer)null));
     }
 
     @Test
@@ -54,8 +53,7 @@ class ViewDistanceTest {
     @Test
     void testHashCode() {
         ViewDistance d1 = new ViewDistance(5);
-        @SuppressWarnings("boxing")
-        ViewDistance d2 = new ViewDistance(new Integer(5));
+        ViewDistance d2 = new ViewDistance(5);
         assertEquals(d2.hashCode(), d1.hashCode());
     }
 
@@ -67,7 +65,6 @@ class ViewDistanceTest {
         ViewDistance d3 = new ViewDistance(6);
         assertEquals(d1, d1);
         assertEquals(d1, d2);
-        assertEquals(d1, new ViewDistance(new Integer(5)));
         assertNotEquals(d1, new Object());
         assertNotEquals(d1, d3);
     }
