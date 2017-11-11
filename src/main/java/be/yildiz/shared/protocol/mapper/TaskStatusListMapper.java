@@ -23,11 +23,11 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.CollectionMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskStatus;
 import be.yildiz.shared.mission.task.TaskStatusList;
+import be.yildizgames.common.mapping.CollectionMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -47,14 +47,14 @@ public final class TaskStatusListMapper implements ObjectMapper<TaskStatusList> 
     }
 
     @Override
-    public String to(TaskStatusList listWrapper) {
-        assert listWrapper != null;
-        return this.mapper.to(listWrapper.getList());
+    public TaskStatusList from(String s) throws MappingException {
+        assert s != null;
+        return new TaskStatusList(this.mapper.from(s));
     }
 
     @Override
-    public TaskStatusList from(String s) throws InvalidNetworkMessage {
-        assert s != null;
-        return new TaskStatusList(this.mapper.from(s));
+    public String to(TaskStatusList listWrapper) {
+        assert listWrapper != null;
+        return this.mapper.to(listWrapper.getList());
     }
 }

@@ -24,7 +24,7 @@
 package be.yildiz.shared.mission.task;
 
 import be.yildiz.common.collections.Lists;
-import be.yildiz.module.network.protocol.ListWrapper;
+import be.yildizgames.common.mapping.ListWrapper;
 
 import java.util.Collection;
 import java.util.List;

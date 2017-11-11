@@ -26,13 +26,13 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.protocol.ActionDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ActionDtoMapperTest extends BaseMapperTest<ActionDto>{
+public class ActionDtoMapperTest extends BaseMapperTest<ActionDto> {
 
     public ActionDtoMapperTest() {
         super(ActionDtoMapper.getInstance(), new ActionDto(ActionId.valueOf(2), EntityId.valueOf(7), Point3D.valueOf(5), EntityId.valueOf(9)));

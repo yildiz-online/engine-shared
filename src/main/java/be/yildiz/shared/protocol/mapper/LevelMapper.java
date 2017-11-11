@@ -23,9 +23,9 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.data.Level;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -43,12 +43,12 @@ class LevelMapper implements ObjectMapper<Level> {
     }
 
     @Override
-    public Level from(String s) throws InvalidNetworkMessage {
+    public Level from(String s) throws MappingException {
         assert s != null;
         try {
             return Level.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage(nfe);
+            throw new MappingException(nfe);
         }
     }
 

@@ -23,16 +23,13 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.IntegerMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.EntityHitDto;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto>{
+public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto> {
 
     private static final EntityHitDtoMapper INSTANCE = new EntityHitDtoMapper();
 
@@ -45,14 +42,14 @@ public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto>{
     }
 
     @Override
-    public EntityHitDto from(String s) throws InvalidNetworkMessage {
+    public EntityHitDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new EntityHitDto(EntityIdMapper.getInstance().from(v[0]),
                     IntegerMapper.getInstance().from(v[1]));
         } catch(IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -60,7 +57,7 @@ public class EntityHitDtoMapper implements ObjectMapper<EntityHitDto>{
     public String to(EntityHitDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.entity)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.hitPoint);
     }
 }

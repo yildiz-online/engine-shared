@@ -25,7 +25,7 @@ package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
 import be.yildiz.shared.data.TimeToBuild;
-import be.yildiz.shared.resources.ResourceValue;
+import be.yildizgames.engine.feature.resource.ResourceValue;
 
 /**
  * @author Grégory Van den Borre

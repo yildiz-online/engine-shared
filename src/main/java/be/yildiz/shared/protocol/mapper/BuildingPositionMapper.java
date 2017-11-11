@@ -23,9 +23,9 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.data.BuildingPosition;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -43,11 +43,11 @@ public class BuildingPositionMapper implements ObjectMapper<BuildingPosition> {
     }
 
     @Override
-    public BuildingPosition from(String s) throws InvalidNetworkMessage {
+    public BuildingPosition from(String s) throws MappingException {
         try {
             return BuildingPosition.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage(nfe);
+            throw new MappingException(nfe);
         }
     }
 

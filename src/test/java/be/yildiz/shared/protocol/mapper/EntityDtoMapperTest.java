@@ -28,9 +28,9 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.protocol.EntityDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 import org.junit.jupiter.api.BeforeAll;
 
 /**

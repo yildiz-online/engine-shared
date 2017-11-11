@@ -30,7 +30,7 @@ import be.yildiz.shared.building.Building;
 import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.resources.ResourcesProducer;
+import be.yildizgames.engine.feature.resource.ResourcesProducer;
 
 import java.util.List;
 import java.util.Set;

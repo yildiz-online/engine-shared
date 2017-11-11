@@ -23,12 +23,8 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.IntegerMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.protocol.EntityDto;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
@@ -36,9 +32,9 @@ import be.yildiz.shared.protocol.EntityDto;
 public class EntityDtoMapper implements ObjectMapper<EntityDto> {
 
     @Override
-    public EntityDto from(String s) throws InvalidNetworkMessage {
+    public EntityDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new EntityDto(
                     EntityIdMapper.getInstance().from(v[0]),
@@ -54,7 +50,7 @@ public class EntityDtoMapper implements ObjectMapper<EntityDto> {
                     IntegerMapper.getInstance().from(v[10])
             );
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -62,25 +58,25 @@ public class EntityDtoMapper implements ObjectMapper<EntityDto> {
     public String to(EntityDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.entity)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + dto.name
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + EntityTypeMapper.getInstance().to(dto.type)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + PlayerIdMapper.getInstance().to(dto.owner)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + Point3DMapper.getInstance().to(dto.position)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + Point3DMapper.getInstance().to(dto.orientation)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.hitPoint)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.energy)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + ModuleGroupMapper.getInstance().to(dto.modules)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + EntityIdMapper.getInstance().to(dto.builderId)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.index);
 
     }

@@ -25,8 +25,8 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.protocol.EntityHitDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre

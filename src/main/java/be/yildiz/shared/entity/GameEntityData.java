@@ -30,7 +30,7 @@ import be.yildiz.shared.entity.module.DefaultModuleProvider;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.entity.module.WorldModuleProvider;
-import be.yildiz.shared.resources.ResourceValue;
+import be.yildizgames.engine.feature.resource.ResourceValue;
 
 /**
  * Contains all the data proper to an Entity type.

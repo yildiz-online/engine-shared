@@ -29,14 +29,14 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
-import be.yildiz.module.network.protocol.mapper.IntegerMapper;
-import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildiz.shared.player.Message;
 import be.yildiz.shared.protocol.mapper.*;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
-import be.yildiz.shared.research.ResearchId;
+import be.yildizgames.common.mapping.EntityIdMapper;
+import be.yildizgames.common.mapping.IntegerMapper;
+import be.yildizgames.common.mapping.PlayerIdMapper;
 
 import java.util.Collection;
 
@@ -123,13 +123,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, MessageMapper.getInstance(), 18);
     }
 
-    public NetworkMessage<ResourceTransferDto> resourceTransferResponse(ResourceTransferDto dto) {
+   /* public NetworkMessage<ResourceTransferDto> resourceTransferResponse(ResourceTransferDto dto) {
         return new NetworkMessage<>(dto, ResourceTransferDtoMapper.getInstance(), ServerCommand.RESOURCE_TRANSFER.value);
     }
 
     public NetworkMessage<ResourceTransferDto> resourceTransferResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ResourceTransferDtoMapper.getInstance(), ServerCommand.RESOURCE_TRANSFER.value);
-    }
+    }*/
 
     public NetworkMessage<PlayerDto> playerInfoResponse(PlayerDto dto) {
         return new NetworkMessage<>(dto, PlayerDtoMapper.getInstance(), ServerCommand.PLAYER_INFO.value);
@@ -139,13 +139,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, PlayerDtoMapper.getInstance(), ServerCommand.PLAYER_INFO.value);
     }
 
-    public NetworkMessage<ResourceValueDto> resourceUpdateResponse(ResourceValueDto dto) {
+   /* public NetworkMessage<ResourceValueDto> resourceUpdateResponse(ResourceValueDto dto) {
         return new NetworkMessage<>(dto, ResourceValueDtoMapper.getInstance(), ServerCommand.RESOURCE.value);
     }
 
     public NetworkMessage<ResourceValueDto> resourceUpdateResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ResourceValueDtoMapper.getInstance(), ServerCommand.RESOURCE.value);
-    }
+    }*/
 
     public NetworkMessage<PlayerId> adminMonitorPlayer(PlayerId dto) {
         return new NetworkMessage<>(dto, PlayerIdMapper.getInstance(), ClientCommand.ADMIN_MONITOR_PLAYER.ordinal());
@@ -195,13 +195,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, EntityHitDtoMapper.getInstance(), ServerCommand.HIT.value);
     }
 
-    public NetworkMessage<ResearchDto> researchRequest(ResearchDto dto) {
+   /* public NetworkMessage<ResearchDto> researchRequest(ResearchDto dto) {
         return new NetworkMessage<>(dto, ResearchDtoMapper.getInstance(), ClientCommand.RESEARCH.ordinal());
     }
 
     public NetworkMessage<ResearchDto> researchRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ResearchDtoMapper.getInstance(), ClientCommand.RESEARCH.ordinal());
-    }
+    }*/
 
     public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(ModuleConfiguration dto) {
         return new NetworkMessage<>(dto, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
@@ -235,13 +235,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, ChangeOwnerDtoMapper.getInstance(), ServerCommand.CHANGE_OWNER.value);
     }
 
-    public NetworkMessage<Collection<ResearchId>> researchInfoResponse(Collection<ResearchId> dto) {
+    /*public NetworkMessage<Collection<ResearchId>> researchInfoResponse(Collection<ResearchId> dto) {
         return new NetworkMessage<>(dto, ResearchListMapper.getInstance(), ServerCommand.RESEARCH_INFO.value);
     }
 
     public NetworkMessage<Collection<ResearchId>> researchInfoResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ResearchListMapper.getInstance(), ServerCommand.RESEARCH_INFO.value);
-    }
+    }*/
 
     public NetworkMessage<Integer> adminCloseServer() {
         return new NetworkMessage<>(0, IntegerMapper.getInstance(), ClientCommand.ADMIN_CLOSE_SERVER.ordinal());

@@ -24,9 +24,9 @@
 package be.yildiz.shared.player;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.shared.resources.ResourceValue;
-import be.yildiz.shared.resources.ResourcesProducer;
-import be.yildiz.shared.resources.bonus.BonusResources;
+import be.yildizgames.engine.feature.resource.ResourceValue;
+import be.yildizgames.engine.feature.resource.ResourcesProducer;
+import be.yildizgames.engine.feature.resource.bonus.BonusResources;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -25,10 +25,10 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.protocol.StaffAllocationDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre

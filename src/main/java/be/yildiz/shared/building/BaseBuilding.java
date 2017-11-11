@@ -30,8 +30,8 @@ import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.data.Level;
 import be.yildiz.shared.data.TimeToBuild;
-import be.yildiz.shared.resources.ResourceValue;
-import be.yildiz.shared.resources.bonus.BonusResources;
+import be.yildizgames.engine.feature.resource.ResourceValue;
+import be.yildizgames.engine.feature.resource.bonus.BonusResources;
 
 /**
  * Class containing data for a building(city, level, position, type).

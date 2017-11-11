@@ -23,11 +23,8 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.LongMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.BuildingConstructionDto;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
@@ -35,9 +32,9 @@ import be.yildiz.shared.protocol.BuildingConstructionDto;
 public class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConstructionDto> {
 
     @Override
-    public BuildingConstructionDto from(String s) throws InvalidNetworkMessage {
+    public BuildingConstructionDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+        String[] v = s.split(Separator.VAR_SEPARATOR);
         try {
             return new BuildingConstructionDto(
                     EntityIdMapper.getInstance().from(v[0]),
@@ -48,7 +45,7 @@ public class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConst
                     LongMapper.getInstance().from(v[5])
             );
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -56,15 +53,15 @@ public class BuildingConstructionDtoMapper implements ObjectMapper<BuildingConst
     public String to(BuildingConstructionDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.cityId)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + EntityTypeMapper.getInstance().to(dto.type)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + LevelMapper.getInstance().to(dto.level)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + BuildingPositionMapper.getInstance().to(dto.position)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + StaffMapper.getInstance().to(dto.staff)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + LongMapper.getInstance().to(dto.time);
     }
 }

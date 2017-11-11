@@ -23,9 +23,9 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskId;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -43,12 +43,12 @@ public class TaskIdMapper implements ObjectMapper<TaskId> {
     }
 
     @Override
-    public TaskId from(String s) throws InvalidNetworkMessage {
+    public TaskId from(String s) throws MappingException {
         assert s != null;
         try {
             return TaskId.valueOf(Long.parseLong(s));
         } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage(nfe);
+            throw new MappingException(nfe);
         }
     }
 

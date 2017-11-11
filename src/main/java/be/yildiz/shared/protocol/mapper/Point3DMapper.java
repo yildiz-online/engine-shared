@@ -24,9 +24,9 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 import java.security.InvalidParameterException;
 
@@ -48,13 +48,13 @@ public class Point3DMapper implements ObjectMapper<Point3D> {
     }
 
     @Override
-    public Point3D from(String s) throws InvalidNetworkMessage {
+    public Point3D from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+        String[] v = s.split(Separator.VAR_SEPARATOR);
         try {
             return Point3D.valueOf(Float.valueOf(v[0]), Float.valueOf(v[1]), Float.valueOf(v[2]));
         } catch (final InvalidParameterException | IndexOutOfBoundsException | NumberFormatException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -62,9 +62,9 @@ public class Point3DMapper implements ObjectMapper<Point3D> {
     public String to(Point3D p) {
         assert p != null;
         return String.valueOf(p.x) +
-                MessageSeparation.VAR_SEPARATOR +
+                Separator.VAR_SEPARATOR +
                 String.valueOf(p.y) +
-                MessageSeparation.VAR_SEPARATOR +
+                Separator.VAR_SEPARATOR +
                 String.valueOf(p.z);
     }
 }

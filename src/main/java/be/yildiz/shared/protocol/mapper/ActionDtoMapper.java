@@ -23,10 +23,11 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.ActionDto;
+import be.yildizgames.common.mapping.EntityIdMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,13 +45,13 @@ public class ActionDtoMapper implements ObjectMapper<ActionDto> {
     }
 
     @Override
-    public ActionDto from(String s) throws InvalidNetworkMessage {
+    public ActionDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new ActionDto(ActionIdMapper.getInstance().from(v[0]), EntityIdMapper.getInstance().from(v[1]), Point3DMapper.getInstance().from(v[2]), EntityIdMapper.getInstance().from(v[3]));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -58,11 +59,11 @@ public class ActionDtoMapper implements ObjectMapper<ActionDto> {
     public String to(ActionDto action) {
         assert action != null;
         return ActionIdMapper.getInstance().to(action.id)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + EntityIdMapper.getInstance().to(action.entity)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + Point3DMapper.getInstance().to(action.destination)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + EntityIdMapper.getInstance().to(action.target);
     }
 }

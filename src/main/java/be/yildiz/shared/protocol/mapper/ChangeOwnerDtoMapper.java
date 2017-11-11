@@ -24,16 +24,13 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.protocol.ChangeOwnerDto;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ChangeOwnerDtoMapper implements ObjectMapper<ChangeOwnerDto>{
+public class ChangeOwnerDtoMapper implements ObjectMapper<ChangeOwnerDto> {
 
     private static final ChangeOwnerDtoMapper INSTANCE = new ChangeOwnerDtoMapper();
 
@@ -47,13 +44,13 @@ public class ChangeOwnerDtoMapper implements ObjectMapper<ChangeOwnerDto>{
 
 
     @Override
-    public ChangeOwnerDto from(String s) throws InvalidNetworkMessage {
+    public ChangeOwnerDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new ChangeOwnerDto(EntityIdMapper.getInstance().from(v[0]), PlayerIdMapper.getInstance().from(v[1]));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -61,7 +58,7 @@ public class ChangeOwnerDtoMapper implements ObjectMapper<ChangeOwnerDto>{
     public String to(ChangeOwnerDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.entity)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + PlayerIdMapper.getInstance().to(dto.newOwnerId);
     }
 }

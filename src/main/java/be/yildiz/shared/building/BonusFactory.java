@@ -25,7 +25,7 @@ package be.yildiz.shared.building;
 
 import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.Level;
-import be.yildiz.shared.resources.bonus.BonusResources;
+import be.yildizgames.engine.feature.resource.bonus.BonusResources;
 
 /**
  * The bonus factory build bonus instance matching a given building with a given level and a given staff.

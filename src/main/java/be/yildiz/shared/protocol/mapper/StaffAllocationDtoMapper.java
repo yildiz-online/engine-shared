@@ -26,13 +26,16 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.StaffAllocationDto;
+import be.yildizgames.common.mapping.EntityIdMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
  */
-public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto>{
+public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto> {
 
     private static final StaffAllocationDtoMapper INSTANCE = new StaffAllocationDtoMapper();
 
@@ -45,16 +48,16 @@ public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto
     }
 
     @Override
-    public StaffAllocationDto from(String s) throws InvalidNetworkMessage {
+    public StaffAllocationDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new StaffAllocationDto(EntityIdMapper.getInstance().from(v[0]),
                     BuildingPositionMapper.getInstance().from(v[1]),
                     StaffMapper.getInstance().from(v[2])
                     );
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -62,9 +65,9 @@ public class StaffAllocationDtoMapper implements ObjectMapper<StaffAllocationDto
     public String to(StaffAllocationDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.cityId)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + BuildingPositionMapper.getInstance().to(dto.position)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + StaffMapper.getInstance().to(dto.staff);
     }
 }

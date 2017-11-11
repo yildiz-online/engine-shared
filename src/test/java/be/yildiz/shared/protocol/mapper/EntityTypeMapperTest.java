@@ -24,8 +24,8 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.data.EntityType;
+import be.yildizgames.common.mapping.BaseMapperTest;
 import org.junit.jupiter.api.BeforeAll;
 
 /**

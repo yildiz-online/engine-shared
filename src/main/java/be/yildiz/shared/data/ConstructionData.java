@@ -23,7 +23,8 @@
 
 package be.yildiz.shared.data;
 
-import be.yildiz.shared.resources.ResourceValue;
+
+import be.yildizgames.engine.feature.resource.ResourceValue;
 
 /**
  * @author Grégory Van den Borre

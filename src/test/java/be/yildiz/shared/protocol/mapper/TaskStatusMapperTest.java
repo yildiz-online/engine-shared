@@ -24,10 +24,10 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.mission.MissionId;
 import be.yildiz.shared.mission.task.TaskId;
 import be.yildiz.shared.mission.task.TaskStatus;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre

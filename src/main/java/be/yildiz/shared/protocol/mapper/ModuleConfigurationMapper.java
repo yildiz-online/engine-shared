@@ -23,11 +23,11 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.PlayerIdMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -45,9 +45,9 @@ public class ModuleConfigurationMapper implements ObjectMapper<ModuleConfigurati
     }
 
     @Override
-    public ModuleConfiguration from(String s) throws InvalidNetworkMessage {
+    public ModuleConfiguration from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new ModuleConfiguration(
                     v[0],
@@ -56,7 +56,7 @@ public class ModuleConfigurationMapper implements ObjectMapper<ModuleConfigurati
                     ModuleGroupMapper.getInstance().from(v[3])
             );
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -64,11 +64,11 @@ public class ModuleConfigurationMapper implements ObjectMapper<ModuleConfigurati
     public String to(ModuleConfiguration m) {
         assert m != null;
         return m.getName()
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + PlayerIdMapper.getInstance().to(m.getPlayer())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + EntityTypeMapper.getInstance().to(m.getType())
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + ModuleGroupMapper.getInstance().to(m.getModules());
     }
 }

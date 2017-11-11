@@ -32,8 +32,8 @@ import be.yildiz.shared.building.BuildingData;
 import be.yildiz.shared.data.BuildingPosition;
 import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.resources.ResourceValue;
-import be.yildiz.shared.resources.ResourcesProducer;
+import be.yildizgames.engine.feature.resource.ResourceValue;
+import be.yildizgames.engine.feature.resource.ResourcesProducer;
 
 import java.util.Arrays;
 import java.util.List;

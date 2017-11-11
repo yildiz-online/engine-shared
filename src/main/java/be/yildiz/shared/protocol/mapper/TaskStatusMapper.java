@@ -23,10 +23,10 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskStatus;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,9 +44,9 @@ class TaskStatusMapper implements ObjectMapper<TaskStatus> {
     }
 
     @Override
-    public TaskStatus from(String s) throws InvalidNetworkMessage {
+    public TaskStatus from(String s) throws MappingException {
         assert s != null;
-        String[] values = s.split(MessageSeparation.VAR_SEPARATOR);
+        String[] values = s.split(Separator.VAR_SEPARATOR);
         String status = values.length == 3 ? values[2] : "";
         try {
         return new TaskStatus(
@@ -54,7 +54,7 @@ class TaskStatusMapper implements ObjectMapper<TaskStatus> {
                 MissionIdMapper.getInstance().from(values[1]),
                 status);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e.getMessage());
+            throw new MappingException(e.getMessage());
         }
     }
 
@@ -62,9 +62,9 @@ class TaskStatusMapper implements ObjectMapper<TaskStatus> {
     public String to(TaskStatus taskStatus) {
         assert taskStatus != null;
         return TaskIdMapper.getInstance().to(taskStatus.id)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + MissionIdMapper.getInstance().to(taskStatus.missionId)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + taskStatus.status;
     }
 }

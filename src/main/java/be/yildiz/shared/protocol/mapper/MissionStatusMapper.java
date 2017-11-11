@@ -24,9 +24,9 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.MissionStatus;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -44,12 +44,12 @@ public class MissionStatusMapper implements ObjectMapper<MissionStatus> {
     }
 
     @Override
-    public MissionStatus from(String s) throws InvalidNetworkMessage {
+    public MissionStatus from(String s) throws MappingException {
         assert s != null;
         try {
             return MissionStatus.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage("Error retrieving id", nfe);
+            throw new MappingException("Error retrieving id", nfe);
         }
     }
 

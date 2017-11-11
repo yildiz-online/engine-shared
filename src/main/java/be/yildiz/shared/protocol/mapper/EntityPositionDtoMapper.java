@@ -23,10 +23,11 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.EntityPositionDto;
+import be.yildizgames.common.mapping.EntityIdMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,15 +45,15 @@ public class EntityPositionDtoMapper implements ObjectMapper<EntityPositionDto> 
     }
 
     @Override
-    public EntityPositionDto from(String s) throws InvalidNetworkMessage {
+    public EntityPositionDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR );
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR );
         try {
             return new EntityPositionDto(EntityIdMapper.getInstance().from(v[0]),
                     Point3DMapper.getInstance().from(v[1]),
                     Point3DMapper.getInstance().from(v[2]));
         } catch (final IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -60,9 +61,9 @@ public class EntityPositionDtoMapper implements ObjectMapper<EntityPositionDto> 
     public String to(EntityPositionDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.id)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + Point3DMapper.getInstance().to(dto.position)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + Point3DMapper.getInstance().to(dto.orientation);
     }
 }

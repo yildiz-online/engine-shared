@@ -23,10 +23,10 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.IntegerMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.data.EntityType;
+import be.yildizgames.common.mapping.IntegerMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -44,7 +44,7 @@ public class EntityTypeMapper implements ObjectMapper<EntityType> {
     }
 
     @Override
-    public EntityType from(String s) throws InvalidNetworkMessage {
+    public EntityType from(String s) throws MappingException {
         return EntityType.valueOf(IntegerMapper.getInstance().from(s));
     }
 

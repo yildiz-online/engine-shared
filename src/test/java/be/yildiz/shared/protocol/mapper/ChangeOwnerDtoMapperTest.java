@@ -26,13 +26,13 @@ package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
 import be.yildiz.shared.protocol.ChangeOwnerDto;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ChangeOwnerDtoMapperTest extends BaseMapperTest<ChangeOwnerDto>{
+public class ChangeOwnerDtoMapperTest extends BaseMapperTest<ChangeOwnerDto> {
 
     public ChangeOwnerDtoMapperTest() {
         super(ChangeOwnerDtoMapper.getInstance(), new ChangeOwnerDto(EntityId.valueOf(3), PlayerId.valueOf(2)));

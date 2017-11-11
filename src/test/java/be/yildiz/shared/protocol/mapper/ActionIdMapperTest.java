@@ -25,7 +25,7 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.ActionId;
-import be.yildiz.module.network.protocol.mapper.BaseMapperTest;
+import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**
  * @author Grégory Van den Borre

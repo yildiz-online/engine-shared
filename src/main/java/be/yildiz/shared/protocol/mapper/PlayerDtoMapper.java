@@ -23,11 +23,11 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.protocol.PlayerDto;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.PlayerIdMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -45,13 +45,13 @@ public class PlayerDtoMapper implements ObjectMapper<PlayerDto> {
     }
 
     @Override
-    public PlayerDto from(String s) throws InvalidNetworkMessage {
+    public PlayerDto from(String s) throws MappingException {
         assert s != null;
         try {
-            String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+            String[] v = s.split(Separator.VAR_SEPARATOR);
             return new PlayerDto(PlayerIdMapper.getInstance().from(v[0]), v[1], PlayerStatusMapper.getInstance().from(v[2]));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -59,9 +59,9 @@ public class PlayerDtoMapper implements ObjectMapper<PlayerDto> {
     public String to(PlayerDto dto) {
         assert dto != null;
         return PlayerIdMapper.getInstance().to(dto.player)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + dto.login
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + PlayerStatusMapper.getInstance().to(dto.status);
     }
 }

@@ -51,7 +51,7 @@ public enum ClientCommand {
     LOGIN(),
 
     /**
-     * Request to start a new research.
+     * Request to start a new be.yildizgames.engine.feature.research.
      */
     RESEARCH,
 

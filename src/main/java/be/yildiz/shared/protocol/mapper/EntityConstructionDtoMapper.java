@@ -1,10 +1,7 @@
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.IntegerMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.protocol.EntityConstructionDto;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
@@ -12,9 +9,9 @@ import be.yildiz.shared.protocol.EntityConstructionDto;
 public class EntityConstructionDtoMapper implements ObjectMapper<EntityConstructionDto> {
 
     @Override
-    public EntityConstructionDto from(String s) throws InvalidNetworkMessage {
+    public EntityConstructionDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new EntityConstructionDto(
                     EntityIdMapper.getInstance().from(v[0]),
@@ -23,7 +20,7 @@ public class EntityConstructionDtoMapper implements ObjectMapper<EntityConstruct
                     IntegerMapper.getInstance().from(v[3])
             );
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -31,11 +28,11 @@ public class EntityConstructionDtoMapper implements ObjectMapper<EntityConstruct
     public String to(EntityConstructionDto dto) {
         assert dto != null;
         return EntityIdMapper.getInstance().to(dto.builderId)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + EntityTypeMapper.getInstance().to(dto.type)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + ModuleGroupMapper.getInstance().to(dto.moduleIds)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + IntegerMapper.getInstance().to(dto.requestIndex);
     }
 }

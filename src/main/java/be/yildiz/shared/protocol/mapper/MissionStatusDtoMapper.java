@@ -24,17 +24,17 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.CollectionMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.mission.task.TaskStatus;
 import be.yildiz.shared.protocol.MissionStatusDto;
+import be.yildizgames.common.mapping.CollectionMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
  */
-public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto>{
+public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto> {
 
     private static final MissionStatusDtoMapper INSTANCE = new MissionStatusDtoMapper();
 
@@ -49,9 +49,9 @@ public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto>{
     private final CollectionMapper<TaskStatus> taskMapper = new CollectionMapper<>(TaskStatusMapper.getInstance());
 
     @Override
-    public MissionStatusDto from(String s) throws InvalidNetworkMessage {
+    public MissionStatusDto from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.OBJECTS_SEPARATOR);
+        String[] v = s.split(Separator.OBJECTS_SEPARATOR);
         try {
             return new MissionStatusDto(
                     MissionIdMapper.getInstance().from(v[0]),
@@ -59,7 +59,7 @@ public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto>{
                     taskMapper.from(v[2])
             );
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -67,9 +67,10 @@ public class MissionStatusDtoMapper implements ObjectMapper<MissionStatusDto>{
     public String to(MissionStatusDto dto) {
         assert dto != null;
         return MissionIdMapper.getInstance().to(dto.missionId)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator.OBJECTS_SEPARATOR
                 + MissionStatusMapper.getInstance().to(dto.status)
-                + MessageSeparation.OBJECTS_SEPARATOR
+                + Separator
+                .OBJECTS_SEPARATOR
                 + taskMapper.to(dto.tasks);
     }
 }

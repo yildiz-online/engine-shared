@@ -24,8 +24,8 @@
 package be.yildiz.shared.protocol.mapper;
 
 import be.yildiz.common.id.ActionId;
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -43,12 +43,12 @@ class ActionIdMapper implements ObjectMapper<ActionId> {
     }
 
     @Override
-    public ActionId from(String s) throws InvalidNetworkMessage {
+    public ActionId from(String s) throws MappingException {
         assert s != null;
         try {
             return ActionId.valueOf(Integer.parseInt(s));
         } catch (final NumberFormatException nfe) {
-            throw new InvalidNetworkMessage(nfe);
+            throw new MappingException(nfe);
         }
     }
 

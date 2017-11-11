@@ -23,10 +23,10 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.entity.module.ModuleGroup;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
+import be.yildizgames.common.mapping.Separator;
 
 /**
  * @author Grégory Van den Borre
@@ -44,9 +44,9 @@ public class ModuleGroupMapper implements ObjectMapper<ModuleGroup> {
     }
 
     @Override
-    public ModuleGroup from(String s) throws InvalidNetworkMessage {
+    public ModuleGroup from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+        String[] v = s.split(Separator.VAR_SEPARATOR);
         try {
             return new ModuleGroup.ModuleGroupBuilder()
                     .withHull(ActionIdMapper.getInstance().from(v[0]))
@@ -59,7 +59,7 @@ public class ModuleGroupMapper implements ObjectMapper<ModuleGroup> {
                     .withAdditional3(ActionIdMapper.getInstance().from(v[7]))
                     .build();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -67,19 +67,19 @@ public class ModuleGroupMapper implements ObjectMapper<ModuleGroup> {
     public String to(ModuleGroup moduleGroup) {
         assert moduleGroup != null;
         return ActionIdMapper.getInstance().to(moduleGroup.getHull())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getEnergy())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getMove())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getInteraction())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getDetector())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getAdditional1())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getAdditional2())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + ActionIdMapper.getInstance().to(moduleGroup.getAdditional3());
     }
 }

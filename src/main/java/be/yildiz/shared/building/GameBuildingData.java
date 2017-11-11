@@ -26,8 +26,8 @@ package be.yildiz.shared.building;
 import be.yildiz.common.util.Checker;
 import be.yildiz.shared.building.staff.Staff;
 import be.yildiz.shared.data.*;
-import be.yildiz.shared.resources.ResourceValue;
-import be.yildiz.shared.resources.bonus.BonusResources;
+import be.yildizgames.engine.feature.resource.ResourceValue;
+import be.yildizgames.engine.feature.resource.bonus.BonusResources;
 
 /**
  * Base implementation for the BuildingData

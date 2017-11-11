@@ -24,17 +24,17 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.mapper.CollectionMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
 import be.yildiz.shared.player.Message;
+import be.yildizgames.common.mapping.CollectionMapper;
+import be.yildizgames.common.mapping.MappingException;
+import be.yildizgames.common.mapping.ObjectMapper;
 
 import java.util.Collection;
 
 /**
  * @author Grégory Van den Borre
  */
-public class MessageListMapper implements ObjectMapper<Collection<Message>>{
+public class MessageListMapper implements ObjectMapper<Collection<Message>> {
 
     private static final MessageListMapper INSTANCE = new MessageListMapper();
 
@@ -49,7 +49,7 @@ public class MessageListMapper implements ObjectMapper<Collection<Message>>{
     }
 
     @Override
-    public Collection<Message> from(String s) throws InvalidNetworkMessage {
+    public Collection<Message> from(String s) throws MappingException {
         return mapper.from(s);
     }
 

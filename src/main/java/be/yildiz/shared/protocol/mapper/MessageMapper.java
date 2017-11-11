@@ -23,13 +23,8 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
-import be.yildiz.module.network.protocol.MessageSeparation;
-import be.yildiz.module.network.protocol.mapper.BooleanMapper;
-import be.yildiz.module.network.protocol.mapper.LongMapper;
-import be.yildiz.module.network.protocol.mapper.ObjectMapper;
-import be.yildiz.module.network.protocol.mapper.PlayerIdMapper;
 import be.yildiz.shared.player.Message;
+import be.yildizgames.common.mapping.*;
 
 /**
  * @author Grégory Van den Borre
@@ -55,9 +50,9 @@ public class MessageMapper implements ObjectMapper<Message> {
     }
 
     @Override
-    public Message from(String s) throws InvalidNetworkMessage {
+    public Message from(String s) throws MappingException {
         assert s != null;
-        String[] v = s.split(MessageSeparation.VAR_SEPARATOR);
+        String[] v = s.split(Separator.VAR_SEPARATOR);
         try {
             return new Message(PlayerIdMapper.getInstance().from(v[0]),
                     PlayerIdMapper.getInstance().from(v[1]),
@@ -68,7 +63,7 @@ public class MessageMapper implements ObjectMapper<Message> {
                     LongMapper.getInstance().from(v[3]),
                     BooleanMapper.getInstance().from(v[4]));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNetworkMessage(e);
+            throw new MappingException(e);
         }
     }
 
@@ -76,17 +71,17 @@ public class MessageMapper implements ObjectMapper<Message> {
     public String to(Message message) {
         assert message != null;
         return PlayerIdMapper.getInstance().to(message.getSender())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + PlayerIdMapper.getInstance().to(message.getReceiver())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + message.getMessage()
                         .replaceAll("&", REP_AMP)
                         .replaceAll("#", REP_HSH)
                         .replaceAll("_", REP_UND)
                         .replaceAll("@", REP_AT)
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + LongMapper.getInstance().to(message.getDate())
-                + MessageSeparation.VAR_SEPARATOR
+                + Separator.VAR_SEPARATOR
                 + BooleanMapper.getInstance().to(message.isRead());
     }
 }
