@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.player;
 
+import be.yildiz.common.PlayerCreationListener;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.id.PlayerId;
@@ -112,7 +113,7 @@ public final class PlayerManager implements PlayerProvider {
         Player player = new Player(id, name, right);
         this.playerIdList.put(id, player);
         this.playerNameList.put(name, player);
-        this.playerCreationListeners.forEach(l -> l.playerCreated(player));
+        this.playerCreationListeners.forEach(l -> l.playerCreated(player.id));
         return player;
     }
 

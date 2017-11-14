@@ -47,7 +47,7 @@ public class EngineMessageFactory extends NetworkMessageFactory{
 
     private final EntityConstructionDtoMapper entityConstructionDtoMapper = new EntityConstructionDtoMapper();
 
-    private final BuildingConstructionDtoMapper buildingConstructionDtoMapper = new BuildingConstructionDtoMapper();
+    //private final BuildingConstructionDtoMapper buildingConstructionDtoMapper = new BuildingConstructionDtoMapper();
 
     private final EntityDtoMapper entityDtoMapper = new EntityDtoMapper();
 
@@ -83,7 +83,7 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, entityConstructionDtoMapper, 0);
     }
 
-    public NetworkMessage<BuildingConstructionDto> buildingConstructionRequest(BuildingConstructionDto dto) {
+    /*public NetworkMessage<BuildingConstructionDto> buildingConstructionRequest(BuildingConstructionDto dto) {
         return new NetworkMessage<>(dto, buildingConstructionDtoMapper, 2);
     }
 
@@ -97,7 +97,7 @@ public class EngineMessageFactory extends NetworkMessageFactory{
 
     public NetworkMessage<BuildingConstructionDto> buildingConstructionResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, buildingConstructionDtoMapper, ServerCommand.BUILDING_INFO.value);
-    }
+    }*/
 
     public NetworkMessage<EntityDto> entityInfo(EntityDto dto) {
         return new NetworkMessage<>(dto, entityDtoMapper, ServerCommand.ENTITY_INFO.value);
@@ -179,13 +179,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, EntityIdMapper.getInstance(), ServerCommand.STOP_ATTACK.value);
     }
 
-    public NetworkMessage<StaffAllocationDto> staffAllocationRequest(StaffAllocationDto dto) {
+    /*public NetworkMessage<StaffAllocationDto> staffAllocationRequest(StaffAllocationDto dto) {
         return new NetworkMessage<>(dto, StaffAllocationDtoMapper.getInstance(), ClientCommand.STAFF.ordinal());
     }
 
     public NetworkMessage<StaffAllocationDto> staffAllocationRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, StaffAllocationDtoMapper.getInstance(), ClientCommand.STAFF.ordinal());
-    }
+    }*/
 
     public NetworkMessage<EntityHitDto> entityHitResponse(EntityHitDto dto) {
         return new NetworkMessage<>(dto, EntityHitDtoMapper.getInstance(), ServerCommand.HIT.value);
@@ -211,13 +211,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
     }
 
-    public NetworkMessage<MissionStatusDto> missionStatusResponse(MissionStatusDto dto) {
+    /*public NetworkMessage<MissionStatusDto> missionStatusResponse(MissionStatusDto dto) {
         return new NetworkMessage<>(dto, MissionStatusDtoMapper.getInstance(), ServerCommand.MISSION_STATUS.value);
     }
 
     public NetworkMessage<MissionStatusDto> missionStatusResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, MissionStatusDtoMapper.getInstance(), ServerCommand.MISSION_STATUS.value);
-    }
+    }*/
 
     public NetworkMessage<Collection<Message>> messageListResponse(Collection<Message> dto) {
         return new NetworkMessage<>(dto, MessageListMapper.getInstance(), ServerCommand.MESSAGE_LIST.value);
