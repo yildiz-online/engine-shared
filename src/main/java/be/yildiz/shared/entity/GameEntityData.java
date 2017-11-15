@@ -176,11 +176,12 @@ public class GameEntityData implements EntityData {
         return type;
     }
 
-    public Instance getInstance() {
+    public Instance getMaxInstances() {
         return maxInstance;
     }
 
-    public Level getLevel() {
+    public Level getRequiredLevel() {
         return level;
     }
+
 }
