@@ -24,8 +24,9 @@
 package be.yildiz.shared.entity.module;
 
 import be.yildiz.common.id.ActionId;
-import be.yildiz.shared.data.TimeToBuild;
 import be.yildizgames.engine.feature.resource.ResourceValue;
+
+import java.time.Duration;
 
 /**
  * @author Grégory Van den Borre
@@ -33,10 +34,10 @@ import be.yildizgames.engine.feature.resource.ResourceValue;
 public class DataModule {
 
     public final ActionId moduleId;
-    public final TimeToBuild timeToBuild;
+    public final Duration timeToBuild;
     public final ResourceValue price;
 
-    public DataModule(final ActionId module, final TimeToBuild time, final ResourceValue price) {
+    public DataModule(final ActionId module, final Duration time, final ResourceValue price) {
         super();
         this.moduleId = module;
         this.timeToBuild = time;

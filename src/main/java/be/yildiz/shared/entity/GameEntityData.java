@@ -23,14 +23,18 @@
 
 package be.yildiz.shared.entity;
 
+import be.yildiz.common.Instance;
+import be.yildiz.common.Level;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.util.Checker;
-import be.yildiz.shared.data.*;
+import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.module.DefaultModuleProvider;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildiz.shared.entity.module.WorldModuleProvider;
 import be.yildizgames.engine.feature.resource.ResourceValue;
+
+import java.time.Duration;
 
 /**
  * Contains all the data proper to an Entity type.
@@ -42,7 +46,7 @@ import be.yildizgames.engine.feature.resource.ResourceValue;
 //@specfield moduleAllowed:List:List of modules allowed to be used.
 //@invariant size > 0
 //@invariant moduleAllowed != null
-public class GameEntityData extends GameData implements ConstructionData, EntityData {
+public class GameEntityData implements EntityData {
 
     /**
      * Constant for world data.
@@ -55,7 +59,7 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
             new WorldModuleProvider(),
             new ModulesAllowed(),
             new ResourceValue(new float[]{}),
-            TimeToBuild.ZERO,
+            Duration.ZERO,
             false);
 
     /**
@@ -77,7 +81,13 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
 
     private final ResourceValue price;
 
-    private final TimeToBuild timeToBuild;
+    private final Duration timeToBuild;
+
+    private final EntityType type;
+
+    private final Instance maxInstance;
+
+    private final Level level;
 
     /**
      * Full constructor.
@@ -94,13 +104,16 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
      */
     protected GameEntityData(final EntityType type, final int size, final Instance instances,
                              final Level level, final DefaultModuleProvider defaultModuleProvider, final ModulesAllowed modulesAllowed, final ResourceValue price,
-                             final TimeToBuild timeToBuild, final boolean buildable) {
-        super(type, instances, level);
+                             final Duration timeToBuild, final boolean buildable) {
+        super();
         assert defaultModuleProvider != null;
         assert modulesAllowed != null;
         assert price != null;
         assert timeToBuild != null;
         Checker.exceptionNotGreaterThanZero(size);
+        this.type = type;
+        this.maxInstance = instances;
+        this.level = level;
         this.size = size;
         this.modulesAllowed = modulesAllowed;
         this.defaultModuleProvider = defaultModuleProvider;
@@ -146,18 +159,28 @@ public class GameEntityData extends GameData implements ConstructionData, Entity
         return modulesAllowed;
     }
 
-    @Override
     public boolean isBuildable() {
         return buildable;
     }
 
-    @Override
     public ResourceValue getPrice() {
         return price;
     }
 
-    @Override
-    public TimeToBuild getTimeToBuild() {
+    public Duration getTimeToBuild() {
         return timeToBuild;
+    }
+
+    @Override
+    public EntityType getType() {
+        return type;
+    }
+
+    public Instance getInstance() {
+        return maxInstance;
+    }
+
+    public Level getLevel() {
+        return level;
     }
 }

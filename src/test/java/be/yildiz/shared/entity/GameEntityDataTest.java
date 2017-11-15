@@ -23,18 +23,18 @@
 
 package be.yildiz.shared.entity;
 
+import be.yildiz.common.Instance;
+import be.yildiz.common.Level;
 import be.yildiz.common.id.ActionId;
-import be.yildiz.common.util.Time;
 import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.data.Instance;
-import be.yildiz.shared.data.Level;
-import be.yildiz.shared.data.TimeToBuild;
 import be.yildiz.shared.entity.module.DefaultModuleProvider;
 import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.entity.module.ModulesAllowed;
 import be.yildizgames.engine.feature.resource.ResourceValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,7 +65,7 @@ class GameEntityDataTest {
 
     private static final ResourceValue PRICE_OK = new ResourceValue(new float[]{100,100,100});
 
-    private static final TimeToBuild TIME_OK = new TimeToBuild(Time.seconds(5));
+    private static final Duration TIME_OK = Duration.ofSeconds(5);
 
     @Nested
     class Constructor {

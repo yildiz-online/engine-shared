@@ -27,7 +27,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.shared.construction.entity.EntityConstructionQueue.EntityRepresentationConstruction;
-import be.yildiz.shared.data.ConstructionData;
+import be.yildiz.shared.entity.EntityData;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public interface Builder {
      * @param data Data used for this construction.
      * @return <code>true</code> if this builder can create the entity, false otherwise.
      */
-    boolean fullfilPrerequisite(ConstructionData data);
+    boolean fullfilPrerequisite(EntityData data);
 
     /**
      * @return The queue used by this builder.
