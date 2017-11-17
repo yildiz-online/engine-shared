@@ -134,7 +134,6 @@ public class EntityConstructionManager<T extends Entity> extends EndFrameListene
         if (listeners != null) {
             Collections.addAll(this.listenerList, listeners);
         }
-
     }
 
     /**

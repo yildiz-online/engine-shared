@@ -63,7 +63,7 @@ import java.util.Set;
 //@invariant position != null.
 //@invariant direction != null.
 //@invariant direction.x + direction.y + direction.z = 1.
-//@rructinvariant !states.contains(null).
+//@invariant !states.contains(null).
 public interface Entity extends Target {
 
     /**

@@ -30,15 +30,12 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
 import be.yildiz.shared.entity.module.ModuleConfiguration;
-import be.yildiz.shared.player.Message;
 import be.yildiz.shared.protocol.mapper.*;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
 import be.yildizgames.common.mapping.EntityIdMapper;
 import be.yildizgames.common.mapping.IntegerMapper;
 import be.yildizgames.common.mapping.PlayerIdMapper;
-
-import java.util.Collection;
 
 /**
  * @author Grégory Van den Borre
@@ -115,13 +112,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, EntityIdMapper.getInstance(), ServerCommand.DESTROY.value);
     }
 
-    public NetworkMessage<Message> messageRequest(Message m) {
+    /*public NetworkMessage<Message> messageRequest(Message m) {
         return new NetworkMessage<>(m, MessageMapper.getInstance(), 18);
     }
 
     public NetworkMessage<Message> messageRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, MessageMapper.getInstance(), 18);
-    }
+    }*/
 
    /* public NetworkMessage<ResourceTransferDto> resourceTransferResponse(ResourceTransferDto dto) {
         return new NetworkMessage<>(dto, ResourceTransferDtoMapper.getInstance(), ServerCommand.RESOURCE_TRANSFER.value);
@@ -219,13 +216,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, MissionStatusDtoMapper.getInstance(), ServerCommand.MISSION_STATUS.value);
     }*/
 
-    public NetworkMessage<Collection<Message>> messageListResponse(Collection<Message> dto) {
+    /*public NetworkMessage<Collection<Message>> messageListResponse(Collection<Message> dto) {
         return new NetworkMessage<>(dto, MessageListMapper.getInstance(), ServerCommand.MESSAGE_LIST.value);
     }
 
     public NetworkMessage<Collection<Message>> messageListResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, MessageListMapper.getInstance(), ServerCommand.MESSAGE_LIST.value);
-    }
+    }*/
 
     public NetworkMessage<ChangeOwnerDto> changeOwnerResponse(ChangeOwnerDto dto) {
         return new NetworkMessage<>(dto, ChangeOwnerDtoMapper.getInstance(), ServerCommand.CHANGE_OWNER.value);
