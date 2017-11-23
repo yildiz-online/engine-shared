@@ -27,11 +27,12 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
-import be.yildiz.shared.entity.action.Action;
-import be.yildiz.shared.entity.fields.Target;
+import be.yildizgames.engine.feature.entity.action.Action;
+import be.yildizgames.engine.feature.entity.fields.Target;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
@@ -43,7 +44,7 @@ class ActionTest {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#equals(java.lang.Object)}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#equals(java.lang.Object)}.
      */
     @Test
     void testEqualsObject() {
@@ -99,7 +100,7 @@ class ActionTest {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#isSameType(be.yildiz.shared.entity.action.Action)} .
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#isSameType(be.yildizgames.engine.feature.entity.action.Action)} .
      */
     @Test
     void testIsSameType() {
@@ -153,42 +154,42 @@ class ActionTest {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#checkPrerequisite()}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#checkPrerequisite()}.
      */
     @Test
     void testCheckPrerequisite() {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#run(long)}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#run(long)}.
      */
     @Test
     void testRun() {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#isPassive()}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#isPassive()}.
      */
     @Test
     void testIsPassive() {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#init()}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#init()}.
      */
     @Test
     void testInit() {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#setDestination(be.yildiz.common.vector.Point3D)} .
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#setDestination(be.yildiz.common.vector.Point3D)} .
      */
     @Test
     void testSetDestination() {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#getDestination()}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#getDestination()}.
      */
     @Test
     void testGetDestination() {
@@ -204,7 +205,7 @@ class ActionTest {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#stop()}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#stop()}.
      */
     @Test
     void testStop() {
@@ -221,7 +222,7 @@ class ActionTest {
     }
 
     /**
-     * Test method for {@link be.yildiz.shared.entity.action.Action#isRunning()}.
+     * Test method for {@link be.yildizgames.engine.feature.entity.action.Action#isRunning()}.
      */
     @Test
     void testIsRunning() {

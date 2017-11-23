@@ -26,12 +26,12 @@ package be.yildiz.shared.entity2;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.helper.Helper;
 import be.yildiz.module.physics.CollisionResult;
-import be.yildiz.shared.entity.*;
 import be.yildiz.shared.player.Player;
 import be.yildiz.shared.player.PlayerManager;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Grégory Van den Borre

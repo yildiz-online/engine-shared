@@ -28,22 +28,22 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.data.EntityType;
 import be.yildiz.shared.entity.BaseEntity;
 import be.yildiz.shared.entity.Entity;
 import be.yildiz.shared.entity.EntityInConstruction;
 import be.yildiz.shared.entity.EntityManager;
-import be.yildiz.shared.entity.action.ProtectInvincible;
-import be.yildiz.shared.entity.action.materialization.EmptyProtectMaterialization;
-import be.yildiz.shared.entity.module.EmptyModule;
-import be.yildiz.shared.entity.module.EntityModules;
-import be.yildiz.shared.entity.module.Hull;
-import be.yildiz.shared.entity.module.ModuleGroup;
-import be.yildiz.shared.entity.module.detector.BlindDetector;
-import be.yildiz.shared.entity.module.energy.NoEnergyGenerator;
-import be.yildiz.shared.entity.module.hull.InvincibleTemplate;
-import be.yildiz.shared.entity.module.interaction.NoWeaponModule;
-import be.yildiz.shared.entity.module.move.StaticModule;
+import be.yildizgames.engine.feature.entity.action.ProtectInvincible;
+import be.yildizgames.engine.feature.entity.action.materialization.EmptyProtectMaterialization;
+import be.yildizgames.engine.feature.entity.data.EntityType;
+import be.yildizgames.engine.feature.entity.module.EmptyModule;
+import be.yildizgames.engine.feature.entity.module.EntityModules;
+import be.yildizgames.engine.feature.entity.module.Hull;
+import be.yildizgames.engine.feature.entity.module.ModuleGroup;
+import be.yildizgames.engine.feature.entity.module.detector.BlindDetector;
+import be.yildizgames.engine.feature.entity.module.energy.NoEnergyGenerator;
+import be.yildizgames.engine.feature.entity.module.hull.InvincibleTemplate;
+import be.yildizgames.engine.feature.entity.module.interaction.NoWeaponModule;
+import be.yildizgames.engine.feature.entity.module.move.StaticModule;
 
 /**
  * @author Grégory Van den Borre

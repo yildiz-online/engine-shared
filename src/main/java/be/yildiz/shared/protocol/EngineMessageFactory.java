@@ -29,13 +29,13 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
-import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildiz.shared.protocol.mapper.*;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
 import be.yildizgames.common.mapping.EntityIdMapper;
 import be.yildizgames.common.mapping.IntegerMapper;
 import be.yildizgames.common.mapping.PlayerIdMapper;
+import be.yildizgames.engine.feature.entity.module.ModuleConfiguration;
 
 /**
  * @author Grégory Van den Borre

@@ -24,14 +24,15 @@
 package be.yildiz.shared.entity;
 
 import be.yildiz.common.id.ActionId;
-import be.yildiz.shared.entity.module.ModuleGroup;
+import be.yildizgames.engine.feature.entity.module.ModuleGroup;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre

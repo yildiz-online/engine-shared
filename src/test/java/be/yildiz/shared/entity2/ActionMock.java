@@ -28,8 +28,8 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
 import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.action.Action;
-import be.yildiz.shared.entity.fields.Target;
+import be.yildizgames.engine.feature.entity.action.Action;
+import be.yildizgames.engine.feature.entity.fields.Target;
 
 /**
  * @author Grégory Van den Borre

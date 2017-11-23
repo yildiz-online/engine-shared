@@ -41,7 +41,7 @@ public final class DataInitializer {
     private final List<Initializable> initList;
 
     /**
-     * Flag to check if the data have already been initialized.
+     * Flag to check if the be.yildizgames.engine.feature.entity.data have already been initialized.
      */
     private boolean initialized;
 

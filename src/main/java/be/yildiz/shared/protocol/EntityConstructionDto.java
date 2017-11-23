@@ -24,8 +24,8 @@
 package be.yildiz.shared.protocol;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.ModuleGroup;
+import be.yildizgames.engine.feature.entity.data.EntityType;
+import be.yildizgames.engine.feature.entity.module.ModuleGroup;
 
 /**
  * @author Grégory Van den Borre

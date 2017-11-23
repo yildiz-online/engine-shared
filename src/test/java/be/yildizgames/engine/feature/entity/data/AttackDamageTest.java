@@ -21,36 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.mapper;
+package be.yildizgames.engine.feature.entity.data;
 
-import be.yildizgames.common.mapping.IntegerMapper;
-import be.yildizgames.common.mapping.MappingException;
-import be.yildizgames.common.mapping.ObjectMapper;
-import be.yildizgames.engine.feature.entity.data.EntityType;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTypeMapper implements ObjectMapper<EntityType> {
+final class AttackDamageTest {
 
-    private static final EntityTypeMapper INSTANCE = new EntityTypeMapper();
-
-    private EntityTypeMapper() {
-        super();
+    @SuppressWarnings({"null", "boxing"})
+    @Test
+    void testAttackDamage() {
+        AttackDamage d = new AttackDamage(10);
+        assertEquals(10, d.points, 0.000001f);
+        d = new AttackDamage(-10);
+        assertEquals(-10, d.points, 0.000001f);
+        d = AttackDamage.ZERO;
+        assertEquals(0, d.points, 0.000001f);
+        assertThrows(NullPointerException.class, () -> new AttackDamage((Integer)null));
     }
 
-    public static EntityTypeMapper getInstance() {
-        return INSTANCE;
+    @Test
+    void testHashCode() {
+        AttackDamage d1 = new AttackDamage(5);
+        AttackDamage d2 = new AttackDamage(5);
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
-    @Override
-    public EntityType from(String s) throws MappingException {
-        return EntityType.valueOf(IntegerMapper.getInstance().from(s));
-    }
-
-    @Override
-    public String to(EntityType type) {
-        assert type != null;
-        return String.valueOf(type.type);
+    @SuppressWarnings("boxing")
+    @Test
+    void testEquals() {
+        AttackDamage d1 = new AttackDamage(5);
+        AttackDamage d2 = new AttackDamage(5);
+        AttackDamage d3 = new AttackDamage(6);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertEquals(d1, new AttackDamage(new Integer(5)));
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
 }

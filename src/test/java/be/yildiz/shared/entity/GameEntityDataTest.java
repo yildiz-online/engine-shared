@@ -26,17 +26,17 @@ package be.yildiz.shared.entity;
 import be.yildiz.common.Instance;
 import be.yildiz.common.Level;
 import be.yildiz.common.id.ActionId;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.DefaultModuleProvider;
-import be.yildiz.shared.entity.module.ModuleGroup;
-import be.yildiz.shared.entity.module.ModulesAllowed;
+import be.yildizgames.engine.feature.entity.data.EntityType;
+import be.yildizgames.engine.feature.entity.module.DefaultModuleProvider;
+import be.yildizgames.engine.feature.entity.module.ModuleGroup;
+import be.yildizgames.engine.feature.entity.module.ModulesAllowed;
 import be.yildizgames.engine.feature.resource.ResourceValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre

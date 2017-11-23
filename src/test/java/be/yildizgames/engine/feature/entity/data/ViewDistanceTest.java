@@ -21,36 +21,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.mapper;
+package be.yildizgames.engine.feature.entity.data;
 
-import be.yildizgames.common.mapping.IntegerMapper;
-import be.yildizgames.common.mapping.MappingException;
-import be.yildizgames.common.mapping.ObjectMapper;
-import be.yildizgames.engine.feature.entity.data.EntityType;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTypeMapper implements ObjectMapper<EntityType> {
+class ViewDistanceTest {
 
-    private static final EntityTypeMapper INSTANCE = new EntityTypeMapper();
 
-    private EntityTypeMapper() {
-        super();
+    @SuppressWarnings({"null", "boxing"})
+    @Test
+    void testEnergy() {
+        ViewDistance d = new ViewDistance(10);
+        assertEquals(10, d.distance, 0.000001f);
     }
 
-    public static EntityTypeMapper getInstance() {
-        return INSTANCE;
+    @Test
+    void testEnergy2() {
+        assertThrows(AssertionError.class, () -> new ViewDistance(-10));
     }
 
-    @Override
-    public EntityType from(String s) throws MappingException {
-        return EntityType.valueOf(IntegerMapper.getInstance().from(s));
+    @Test
+    void testEnergy3() {
+        assertThrows(AssertionError.class, () -> new ViewDistance(0));
     }
 
-    @Override
-    public String to(EntityType type) {
-        assert type != null;
-        return String.valueOf(type.type);
+    @Test
+    void testHashCode() {
+        ViewDistance d1 = new ViewDistance(5);
+        ViewDistance d2 = new ViewDistance(5);
+        assertEquals(d2.hashCode(), d1.hashCode());
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    void testEquals() {
+        ViewDistance d1 = new ViewDistance(5);
+        ViewDistance d2 = new ViewDistance(5);
+        ViewDistance d3 = new ViewDistance(6);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
 }

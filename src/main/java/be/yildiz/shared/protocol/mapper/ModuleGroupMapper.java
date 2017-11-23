@@ -23,10 +23,10 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.Separator;
+import be.yildizgames.engine.feature.entity.module.ModuleGroup;
 
 /**
  * @author Grégory Van den Borre

@@ -21,12 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.entity2;
+package be.yildizgames.engine.feature.entity.data;
 
-import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.vector.Point3D;
-import be.yildizgames.engine.feature.entity.action.Move;
+import be.yildiz.helper.Helper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,60 +32,51 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-class MoveTest {
+@SuppressWarnings({"null", "boxing"})
+final class EntityTypeTest {
 
-    @Test
-    void testConstructor() {
-        Move m = new DummyMove();
-        assertFalse(m.isPassive());
-        assertFalse(m.isSelf());
-        assertEquals(EntityId.WORLD, m.getTargetId());
-        assertEquals(Point3D.ZERO, m.getDestination());
+    @BeforeEach
+    void enableAssert() {
+        EntityType.class.getClassLoader().setClassAssertionStatus(EntityType.class.getCanonicalName(), true);
     }
 
     @Test
-    void testSetDestination() {
-        Move m = new DummyMove();
-        m.setDestination(Point3D.valueOf(1, 2, 3));
-        assertEquals(Point3D.valueOf(1, 2, 3), m.getDestination());
+    void testEntityType() {
+        EntityType t1 = new EntityType(6, "test");
+        assertEquals(6, t1.type);
+        assertEquals("test", t1.name);
     }
 
     @Test
-    void testSetDestinationNull() {
-        Move m = new DummyMove();
-        assertThrows(AssertionError.class, () -> m.setDestination(null));
+    void testEntityTypeNameNull() {
+        assertThrows(AssertionError.class, () -> new EntityType(2, null));
     }
 
-    /**
-     * Empty implementation.
-     */
-    private static final class DummyMove extends Move {
+    @Test
+    void testEntityTypeNegative() {
+        assertThrows(AssertionError.class, () -> new EntityType(-1, "test"));
+    }
 
-        /**
-         * Create a new Move action.
-         */
-        DummyMove() {
-            super(ActionId.valueOf(3), EntityId.valueOf(5L));
-        }
+    @Test
+    void testEntityTypeDuplicate() {
+        EntityType e = Helper.TYPE_OK;
+        assertThrows(AssertionError.class, () -> new EntityType(4, "test2"));
+    }
 
-        @Override
-        protected void runImpl(long time) {
+    @Test
+    void testGet() {
+        EntityType t1 = new EntityType(12, "test");
+        assertEquals(t1, EntityType.valueOf(12));
+    }
 
-        }
+    @Test
+    void testGetUnexistingType() {
+        assertThrows(AssertionError.class, () -> EntityType.valueOf(1));
+    }
 
-        @Override
-        public boolean checkPrerequisite() {
-            return true;
-        }
-
-        @Override
-        protected void stopImpl() {
-
-        }
-
-        @Override
-        public void delete() {
-
-        }
+    @Test
+    void testToString() {
+        EntityType t1 = new EntityType(7, "test--");
+        assertEquals("test--", t1.toString());
     }
 }

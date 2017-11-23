@@ -23,6 +23,7 @@
 
 package be.yildiz.shared.construction.entity;
 
+import be.yildiz.common.Builder;
 import be.yildiz.common.id.PlayerId;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

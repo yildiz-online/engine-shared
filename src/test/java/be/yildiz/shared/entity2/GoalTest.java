@@ -24,9 +24,9 @@
 package be.yildiz.shared.entity2;
 
 import be.yildiz.helper.Helper;
-import be.yildiz.shared.entity.action.Action;
 import be.yildiz.shared.ia.goal.Goal;
 import be.yildiz.shared.ia.goal.Goal.Desirability;
+import be.yildizgames.engine.feature.entity.action.Action;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

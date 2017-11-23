@@ -23,11 +23,11 @@
 
 package be.yildiz.shared.protocol.mapper;
 
-import be.yildiz.shared.entity.module.ModuleConfiguration;
 import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.PlayerIdMapper;
 import be.yildizgames.common.mapping.Separator;
+import be.yildizgames.engine.feature.entity.module.ModuleConfiguration;
 
 /**
  * @author Grégory Van den Borre

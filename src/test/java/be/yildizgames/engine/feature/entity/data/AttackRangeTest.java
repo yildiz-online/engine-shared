@@ -21,36 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.mapper;
+package be.yildizgames.engine.feature.entity.data;
 
-import be.yildizgames.common.mapping.IntegerMapper;
-import be.yildizgames.common.mapping.MappingException;
-import be.yildizgames.common.mapping.ObjectMapper;
-import be.yildizgames.engine.feature.entity.data.EntityType;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTypeMapper implements ObjectMapper<EntityType> {
+@SuppressWarnings({"null", "boxing"})
+final class AttackRangeTest {
 
-    private static final EntityTypeMapper INSTANCE = new EntityTypeMapper();
-
-    private EntityTypeMapper() {
-        super();
+    @Test
+    void testHashCode() {
+        AttackRange d1 = new AttackRange(5);
+        AttackRange d2 = new AttackRange(new Integer(5));
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
-    public static EntityTypeMapper getInstance() {
-        return INSTANCE;
+    @Test
+    void testAttackRange() {
+        AttackRange d = new AttackRange(10);
+        assertEquals(10, d.distance, 0.000001f);
+        d = AttackRange.ZERO;
+        assertEquals(0, d.distance, 0.000001f);
+        assertThrows(NullPointerException.class, () -> new AttackRange((Integer)null));
     }
 
-    @Override
-    public EntityType from(String s) throws MappingException {
-        return EntityType.valueOf(IntegerMapper.getInstance().from(s));
+    @Test
+    void testAttackRange2() {
+        assertThrows(AssertionError.class, () -> new AttackRange(-10));
     }
 
-    @Override
-    public String to(EntityType type) {
-        assert type != null;
-        return String.valueOf(type.type);
+    @Test
+    void testEqualsObject() {
+        AttackRange d1 = new AttackRange(5);
+        AttackRange d2 = new AttackRange(5);
+        AttackRange d3 = new AttackRange(6);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertEquals(d1, new AttackRange(new Integer(5)));
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
+
 }

@@ -21,36 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-package be.yildiz.shared.protocol.mapper;
+package be.yildizgames.engine.feature.entity.data;
 
-import be.yildizgames.common.mapping.IntegerMapper;
-import be.yildizgames.common.mapping.MappingException;
-import be.yildizgames.common.mapping.ObjectMapper;
-import be.yildizgames.engine.feature.entity.data.EntityType;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public class EntityTypeMapper implements ObjectMapper<EntityType> {
+class EnergyTest {
 
-    private static final EntityTypeMapper INSTANCE = new EntityTypeMapper();
 
-    private EntityTypeMapper() {
-        super();
+    @SuppressWarnings({"null", "boxing"})
+    @Test
+    void testEnergy() {
+        Energy d = new Energy(10);
+        assertEquals(10, d.points, 0.000001f);
+        d = Energy.ZERO;
+        assertEquals(0, d.points, 0.000001f);
     }
 
-    public static EntityTypeMapper getInstance() {
-        return INSTANCE;
+    @Test
+    void testEnergy2() {
+        assertThrows(AssertionError.class, () -> new Energy(-10));
+
     }
 
-    @Override
-    public EntityType from(String s) throws MappingException {
-        return EntityType.valueOf(IntegerMapper.getInstance().from(s));
+    @Test
+    void testHashCode() {
+        Energy d1 = new Energy(5);
+        @SuppressWarnings("boxing")
+        Energy d2 = new Energy(5);
+        assertEquals(d2.hashCode(), d1.hashCode());
     }
 
-    @Override
-    public String to(EntityType type) {
-        assert type != null;
-        return String.valueOf(type.type);
+    @SuppressWarnings("boxing")
+    @Test
+    void testEquals() {
+        Energy d1 = new Energy(5);
+        Energy d2 = new Energy(5);
+        Energy d3 = new Energy(6);
+        assertEquals(d1, d1);
+        assertEquals(d1, d2);
+        assertNotEquals(d1, new Object());
+        assertNotEquals(d1, d3);
     }
+
 }

@@ -27,10 +27,10 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
-import be.yildiz.shared.data.EntityType;
-import be.yildiz.shared.entity.module.ModuleGroup;
 import be.yildiz.shared.protocol.EntityConstructionDto;
 import be.yildizgames.common.mapping.BaseMapperTest;
+import be.yildizgames.engine.feature.entity.data.EntityType;
+import be.yildizgames.engine.feature.entity.module.ModuleGroup;
 import org.junit.jupiter.api.BeforeAll;
 
 /**

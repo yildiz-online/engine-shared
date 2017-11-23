@@ -3,7 +3,7 @@ package be.yildiz.shared.protocol;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.entity.action.Action;
+import be.yildizgames.engine.feature.entity.action.Action;
 
 /**
  * @author Grégory Van den Borre

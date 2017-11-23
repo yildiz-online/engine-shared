@@ -23,9 +23,9 @@
 
 package be.yildiz.shared.ia.goal;
 
-import be.yildiz.shared.entity.action.AbstractAttack;
-import be.yildiz.shared.entity.action.Action;
-import be.yildiz.shared.entity.action.Move;
+import be.yildizgames.engine.feature.entity.action.AbstractAttack;
+import be.yildizgames.engine.feature.entity.action.Action;
+import be.yildizgames.engine.feature.entity.action.Move;
 
 /**
  * A goal represent something an entity is trying to achieve, it combines an action with a level of desirability to complete this action.
