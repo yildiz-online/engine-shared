@@ -29,24 +29,32 @@ import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.module.network.protocol.NetworkMessageFactory;
-import be.yildiz.shared.protocol.mapper.*;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
 import be.yildizgames.common.mapping.EntityIdMapper;
 import be.yildizgames.common.mapping.IntegerMapper;
 import be.yildizgames.common.mapping.PlayerIdMapper;
-import be.yildizgames.engine.feature.entity.module.ModuleConfiguration;
+import be.yildizgames.engine.feature.entity.protocol.ActionDto;
+import be.yildizgames.engine.feature.entity.protocol.ChangeOwnerDto;
+import be.yildizgames.engine.feature.entity.protocol.EntityHitDto;
+import be.yildizgames.engine.feature.entity.protocol.EntityPositionDto;
+import be.yildizgames.engine.feature.entity.protocol.mapper.ActionDtoMapper;
+import be.yildizgames.engine.feature.entity.protocol.mapper.ChangeOwnerDtoMapper;
+import be.yildizgames.engine.feature.entity.protocol.mapper.EntityHitDtoMapper;
+import be.yildizgames.engine.feature.entity.protocol.mapper.EntityPositionDtoMapper;
+import be.yildizgames.engine.feature.player.protocol.PlayerDto;
+import be.yildizgames.engine.feature.player.protocol.mapper.PlayerDtoMapper;
 
 /**
  * @author Grégory Van den Borre
  */
 public class EngineMessageFactory extends NetworkMessageFactory{
 
-    private final EntityConstructionDtoMapper entityConstructionDtoMapper = new EntityConstructionDtoMapper();
+   // private final EntityConstructionDtoMapper entityConstructionDtoMapper = new EntityConstructionDtoMapper();
 
     //private final BuildingConstructionDtoMapper buildingConstructionDtoMapper = new BuildingConstructionDtoMapper();
 
-    private final EntityDtoMapper entityDtoMapper = new EntityDtoMapper();
+   // private final EntityDtoMapper entityDtoMapper = new EntityDtoMapper();
 
     public NetworkMessage<ActionDto> actionRequest(ActionDto a) {
         return new NetworkMessage<>(a, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
@@ -72,13 +80,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ClientCommand.BUILD_CANCEL.ordinal());
     }
 
-    public NetworkMessage<EntityConstructionDto> entityConstructionRequest(EntityConstructionDto e) {
+   /* public NetworkMessage<EntityConstructionDto> entityConstructionRequest(EntityConstructionDto e) {
         return new NetworkMessage<>(e, entityConstructionDtoMapper, 0);
     }
 
     public NetworkMessage<EntityConstructionDto> entityConstructionRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, entityConstructionDtoMapper, 0);
-    }
+    }*/
 
     /*public NetworkMessage<BuildingConstructionDto> buildingConstructionRequest(BuildingConstructionDto dto) {
         return new NetworkMessage<>(dto, buildingConstructionDtoMapper, 2);
@@ -96,13 +104,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, buildingConstructionDtoMapper, ServerCommand.BUILDING_INFO.value);
     }*/
 
-    public NetworkMessage<EntityDto> entityInfo(EntityDto dto) {
+ /*   public NetworkMessage<EntityDto> entityInfo(EntityDto dto) {
         return new NetworkMessage<>(dto, entityDtoMapper, ServerCommand.ENTITY_INFO.value);
     }
 
     public NetworkMessage<EntityDto> entityInfo(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, entityDtoMapper, ServerCommand.ENTITY_INFO.value);
-    }
+    }*/
 
     public NetworkMessage<EntityId> destroy(EntityId id) {
         return new NetworkMessage<>(id, EntityIdMapper.getInstance(), ServerCommand.DESTROY.value);
@@ -200,13 +208,13 @@ public class EngineMessageFactory extends NetworkMessageFactory{
         return new NetworkMessage<>(msg, ResearchDtoMapper.getInstance(), ClientCommand.RESEARCH.ordinal());
     }*/
 
-    public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(ModuleConfiguration dto) {
+    /*public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(ModuleConfiguration dto) {
         return new NetworkMessage<>(dto, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
     }
 
     public NetworkMessage<ModuleConfiguration> savePersistentModuleRequest(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ModuleConfigurationMapper.getInstance(), ClientCommand.SAVE_MODULE_CONFIG.ordinal());
-    }
+    }*/
 
     /*public NetworkMessage<MissionStatusDto> missionStatusResponse(MissionStatusDto dto) {
         return new NetworkMessage<>(dto, MissionStatusDtoMapper.getInstance(), ServerCommand.MISSION_STATUS.value);

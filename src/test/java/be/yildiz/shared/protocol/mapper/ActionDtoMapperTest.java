@@ -26,7 +26,7 @@ package be.yildiz.shared.protocol.mapper;
 import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.protocol.ActionDto;
+import be.yildizgames.engine.feature.entity.protocol.ActionDto;
 import be.yildizgames.common.mapping.BaseMapperTest;
 
 /**

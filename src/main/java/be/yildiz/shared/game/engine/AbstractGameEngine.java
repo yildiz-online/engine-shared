@@ -82,7 +82,7 @@ public abstract class AbstractGameEngine implements FrameManager {
     /**
      * Common code to run in game loop.
      */
-    public final void runOneFrame() {
+    protected final void runOneFrame() {
         final long now = System.currentTimeMillis();
         for (int i = 0; i < this.frameListenerList.size(); i++) {
             if (!this.frameListenerList.get(i).frameStarted()) {

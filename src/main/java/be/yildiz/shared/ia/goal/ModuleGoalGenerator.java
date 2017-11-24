@@ -24,7 +24,7 @@
 package be.yildiz.shared.ia.goal;
 
 import be.yildiz.common.collections.Lists;
-import be.yildiz.shared.entity.Entity;
+import be.yildizgames.engine.feature.entity.Entity;
 
 import java.util.List;
 
