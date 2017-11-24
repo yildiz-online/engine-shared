@@ -28,8 +28,11 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.physics.CollisionListener;
 import be.yildiz.module.physics.CollisionResult;
-import be.yildiz.shared.player.Player;
-import be.yildiz.shared.player.PlayerManager;
+import be.yildizgames.engine.feature.entity.Entity;
+import be.yildizgames.engine.feature.entity.EntityManager;
+import be.yildizgames.engine.feature.entity.LosListener;
+import be.yildizgames.engine.feature.player.Player;
+import be.yildizgames.engine.feature.player.PlayerManager;
 
 import java.util.List;
 
