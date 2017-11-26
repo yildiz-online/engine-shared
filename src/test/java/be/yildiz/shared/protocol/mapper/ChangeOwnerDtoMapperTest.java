@@ -28,6 +28,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildizgames.engine.feature.entity.protocol.ChangeOwnerDto;
 import be.yildizgames.common.mapping.BaseMapperTest;
+import be.yildizgames.engine.feature.entity.protocol.mapper.ChangeOwnerDtoMapper;
 
 /**
  * @author Grégory Van den Borre

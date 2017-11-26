@@ -27,7 +27,7 @@ import be.yildiz.common.id.ActionId;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.helper.Helper;
-import be.yildiz.shared.entity.Entity;
+import be.yildizgames.engine.feature.entity.Entity;
 import be.yildizgames.engine.feature.entity.action.Action;
 import be.yildizgames.engine.feature.entity.fields.Target;
 

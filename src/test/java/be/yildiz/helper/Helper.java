@@ -23,40 +23,14 @@
 
 package be.yildiz.helper;
 
-import be.yildiz.common.collections.Lists;
-import be.yildiz.common.id.ActionId;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.entity.BaseEntity;
-import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityInConstruction;
-import be.yildiz.shared.entity.EntityManager;
-import be.yildizgames.engine.feature.entity.action.ProtectInvincible;
-import be.yildizgames.engine.feature.entity.action.materialization.EmptyProtectMaterialization;
-import be.yildizgames.engine.feature.entity.data.EntityType;
-import be.yildizgames.engine.feature.entity.module.EmptyModule;
-import be.yildizgames.engine.feature.entity.module.EntityModules;
-import be.yildizgames.engine.feature.entity.module.Hull;
-import be.yildizgames.engine.feature.entity.module.ModuleGroup;
-import be.yildizgames.engine.feature.entity.module.detector.BlindDetector;
-import be.yildizgames.engine.feature.entity.module.energy.NoEnergyGenerator;
-import be.yildizgames.engine.feature.entity.module.hull.InvincibleTemplate;
-import be.yildizgames.engine.feature.entity.module.interaction.NoWeaponModule;
-import be.yildizgames.engine.feature.entity.module.move.StaticModule;
-
 /**
  * @author Grégory Van den Borre
  */
 public class Helper {
 
-    public static final EntityId ID_OK = EntityId.valueOf(3L);
-    public static final PlayerId OWNER_OK = PlayerId.valueOf(2);
-    public static final Point3D POSITION_OK = Point3D.valueOf(1, 2, 3);
-    public static final Point3D DIRECTION_OK = Point3D.valueOf(5, 8, 3);
-    public static final EntityType TYPE_OK = new EntityType(4, "test");
 
-    public static Hull anInvincibleModule(EntityInConstruction eic) {
+
+  /*  public static Hull anInvincibleModule(EntityInConstruction eic) {
         return new InvincibleTemplate(eic.getHp()).materialize(new ProtectInvincible(eic.getId(), eic.getModules().getHull(), new EmptyProtectMaterialization(eic.getId())));
     }
 
@@ -94,12 +68,12 @@ public class Helper {
         BaseEntity b = new BaseEntity(eic, em);
         manager.addEntity(b);
         return b;
-    }
+    }*/
 
     /**
      * @return An entity with player id 5 and id 6.
      */
-    public static Entity givenAnEntity() {
+  /*  public static Entity givenAnEntity() {
         return anEntity(5, 6);
     }
 
@@ -115,5 +89,5 @@ public class Helper {
                         ActionId.valueOf(7),
                         ActionId.valueOf(8))
         ).build();
-    }
+    }*/
 }

@@ -26,8 +26,13 @@ package be.yildiz.shared.entity2;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.helper.Helper;
 import be.yildiz.module.physics.CollisionResult;
-import be.yildiz.shared.player.Player;
-import be.yildiz.shared.player.PlayerManager;
+import be.yildiz.shared.LosManager;
+import be.yildizgames.engine.feature.entity.BaseEntity;
+import be.yildizgames.engine.feature.entity.Entity;
+import be.yildizgames.engine.feature.entity.EntityManager;
+import be.yildizgames.engine.feature.entity.LosListener;
+import be.yildizgames.engine.feature.player.Player;
+import be.yildizgames.engine.feature.player.PlayerManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

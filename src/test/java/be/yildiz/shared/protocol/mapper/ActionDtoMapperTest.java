@@ -28,6 +28,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.vector.Point3D;
 import be.yildizgames.engine.feature.entity.protocol.ActionDto;
 import be.yildizgames.common.mapping.BaseMapperTest;
+import be.yildizgames.engine.feature.entity.protocol.mapper.ActionDtoMapper;
 
 /**
  * @author Grégory Van den Borre
