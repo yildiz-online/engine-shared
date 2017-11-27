@@ -23,15 +23,6 @@
 
 package be.yildiz.shared.entity2;
 
-import be.yildiz.helper.Helper;
-import be.yildiz.shared.ia.goal.Goal;
-import be.yildiz.shared.ia.goal.Goal.Desirability;
-import be.yildizgames.engine.feature.entity.action.Action;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 /**
  * @author Grégory Van den Borre
  */
@@ -43,7 +34,7 @@ final class GoalTest {
 //        new Goal(null);
 //    }
 
-    @Test
+    /*@Test
     void testHashCode() {
         Action action = new ActionMock(Helper.anEntity(1, 1));
         Goal goal = new Goal(action);
@@ -91,5 +82,5 @@ final class GoalTest {
 
     @Test
     void testGetAction() {
-    }
+    }*/
 }

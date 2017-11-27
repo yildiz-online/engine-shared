@@ -23,27 +23,12 @@
 
 package be.yildiz.shared.entity2;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.vector.Point3D;
-import be.yildiz.helper.Helper;
-import be.yildizgames.engine.feature.entity.Entity;
-import be.yildizgames.engine.feature.entity.data.EntityType;
-import be.yildizgames.engine.feature.entity.data.State;
-import be.yildizgames.engine.feature.player.Player;
-import be.yildizgames.engine.feature.player.PlayerManager;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 /**
  * @author Grégory Van den Borre
  */
 class EntityTest {
 
-    @Test
+   /* @Test
     void testHashCode() {
         Entity e1 = Helper.anEntity(6);
         assertEquals(e1.hashCode(), 6);
@@ -165,5 +150,5 @@ class EntityTest {
         e1.setOwner(p2.id);
         assertEquals(p2.id, e1.getOwner());
         assertThrows(AssertionError.class, () -> e1.setOwner(null));
-    }
+    }*/
 }
