@@ -24,25 +24,19 @@
 package be.yildiz.shared.entity2;
 
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.helper.Helper;
-import be.yildiz.module.physics.CollisionResult;
-import be.yildiz.shared.LosManager;
 import be.yildizgames.engine.feature.entity.BaseEntity;
 import be.yildizgames.engine.feature.entity.Entity;
-import be.yildizgames.engine.feature.entity.EntityManager;
 import be.yildizgames.engine.feature.entity.LosListener;
 import be.yildizgames.engine.feature.player.Player;
-import be.yildizgames.engine.feature.player.PlayerManager;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Grégory Van den Borre
  */
 final class LosManagerTest {
 
-    @Test
+   /* @Test
     void newCollisionTest() {
         EntityManager<BaseEntity> em = new EntityManager<>(BaseEntity.WORLD);
         LosManager<BaseEntity> lm = new LosManager<>(em);
@@ -57,7 +51,7 @@ final class LosManagerTest {
         assertTrue(tll.see);
         lm.lostCollision(new CollisionResult(vr.getId(), vw.getId()));
         assertFalse(tll.see);
-    }
+    }*/
 
     private static class TestLostListener implements LosListener<BaseEntity> {
 
