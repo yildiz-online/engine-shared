@@ -23,7 +23,7 @@
 
 package be.yildiz.shared.game.engine;
 
-import be.yildiz.common.collections.Lists;
+import be.yildizgames.common.collection.Lists;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -38,7 +38,7 @@ public final class DataInitializer {
     /**
      * List of all class to initialize.
      */
-    private final List<Initializable> initList;
+    private final List<Initializable> initList = Lists.newList();
 
     /**
      * Flag to check if the data have already been initialized.
@@ -50,7 +50,6 @@ public final class DataInitializer {
      */
     public DataInitializer() {
         super();
-        this.initList = Lists.newList();
     }
 
     /**

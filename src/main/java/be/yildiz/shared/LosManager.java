@@ -24,7 +24,7 @@
 
 package be.yildiz.shared;
 
-import be.yildiz.common.collections.Lists;
+import be.yildizgames.common.collection.Lists;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.physics.CollisionListener;
 import be.yildiz.module.physics.CollisionResult;
