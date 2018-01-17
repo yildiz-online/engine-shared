@@ -24,10 +24,10 @@
 
 package be.yildiz.shared;
 
-import be.yildizgames.common.collection.Lists;
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.physics.CollisionListener;
 import be.yildiz.module.physics.CollisionResult;
+import be.yildizgames.common.collection.Lists;
+import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.Entity;
 import be.yildizgames.engine.feature.entity.EntityManager;
 import be.yildizgames.engine.feature.entity.LosListener;

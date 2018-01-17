@@ -24,12 +24,11 @@
 
 package be.yildiz.shared.protocol;
 
-import be.yildiz.common.Version;
-import be.yildiz.common.exeption.UnhandledSwitchCaseException;
 import be.yildizgames.common.mapping.IntegerMapper;
 import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.Separator;
+import be.yildizgames.common.model.Version;
 
 /**
  * @author Grégory Van den Borre
@@ -57,7 +56,7 @@ class VersionMapper implements ObjectMapper<Version> {
             int rev = IntegerMapper.getInstance().from(v[3]);
             Version.VersionType type = Version.VersionType.valueOf(IntegerMapper.getInstance().from(v[4]));
             return new Version(type, major, minor, sub, rev);
-        } catch (NumberFormatException | IndexOutOfBoundsException | UnhandledSwitchCaseException e) {
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw new MappingException(e);
         }
     }

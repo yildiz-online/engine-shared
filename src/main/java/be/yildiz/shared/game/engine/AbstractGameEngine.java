@@ -23,10 +23,10 @@
 
 package be.yildiz.shared.game.engine;
 
-import be.yildiz.common.Version;
 import be.yildizgames.common.collection.Lists;
-import be.yildiz.common.framelistener.FrameListener;
-import be.yildiz.common.framelistener.FrameManager;
+import be.yildizgames.common.frame.FrameListener;
+import be.yildizgames.common.frame.FrameManager;
+import be.yildizgames.common.model.Version;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

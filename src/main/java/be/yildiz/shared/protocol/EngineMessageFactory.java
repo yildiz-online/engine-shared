@@ -23,17 +23,16 @@
 
 package be.yildiz.shared.protocol;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
 import be.yildiz.module.network.exceptions.InvalidNetworkMessage;
 import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
-import be.yildiz.module.network.protocol.NetworkMessageFactory;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
 import be.yildizgames.common.mapping.EntityIdMapper;
 import be.yildizgames.common.mapping.IntegerMapper;
 import be.yildizgames.common.mapping.PlayerIdMapper;
+import be.yildizgames.common.model.EntityId;
+import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.protocol.ActionDto;
 import be.yildizgames.engine.feature.entity.protocol.ChangeOwnerDto;
 import be.yildizgames.engine.feature.entity.protocol.EntityHitDto;
@@ -48,7 +47,7 @@ import be.yildizgames.engine.feature.player.protocol.mapper.PlayerDtoMapper;
 /**
  * @author Grégory Van den Borre
  */
-public class EngineMessageFactory extends NetworkMessageFactory{
+public class EngineMessageFactory {
 
    // private final EntityConstructionDtoMapper entityConstructionDtoMapper = new EntityConstructionDtoMapper();
 

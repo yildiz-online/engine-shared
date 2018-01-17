@@ -24,11 +24,11 @@
 
 package be.yildiz.shared.protocol;
 
-import be.yildiz.common.Version;
 import be.yildizgames.common.mapping.LongMapper;
 import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.Separator;
+import be.yildizgames.common.model.Version;
 
 /**
  * @author Grégory Van den Borre

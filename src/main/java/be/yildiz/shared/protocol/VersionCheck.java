@@ -24,7 +24,7 @@
 
 package be.yildiz.shared.protocol;
 
-import be.yildiz.common.Version;
+import be.yildizgames.common.model.Version;
 
 /**
  * @author Grégory Van den Borre
