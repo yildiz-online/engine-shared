@@ -57,7 +57,7 @@
     </dependency>
     <dependency>
       <groupId>be.yildiz-games</groupId>
-      <artifactId>commmon-logging</artifactId>
+      <artifactId>common-logging</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
