@@ -24,7 +24,7 @@
 package be.yildiz.shared.ia.goal;
 
 import be.yildizgames.common.collection.Lists;
-import be.yildizgames.engine.feature.entity.Entity;
+import be.yildizgames.common.model.EntityId;
 
 import java.util.List;
 
@@ -42,13 +42,13 @@ public final class ModuleGoalGenerator implements GoalGenerator {
      * @return A list of goals based on the actions the entity is able to execute.
      */
     @Override
-    public List<Goal> generate(final Entity e) {
+    public List<Goal> generate(final EntityId e) {
         List<Goal> goals = Lists.newList();
         //FIXME generate goal from entity?
         //goals.add(new Goal(e.getMoveAction()));
-        goals.add(new Goal(e.getAttackAction()));
-        goals.add(new Goal(e.getProtectAction()));
-        goals.add(new Goal(e.getGenerateEnergyAction()));
+        //goals.add(new Goal(e.getAttackAction()));
+        //goals.add(new Goal(e.getProtectAction()));
+        //goals.add(new Goal(e.getGenerateEnergyAction()));
         return goals;
     }
 

@@ -28,21 +28,7 @@ import be.yildiz.module.network.protocol.MessageWrapper;
 import be.yildiz.module.network.protocol.NetworkMessage;
 import be.yildiz.shared.protocol.request.ClientCommand;
 import be.yildiz.shared.protocol.response.ServerCommand;
-import be.yildizgames.common.mapping.EntityIdMapper;
 import be.yildizgames.common.mapping.IntegerMapper;
-import be.yildizgames.common.mapping.PlayerIdMapper;
-import be.yildizgames.common.model.EntityId;
-import be.yildizgames.common.model.PlayerId;
-import be.yildizgames.engine.feature.entity.protocol.ActionDto;
-import be.yildizgames.engine.feature.entity.protocol.ChangeOwnerDto;
-import be.yildizgames.engine.feature.entity.protocol.EntityHitDto;
-import be.yildizgames.engine.feature.entity.protocol.EntityPositionDto;
-import be.yildizgames.engine.feature.entity.protocol.mapper.ActionDtoMapper;
-import be.yildizgames.engine.feature.entity.protocol.mapper.ChangeOwnerDtoMapper;
-import be.yildizgames.engine.feature.entity.protocol.mapper.EntityHitDtoMapper;
-import be.yildizgames.engine.feature.entity.protocol.mapper.EntityPositionDtoMapper;
-import be.yildizgames.engine.feature.player.protocol.PlayerDto;
-import be.yildizgames.engine.feature.player.protocol.mapper.PlayerDtoMapper;
 
 /**
  * @author Grégory Van den Borre
@@ -55,7 +41,7 @@ public class EngineMessageFactory {
 
    // private final EntityDtoMapper entityDtoMapper = new EntityDtoMapper();
 
-    public NetworkMessage<ActionDto> actionRequest(ActionDto a) {
+    /*public NetworkMessage<ActionDto> actionRequest(ActionDto a) {
         return new NetworkMessage<>(a, ActionDtoMapper.getInstance(), ClientCommand.ACTION.ordinal());
     }
 
@@ -77,7 +63,7 @@ public class EngineMessageFactory {
 
     public NetworkMessage<Integer> buildCancel(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ClientCommand.BUILD_CANCEL.ordinal());
-    }
+    }*/
 
    /* public NetworkMessage<EntityConstructionDto> entityConstructionRequest(EntityConstructionDto e) {
         return new NetworkMessage<>(e, entityConstructionDtoMapper, 0);
@@ -111,13 +97,13 @@ public class EngineMessageFactory {
         return new NetworkMessage<>(msg, entityDtoMapper, ServerCommand.ENTITY_INFO.value);
     }*/
 
-    public NetworkMessage<EntityId> destroy(EntityId id) {
+    /*public NetworkMessage<EntityId> destroy(EntityId id) {
         return new NetworkMessage<>(id, EntityIdMapper.getInstance(), ServerCommand.DESTROY.value);
     }
 
     public NetworkMessage<EntityId> destroy(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, EntityIdMapper.getInstance(), ServerCommand.DESTROY.value);
-    }
+    }*/
 
     /*public NetworkMessage<Message> messageRequest(Message m) {
         return new NetworkMessage<>(m, MessageMapper.getInstance(), 18);
@@ -135,13 +121,13 @@ public class EngineMessageFactory {
         return new NetworkMessage<>(msg, ResourceTransferDtoMapper.getInstance(), ServerCommand.RESOURCE_TRANSFER.value);
     }*/
 
-    public NetworkMessage<PlayerDto> playerInfoResponse(PlayerDto dto) {
+    /*public NetworkMessage<PlayerDto> playerInfoResponse(PlayerDto dto) {
         return new NetworkMessage<>(dto, PlayerDtoMapper.getInstance(), ServerCommand.PLAYER_INFO.value);
     }
 
     public NetworkMessage<PlayerDto> playerInfoResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, PlayerDtoMapper.getInstance(), ServerCommand.PLAYER_INFO.value);
-    }
+    }*/
 
    /* public NetworkMessage<ResourceValueDto> resourceUpdateResponse(ResourceValueDto dto) {
         return new NetworkMessage<>(dto, ResourceValueDtoMapper.getInstance(), ServerCommand.RESOURCE.value);
@@ -151,7 +137,7 @@ public class EngineMessageFactory {
         return new NetworkMessage<>(msg, ResourceValueDtoMapper.getInstance(), ServerCommand.RESOURCE.value);
     }*/
 
-    public NetworkMessage<PlayerId> adminMonitorPlayer(PlayerId dto) {
+    /*public NetworkMessage<PlayerId> adminMonitorPlayer(PlayerId dto) {
         return new NetworkMessage<>(dto, PlayerIdMapper.getInstance(), ClientCommand.ADMIN_MONITOR_PLAYER.ordinal());
     }
 
@@ -191,13 +177,13 @@ public class EngineMessageFactory {
         return new NetworkMessage<>(msg, StaffAllocationDtoMapper.getInstance(), ClientCommand.STAFF.ordinal());
     }*/
 
-    public NetworkMessage<EntityHitDto> entityHitResponse(EntityHitDto dto) {
+    /*public NetworkMessage<EntityHitDto> entityHitResponse(EntityHitDto dto) {
         return new NetworkMessage<>(dto, EntityHitDtoMapper.getInstance(), ServerCommand.HIT.value);
     }
 
     public NetworkMessage<EntityHitDto> entityHitResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, EntityHitDtoMapper.getInstance(), ServerCommand.HIT.value);
-    }
+    }*/
 
    /* public NetworkMessage<ResearchDto> researchRequest(ResearchDto dto) {
         return new NetworkMessage<>(dto, ResearchDtoMapper.getInstance(), ClientCommand.RESEARCH.ordinal());
@@ -231,13 +217,13 @@ public class EngineMessageFactory {
         return new NetworkMessage<>(msg, MessageListMapper.getInstance(), ServerCommand.MESSAGE_LIST.value);
     }*/
 
-    public NetworkMessage<ChangeOwnerDto> changeOwnerResponse(ChangeOwnerDto dto) {
+    /*public NetworkMessage<ChangeOwnerDto> changeOwnerResponse(ChangeOwnerDto dto) {
         return new NetworkMessage<>(dto, ChangeOwnerDtoMapper.getInstance(), ServerCommand.CHANGE_OWNER.value);
     }
 
     public NetworkMessage<ChangeOwnerDto> changeOwnerResponse(MessageWrapper msg) throws InvalidNetworkMessage {
         return new NetworkMessage<>(msg, ChangeOwnerDtoMapper.getInstance(), ServerCommand.CHANGE_OWNER.value);
-    }
+    }*/
 
     /*public NetworkMessage<Collection<ResearchId>> researchInfoResponse(Collection<ResearchId> dto) {
         return new NetworkMessage<>(dto, ResearchListMapper.getInstance(), ServerCommand.RESEARCH_INFO.value);

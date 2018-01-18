@@ -24,7 +24,7 @@
 package be.yildiz.shared.ia.goal;
 
 
-import be.yildizgames.engine.feature.entity.Entity;
+import be.yildizgames.common.model.EntityId;
 
 import java.util.List;
 
@@ -43,6 +43,6 @@ public interface GoalGenerator {
      * @param e Entity to associate.
      * @return The list of goal the associated entity will try to achieve.
      */
-    List<Goal> generate(Entity e);
+    List<Goal> generate(EntityId e);
 
 }
