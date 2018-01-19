@@ -23,25 +23,18 @@
 
 package be.yildiz.shared.ia.goal;
 
-import be.yildizgames.engine.feature.entity.action.AbstractAttack;
-import be.yildizgames.engine.feature.entity.action.Action;
-import be.yildizgames.engine.feature.entity.action.Move;
-
 /**
  * A goal represent something an entity is trying to achieve, it combines an action with a level of desirability to complete this action.
  *
  * @author Grégory Van den Borre
  */
-public final class Goal implements Comparable<Goal> {
+public final class Goal<T> implements Comparable<Goal<T>> {
 
     /**
      * Associated action.
      */
-    private final Action action;
+    private final T action;
 
-    private final boolean move;
-
-    private final boolean attack;
     /**
      * Goal desirability, between 0(no interest) and 1(high priority).
      */
@@ -52,43 +45,15 @@ public final class Goal implements Comparable<Goal> {
      *
      * @param action Goal type.
      */
-    public Goal(final Action action) {
+    public Goal(final T action) {
         super();
         assert action != null;
         this.action = action;
         this.desirability = Desirability.NONE;
-        this.move = false;
-        this.attack = false;
     }
 
-    public Goal(final Move action) {
-        super();
-        assert action != null;
-        this.action = action;
-        this.desirability = Desirability.NONE;
-        this.move = true;
-        this.attack = false;
-    }
-
-    public Goal(final AbstractAttack action) {
-        super();
-        assert action != null;
-        this.action = action;
-        this.desirability = Desirability.NONE;
-        this.move = false;
-        this.attack = true;
-    }
-
-    public Action getAction() {
+    public T getAction() {
         return action;
-    }
-
-    public boolean isMove() {
-        return move;
-    }
-
-    public boolean isAttack() {
-        return attack;
     }
 
     public Desirability getDesirability() {

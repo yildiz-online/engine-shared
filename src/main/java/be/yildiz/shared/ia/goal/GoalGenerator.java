@@ -35,7 +35,7 @@ import java.util.List;
  * @author Grégory Van den Borre
  */
 @FunctionalInterface
-public interface GoalGenerator {
+public interface GoalGenerator<T> {
 
     /**
      * Generate a list of Goal for a given entity.
@@ -43,6 +43,6 @@ public interface GoalGenerator {
      * @param e Entity to associate.
      * @return The list of goal the associated entity will try to achieve.
      */
-    List<Goal> generate(EntityId e);
+    List<Goal<T>> generate(EntityId e);
 
 }

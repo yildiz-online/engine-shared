@@ -33,7 +33,7 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public final class ModuleGoalGenerator implements GoalGenerator {
+public final class ModuleGoalGenerator<T> implements GoalGenerator {
 
     /**
      * Generate a list of goals for the entity based upon its modules.
@@ -42,8 +42,8 @@ public final class ModuleGoalGenerator implements GoalGenerator {
      * @return A list of goals based on the actions the entity is able to execute.
      */
     @Override
-    public List<Goal> generate(final EntityId e) {
-        List<Goal> goals = Lists.newList();
+    public List<Goal<T>> generate(final EntityId e) {
+        List<Goal<T>> goals = Lists.newList();
         //FIXME generate goal from entity?
         //goals.add(new Goal(e.getMoveAction()));
         //goals.add(new Goal(e.getAttackAction()));
