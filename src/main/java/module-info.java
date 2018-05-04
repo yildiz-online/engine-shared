@@ -28,6 +28,7 @@ module be.yildizgames.engine.shared {
     requires be.yildizgames.common.model;
     requires be.yildizgames.module.network;
     requires be.yildizgames.common.mapping;
+    requires be.yildizgames.common.util;
 
     exports be.yildizgames.shared.game.engine;
     exports be.yildizgames.shared.ia.goal;

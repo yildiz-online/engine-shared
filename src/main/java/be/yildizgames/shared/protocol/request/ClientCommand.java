@@ -27,9 +27,10 @@ package be.yildizgames.shared.protocol.request;
 
 /**
  * Enum containing the default commands.
- *
+ * @deprecated Use client request
  * @author Grégory Van den Borre
  */
+@Deprecated
 public enum ClientCommand {
 
     /**

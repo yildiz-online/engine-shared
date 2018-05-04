@@ -27,9 +27,10 @@ package be.yildizgames.shared.protocol.response;
 
 /**
  * List of commands that can be sent from the server to the client.
- *
+ * @deprecated Use ServerResponse
  * @author Grégory Van den Borre
  */
+@Deprecated
 public enum ServerCommand {
 
     /**
