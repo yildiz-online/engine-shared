@@ -26,7 +26,6 @@
 package be.yildizgames.shared.protocol;
 
 import be.yildizgames.common.mapping.IntegerMapper;
-import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.Separator;
 import be.yildizgames.common.model.Version;
@@ -47,7 +46,7 @@ class VersionMapper implements ObjectMapper<Version> {
     }
 
     @Override
-    public Version from(String s) throws MappingException {
+    public Version from(String s) {
         assert s!= null;
         String[] v = s.split(Separator.VAR_SEPARATOR);
         try {

@@ -26,7 +26,6 @@
 package be.yildizgames.shared.protocol;
 
 import be.yildizgames.common.mapping.LongMapper;
-import be.yildizgames.common.mapping.MappingException;
 import be.yildizgames.common.mapping.ObjectMapper;
 import be.yildizgames.common.mapping.Separator;
 import be.yildizgames.common.model.Version;
