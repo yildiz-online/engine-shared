@@ -25,6 +25,7 @@
 
 package be.yildizgames.shared.game.engine;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.frame.FrameListener;
 import be.yildizgames.common.frame.FrameManager;
 import be.yildizgames.common.model.Version;
@@ -73,6 +74,7 @@ public abstract class AbstractGameEngine implements FrameManager {
     //@post this.losManager != null
     protected AbstractGameEngine(final Version version) {
         super();
+        ImplementationException.throwForNull(version);
         this.gameVersion = version;
     }
 
