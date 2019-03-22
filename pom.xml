@@ -41,7 +41,7 @@
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
   </parent>
 
   <dependencies>
@@ -73,16 +73,11 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>feature-player-shared</artifactId>
-      <version>1.0.2</version>
+      <version>1.0.3-SNAPSSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
