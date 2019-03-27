@@ -33,8 +33,6 @@ module be.yildizgames.engine.shared {
 
     exports be.yildizgames.shared.game.engine;
     exports be.yildizgames.shared.ia.goal;
-    exports be.yildizgames.shared.protocol.request;
-    exports be.yildizgames.shared.protocol.response;
     exports be.yildizgames.shared.protocol;
 
 }

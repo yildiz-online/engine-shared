@@ -25,7 +25,8 @@
 
 package be.yildizgames.shared.game.engine;
 
-import java.security.InvalidParameterException;
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +59,9 @@ public final class DataInitializer {
      */
     public void initialize() {
         if (this.initialized) {
-            throw new InvalidParameterException("Object has already been initialized.");
+            throw new IllegalArgumentException("Object has already been initialized.");
         }
-        for (Initializable i : this.initList) {
-            i.initialize();
-        }
+        this.initList.forEach(Initializable::initialize);
         this.initialized = true;
     }
 
@@ -73,8 +72,9 @@ public final class DataInitializer {
      *                      is called.
      */
     public void addInitializable(final Initializable initializable) {
+        ImplementationException.throwForNull(initializable);
         if (this.initialized) {
-            throw new InvalidParameterException("Object has already been initialized.");
+            throw new IllegalArgumentException("Object has already been initialized.");
         }
         this.initList.add(initializable);
     }

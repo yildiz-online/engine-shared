@@ -61,17 +61,6 @@ public abstract class AbstractGameEngine implements FrameManager {
      * Simple constructor.
      * @param version Game version.
      */
-    //@pre this.actionManager != null
-    //@pre this.staffAllocator != null
-    //@pre this.builderManager != null
-    //@pre this.worldList != null
-    //@pre this.researchManager != null
-    //@pre this.frameListenerList != null
-    //@pre this.limit == 0
-    //@post this.frameListenerList.contains(this.actionManager)
-    //@post this.frameListenerList.contains(this.staffAllocator)
-    //@post this.frameListenerList.contains(this.builderManager)
-    //@post this.losManager != null
     protected AbstractGameEngine(final Version version) {
         super();
         ImplementationException.throwForNull(version);
@@ -88,19 +77,9 @@ public abstract class AbstractGameEngine implements FrameManager {
      */
     protected final void runOneFrame() {
         final long now = System.currentTimeMillis();
-        for (int i = 0; i < this.frameListenerList.size(); i++) {
-            if (!this.frameListenerList.get(i).frameStarted()) {
-                this.frameListenerList.remove(i);
-                i--;
-            }
-        }
+        this.frameListenerList.removeIf(f -> !f.frameStarted());
         this.runOneFrameImpl();
-        for (int i = 0; i < this.frameListenerList.size(); i++) {
-            if (!this.frameListenerList.get(i).frameEnded()) {
-                this.frameListenerList.remove(i);
-                i--;
-            }
-        }
+        this.frameListenerList.removeIf(f -> !f.frameEnded());
         long frameTime = System.currentTimeMillis() - now;
         if (frameTime < this.limit) {
             LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(this.limit - frameTime));
@@ -119,6 +98,7 @@ public abstract class AbstractGameEngine implements FrameManager {
      */
     @Override
     public final void addFrameListener(final FrameListener listener) {
+        ImplementationException.throwForNull(listener);
         this.frameListenerList.add(listener);
     }
 
@@ -128,6 +108,7 @@ public abstract class AbstractGameEngine implements FrameManager {
      * @param listener Listener to remove.
      */
     public final void removeFrameListener(final FrameListener listener) {
+        ImplementationException.throwForNull(listener);
         this.frameListenerList.remove(listener);
     }
 
@@ -137,11 +118,12 @@ public abstract class AbstractGameEngine implements FrameManager {
      * @param fps Maximum computation number in one second.
      */
     public final void setFrameLimiter(final int fps) {
+        ImplementationException.throwIfZeroOrSmaller(fps);
         final float TIME = 1000.0f;
         this.limit = (long) (TIME / fps);
     }
 
     public final Version getGameVersion() {
-        return gameVersion;
+        return this.gameVersion;
     }
 }

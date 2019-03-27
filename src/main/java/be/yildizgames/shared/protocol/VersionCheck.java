@@ -25,6 +25,7 @@
 
 package be.yildizgames.shared.protocol;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.model.Version;
 
 /**
@@ -38,7 +39,7 @@ public class VersionCheck {
 
     public VersionCheck(Version version, long time) {
         super();
-        assert version != null;
+        ImplementationException.throwForNull(version);
         this.version = version;
         this.serverTime = time;
     }

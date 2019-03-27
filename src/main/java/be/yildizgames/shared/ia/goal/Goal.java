@@ -25,6 +25,8 @@
 
 package be.yildizgames.shared.ia.goal;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 /**
  * A goal represent something an entity is trying to achieve, it combines an action with a level of desirability to complete this action.
  *
@@ -49,27 +51,28 @@ public final class Goal<T> implements Comparable<Goal<T>> {
      */
     public Goal(final T action) {
         super();
-        assert action != null;
+        ImplementationException.throwForNull(action);
         this.action = action;
         this.desirability = Desirability.NONE;
     }
 
-    public T getAction() {
-        return action;
+    public final T getAction() {
+        return this.action;
     }
 
-    public Desirability getDesirability() {
-        return desirability;
+    public final Desirability getDesirability() {
+        return this.desirability;
     }
 
-    public void setDesirability(Desirability desirability) {
+    public final void setDesirability(Desirability desirability) {
+        ImplementationException.throwForNull(desirability);
         this.desirability = desirability;
     }
 
     /**
      * Shortcut method to set this goal to no desirability.
      */
-    public void setUndesirable() {
+    public final void setUndesirable() {
         this.desirability = Desirability.NONE;
     }
 
@@ -79,7 +82,7 @@ public final class Goal<T> implements Comparable<Goal<T>> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -91,13 +94,34 @@ public final class Goal<T> implements Comparable<Goal<T>> {
     }
 
     @Override
-    public int compareTo(final Goal o) {
-        // inverted to have reversed order, higher must be first
+    public final int compareTo(final Goal o) {
         return o.desirability.compareTo(this.desirability);
     }
 
+    /**
+     * Possible desirability for a given goal.
+     * @author Grégory Van den Borre
+     */
     public enum Desirability {
 
-        NONE, LOW, MEDIUM, HIGH
+        /**
+         * This goal would never be done.
+         */
+        NONE,
+
+        /**
+         * This goal would be done if nothing more urgent is planned.
+         */
+        LOW,
+
+        /**
+         * This goal would be done as soon as possible.
+         */
+        MEDIUM,
+
+        /**
+         * This goal will be done right now.
+         */
+        HIGH
     }
 }
