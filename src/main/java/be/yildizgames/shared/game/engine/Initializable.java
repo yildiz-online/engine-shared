@@ -37,5 +37,4 @@ public interface Initializable {
      * Once registered, will be called just before the game engine starts the game loop.
      */
     void initialize();
-
 }

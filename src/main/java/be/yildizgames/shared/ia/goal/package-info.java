@@ -29,3 +29,4 @@
  * @author Grégory Van den Borre
  */
 package be.yildizgames.shared.ia.goal;
+

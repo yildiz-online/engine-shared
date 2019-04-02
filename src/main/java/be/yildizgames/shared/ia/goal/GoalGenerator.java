@@ -46,5 +46,4 @@ public interface GoalGenerator<T> {
      * @return The list of goal the associated entity will try to achieve.
      */
     List<Goal<T>> generate(EntityId e);
-
 }

@@ -34,33 +34,33 @@ import be.yildizgames.module.network.protocol.NetworkMessage;
  */
 public class EngineMessageFactory {
 
-    public static int ADMIN_CLOSE_SERVER_REQUEST = 10;
+    public static final int ADMIN_CLOSE_SERVER_REQUEST = 10;
 
-    public static int USER_CLOSE_SESSION_REQUEST = 6;
+    public static final int USER_CLOSE_SESSION_REQUEST = 6;
 
-    public static int USER_SESSION_INITIALIZED = 16;
+    public static final int USER_SESSION_INITIALIZED = 16;
 
-    public NetworkMessage<Integer> adminCloseServer() {
+    public final NetworkMessage<Integer> adminCloseServer() {
         return new NetworkMessage<>(0, IntegerMapper.getInstance(), ADMIN_CLOSE_SERVER_REQUEST);
     }
 
-    public NetworkMessage<Integer> adminCloseServer(MessageWrapper msg) {
+    public final NetworkMessage<Integer> adminCloseServer(MessageWrapper msg) {
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), ADMIN_CLOSE_SERVER_REQUEST);
     }
 
-    public NetworkMessage<Integer> closeSession() {
+    public final NetworkMessage<Integer> closeSession() {
         return new NetworkMessage<>(0, IntegerMapper.getInstance(), USER_CLOSE_SESSION_REQUEST);
     }
 
-    public NetworkMessage<Integer> closeSession(MessageWrapper msg) {
+    public final NetworkMessage<Integer> closeSession(MessageWrapper msg) {
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), USER_CLOSE_SESSION_REQUEST);
     }
 
-    public NetworkMessage<Integer> initialisationCompleteResponse() {
+    public final NetworkMessage<Integer> initialisationCompleteResponse() {
         return new NetworkMessage<>(0, IntegerMapper.getInstance(), USER_SESSION_INITIALIZED);
     }
 
-    public NetworkMessage<Integer> initialisationCompleteResponse(MessageWrapper msg) {
+    public final NetworkMessage<Integer> initialisationCompleteResponse(MessageWrapper msg) {
         return new NetworkMessage<>(msg, IntegerMapper.getInstance(), USER_SESSION_INITIALIZED);
     }
 }
