@@ -59,7 +59,7 @@ public final class DataInitializer {
      */
     public void initialize() {
         if (this.initialized) {
-            throw new IllegalArgumentException("Object has already been initialized.");
+            throw new IllegalStateException("Object has already been initialized.");
         }
         this.initList.forEach(Initializable::initialize);
         this.initialized = true;
@@ -74,7 +74,7 @@ public final class DataInitializer {
     public void addInitializable(final Initializable initializable) {
         ImplementationException.throwForNull(initializable);
         if (this.initialized) {
-            throw new IllegalArgumentException("Object has already been initialized.");
+            throw new IllegalStateException("Object has already been initialized.");
         }
         this.initList.add(initializable);
     }

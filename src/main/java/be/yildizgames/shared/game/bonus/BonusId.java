@@ -22,18 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE  SOFTWARE.
  */
+package be.yildizgames.shared.game.bonus;
 
-module be.yildizgames.engine.shared {
-    requires be.yildizgames.common.frame;
-    requires be.yildizgames.common.model;
-    requires be.yildizgames.module.network;
-    requires be.yildizgames.common.mapping;
-    requires be.yildizgames.common.util;
-    requires be.yildizgames.common.exception;
+import be.yildizgames.common.util.ValueObject;
 
-    exports be.yildizgames.shared.game.engine;
-    exports be.yildizgames.shared.game.bonus;
-    exports be.yildizgames.shared.ia.goal;
-    exports be.yildizgames.shared.protocol;
+public class BonusId extends ValueObject {
 
+    private BonusId(int value) {
+        super(value);
+    }
+
+    public static BonusId valueOf(int value) {
+        return new BonusId(value);
+    }
 }
