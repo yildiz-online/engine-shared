@@ -58,7 +58,7 @@ public class DataInitializerTest {
             DataInitializer dataInitializer = new DataInitializer();
             Initializable initializable = new DummyInitializable();
             dataInitializer.initialize();
-            Assertions.assertThrows(IllegalArgumentException.class, () -> dataInitializer.addInitializable(initializable));
+            Assertions.assertThrows(IllegalStateException.class, () -> dataInitializer.addInitializable(initializable));
         }
 
     }
