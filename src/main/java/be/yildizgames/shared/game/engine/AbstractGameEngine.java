@@ -52,6 +52,12 @@ public abstract class AbstractGameEngine implements FrameManager {
      */
     private final Version gameVersion;
 
+
+    /**
+     * Class used to initialize the data.
+     */
+    private final DataInitializer initializer = new DataInitializer();
+
     /**
      * Main game loop speed limitation.
      */
@@ -71,6 +77,14 @@ public abstract class AbstractGameEngine implements FrameManager {
      * Start the main loop.
      */
     public abstract void start();
+
+    public final void addInitializable(final Initializable init) {
+        this.initializer.addInitializable(init);
+    }
+
+    protected final void initialize() {
+        this.initializer.initialize();
+    }
 
     /**
      * Common code to run in game loop.
