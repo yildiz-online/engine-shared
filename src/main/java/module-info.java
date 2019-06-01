@@ -32,7 +32,6 @@ module be.yildizgames.engine.shared {
     requires be.yildizgames.common.exception;
 
     exports be.yildizgames.shared.game.engine;
-    exports be.yildizgames.shared.game.bonus;
     exports be.yildizgames.shared.ia.goal;
     exports be.yildizgames.shared.protocol;
 
