@@ -25,13 +25,13 @@
 
 package be.yildizgames.shared.game.engine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.frame.FrameListener;
 import be.yildizgames.common.frame.FrameManager;
 import be.yildizgames.common.model.Version;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
@@ -69,7 +69,7 @@ public abstract class AbstractGameEngine implements FrameManager {
      */
     protected AbstractGameEngine(final Version version) {
         super();
-        ImplementationException.throwForNull(version);
+        Objects.requireNonNull(version);
         this.gameVersion = version;
     }
 
@@ -112,7 +112,7 @@ public abstract class AbstractGameEngine implements FrameManager {
      */
     @Override
     public final void addFrameListener(final FrameListener listener) {
-        ImplementationException.throwForNull(listener);
+        Objects.requireNonNull(listener);
         this.frameListenerList.add(listener);
     }
 
@@ -122,7 +122,7 @@ public abstract class AbstractGameEngine implements FrameManager {
      * @param listener Listener to remove.
      */
     public final void removeFrameListener(final FrameListener listener) {
-        ImplementationException.throwForNull(listener);
+        Objects.requireNonNull(listener);
         this.frameListenerList.remove(listener);
     }
 
@@ -132,7 +132,9 @@ public abstract class AbstractGameEngine implements FrameManager {
      * @param fps Maximum computation number in one second.
      */
     public final void setFrameLimiter(final int fps) {
-        ImplementationException.throwIfZeroOrSmaller(fps);
+        if(fps <= 0.0f) {
+            throw new IllegalArgumentException("FPS must be greater than 0");
+        }
         final float TIME = 1000.0f;
         this.limit = (long) (TIME / fps);
     }

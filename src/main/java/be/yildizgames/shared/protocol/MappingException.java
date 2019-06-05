@@ -24,12 +24,10 @@
  */
 package be.yildizgames.shared.protocol;
 
-import be.yildizgames.common.exception.business.BusinessException;
-
 /**
  * @author Grégory Van den Borre
  */
-class MappingException extends BusinessException {
+class MappingException extends IllegalArgumentException {
 
     MappingException(Exception base) {
         super(base);

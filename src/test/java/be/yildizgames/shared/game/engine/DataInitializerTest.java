@@ -50,7 +50,7 @@ public class DataInitializerTest {
         @Test
         public void withNull() {
             DataInitializer dataInitializer = new DataInitializer();
-            Assertions.assertThrows(ImplementationException.class, () -> dataInitializer.addInitializable(null));
+            Assertions.assertThrows(NullPointerException.class, () -> dataInitializer.addInitializable(null));
         }
 
         @Test

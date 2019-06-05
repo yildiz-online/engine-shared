@@ -49,7 +49,7 @@ public class AbstractGameEngineTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> new DummyGameEngine(null));
+            Assertions.assertThrows(NullPointerException.class, () -> new DummyGameEngine(null));
         }
     }
 
@@ -58,7 +58,7 @@ public class AbstractGameEngineTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> new DummyGameEngine().addFrameListener(null));
+            Assertions.assertThrows(NullPointerException.class, () -> new DummyGameEngine().addFrameListener(null));
         }
     }
 

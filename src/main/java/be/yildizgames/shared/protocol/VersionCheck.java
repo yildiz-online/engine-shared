@@ -25,8 +25,9 @@
 
 package be.yildizgames.shared.protocol;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.model.Version;
+
+import java.util.Objects;
 
 /**
  * @author Grégory Van den Borre
@@ -39,7 +40,7 @@ public class VersionCheck {
 
     public VersionCheck(Version version, long time) {
         super();
-        ImplementationException.throwForNull(version);
+        Objects.requireNonNull(version);
         this.version = version;
         this.serverTime = time;
     }

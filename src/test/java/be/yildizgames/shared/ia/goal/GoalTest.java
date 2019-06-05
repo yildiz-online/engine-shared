@@ -26,7 +26,6 @@
 
 package be.yildizgames.shared.ia.goal;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,7 @@ public class GoalTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> new Goal<String>(null));
+            Assertions.assertThrows(NullPointerException.class, () -> new Goal<String>(null));
         }
     }
 
@@ -64,7 +63,7 @@ public class GoalTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> new Goal<>("test").setDesirability(null));
+            Assertions.assertThrows(NullPointerException.class, () -> new Goal<>("test").setDesirability(null));
         }
     }
 

@@ -25,7 +25,7 @@
 
 package be.yildizgames.shared.ia.goal;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
+import java.util.Objects;
 
 /**
  * A goal represent something an entity is trying to achieve, it combines an action with a level of desirability to complete this action.
@@ -51,7 +51,7 @@ public final class Goal<T> implements Comparable<Goal<T>> {
      */
     public Goal(final T action) {
         super();
-        ImplementationException.throwForNull(action);
+        Objects.requireNonNull(action);
         this.action = action;
         this.desirability = Desirability.NONE;
     }
@@ -65,7 +65,7 @@ public final class Goal<T> implements Comparable<Goal<T>> {
     }
 
     public final void setDesirability(Desirability desirability) {
-        ImplementationException.throwForNull(desirability);
+        Objects.requireNonNull(desirability);
         this.desirability = desirability;
     }
 

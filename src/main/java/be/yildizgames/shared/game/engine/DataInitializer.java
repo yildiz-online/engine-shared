@@ -25,10 +25,9 @@
 
 package be.yildizgames.shared.game.engine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Keep a list of Initializable class to be initialized when the engine starts.
@@ -72,7 +71,7 @@ public final class DataInitializer {
      *                      is called.
      */
     public void addInitializable(final Initializable initializable) {
-        ImplementationException.throwForNull(initializable);
+        Objects.requireNonNull(initializable);
         if (this.initialized) {
             throw new IllegalStateException("Object has already been initialized.");
         }
