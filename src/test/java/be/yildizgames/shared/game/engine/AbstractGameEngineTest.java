@@ -26,7 +26,6 @@
 
 package be.yildizgames.shared.game.engine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.frame.FrameListener;
 import be.yildizgames.common.model.Version;
 import org.junit.jupiter.api.Assertions;

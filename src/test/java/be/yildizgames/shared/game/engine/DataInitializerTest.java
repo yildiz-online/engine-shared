@@ -26,8 +26,6 @@
 
 package be.yildizgames.shared.game.engine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.exception.initialization.InitializationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
