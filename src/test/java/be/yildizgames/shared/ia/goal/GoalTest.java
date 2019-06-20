@@ -113,7 +113,7 @@ public class GoalTest {
         @Test
         public void differentType() {
             Goal<String> goal = new Goal<>("test");
-            Assertions.assertFalse(goal.equals("test"));
+            Assertions.assertNotEquals("test", goal);
         }
 
         @Test
